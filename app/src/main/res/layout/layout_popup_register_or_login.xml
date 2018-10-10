@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/popup_main_linear_layout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/background_login"
+    android:orientation="vertical"
+    tools:context=".activity.UserSignedInActivity">
+
+    <ImageView
+        android:id="@+id/close_popup_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="end"
+        android:layout_margin="40sp"
+        android:contentDescription="@string/close"
+        android:src="@drawable/icon_close_black"/>
+
+    <ImageView
+        android:id="@+id/popup_logo"
+        android:layout_width="250sp"
+        android:layout_height="150sp"
+        android:layout_gravity="center"
+        android:layout_marginTop="50sp"
+        android:layout_marginBottom="20sp"
+        android:contentDescription="@string/logo"
+        android:src="@drawable/logo"
+        android:transitionName="logoTransition"
+        tools:targetApi="lollipop"/>
+
+    <Button
+        android:id="@+id/popup_login_button"
+        android:layout_width="280sp"
+        android:layout_height="45sp"
+        android:layout_gravity="center"
+        android:background="@drawable/background_login_button"
+        android:text="@string/login"
+        android:textColor="@color/colorWhite"/>
+
+    <Button
+        android:id="@+id/popup_register_button"
+        android:layout_width="280sp"
+        android:layout_height="45sp"
+        android:layout_gravity="center"
+        android:layout_marginTop="20sp"
+        android:background="@drawable/btn_register_background"
+        android:text="@string/register"
+        android:textColor="@color/colorBlack"/>
+
+    <TextView
+        android:id="@+id/guest_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="100sp"
+        android:text="@string/guest"
+        android:textColor="@color/dark_gray"/>
+
+</LinearLayout>

@@ -157,7 +157,7 @@ public class RegisterActivity1 extends AppCompatActivity {
                 if(!isValidEmail(edtRepEmail)) {
                     edtRepEmail.setError(getResources().getString(R.string.email_error));
                 } else if(edtCompPhone.getText().toString().length() < 11) {
-                    edtCompEmail.setError(getResources().getString(R.string.phone_error));
+                    edtCompPhone.setError(getResources().getString(R.string.phone_error));
                 } else if(!isValidEmail(edtCompEmail)) {
                     edtCompEmail.setError(getResources().getString(R.string.email_error));
                 } else if(edtPassword.getText().toString().length() < 8) {

@@ -1,0 +1,425 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/register_scrollView1"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:animateLayoutChanges="true"
+    android:background="@color/register_background"
+    android:orientation="vertical">
+
+    <include
+        android:id="@+id/activity_register1_toolbar"
+        layout="@layout/layout_toolbar"/>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="top">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <include layout="@layout/layout_timeline_view1"/>
+
+            <android.support.v7.widget.CardView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:background="@drawable/background_register_fields"
+                android:orientation="vertical"
+                app:cardCornerRadius="8sp"
+                app:cardElevation="5sp">
+
+                <ImageButton
+                    android:id="@+id/logoImageButton"
+                    android:layout_width="190sp"
+                    android:layout_height="210sp"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_margin="5sp"
+                    android:background="@color/almostWhite"
+                    android:contentDescription="@string/logo"
+                    android:src="@drawable/imageadd"/>
+
+                <TextView
+                    android:id="@+id/tv_Logo"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginTop="220sp"
+                    android:layout_marginBottom="5sp"
+                    android:text="@string/addCompanyPhoto"
+                    android:textAlignment="center"
+                    android:textSize="18sp"/>
+            </android.support.v7.widget.CardView>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="40sp"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/background_register_fields"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="10sp"
+                    android:layout_marginLeft="10sp"
+                    android:layout_marginTop="15sp"
+                    android:layout_marginBottom="5sp"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/txtCompName"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_marginEnd="10sp"
+                        android:layout_marginRight="10sp"
+                        android:text="@string/compName"
+                        android:textColor="@color/colorBlack"
+                        android:textSize="16sp"/>
+
+                    <EditText
+                        android:id="@+id/in_compName"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/rounded_edit_text"
+                        android:ems="10"
+                        android:hint="@string/compNameValue"
+                        android:inputType="textPersonName|textCapSentences"
+                        android:paddingStart="0sp"
+                        android:paddingLeft="0sp"
+                        android:paddingEnd="15sp"
+                        android:paddingRight="15sp"
+                        android:textColor="@color/colorBlack"
+                        android:textColorHighlight="@color/toolbarColorLeft"
+                        android:textSize="16sp">
+
+                        <requestFocus/>
+                    </EditText>
+
+                </LinearLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1sp"
+                    android:layout_marginTop="10sp"
+                    android:background="@color/light_gray"/>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="10sp"
+                    android:layout_marginLeft="10sp"
+                    android:layout_marginTop="15sp"
+                    android:layout_marginBottom="5sp"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/txtCompCeo"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_marginEnd="10sp"
+                        android:layout_marginRight="10sp"
+                        android:text="@string/ceo"
+                        android:textColor="@color/colorBlack"
+                        android:textSize="16sp"/>
+
+                    <EditText
+                        android:id="@+id/in_ceo"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/rounded_edit_text"
+                        android:ems="10"
+                        android:hint="@string/ceoValue"
+                        android:inputType="textPersonName|textCapSentences"
+                        android:paddingStart="0sp"
+                        android:paddingLeft="0sp"
+                        android:paddingEnd="15sp"
+                        android:paddingRight="15sp"
+                        android:textColor="@color/colorBlack"
+                        android:textColorHighlight="@color/toolbarColorLeft"
+                        android:textSize="16sp"/>
+
+                </LinearLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1sp"
+                    android:layout_marginTop="10sp"
+                    android:background="@color/light_gray"/>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="10sp"
+                    android:layout_marginLeft="10sp"
+                    android:layout_marginTop="15sp"
+                    android:layout_marginBottom="5sp"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/txtRepName"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_marginEnd="10sp"
+                        android:layout_marginRight="10sp"
+                        android:text="@string/representative"
+                        android:textColor="@color/colorBlack"
+                        android:textSize="16sp"/>
+
+                    <EditText
+                        android:id="@+id/in_repName"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/rounded_edit_text"
+                        android:ems="10"
+                        android:hint="@string/representativeValue"
+                        android:inputType="textPersonName|textCapSentences"
+                        android:paddingStart="0sp"
+                        android:paddingLeft="0sp"
+                        android:paddingEnd="15sp"
+                        android:paddingRight="15sp"
+                        android:textColor="@color/colorBlack"
+                        android:textColorHighlight="@color/toolbarColorLeft"
+                        android:textSize="16sp"/>
+
+                </LinearLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1sp"
+                    android:layout_marginTop="10sp"
+                    android:background="@color/light_gray"/>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="10sp"
+                    android:layout_marginLeft="10sp"
+                    android:layout_marginTop="15sp"
+                    android:layout_marginBottom="5sp"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/txtRepEmail"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_marginEnd="10sp"
+                        android:layout_marginRight="10sp"
+                        android:text="@string/repEmail"
+                        android:textColor="@color/colorBlack"
+                        android:textSize="16sp"/>
+
+                    <EditText
+                        android:id="@+id/in_repEmail"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/rounded_edit_text"
+                        android:ems="10"
+                        android:hint="@string/repEmailValue"
+                        android:inputType="textEmailAddress"
+                        android:paddingStart="0sp"
+                        android:paddingLeft="0sp"
+                        android:paddingEnd="15sp"
+                        android:paddingRight="15sp"
+                        android:textColor="@color/colorBlack"
+                        android:textColorHighlight="@color/toolbarColorLeft"
+                        android:textSize="16sp"/>
+
+                </LinearLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1sp"
+                    android:layout_marginTop="10sp"
+                    android:background="@color/light_gray"/>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="10sp"
+                    android:layout_marginLeft="10sp"
+                    android:layout_marginTop="15sp"
+                    android:layout_marginBottom="5sp"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/txtCompPhone"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_marginEnd="10sp"
+                        android:layout_marginRight="10sp"
+                        android:text="@string/compPhone"
+                        android:textColor="@color/colorBlack"
+                        android:textSize="16sp"/>
+
+                    <EditText
+                        android:id="@+id/in_comPhone"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/rounded_edit_text"
+                        android:ems="10"
+                        android:hint="@string/compPhoneValue"
+                        android:inputType="phone"
+                        android:paddingStart="0sp"
+                        android:paddingLeft="0sp"
+                        android:paddingEnd="15sp"
+                        android:paddingRight="15sp"
+                        android:textColor="@color/colorBlack"
+                        android:textColorHighlight="@color/toolbarColorLeft"
+                        android:textSize="16sp"/>
+
+                </LinearLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1sp"
+                    android:layout_marginTop="10sp"
+                    android:background="@color/light_gray"/>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="10sp"
+                    android:layout_marginLeft="10sp"
+                    android:layout_marginTop="15sp"
+                    android:layout_marginBottom="5sp"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/txtCompEmail"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_marginEnd="10sp"
+                        android:layout_marginRight="10sp"
+                        android:text="@string/compEmail"
+                        android:textColor="@color/colorBlack"
+                        android:textSize="16sp"/>
+
+                    <EditText
+                        android:id="@+id/in_compEmail"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/rounded_edit_text"
+                        android:ems="10"
+                        android:hint="@string/compEmailValue"
+                        android:inputType="textEmailAddress"
+                        android:paddingStart="0sp"
+                        android:paddingLeft="0sp"
+                        android:paddingEnd="15sp"
+                        android:paddingRight="15sp"
+                        android:textColor="@color/colorBlack"
+                        android:textColorHighlight="@color/toolbarColorLeft"
+                        android:textSize="16sp"/>
+
+                </LinearLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1sp"
+                    android:layout_marginTop="10sp"
+                    android:background="@color/light_gray"/>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="10sp"
+                    android:layout_marginLeft="10sp"
+                    android:layout_marginTop="15sp"
+                    android:layout_marginBottom="15sp"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/txtCompPassword"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_marginEnd="10sp"
+                        android:layout_marginRight="10sp"
+                        android:text="@string/password_hint"
+                        android:textColor="@color/colorBlack"
+                        android:textSize="16sp"/>
+
+                    <EditText
+                        android:id="@+id/in_compPassword"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/rounded_edit_text"
+                        android:ems="10"
+                        android:hint="@string/password_hint"
+                        android:inputType="textPersonName"
+                        android:paddingStart="0sp"
+                        android:paddingLeft="0sp"
+                        android:paddingEnd="15sp"
+                        android:paddingRight="15sp"
+                        android:singleLine="true"
+                        android:textColor="@color/colorBlack"
+                        android:textColorHighlight="@color/toolbarColorLeft"
+                        android:textSize="16sp"
+                        tools:ignore="TextFields"/>
+
+                </LinearLayout>
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="40sp"/>
+
+            <android.support.v7.widget.CardView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:background="@drawable/background_register_fields"
+                android:orientation="vertical"
+                app:cardCornerRadius="8sp"
+                app:cardElevation="5sp">
+
+                <ImageButton
+                    android:id="@+id/licenseImageButton"
+                    android:layout_width="190sp"
+                    android:layout_height="210sp"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_margin="5sp"
+                    android:background="@color/almostWhite"
+                    android:contentDescription="@string/license"
+                    android:src="@drawable/addlicense"/>
+
+                <TextView
+                    android:id="@+id/tv_License"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginTop="220sp"
+                    android:layout_marginBottom="5sp"
+                    android:text="@string/addLicensePhoto"
+                    android:textAlignment="center"
+                    android:textSize="16sp"/>
+
+            </android.support.v7.widget.CardView>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="40sp"/>
+
+            <Button
+                android:id="@+id/btnNextRegister1"
+                android:layout_width="340sp"
+                android:layout_height="0dp"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginBottom="40sp"
+                android:layout_weight="1"
+                android:background="@drawable/btn_login_background_disabled"
+                android:enabled="false"
+                android:text="@string/next"
+                android:textColor="@color/colorWhite"/>
+
+        </LinearLayout>
+    </ScrollView>
+</LinearLayout>

@@ -16,6 +16,7 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.fzhongfei.findzhongfei_final.R;
+import com.fzhongfei.findzhongfei_final.model.SharedPreferencesUser;
 
 public class UserProfileEditActivity extends AppCompatActivity {
 
@@ -24,13 +25,14 @@ public class UserProfileEditActivity extends AppCompatActivity {
     private Context mContext = UserProfileEditActivity.this;
 
     // VIEWS
-    private TextView signoutText;
-    private TextView signoutButton;
+    private TextView signOutText;
+    private TextView signOutButton;
     private TextView progressPercentage;
-    private ProgressBar signoutProgressBar;
+    private ProgressBar signOutProgressBar;
     private int pStatus = 0;
     private Handler handler = new Handler();
 
+    private SharedPreferencesUser mSharedPreferencesUser = new SharedPreferencesUser();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,20 +41,19 @@ public class UserProfileEditActivity extends AppCompatActivity {
 
         Log.d(TAG, "onCreate: Running...");
 
-        signoutText = findViewById(R.id.user_profile_signout_text);
-        signoutButton = findViewById(R.id.sign_out_button);
-//        signoutProgressBar = findViewById(R.id.progress_bar);
+        signOutText = findViewById(R.id.user_profile_signout_text);
+        signOutButton = findViewById(R.id.sign_out_button);
+//        signOutProgressBar = findViewById(R.id.progress_bar);
         progressPercentage = findViewById(R.id.txtProgress);
 
         // TOOLBAR
         setUpActivityToolbar();
 
         // SIGN OUT
-        signoutButton.setOnClickListener(new View.OnClickListener() {
+        signOutButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-//                signoutUser();
-                startActivity(new Intent(mContext, UserSignedInActivity.class));
+                signOutUser();
             }
         });
     }
@@ -97,29 +98,39 @@ public class UserProfileEditActivity extends AppCompatActivity {
     }
 
     // UI - SIGN OUT
-//    public void signoutUser() {
-//        signoutText.setVisibility(View.GONE);
-//        signoutProgressBar.setVisibility(View.VISIBLE);
-//
-//        new Thread(new Runnable() {
-//            @Override
-//            public void run() {
-//                while (pStatus <= 100) {
-//                    handler.post(new Runnable() {
-//                        @Override
-//                        public void run() {
-//                            signoutProgressBar.setProgress(pStatus);
-//                            progressPercentage.setText(pStatus + " %");
-//                        }
-//                    });
-//                    try {
-//                        Thread.sleep(100);
-//                    } catch (InterruptedException e) {
-//                        e.printStackTrace();
-//                    }
-//                    pStatus++;
-//                }
-//            }
-//        }).start();
-//    }
+    public void signOutUser() {
+        signOutText.setVisibility(View.GONE);
+//        signOutProgressBar.setVisibility(View.VISIBLE);
+
+        UserSignedInActivity.userSignedIn = false;
+        SharedPreferencesUser.clearUserInformation(mContext);
+
+        Intent i = new Intent(mContext, UserSignedInActivity.class);
+        i.putExtra("isSignedIn", false);
+        startActivity(i);
+        UserProfileActivity.finisher.finish();
+        UserSignedInActivity.finisher.finish();
+        finish();
+    }
 }
+
+//    new Thread(new Runnable() {
+//        @Override
+//        public void run() {
+//            while (pStatus <= 100) {
+//                handler.post(new Runnable() {
+//                    @Override
+//                    public void run() {
+//                        signoutProgressBar.setProgress(pStatus);
+//                        progressPercentage.setText(pStatus + " %");
+//                    }
+//                });
+//                try {
+//                    Thread.sleep(100);
+//                } catch (InterruptedException e) {
+//                    e.printStackTrace();
+//                }
+//                pStatus++;
+//            }
+//        }
+//    }).start();

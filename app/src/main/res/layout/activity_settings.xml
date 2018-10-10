@@ -1,0 +1,294 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_settings_main_vertical_linear_layout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorWhite"
+    android:orientation="vertical"
+    tools:context=".activity.SettingsActivity">
+
+    <include
+        android:id="@+id/activity_settings_toolbar"
+        layout="@layout/layout_toolbar"/>
+
+    <ScrollView
+        android:id="@+id/settings_scrollview"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginBottom="53sp"
+        android:scrollbars="none">
+
+        <LinearLayout
+            android:id="@+id/settings_vertical_linear_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:id="@+id/language_linear"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/colorWhite"
+                android:clickable="true"
+                android:focusable="true"
+                android:orientation="horizontal"
+                android:padding="10sp">
+
+                <TextView
+                    android:id="@+id/language_text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:padding="8sp"
+                    android:text="@string/language"
+                    android:textColor="@color/colorLightBlack"
+                    android:textSize="16sp"/>
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <TextView
+                        android:id="@+id/language"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_toStartOf="@id/language_list_button"
+                        android:layout_toLeftOf="@id/language_list_button"
+                        android:text="@string/languageValue"
+                        android:textColor="@color/gray"
+                        android:textStyle="bold"/>
+
+                    <ImageView
+                        android:id="@+id/language_list_button"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentEnd="true"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"
+                        android:layout_marginStart="10sp"
+                        android:layout_marginLeft="10sp"
+                        android:contentDescription="@string/language"
+                        android:src="@drawable/ic_arrow_right"/>
+
+                </RelativeLayout>
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0.2sp"
+                android:layout_marginHorizontal="20sp"
+                android:background="@color/light_gray"
+                tools:ignore="UnusedAttribute"/>
+
+            <LinearLayout
+                android:id="@+id/change_password_linear"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/colorWhite"
+                android:clickable="true"
+                android:focusable="true"
+                android:orientation="horizontal"
+                android:padding="10sp">
+
+                <TextView
+                    android:id="@+id/change_password_text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:padding="8sp"
+                    android:text="@string/privacy"
+                    android:textColor="@color/colorLightBlack"
+                    android:textSize="16sp"/>
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <ImageView
+                        android:id="@+id/change_password_button"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentEnd="true"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"
+                        android:layout_marginStart="10sp"
+                        android:layout_marginLeft="10sp"
+                        android:contentDescription="@string/privacy"
+                        android:src="@drawable/ic_arrow_right"/>
+                </RelativeLayout>
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0.2sp"
+                android:layout_marginHorizontal="20sp"
+                android:background="@color/light_gray"
+                tools:ignore="UnusedAttribute"/>
+
+            <LinearLayout
+                android:id="@+id/app_version_linear"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/colorWhite"
+                android:clickable="true"
+                android:focusable="true"
+                android:orientation="horizontal"
+                android:padding="10sp">
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/app_version_text"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:padding="8sp"
+                        android:text="@string/version"
+                        android:textColor="@color/colorLightBlack"
+                        android:textSize="16sp"/>
+
+                    <TextView
+                        android:id="@+id/app_version_number"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:paddingStart="8sp"
+                        android:paddingLeft="8sp"
+                        android:paddingEnd="0sp"
+                        android:paddingRight="0sp"
+                        android:text="@string/versionNumber"
+                        android:textColor="@color/colorLightBlack"
+                        android:textSize="12sp"/>
+
+                </LinearLayout>
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <Button
+                        android:layout_width="65sp"
+                        android:layout_height="25sp"
+                        android:layout_centerInParent="true"
+                        android:layout_toStartOf="@+id/update_app_button"
+                        android:layout_toLeftOf="@+id/update_app_button"
+                        android:background="@drawable/background"
+                        android:gravity="center"
+                        android:text="@string/update"
+                        android:textColor="@color/gray"
+                        android:textSize="12sp"/>
+
+                    <ImageView
+                        android:id="@+id/update_app_button"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentEnd="true"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"
+                        android:layout_marginStart="10sp"
+                        android:layout_marginLeft="10sp"
+                        android:contentDescription="@string/version"
+                        android:src="@drawable/ic_arrow_right"/>
+                </RelativeLayout>
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0.2sp"
+                android:layout_marginHorizontal="20sp"
+                android:background="@color/light_gray"
+                tools:ignore="UnusedAttribute"/>
+
+            <LinearLayout
+                android:id="@+id/rate_app_linear"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/colorWhite"
+                android:clickable="true"
+                android:focusable="true"
+                android:orientation="horizontal"
+                android:padding="10sp">
+
+                <TextView
+                    android:id="@+id/rate_app_text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:padding="8sp"
+                    android:text="@string/rateApp"
+                    android:textColor="@color/colorLightBlack"
+                    android:textSize="16sp"/>
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <ImageView
+                        android:id="@+id/rate_app_button"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentEnd="true"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"
+                        android:layout_marginStart="10sp"
+                        android:layout_marginLeft="10sp"
+                        android:contentDescription="@string/rateApp"
+                        android:src="@drawable/ic_arrow_right"/>
+                </RelativeLayout>
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0.2sp"
+                android:layout_marginHorizontal="20sp"
+                android:background="@color/light_gray"
+                tools:ignore="UnusedAttribute"/>
+
+            <LinearLayout
+                android:id="@+id/about_app_linear"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/colorWhite"
+                android:clickable="true"
+                android:focusable="true"
+                android:orientation="horizontal"
+                android:padding="10sp">
+
+                <TextView
+                    android:id="@+id/about_app_text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:padding="8sp"
+                    android:text="@string/about"
+                    android:textColor="@color/colorLightBlack"
+                    android:textSize="16sp"/>
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <ImageView
+                        android:id="@+id/about_app_button"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentEnd="true"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"
+                        android:layout_marginStart="10sp"
+                        android:layout_marginLeft="10sp"
+                        android:contentDescription="@string/about"
+                        android:src="@drawable/ic_arrow_right"/>
+                </RelativeLayout>
+            </LinearLayout>
+
+        </LinearLayout>
+    </ScrollView>
+</LinearLayout>

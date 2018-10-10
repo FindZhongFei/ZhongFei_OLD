@@ -1,6 +1,7 @@
 package com.fzhongfei.findzhongfei_final.activity;
 
 import android.annotation.SuppressLint;
+import android.app.Activity;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
@@ -33,7 +34,7 @@ public class UserProfileActivity extends AppCompatActivity {
     // EVERY ACTIVITY SETUP
     private static final String TAG = "UserProfileActivity";
     private Context mContext = UserProfileActivity.this;
-
+    public static Activity finisher;
     // VIEWS
     private ImageView profilePicture;
     private Dialog imageDialog;
@@ -44,6 +45,8 @@ public class UserProfileActivity extends AppCompatActivity {
         setContentView(R.layout.activity_user_profile);
 
         Log.d(TAG, "onCreate: Running...");
+
+        finisher = this;
 
         setUpActivityToolbar();
         setupRecyclerView();

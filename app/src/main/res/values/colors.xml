@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!--<color name="colorPrimary">#3F51B5</color>-->
+    <!--<color name="colorPrimaryDark">#303F9F</color>-->
+    <color name="colorPrimary">@color/colorLightPurple</color>
+    <color name="colorPrimaryDark">@color/colorDarkPurple</color>
+    <color name="colorAccent">#FF4081</color>
+
+    <color name="colorWhite">#FFFFFF</color>
+    <color name="colorBlack">#000000</color>
+    <color name="colorLightBlack">#333333</color>
+
+    <color name="gray">#909090</color>
+    <color name="almostWhite">#eee</color>
+    <color name="light_gray">#CDCDCD</color>
+    <color name="dark_gray">#6B6B76</color>
+
+    // BACKGROUND COLORS
+    <color name="toolbarColorLeft">#FF5258A6</color>
+    <color name="toolbarColorRight">#FF7375B7</color>
+    <color name="bottomNavColor">#7788DD</color>
+    <color name="register_background">#E3E8F1</color>
+
+    // BACKGROUND, ICON, BUTTON...
+    <color name="colorRed">#FF3658</color>
+    <color name="colorFlory">#F38181</color>
+    <color name="colorLightYellow">#FCE38A</color>
+    <color name="colorGreen">#32C24D</color>
+    <color name="colorSignup">#83838C</color>
+    <color name="colorLightPurple">#9087E3</color>
+    <color name="colorDarkPurple">#603B97</color>
+    <color name="colorPink">#FD61F1</color>
+    <color name="colorOrange">#E74C3C</color>
+    <color name="colorBurgundy">#56132A</color>
+    <color name="colorDardRed">#741938</color>
+    <color name="colorCyan">#00BCD4</color>
+    <color name="colorBlue">#03A9F4</color>
+    <color name="colorLightBlue">#66A6C9</color>
+
+    // TRANSPARENT
+    <color name="transparent">#00FFFFFF</color>
+    <color name="transparentBackground">#80000000</color>
+    <color name="colorAccentTrans">#66CF4081</color>        <!-- 40% -->
+    <color name="colorPrimaryDarkTrans">#DB303F9F</color>
+    <color name="darkPurpleTrans">#D99F28C3</color>
+    <color name="pinkTrans">#66FD61F1</color>               <!-- 40% -->
+    <color name="orangeTrans">#D9E74C3C</color>
+    <color name="BlueTrans">#D90CB1FC</color>
+    <color name="GreenTrans">#F816A463</color>
+</resources>

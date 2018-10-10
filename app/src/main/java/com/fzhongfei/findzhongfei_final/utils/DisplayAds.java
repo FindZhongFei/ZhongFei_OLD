@@ -10,6 +10,8 @@ import com.google.android.gms.ads.AdView;
 
 public class DisplayAds {
 
+    private String mErrorReason;
+
     private static final String TAG = "DisplayAds";
 
     public DisplayAds(AdView mAdView, final RelativeLayout adLayout) {
@@ -27,8 +29,24 @@ public class DisplayAds {
             // Called when an ad failed to load.
             @Override
             public void onAdFailedToLoad(int error) {
-                String message = "Google onAdFailedToLoad: " + getErrorReason(error);
-                Log.e(TAG, message);
+                mErrorReason = "";
+
+                switch (error) {
+                    case AdRequest.ERROR_CODE_INTERNAL_ERROR:
+                        mErrorReason = "Internal error";
+                        break;
+                    case AdRequest.ERROR_CODE_INVALID_REQUEST:
+                        mErrorReason = "Invalid request";
+                        break;
+                    case AdRequest.ERROR_CODE_NETWORK_ERROR:
+                        mErrorReason = "Network Error";
+                        break;
+                    case AdRequest.ERROR_CODE_NO_FILL:
+                        mErrorReason = "No fill";
+                        break;
+                }
+
+                Log.e(TAG, mErrorReason);
             }
 
             // Called when an Activity is created in front of the app
@@ -53,23 +71,7 @@ public class DisplayAds {
         });
     }
 
-    private String getErrorReason(int errorCode) {
-        // Gets a string error reason from an error code.
-        String errorReason = "";
-        switch (errorCode) {
-            case AdRequest.ERROR_CODE_INTERNAL_ERROR:
-                errorReason = "Internal error";
-                break;
-            case AdRequest.ERROR_CODE_INVALID_REQUEST:
-                errorReason = "Invalid request";
-                break;
-            case AdRequest.ERROR_CODE_NETWORK_ERROR:
-                errorReason = "Network Error";
-                break;
-            case AdRequest.ERROR_CODE_NO_FILL:
-                errorReason = "No fill";
-                break;
-        }
-        return errorReason;
+    private String getErrorReason() {
+        return mErrorReason == null ? "" : mErrorReason;
     }
 }

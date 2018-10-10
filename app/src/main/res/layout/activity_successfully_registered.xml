@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <include
+        android:id="@+id/successfullyRegisteredToolbar"
+        layout="@layout/layout_toolbar"/>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/colorWhite">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:gravity="center_horizontal"
+            android:padding="15sp">
+
+            <ImageView
+                android:id="@+id/scsImgView"
+                android:layout_width="170sp"
+                android:layout_height="170sp"
+                android:visibility="visible"
+                android:layout_marginBottom="30sp"
+                app:srcCompat="@drawable/animated_check"
+                android:contentDescription="@string/done"
+                tools:ignore="VectorDrawableCompat"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center_horizontal"
+                android:paddingVertical="20sp"
+                tools:targetApi="o">
+
+                <View
+                    android:layout_width="125sp"
+                    android:layout_height="1sp"
+                    android:layout_marginTop="12sp"
+                    android:background="@color/light_gray"
+                    tools:ignore="SmallSp"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="10sp"
+                    android:text="@string/registered"
+                    android:textSize="18sp"
+                    android:textStyle="bold"/>
+
+                <View
+                    android:layout_width="125sp"
+                    android:layout_height="1sp"
+                    android:layout_marginTop="12sp"
+                    android:background="@color/light_gray"
+                    tools:ignore="SmallSp"/>
+
+            </LinearLayout>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="20sp"
+                android:textAllCaps="true"
+                android:text="@string/regLongTxt"/>
+
+            <Button
+                android:id="@+id/btnShowProfile"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/btn_login_background"
+                android:text="@string/showProfile"
+                android:textColor="@color/colorWhite"
+                android:layout_marginTop="50sp"/>
+
+        </LinearLayout>
+    </ScrollView>
+</LinearLayout>

@@ -1,0 +1,45 @@
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <!-- Base application theme. -->
+    <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+        <item name="cardViewStyle">@style/CardView.Light</item>
+
+        <item name="selectableItemBackground">?android:selectableItemBackground</item>
+        <item name="selectableItemBackgroundBorderless">?android:selectableItemBackground</item>
+
+        <!-- TRANSITION WITH ANIMATIONS -->
+        <item name="android:windowActivityTransitions" tools:targetApi="lollipop">true</item>
+        <item name="android:windowContentTransitions" tools:targetApi="lollipop">true</item>
+
+        <!-- EDIT TEXTS -->
+        <item name="colorControlNormal">@color/transparent</item>
+        <item name="colorControlActivated">@color/toolbarColorRight</item>  <!-- BLINKING CURSOR COLOR -->
+        <item name="colorControlHighlight">@color/transparent</item>
+
+        <!--<item name="android:windowTranslucentStatus" tools:targetApi="lollipop">true</item>-->
+        <!--<item name="android:windowTranslucentNavigation" tools:targetApi="lollipop">true</item>-->
+    </style>
+
+    <!-- SPLASH SCREEN -->
+    <style name="SplashScreen">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+        <item name="android:windowFullscreen">true</item>
+        <item name="android:windowBackground">@drawable/splash_screen_background</item>
+    </style>
+
+    <style name="CustomActionBar" parent="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
+        <item name="android:windowActionBarOverlay">true</item>
+        <!-- Support library compatibility -->
+        <item name="windowActionBarOverlay">true</item>
+    </style>
+
+    <!-- TOOLBAR -->
+    <style name="AppTheme.NoActionBar">
+        <item name="coordinatorLayoutStyle">@style/Widget.Design.CoordinatorLayout</item>
+    </style>
+
+</resources>

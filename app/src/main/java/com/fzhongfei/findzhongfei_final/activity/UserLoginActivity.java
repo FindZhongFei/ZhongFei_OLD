@@ -17,6 +17,7 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.fzhongfei.findzhongfei_final.R;
+import com.fzhongfei.findzhongfei_final.model.SharedPreferencesUser;
 
 public class UserLoginActivity extends AppCompatActivity {
 
@@ -29,6 +30,9 @@ public class UserLoginActivity extends AppCompatActivity {
     private TextView registerButton;
     private Button loginButton;
     private ProgressBar loading;
+
+    // Saving data locally
+    private SharedPreferencesUser mSaveSharedPreferenceUser = new SharedPreferencesUser();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -108,7 +112,17 @@ public class UserLoginActivity extends AppCompatActivity {
         loading.setVisibility(View.VISIBLE);
         loginButton.setVisibility(View.GONE);
 
-        startActivity(new Intent(mContext, UserProfileActivity.class));
+        UserSignedInActivity.userSignedIn = true;
+
+        SharedPreferencesUser.setUserEmail(mContext, "kingneud55@gmail.com");
+        SharedPreferencesUser.setPhoneNumber(mContext, "+86 132 3657 6511");
+        SharedPreferencesUser.setUsername(mContext, username.toString());
+//        SharedPreferencesUser.setSharedPreferenceValue(mContext, SharedPreferencesUser.PREF_USER_USERNAME, username.toString());
+
+        Intent i = new Intent(mContext, UserSignedInActivity.class);
+        i.putExtra("isSignedIn", true);
+        UserSignedInActivity.finisher.finish();
+        startActivity(i);
         finish();
     }
 }

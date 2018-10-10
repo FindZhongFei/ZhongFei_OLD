@@ -76,7 +76,9 @@ public class MainActivity extends AppCompatActivity {
                     loadFragment(fragment);
                     return true;
                 case R.id.ic_profile:
-                    mContext.startActivity(new Intent(mContext, UserSignedInActivity.class));   // ACTIVITY_NUMBER = 2
+                    Intent i = new Intent(mContext, UserSignedInActivity.class);
+                    i.putExtra("isSignedIn", UserSignedInActivity.userSignedIn);
+                    mContext.startActivity(i);   // ACTIVITY_NUMBER = 2
                     return true;
             }
             return false;

@@ -1,0 +1,230 @@
+<resources>
+    <string name="app_name">FIndZhongFei_Final</string>
+
+    <!-- AD -->
+    <string name="bannerAdUnitId">ca-app-pub-3940256099942544/6300978111</string>
+
+    <!-- FONTS -->
+    <string name="action_settings">Settings</string>
+    <string name="font_family_condensed">sans-serif-condensed</string>
+    <string name="font_family_light">sans-serif-light</string>
+    <string name="font_family_regular">sans-serif-regular</string>
+    <string name="font_family_medium">sans-serif-medium</string>
+
+    <!-- IN APP TEXTS -->
+    <!-- COMPANY TYPES AND SUBTYPES-->
+    <string name="companyTypePrompt">Choose your company type</string>
+    <string-array name="companyTypeArrays">
+        <item>Aerospace industry</item>
+        <item>Agriculture</item>
+        <item>Chemical industry</item>
+        <item>Computer industry</item>
+        <item>Construction industry</item>
+        <item>Defense industry</item>
+        <item>Education industry</item>
+        <item>Energy industry</item>
+        <item>Entertainment industry</item>
+        <item>Financial services industry</item>
+        <item>Food industry</item>
+        <item>Health care industry</item>
+        <item>Hospitality industry</item>
+        <item>Information industry</item>
+        <item>Manufacturing</item>
+        <item>Mass media</item>
+        <item>Mining</item>
+        <item>Telecommunications industry</item>
+        <item>Transport industry</item>
+        <item>Water industry</item>
+        <item>Direct Selling industry</item>
+        <item>Other</item>
+    </string-array>
+
+    <!-- SUBTYPES:AGRICULTURE -->
+    <string-array name="subTypesAgriculture">
+        <item>Fishing industry</item>
+        <item>Timber industry</item>
+        <item>Tobacco industry</item>
+    </string-array>
+    <!-- SUBTYPES:CHEMICAL -->
+    <string-array name="subTypesChemical">
+        <item>Pharmaceutical industry</item>
+    </string-array>
+
+    <!-- SUBTYPES:COMPUTER -->
+    <string-array name="subTypesComputer">
+        <item>Software industry</item>
+    </string-array>
+    <!-- SUBTYPES:DEFENSE -->
+    <string-array name="subTypesDefense">
+        <item>Arms industry</item>
+    </string-array>
+    <!-- SUBTYPES:ENERGY -->
+    <string-array name="subTypesEnergy">
+        <item>Electrical power industry</item>
+        <item>Petroleum industry</item>
+    </string-array>
+    <!-- SUBTYPES:FINANCIAL -->
+    <string-array name="subTypesFinancial">
+        <item>Insurance industry</item>
+    </string-array>
+    <!-- SUBTYPES:FOOD -->
+    <string-array name="subTypesFood">
+        <item>Fruit production</item>
+    </string-array>
+    <!-- SUBTYPES:MANUFACTURING -->
+    <string-array name="subTypesManufacturing">
+        <item>Automotive industry</item>
+        <item>Electronics industry</item>
+        <item>Pulp and paper industry</item>
+        <item>Steel industry</item>
+        <item>Shipbuilding industry</item>
+    </string-array>
+    <!-- SUBTYPES:MEDIA -->
+    <string-array name="subTypesMedia">
+        <item>Broadcasting</item>
+        <item>Film industry</item>
+        <item>Music industry</item>
+        <item>News media</item>
+        <item>Publishing</item>
+        <item>World Wide Web</item>
+    </string-array>
+    <!-- SUBTYPES:TELECOMMUNICATIONS -->
+    <string-array name="subTypesTelecommunications">
+        <item>Internet</item>
+    </string-array>
+    <!-- SUBTYPES:OTHER -->
+    <string-array name="subTypesOther">
+        <item>Other</item>
+    </string-array>
+
+    <!-- NUMBERS -->
+    <string name="zero">0</string>
+    <string name="one">1</string>
+    <string name="two">2</string>
+    <string name="three">3</string>
+    <string name="four">4</string>
+    <string name="five">5</string>
+    <string name="six">6</string>
+    <string name="seven">7</string>
+    <string name="eight">8</string>
+    <string name="nine">9</string>
+
+    <!-- ERRORS -->
+    <string name="email_error">Please enter valid email address</string>
+    <string name="email_empty_error">Email address can not be empty</string>
+    <string name="phone_error">Please enter valid phone number</string>
+    <string name="company_phone_empty_error">Please provide your company phone number</string>
+    <string name="password_weak_error">Password must contain at least one of these !,@,#,$ characters</string>
+    <string name="password_invalid_characters_error">Invalid password, please use uppercase lowercase characters</string>
+    <string name="password_short_error">Password can not be less than 8 characters long</string>
+    <string name="password_long_error">Password can not be more than 24 characters long</string>
+    <string name="password_empty_error">Password can not be empty</string>
+    <string name="username_empty_error">Username can not be empty</string>
+    <string name="username_error">Please enter valid username</string>
+    <string name="company_profile_image_error">Please provide company profile image</string>
+    <string name="license_image_error">Please provide company license image</string>
+
+    <string name="login">Login</string>
+    <string name="browse">Browse</string>
+    <string name="filter">Filter</string>
+    <string name="register">Register</string>
+    <string name="guest">Continue as a guest</string>
+
+    <string name="next">Next</string>
+    <string name="back">Back Button</string>
+    <string name="go">Go</string>
+    <string name="done">Done</string>
+    <string name="edit">Edit</string>
+    <string name="logo">Logo</string>
+    <string name="close">Close</string>
+    <string name="more">More</string>
+    <string name="search_hint">Search by company name</string>
+    <string name="username_hint">Username</string>
+    <string name="password_hint">Password</string>
+
+    <string name="contacts">Contacts</string>
+    <string name="favorites">Favorites</string>
+    <string name="privacy">Privacy</string>
+    <string name="purchases">Purchases</string>
+    <string name="history">History (%1$s)</string>
+    <string name="companyPhoto">Company Photo</string>
+    <string name="near">Companies near my location</string>
+
+    <!-- SETTINGS -->
+    <string name="settingsTitle">Settings</string>
+    <string name="language">Language</string>
+    <string name="languageValue">English</string>
+    <string name="changePassword">Change Password</string>
+    <string name="version">Version</string>
+    <string name="versionNumber">1.0.0</string>
+    <string name="update">Update</string>
+    <string name="rateApp">Rate App</string>
+    <string name="about">About</string>
+
+    <!-- PROFILE -->
+    <string name="profileTitle">Profile</string>
+    <string name="signOut">Sign Out</string>
+    <string name="profilePicture">Profile Picture</string>
+    <string name="backgroundPicture">Background Picture</string>
+    <string name="username">Name</string>
+    <string name="usernameValue">Neud Tesfay</string>
+    <string name="phoneNumber">Phone Number</string>
+    <string name="phoneNumberValue">+86 132 3657 ****</string>
+    <string name="emailAddress">Email</string>
+    <string name="emailAddressValue">kingneud55@gmail.com</string>
+    <string name="region">Region</string>
+    <string name="regionValue">Ethiopia</string>
+    <string name="address">Address</string>
+    <string name="addressValue">Addis Ababa</string>
+    <string name="qrCodeText">QR Code</string>
+
+    <!-- SIGN UP TEXTS -->
+    <string name="registered">REGISTERED</string>
+    <string name="showProfile">Go to company profile</string>
+    <string name="compName">Company Name</string>
+    <string name="ceo">Company CEO</string>
+    <string name="representative">Representative Name</string>
+    <string name="license">License: </string>
+    <string name="logoText">Company Profile </string>
+    <string name="repEmail">Representative Email</string>
+    <string name="compPhone">Company Phone</string>
+    <string name="compEmail">Company Email</string>
+    <string name="add1">Address 1</string>
+    <string name="add2">Address 2</string>
+    <string name="city">City</string>
+    <string name="province">Province</string>
+    <string name="compType">Company Type</string>
+    <string name="compTypeOther">Specify Type</string>
+    <string name="compSubType">Company Subtype</string>
+    <string name="compSubTypeOther">Specify Subtype</string>
+    <string name="compSubTypeShort">Subtype</string>
+    <string name="description">Company Description</string>
+    <string name="descriptionShort">Description</string>
+    <string name="wechatId">Wechat Id</string>
+    <string name="qrCode">QR Code</string>
+
+    <!-- DUMMY TEXTS -->
+    <string name="compNameValue">Amazon</string>
+    <string name="university">University</string>
+    <string name="universityNameValue">Nanjing University of Aeronautics and Astronautics</string>
+    <string name="universityDescValue">#1 Aeronautics university in china</string>
+    <string name="ceoValue">Zheng Hua</string>
+    <string name="representativeValue">Wang Zhi kai</string>
+    <string name="repEmailValue">repemial@qq.com</string>
+    <string name="compPhoneValue">+132 3657 65**</string>
+    <string name="compEmailValue">amazon@yahoo.com</string>
+    <string name="add1Value">Nanjing Shengtai West Road 119</string>
+    <string name="add2Value">Zhujianlu metro station exit 3</string>
+    <string name="cityValue">Nanjing</string>
+    <string name="provinceValue">Jiangsu</string>
+    <string name="compTypeValue">Manufacturing</string>
+    <string name="compSubTypeValue">Car Parts</string>
+    <string name="descriptionValue">Our company sells car parts to .....</string>
+    <string name="wechatIdValue">wang15563245</string>
+    <string name="addCompanyPhoto">&#x2b; Add company photo</string>
+    <string name="addLicensePhoto">&#x2b; Add license photo</string>
+
+    <string name="regLongTxt">You have successfully registered your company form. Please wait 3 &#8211; 6 days until we check and validate your form.</string>
+    <string name="notAUserRegisterTxt">Don\&apos;t have an account yet? REGISTER HERE</string>
+
+</resources>

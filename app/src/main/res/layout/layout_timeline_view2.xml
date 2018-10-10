@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="100sp"
+    android:layout_alignParentTop="true"
+    android:padding="16sp"
+    android:layout_marginTop="5sp">
+
+    <View
+        android:id="@+id/one_to_two"
+        android:layout_width="105sp"
+        android:layout_height="2sp"
+        android:layout_marginTop="20sp"
+        android:layout_marginLeft="35sp"
+        android:layout_marginStart="35sp"
+        android:background="@color/colorLightBlue"/>
+
+    <View
+        android:id="@+id/two_to_three"
+        android:layout_width="105sp"
+        android:layout_height="2sp"
+        android:layout_marginTop="20sp"
+        android:layout_marginLeft="185sp"
+        android:layout_marginStart="185sp"
+        android:background="@color/colorLightBlue"/>
+
+    <RelativeLayout
+        android:id="@+id/timeline_status"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="6sp">
+
+        <TextView
+            android:layout_width="30sp"
+            android:layout_height="30sp"
+            android:background="@drawable/timeline_active_style"
+            android:text="@string/one"
+            android:textColor="@color/colorWhite"
+            android:textSize="17sp"
+            android:gravity="center"
+            android:paddingBottom="2sp"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"/>
+
+        <TextView
+            android:layout_width="30sp"
+            android:layout_height="30sp"
+            android:background="@drawable/timeline_active_style"
+            android:text="@string/two"
+            android:layout_centerInParent="true"
+            android:textColor="@color/colorWhite"
+            android:textSize="17sp"
+            android:gravity="center"
+            android:paddingBottom="2sp"
+            android:layout_centerHorizontal="true"/>
+
+        <TextView
+            android:layout_width="30sp"
+            android:layout_height="30sp"
+            android:background="@drawable/timeline_style"
+            android:text="@string/three"
+            android:layout_centerInParent="true"
+            android:textColor="@color/colorWhite"
+            android:textSize="17sp"
+            android:gravity="center"
+            android:paddingBottom="2sp"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true"/>
+
+    </RelativeLayout>
+
+</RelativeLayout>

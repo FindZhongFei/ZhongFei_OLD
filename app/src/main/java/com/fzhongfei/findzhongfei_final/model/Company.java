@@ -19,23 +19,18 @@ public class Company {
     public int getId() {
         return id;
     }
-
     public int getImage() {
         return image;
     }
-
     public String getCompName() {
         return compName;
     }
-
     public String getCompType() {
         return compType;
     }
-
     public String getShortDesc() {
         return shortDesc;
     }
-
     public double getRating() {
         return rating;
     }

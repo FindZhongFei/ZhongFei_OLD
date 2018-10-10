@@ -1,0 +1,361 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".activity.UserProfileEditActivity"
+    android:id="@+id/activity_user_profile_edit_relative_layout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorWhite"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:id="@+id/activity_user_profile_edit_main_vertical_linear_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <include
+            android:id="@+id/activity_user_profile_edit_toolbar"
+            layout="@layout/layout_toolbar"/>
+
+        <ScrollView
+            android:id="@+id/user_profile_edit_scrollview"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scrollbars="none"
+            android:layout_marginBottom="53sp">
+
+            <LinearLayout
+                android:id="@+id/user_profile_edit_vertical_linear_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:id="@+id/user_profile_edit_profile_pic_linear"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/colorWhite"
+                    android:orientation="horizontal"
+                    android:padding="10sp"
+                    android:clickable="true"
+                    android:focusable="true">
+
+                    <TextView
+                        android:id="@+id/user_profile_edit_profile_pic_text"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:padding="8sp"
+                        android:text="@string/profilePicture"
+                        android:textColor="@color/colorLightBlack"
+                        android:textSize="16sp"/>
+
+                    <RelativeLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content">
+
+                        <android.support.v7.widget.CardView
+                            android:layout_width="38sp"
+                            android:layout_height="38sp"
+                            app:cardCornerRadius="20sp"
+                            android:layout_alignParentEnd="true"
+                            android:layout_alignParentRight="true">
+
+                            <ImageView
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:src="@drawable/profile_picture"
+                                android:scaleType="centerCrop"
+                                android:contentDescription="@string/profilePicture"/>
+                        </android.support.v7.widget.CardView>
+                    </RelativeLayout>
+                </LinearLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="0.2sp"
+                    android:background="@color/light_gray"
+                    android:layout_marginHorizontal="20sp"
+                    tools:ignore="UnusedAttribute"/>
+
+                <LinearLayout
+                    android:id="@+id/user_profile_edit_backgorund_linear"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/colorWhite"
+                    android:orientation="horizontal"
+                    android:padding="10sp"
+                    android:clickable="true"
+                    android:focusable="true">
+
+                    <TextView
+                        android:id="@+id/user_profile_edit_background_pic_text"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:padding="8sp"
+                        android:text="@string/changePassword"
+                        android:textColor="@color/colorLightBlack"
+                        android:textSize="16sp"/>
+                </LinearLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="0.2sp"
+                    android:background="@color/light_gray"
+                    android:layout_marginHorizontal="20sp"
+                    tools:ignore="UnusedAttribute"/>
+
+                <LinearLayout
+                    android:id="@+id/user_profile_edit_name_linear"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/colorWhite"
+                    android:orientation="horizontal"
+                    android:padding="10sp"
+                    android:clickable="true"
+                    android:focusable="true">
+
+                    <TextView
+                        android:id="@+id/user_profile_edit_name_text"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:padding="8sp"
+                        android:text="@string/username"
+                        android:textColor="@color/colorLightBlack"
+                        android:textSize="16sp"/>
+
+                    <RelativeLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content">
+
+                        <TextView
+                            android:id="@+id/user_profile_edit_name"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentEnd="true"
+                            android:layout_alignParentRight="true"
+                            android:text="@string/usernameValue"
+                            android:textColor="@color/gray"/>
+                    </RelativeLayout>
+                </LinearLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="0.2sp"
+                    android:background="@color/light_gray"
+                    android:layout_marginHorizontal="20sp"
+                    tools:ignore="UnusedAttribute"/>
+
+                <LinearLayout
+                    android:id="@+id/user_profile_edit_phone_linear"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/colorWhite"
+                    android:orientation="horizontal"
+                    android:padding="10sp"
+                    android:clickable="true"
+                    android:focusable="true">
+
+                    <TextView
+                        android:id="@+id/user_profile_edit_phone_text"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:padding="8sp"
+                        android:text="@string/phoneNumber"
+                        android:textColor="@color/colorLightBlack"
+                        android:textSize="16sp"/>
+
+                    <RelativeLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content">
+
+                        <TextView
+                            android:id="@+id/user_profile_edit_phone_number"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentEnd="true"
+                            android:layout_alignParentRight="true"
+                            android:text="@string/phoneNumber"
+                            android:textColor="@color/gray"/>
+                    </RelativeLayout>
+                </LinearLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="0.2sp"
+                    android:background="@color/light_gray"
+                    android:layout_marginHorizontal="20sp"
+                    tools:ignore="UnusedAttribute"/>
+
+                <LinearLayout
+                    android:id="@+id/user_profile_edit_email_linear"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/colorWhite"
+                    android:orientation="horizontal"
+                    android:padding="10sp"
+                    android:clickable="true"
+                    android:focusable="true">
+
+                    <TextView
+                        android:id="@+id/user_profile_edit_email_text"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:padding="8sp"
+                        android:text="@string/emailAddress"
+                        android:textColor="@color/colorLightBlack"
+                        android:textSize="16sp"/>
+
+                    <RelativeLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content">
+
+                        <TextView
+                            android:id="@+id/user_profile_edit_email"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentEnd="true"
+                            android:layout_alignParentRight="true"
+                            android:text="@string/emailAddress"
+                            android:textColor="@color/gray"/>
+                    </RelativeLayout>
+                </LinearLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="0.2sp"
+                    android:background="@color/light_gray"
+                    android:layout_marginHorizontal="20sp"
+                    tools:ignore="UnusedAttribute"/>
+
+                <LinearLayout
+                    android:id="@+id/user_profile_edit_region_linear"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/colorWhite"
+                    android:orientation="horizontal"
+                    android:padding="10sp"
+                    android:clickable="true"
+                    android:focusable="true">
+
+                    <TextView
+                        android:id="@+id/user_profile_edit_region_text"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:padding="8sp"
+                        android:text="@string/region"
+                        android:textColor="@color/colorLightBlack"
+                        android:textSize="16sp"/>
+
+                    <RelativeLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content">
+
+                        <TextView
+                            android:id="@+id/user_profile_edit_region"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentEnd="true"
+                            android:layout_alignParentRight="true"
+                            android:text="@string/regionValue"
+                            android:textColor="@color/gray"/>
+                    </RelativeLayout>
+                </LinearLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="0.2sp"
+                    android:background="@color/light_gray"
+                    android:layout_marginHorizontal="20sp"
+                    tools:ignore="UnusedAttribute"/>
+
+                <LinearLayout
+                    android:id="@+id/user_profile_edit_qrcode_linear"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/colorWhite"
+                    android:orientation="horizontal"
+                    android:padding="10sp"
+                    android:clickable="true"
+                    android:focusable="true">
+
+                    <TextView
+                        android:id="@+id/user_profile_edit_qrcode_text"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:padding="8sp"
+                        android:text="@string/qrCode"
+                        android:textColor="@color/colorLightBlack"
+                        android:textSize="16sp"/>
+
+                    <RelativeLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical">
+
+                        <ImageView
+                            android:id="@+id/user_profile_edit_qrcode_picture"
+                            android:layout_width="25sp"
+                            android:layout_height="25sp"
+                            android:src="@drawable/qrcode"
+                            android:layout_alignParentEnd="true"
+                            android:layout_alignParentRight="true"
+                            android:contentDescription="@string/backgroundPicture"/>
+                    </RelativeLayout>
+                </LinearLayout>
+            </LinearLayout>
+        </ScrollView>
+    </LinearLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="52sp"
+        android:layout_alignParentBottom="true">
+
+        <TextView
+            android:id="@+id/sign_out_button"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_alignParentBottom="true"
+            android:background="@drawable/shadow"
+            android:padding="16dp"/>
+
+        <TextView
+            android:id="@+id/user_profile_signout_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:text="@string/signOut"
+            android:textColor="@color/colorWhite"
+            android:textSize="16sp"/>
+
+        <!--<ProgressBar-->
+            <!--android:id="@+id/progress_bar"-->
+            <!--style="?android:attr/progressBarStyleHorizontal"-->
+            <!--android:layout_width="50sp"-->
+            <!--android:layout_height="50sp"-->
+            <!--android:layout_centerInParent="true"-->
+            <!--android:indeterminate="false"-->
+            <!--android:max="100"-->
+            <!--android:progress="0"-->
+            <!--android:progressDrawable="@drawable/progress_bar"-->
+            <!--android:secondaryProgress="0"-->
+            <!--android:visibility="gone"/>-->
+
+        <TextView
+            android:id="@+id/txtProgress"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:textAppearance="?android:attr/textAppearanceSmall" />
+    </RelativeLayout>
+</RelativeLayout>
