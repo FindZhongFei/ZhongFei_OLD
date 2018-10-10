@@ -129,9 +129,9 @@ public class RegisterActivity1 extends AppCompatActivity {
 //                    logoIsClicked = false;
                     RequestRuntimePermission();
                 } else {
-                    logoIsClicked = true;
+                    RegisterActivity1.this.logoIsClicked = true;
                     openGallery();
-                    Toast.makeText(mContext, "" + logoIsClicked, Toast.LENGTH_SHORT).show();
+                    Toast.makeText(mContext, "" + RegisterActivity1.this.logoIsClicked, Toast.LENGTH_SHORT).show();
                 }
             }
         });
@@ -144,9 +144,9 @@ public class RegisterActivity1 extends AppCompatActivity {
                     RequestRuntimePermission();
 //                    licenseIsClicked = false;
                 } else {
-                    licenseIsClicked = true;
+                    RegisterActivity1.this.licenseIsClicked = true;
                     openGallery();
-                    Toast.makeText(mContext, "" + licenseIsClicked, Toast.LENGTH_SHORT).show();
+                    Toast.makeText(mContext, "" + RegisterActivity1.this.licenseIsClicked, Toast.LENGTH_SHORT).show();
                 }
             }
         });
@@ -299,7 +299,7 @@ public class RegisterActivity1 extends AppCompatActivity {
     // FORM FILLED
     @TargetApi(Build.VERSION_CODES.O)
     private void processRegistration() {
-        final String comp_name, comp_Phone, comp_Email, comp_CEO, rep_Name, rep_Email;
+        final String comp_name, comp_phone, comp_email, comp_ceo, rep_name, rep_email, comp_password;
         customStringRequest registerRequest = new customStringRequest("register/index.php");
 
         dialog.show();
@@ -323,11 +323,12 @@ public class RegisterActivity1 extends AppCompatActivity {
         pdCanceller.postDelayed(progressRunnable, 100 * 300);
 
         comp_name = edtCompName.getText().toString();
-        comp_Phone = edtCompPhone.getText().toString();
-        comp_Email = edtCompEmail.getText().toString();
-        comp_CEO = edtCompCEO.getText().toString();
-        rep_Name = edtRepName.getText().toString();
-        rep_Email = edtRepEmail.getText().toString();
+        comp_phone = edtCompPhone.getText().toString();
+        comp_email = edtCompEmail.getText().toString();
+        comp_ceo = edtCompCEO.getText().toString();
+        rep_name = edtRepName.getText().toString();
+        rep_email = edtRepEmail.getText().toString();
+        comp_password = edtPassword.getText().toString();
 
         // VOLLEY STRING REQUEST TO SEND USER DATA TO SERVER
         byte[] logoBytes = imageToString(logoBitmap).getBytes();
@@ -354,11 +355,12 @@ public class RegisterActivity1 extends AppCompatActivity {
         HashMap<String, String> Params = new HashMap<String, String>();
 
         Params.put("comp_name", comp_name);
-        Params.put("comp_ceo", comp_CEO);
-        Params.put("comp_repName", rep_Name);
-        Params.put("comp_repEmail", rep_Email);
-        Params.put("comp_phone", comp_Phone);
-        Params.put("comp_email", comp_Email);
+        Params.put("comp_ceo", comp_ceo);
+        Params.put("comp_repName", rep_name);
+        Params.put("comp_repEmail", rep_email);
+        Params.put("comp_phone", comp_phone);
+        Params.put("comp_email", comp_email);
+        Params.put("comp_password", comp_password);
         Params.put("comp_logo", imageToString(logoBitmap));
         Params.put("comp_license", imageToString(licenseBitmap));
         Params.put("comp_logoSignature", logoSignature);
@@ -407,13 +409,13 @@ public class RegisterActivity1 extends AppCompatActivity {
                 if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
 //                    Toast.makeText(mContext, "Permission Granted", Toast.LENGTH_SHORT).show();
                     openGallery();
-                    Log.d(TAG, "onRequestPermissionsResult: LICENSE IS CLICKED____________________________" + licenseIsClicked);
-                    Log.d(TAG, "onRequestPermissionsResult: LOGO IS CLICKED____________________________" + logoIsClicked);
+                    Log.d(TAG, "onRequestPermissionsResult: LICENSE IS CLICKED____________________________" + RegisterActivity1.this.licenseIsClicked);
+                    Log.d(TAG, "onRequestPermissionsResult: LOGO IS CLICKED____________________________" + RegisterActivity1.this.logoIsClicked);
 //                    if(licenseIsClicked){
 //                        licenseIsClicked = false;
 //                    }
-//                    if(!logoIsClicked) {
-//                        logoIsClicked = true;
+//                    if(!RegisterActivity1.this.logoIsClicked) {
+//                        RegisterActivity1.this.logoIsClicked = true;
 //                    }
 //                } else {
 //                    Toast.makeText(mContext, "Permission Denied", Toast.LENGTH_SHORT).show();
@@ -449,7 +451,7 @@ public class RegisterActivity1 extends AppCompatActivity {
 //                Bitmap logoBitmap = ((BitmapDrawable) logo.getDrawable()).getBitmap();
 //                Bitmap licenseBitmap = ((BitmapDrawable) license.getDrawable()).getBitmap();
 
-                if(logoIsClicked) {
+                if(RegisterActivity1.this.logoIsClicked) {
                     String logoPath = Environment.getExternalStorageDirectory() + "/temporary_holder.jpg";
                     logoBitmap = BitmapFactory.decodeFile(logoPath);
 
@@ -463,9 +465,12 @@ public class RegisterActivity1 extends AppCompatActivity {
                     logo.setImageBitmap(logoBitmap);
                     profileTextVIew.setVisibility(View.GONE);
                     logoIsSet = true;
-                    logoIsClicked = false;
+                    RegisterActivity1.this.logoIsClicked = false;
 
-                } else if(licenseIsClicked) {
+                } else {
+                    Toast.makeText(mContext, String.valueOf(RegisterActivity1.this.logoIsClicked), Toast.LENGTH_SHORT).show();
+                }
+                if(RegisterActivity1.this.licenseIsClicked) {
                     String licensePath = Environment.getExternalStorageDirectory() + "/temporary_holder.jpg";
                     licenseBitmap = BitmapFactory.decodeFile(licensePath);
 
@@ -479,7 +484,7 @@ public class RegisterActivity1 extends AppCompatActivity {
                     license.setImageBitmap(licenseBitmap);
                     licenseTextView.setVisibility(View.GONE);
                     licenseIsSet = true;
-                    licenseIsClicked = false;
+                    RegisterActivity1.this.licenseIsClicked = false;
                 }
             }
         }
