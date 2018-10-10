@@ -21,8 +21,7 @@ import static com.fzhongfei.findzhongfei_final.activity.RegisterActivity2.stopCo
 import static com.fzhongfei.findzhongfei_final.activity.RegisterActivity3.stopConnection3;
 
 public class customStringRequest {
-        private String  register_domain = Constants.SERVER_URL + "register/index.php";
-        private String  login_domain = Constants.SERVER_URL + "login/index.php";
+        private String  urlPath = Constants.SERVER_URL;
         private HashMap params = new HashMap();
         private JSONObject reqResponse = new JSONObject();
         private String errorMessage = null;
@@ -32,23 +31,20 @@ public class customStringRequest {
         public customStringRequest(){}
 
         public customStringRequest(String domain) {
-            this.setRegisterDomainName(domain);
+            this.setUrlPath(domain);
         }
 
-        private void setRegisterDomainName(String domain) {
-            this.register_domain = domain;
+        private void setUrlPath(String domain) {
+            this.urlPath = this.urlPath+domain;
         }
 
-        private void setLoginDomainName(String domain) {
-            this.register_domain = domain;
-        }
 
         public void setParams(HashMap params) {
             this.params = params;
         }
 
-        public void startRegister(final Context context, final serverCallBack callBack, HashMap<String,String > params) {
-            StringRequest requestHandler = new StringRequest(Request.Method.POST, this.register_domain ,
+        public void startConnection(final Context context, final serverCallBack callBack, HashMap<String,String > params) {
+            StringRequest requestHandler = new StringRequest(Request.Method.POST, this.urlPath ,
                     new Response.Listener<String>() {
                         @Override
                         public void onResponse(String response) {

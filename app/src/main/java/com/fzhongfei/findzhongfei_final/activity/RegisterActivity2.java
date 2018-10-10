@@ -201,12 +201,12 @@ public class RegisterActivity2 extends AppCompatActivity {
         Params.put("comp_province", comp_province);
         Params.put("comp_token", comp_token);
 
-        customStringRequest registerRequest = new customStringRequest();
+        customStringRequest registerRequest = new customStringRequest("register/index.php");
         registerRequest.setParams(Params);
 
         callBackImplement callBack = new callBackImplement(mContext);
         callBack.setParams(Params);
-        registerRequest.startRegister(mContext, callBack, Params);
+        registerRequest.startConnection(mContext, callBack, Params);
 
         if (!callBack.isSuccess()) {
             String errorMessage = callBack.getErrorMessage();

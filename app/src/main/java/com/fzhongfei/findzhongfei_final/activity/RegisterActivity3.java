@@ -288,12 +288,12 @@ public class RegisterActivity3 extends AppCompatActivity {
         Params.put("comp_typeIsOther", custom_comp_type.toString());
         Params.put("comp_subTypeIsOther", custom_comp_sub_type.toString());
 
-        customStringRequest registerRequest = new customStringRequest();
+        customStringRequest registerRequest = new customStringRequest("register/index.php");
         registerRequest.setParams(Params);
 
         callBackImplement callBack = new callBackImplement(mContext);
         callBack.setParams(Params);
-        registerRequest.startRegister(mContext, callBack, Params);
+        registerRequest.startConnection(mContext, callBack, Params);
 
         if (!callBack.isSuccess()) {
             String errorMessage = callBack.getErrorMessage();

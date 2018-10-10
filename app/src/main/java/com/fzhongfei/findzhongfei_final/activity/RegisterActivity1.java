@@ -300,7 +300,7 @@ public class RegisterActivity1 extends AppCompatActivity {
     @TargetApi(Build.VERSION_CODES.O)
     private void processRegistration() {
         final String comp_name, comp_Phone, comp_Email, comp_CEO, rep_Name, rep_Email;
-        customStringRequest registerRequest = new customStringRequest();
+        customStringRequest registerRequest = new customStringRequest("register/index.php");
 
         dialog.show();
 
@@ -371,7 +371,7 @@ public class RegisterActivity1 extends AppCompatActivity {
 
         callBackImplement callBack = new callBackImplement(mContext);
         callBack.setParams(Params);
-        registerRequest.startRegister(mContext, callBack, Params);
+        registerRequest.startConnection(mContext, callBack, Params);
 
         if (!callBack.isSuccess()) {
             String errorMessage = callBack.getErrorMessage();
