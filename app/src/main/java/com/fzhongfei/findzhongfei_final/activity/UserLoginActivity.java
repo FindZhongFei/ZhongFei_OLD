@@ -5,19 +5,28 @@ import android.content.Intent;
 import android.graphics.drawable.GradientDrawable;
 import android.os.Build;
 import android.os.Bundle;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.fzhongfei.findzhongfei_final.R;
-import com.fzhongfei.findzhongfei_final.model.SharedPreferencesUser;
+import com.fzhongfei.findzhongfei_final.model.SaveSharedPreferences;
+import com.fzhongfei.findzhongfei_final.utils.InternetAvailability;
 
 public class UserLoginActivity extends AppCompatActivity {
 
@@ -32,7 +41,7 @@ public class UserLoginActivity extends AppCompatActivity {
     private ProgressBar loading;
 
     // Saving data locally
-    private SharedPreferencesUser mSaveSharedPreferenceUser = new SharedPreferencesUser();
+    private SaveSharedPreferences mSaveSharedPreferenceUser = new SaveSharedPreferences();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,25 +59,53 @@ public class UserLoginActivity extends AppCompatActivity {
         registerButton = findViewById(R.id.user_register_text_button);
         loginButton = findViewById(R.id.user_login_button);
         loading = findViewById(R.id.loading_to_login_user);
+        ImageView imageView = findViewById(R.id.login_logo);
+        LinearLayout linearLayout = findViewById(R.id.login_linear_layout);
 
+        // VALIDATE EDIT TEXTS
+        username.addTextChangedListener(editTextTextWatcher);
+        password.addTextChangedListener(editTextTextWatcher);
+
+        password.setOnKeyListener(new View.OnKeyListener() {
+            @Override
+            public boolean onKey(View view, int i, KeyEvent keyEvent) {
+                if(i == KeyEvent.KEYCODE_ENTER && keyEvent.getAction() == KeyEvent.ACTION_DOWN && InternetAvailability.internetIsAvailable(mContext)) {
+                    if(loginButton.isEnabled()) {
+                        attemptLogin();
+                    } else {
+                        Toast.makeText(mContext, getResources().getString(R.string.error_comp_fill_in_all_fields), Toast.LENGTH_SHORT).show();
+                    }
+                }
+
+                return false;
+            }
+        });
 
         loginButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String mUsername = username.getText().toString().trim();
-                String mPassword = password.getText().toString().trim();
-
-                if(!mUsername.isEmpty() && !mPassword.isEmpty()) {
-                    attemptLogin(mUsername, mPassword);
-                } else {
-                    username.setError(getResources().getString(R.string.username_empty_error));
-                    password.setError(getResources().getString(R.string.password_empty_error));
+                if(InternetAvailability.internetIsAvailable(mContext)) {
+                    attemptLogin();
                 }
+            }
+        });
+
+        imageView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                hideKeyboard();
+            }
+        });
+
+        linearLayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                hideKeyboard();
             }
         });
     }
 
-    // SETTING UP THE TOOLBAR
+    // UI - SETTING UP THE TOOLBAR
     private void setUpActivityToolbar() {
         Toolbar mToolbar;
         Window window;
@@ -76,7 +113,7 @@ public class UserLoginActivity extends AppCompatActivity {
 
         mGradientDrawable = new GradientDrawable(
                 GradientDrawable.Orientation.RIGHT_LEFT,
-                new int[] {0xFF5258A6,0xFF7375B7});
+                new int[]{0xFF5258A6, 0xFF7375B7});
 
         // CHANGE THE STATUS BAR COLOR TO TRANSPARENT
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
@@ -107,17 +144,51 @@ public class UserLoginActivity extends AppCompatActivity {
         return true;
     }
 
+    // UI - HIDE KEYBOARD
+    private void hideKeyboard() {
+        InputMethodManager inputMethodManager = (InputMethodManager) getSystemService(INPUT_METHOD_SERVICE);
+        if(inputMethodManager != null && getCurrentFocus() != null) {
+            inputMethodManager.hideSoftInputFromWindow((getCurrentFocus()).getWindowToken(), 0);
+        }
+    }
+
+    // UI - VALIDATION
+    private TextWatcher editTextTextWatcher = new TextWatcher() {
+        @Override
+        public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+        }
+
+        @Override
+        public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+            String mUsername = username.getText().toString().trim();
+            String mPassword = password.getText().toString().trim();
+
+            loginButton.setEnabled(!mUsername.isEmpty() && !mPassword.isEmpty());
+
+            if(loginButton.isEnabled())
+                loginButton.setBackground(ContextCompat.getDrawable(mContext, R.drawable.background_login_button));
+            else
+                loginButton.setBackground(ContextCompat.getDrawable(mContext, R.drawable.btn_login_background_disabled));
+        }
+
+        @Override
+        public void afterTextChanged(Editable editable) {
+
+        }
+    };
+
     // UI - LOGIN USER
-    private void attemptLogin(String username, String password) {
+    private void attemptLogin() {
         loading.setVisibility(View.VISIBLE);
         loginButton.setVisibility(View.GONE);
 
         UserSignedInActivity.userSignedIn = true;
 
-        SharedPreferencesUser.setUserEmail(mContext, "kingneud55@gmail.com");
-        SharedPreferencesUser.setPhoneNumber(mContext, "+86 132 3657 6511");
-        SharedPreferencesUser.setUsername(mContext, username.toString());
-//        SharedPreferencesUser.setSharedPreferenceValue(mContext, SharedPreferencesUser.PREF_USER_USERNAME, username.toString());
+        SaveSharedPreferences.setUserEmail(mContext, "kingneud55@gmail.com");
+        SaveSharedPreferences.setPhoneNumber(mContext, "+86 132 3657 6511");
+        SaveSharedPreferences.setUsername(mContext, username.getText().toString().trim());
+//        SaveSharedPreferences.setSharedPreferenceValue(mContext, SaveSharedPreferences.PREF_USER_USERNAME, username.toString());
 
         Intent i = new Intent(mContext, UserSignedInActivity.class);
         i.putExtra("isSignedIn", true);

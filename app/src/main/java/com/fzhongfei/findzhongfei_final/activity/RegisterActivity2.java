@@ -3,7 +3,6 @@ package com.fzhongfei.findzhongfei_final.activity;
 import android.annotation.TargetApi;
 import android.app.ProgressDialog;
 import android.content.Context;
-import android.content.Intent;
 import android.graphics.drawable.GradientDrawable;
 import android.os.Build;
 import android.os.Bundle;
@@ -14,15 +13,19 @@ import android.support.v7.widget.Toolbar;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import com.android.volley.error.VolleyError;
 import com.fzhongfei.findzhongfei_final.R;
+import com.fzhongfei.findzhongfei_final.model.SaveSharedPreferences;
 import com.fzhongfei.findzhongfei_final.server.callBackImplement;
 import com.fzhongfei.findzhongfei_final.server.customStringRequest;
 import com.fzhongfei.findzhongfei_final.utils.InternetAvailability;
@@ -38,7 +41,7 @@ public class RegisterActivity2 extends AppCompatActivity {
     // VIEWS
     public static ProgressDialog dialog;
     private Button nextRegistrationButton;
-    private static EditText edtAddress1, edtAddress2, edtCity, edtProvince;
+    private EditText edtAddress1, edtAddress2, edtCity, edtProvince;
 
     final VolleyError volleyError = new VolleyError();
 
@@ -61,6 +64,7 @@ public class RegisterActivity2 extends AppCompatActivity {
         edtCity = findViewById(R.id.in_city);
         edtProvince = findViewById(R.id.in_province);
         nextRegistrationButton = findViewById(R.id.btnNextRegister2);
+        LinearLayout mLinearLayout = findViewById(R.id.register2_linear_layout);
 
         // VALIDATE EDIT TEXTS
         edtAddress1.addTextChangedListener(editTextTextWatcher);
@@ -75,11 +79,39 @@ public class RegisterActivity2 extends AppCompatActivity {
         dialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
         dialog.setProgress(0);
 
+        edtProvince.setOnKeyListener(new View.OnKeyListener() {
+            @Override
+            public boolean onKey(View view, int i, KeyEvent keyEvent) {
+                if(i == KeyEvent.KEYCODE_ENTER && keyEvent.getAction() == KeyEvent.ACTION_DOWN && InternetAvailability.internetIsAvailable(mContext)) {
+                    if(nextRegistrationButton.isEnabled()) {
+                        setCompanyFields();
+                        processRegistration();
+                    } else {
+                        Toast.makeText(mContext, getResources().getString(R.string.error_comp_fill_in_all_fields), Toast.LENGTH_SHORT).show();
+                    }
+                }
+
+                return false;
+            }
+        });
+
         nextRegistrationButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 if (InternetAvailability.internetIsAvailable(mContext)) {
+                    setCompanyFields();
                     processRegistration();
+                }
+            }
+        });
+
+        // HIDE KEYBOARD WHEN CLICKED OUTSIDE EDIT TEXT
+        mLinearLayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                InputMethodManager inputMethodManager = (InputMethodManager) getSystemService(INPUT_METHOD_SERVICE);
+                if(inputMethodManager != null && getCurrentFocus() != null) {
+                    inputMethodManager.hideSoftInputFromWindow((getCurrentFocus()).getWindowToken(), 0);
                 }
             }
         });
@@ -122,11 +154,6 @@ public class RegisterActivity2 extends AppCompatActivity {
     public boolean onSupportNavigateUp() {
         onBackPressed();
         return true;
-    }
-
-    // UI - NEXT REGISTRATION PAGE
-    private void nextRegsiterPage() {
-        startActivity(new Intent(mContext, RegisterActivity3.class));
     }
 
     // UI - VALIDATION
@@ -194,7 +221,7 @@ public class RegisterActivity2 extends AppCompatActivity {
         comp_province = edtProvince.getText().toString();
         comp_token = getIntent().getStringExtra("comp_token");
 
-        HashMap<String, String> Params = new HashMap<String, String>();
+        HashMap<String, String> Params = new HashMap<>();
         Params.put("comp_add1", comp_add1);
         Params.put("comp_add2", comp_add2);
         Params.put("comp_city", comp_city);
@@ -212,18 +239,17 @@ public class RegisterActivity2 extends AppCompatActivity {
             String errorMessage = callBack.getErrorMessage();
             if(errorMessage != null) {
                 Toast.makeText(mContext, errorMessage, Toast.LENGTH_SHORT).show();
-                Log.d(TAG, "NEUD===========================processRegistration: is success is: " + errorMessage);
-                Log.d(TAG, "NEUD===========================processRegistration: success message after failure: " + callBack.getSuccessMessage());
             }
         } else {
             Toast.makeText(mContext, (callBack.getSuccessMessage()), Toast.LENGTH_SHORT).show();
-            Log.d(TAG, "NEUD===========================processRegistration: success message " + callBack.getSuccessMessage());
         }
     }
 
-    // GETTER FOR COMPANY PROFILE
-    public static String[] getCompanyFields() {
-        return new String[]{edtAddress1.getText().toString(), edtAddress2.getText().toString(), edtCity.getText().toString(),
-                edtProvince.getText().toString()};
+    // SETTER FOR COMPANY PROFILE
+    private void setCompanyFields() {
+        SaveSharedPreferences.setCompanyAddress1(mContext, edtAddress1.getText().toString());
+        SaveSharedPreferences.setCompanyAddress2(mContext, edtAddress2.getText().toString());
+        SaveSharedPreferences.setCompanyCity(mContext, edtCity.getText().toString());
+        SaveSharedPreferences.setCompanyProvince(mContext, edtProvince.getText().toString());
     }
 }

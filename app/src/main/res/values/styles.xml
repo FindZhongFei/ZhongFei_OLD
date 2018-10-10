@@ -15,9 +15,9 @@
         <item name="android:windowContentTransitions" tools:targetApi="lollipop">true</item>
 
         <!-- EDIT TEXTS -->
-        <item name="colorControlNormal">@color/transparent</item>
+        <item name="colorControlNormal">@color/transparent</item>           <!-- NORMAL BUTTON COLOR -->
         <item name="colorControlActivated">@color/toolbarColorRight</item>  <!-- BLINKING CURSOR COLOR -->
-        <item name="colorControlHighlight">@color/transparent</item>
+        <item name="colorControlHighlight">@color/transparent</item>        <!-- RIPPLE EFFECT COLOR -->
 
         <!--<item name="android:windowTranslucentStatus" tools:targetApi="lollipop">true</item>-->
         <!--<item name="android:windowTranslucentNavigation" tools:targetApi="lollipop">true</item>-->

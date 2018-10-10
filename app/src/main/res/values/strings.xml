@@ -110,6 +110,7 @@
     <string name="nine">9</string>
 
     <!-- ERRORS -->
+    <string name="error_comp_fill_in_all_fields">Please fill in all the fields first</string>
     <string name="email_error">Please enter valid email address</string>
     <string name="email_empty_error">Email address can not be empty</string>
     <string name="phone_error">Please enter valid phone number</string>

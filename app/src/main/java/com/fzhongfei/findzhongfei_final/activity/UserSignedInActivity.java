@@ -20,7 +20,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.fzhongfei.findzhongfei_final.R;
-import com.fzhongfei.findzhongfei_final.model.SharedPreferencesUser;
+import com.fzhongfei.findzhongfei_final.model.SaveSharedPreferences;
 import com.fzhongfei.findzhongfei_final.utils.DisplayAds;
 import com.google.android.gms.ads.AdView;
 
@@ -49,7 +49,7 @@ public class UserSignedInActivity extends AppCompatActivity {
     public static boolean userSignedIn;
 
     // Saving data locally
-//    private SharedPreferencesUser mSaveSharedPreferenceUser = new SharedPreferencesUser();
+//    private SaveSharedPreferences mSaveSharedPreferenceUser = new SaveSharedPreferences();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -158,9 +158,9 @@ public class UserSignedInActivity extends AppCompatActivity {
 
     // UI - Displaying email and user name
     private void displayUsernameAndEmail() {
-        String userEmail = SharedPreferencesUser.getSharedPreferenceValue(mContext, SharedPreferencesUser.PREF_USER_EMAIL);
-        String userName = SharedPreferencesUser.getSharedPreferenceValue(mContext, SharedPreferencesUser.PREF_USER_USERNAME);
-        String userPhone = SharedPreferencesUser.getSharedPreferenceValue(mContext, SharedPreferencesUser.PREF_USER_PHONE);
+        String userEmail = SaveSharedPreferences.getSharedPreferenceValue(mContext, SaveSharedPreferences.PREF_USER_EMAIL);
+        String userName = SaveSharedPreferences.getSharedPreferenceValue(mContext, SaveSharedPreferences.PREF_USER_USERNAME);
+        String userPhone = SaveSharedPreferences.getSharedPreferenceValue(mContext, SaveSharedPreferences.PREF_USER_PHONE);
 
         hideIfNotLoggedIn.setVisibility(View.VISIBLE);
 
