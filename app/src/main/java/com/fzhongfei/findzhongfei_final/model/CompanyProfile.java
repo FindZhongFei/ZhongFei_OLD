@@ -1,13 +1,22 @@
 package com.fzhongfei.findzhongfei_final.model;
 
+import java.util.HashMap;
+
 public class CompanyProfile {
-    private String  companyName, companyType, companySubType, companyProvince, companyCity, companyPhone, companyEmail,
-                    companyCeo, companyRepresentative, companyRepresentativeEmail, companyAddress1, companyAddress2;
+    private String companyId, companyToken, companyName, companyType, companySubType, companyProvince,
+            companyCity, companyPhone, companyEmail,
+            companyCeo, companyRepresentative, companyLogo, companyLicense,
+            companyRepresentativeEmail, companyAddress1, companyAddress2;
 
-    public CompanyProfile(String companyName, String companyType, String companySubType, String companyProvince, String companyCity,
-                          String companyPhone, String companyEmail, String companyCeo, String companyRepresentative,
-                          String companyRepresentativeEmail, String companyAddress1, String companyAddress2) {
-
+    public CompanyProfile(String companyName, String companyType, String companySubType, String companyProvince,
+                          String companyCity, String companyPhone, String companyEmail, String companyCeo,
+                          String companyRepresentative, String companyRepresentativeEmail, String companyAddress1,
+                          String companyAddress2, String companyId, String companyToken,
+                          String companyLicense, String companyLogo) {
+        this.companyId = companyId;
+        this.companyToken = companyToken;
+        this.companyLicense = companyLicense;
+        this.companyLogo = companyLogo;
         this.companyName = companyName;
         this.companyType = companyType;
         this.companySubType = companySubType;
@@ -22,6 +31,24 @@ public class CompanyProfile {
         this.companyAddress2 = companyAddress2;
     }
 
+    public void SetCompData(HashMap<String, String> compData)
+    {
+        this.companyId = compData.get("compId");
+        this.companyToken = compData.get("compToken");
+        this.companyLogo = compData.get("compLogo");
+        this.companyLicense = compData.get("compLicense");
+        this.companyName = compData.get("compName");
+        this.companyType = compData.get("compType");
+        this.companySubType = compData.get("compSubType");
+        this.companyProvince = compData.get("compProvince");
+        this.companyPhone = compData.get("compPhone");
+        this.companyCeo = compData.get("compCeo");
+        this.companyEmail = compData.get("compEmail");
+        this.companyRepresentative = compData.get("compRepName");
+        this.companyRepresentativeEmail = compData.get("compRepEmail");
+        this.companyAddress1 = compData.get("compAddress1");
+        this.companyAddress2 = compData.get("compAddress2");
+    }
     public void setCompanyName(String companyName) {
         this.companyName = companyName;
     }
