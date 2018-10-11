@@ -20,6 +20,7 @@ import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.view.inputmethod.EditorInfo;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.ArrayAdapter;
@@ -32,6 +33,7 @@ import android.widget.Toast;
 
 import com.android.volley.error.VolleyError;
 import com.fzhongfei.findzhongfei_final.R;
+import com.fzhongfei.findzhongfei_final.model.SaveSharedPreferences;
 import com.fzhongfei.findzhongfei_final.server.callBackImplement;
 import com.fzhongfei.findzhongfei_final.server.customStringRequest;
 import com.fzhongfei.findzhongfei_final.utils.InternetAvailability;
@@ -51,10 +53,10 @@ public class RegisterActivity3 extends AppCompatActivity {
     private EditText textScroll;
     private Spinner compTypeSpinner;
     private Spinner compSubTypeSpinner;
-    private static EditText edtCompType, edtCompSubType, edtWechatId;
+    private EditText edtCompType, edtCompSubType, edtWechatId;
     private LinearLayout hiddenCompTypeLayout, hiddenCompSubTypeLayout;
-    private static Boolean custom_comp_type = false;
-    private static Boolean custom_comp_sub_type = false;
+    private Boolean custom_comp_type = false;
+    private Boolean custom_comp_sub_type = false;
 
     final VolleyError volleyError = new VolleyError();
 
@@ -83,6 +85,7 @@ public class RegisterActivity3 extends AppCompatActivity {
         compSubTypeSpinner = findViewById(R.id.spinner_company_sub_type);
         hiddenCompTypeLayout = findViewById(R.id.hiddenCompanyType);
         hiddenCompSubTypeLayout = findViewById(R.id.hiddenCompanySubType);
+        LinearLayout mLinearLayout = findViewById(R.id.register3_linear_layout);
 
         // VALIDATE EDIT TEXTS
         edtCompType.addTextChangedListener(editTextTextWatcher);
@@ -120,6 +123,7 @@ public class RegisterActivity3 extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 if (InternetAvailability.internetIsAvailable(mContext)) {
+                    setCompanyFields();
                     processRegistration();
                 }
             }
@@ -144,6 +148,17 @@ public class RegisterActivity3 extends AppCompatActivity {
                 }
 
                 return false;
+            }
+        });
+
+        // HIDE KEYBOARD WHEN CLICKED OUTSIDE EDIT TEXT
+        mLinearLayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                InputMethodManager inputMethodManager = (InputMethodManager) getSystemService(INPUT_METHOD_SERVICE);
+                if(inputMethodManager != null && getCurrentFocus() != null) {
+                    inputMethodManager.hideSoftInputFromWindow((getCurrentFocus()).getWindowToken(), 0);
+                }
             }
         });
     }
@@ -308,14 +323,19 @@ public class RegisterActivity3 extends AppCompatActivity {
         }
     }
 
-    // GETTER FOR COMPANY PROFILE
-    public static String[] getCompanyFields() {
-        if(custom_comp_type && custom_comp_sub_type){
-            return new String[]{edtCompType.getText().toString(), edtCompSubType.getText().toString(), edtWechatId.getText().toString()};
-        } else if(custom_comp_type) {
-            return new String[]{edtCompType.getText().toString(), edtWechatId.getText().toString()};
+    // SETTER FOR COMPANY PROFILE
+    private void setCompanyFields() {
+        if(custom_comp_type && custom_comp_sub_type) {
+            SaveSharedPreferences.setCompanyType(mContext, edtCompType.getText().toString());
+            SaveSharedPreferences.setCompanySubType(mContext, edtCompSubType.getText().toString());
+//        SaveSharedPreferences.setCompanyWechatId(mContext, edtWechatId.getText().toString());
+//        SaveSharedPreferences.setCompanyDescription(mContext, textScroll.getText().toString());
+        } else if(custom_comp_sub_type) {
+            SaveSharedPreferences.setCompanyType(mContext, compTypeSpinner.getSelectedItem().toString());
+            SaveSharedPreferences.setCompanySubType(mContext, edtCompSubType.getText().toString());
         } else {
-            return new String[]{edtCompType.getText().toString(), edtWechatId.getText().toString()};
+            SaveSharedPreferences.setCompanyType(mContext, compTypeSpinner.getSelectedItem().toString());
+            SaveSharedPreferences.setCompanySubType(mContext, compSubTypeSpinner.getSelectedItem().toString());
         }
     }
 
@@ -326,7 +346,6 @@ public class RegisterActivity3 extends AppCompatActivity {
         public void onItemSelected(AdapterView<?> parent, View view, int pos, long id) {
             // An item was selected. You can retrieve the selected item using
             // parent.getItemAtPosition(pos)
-
             switch(pos) {
                 case 1:             // AGRICULTURE
                     subTypeList = new String[]{ getResources().getStringArray(R.array.subTypesAgriculture)[0],

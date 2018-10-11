@@ -13,6 +13,7 @@ import android.view.WindowManager;
 import android.widget.TextView;
 
 import com.fzhongfei.findzhongfei_final.R;
+import com.fzhongfei.findzhongfei_final.model.SaveSharedPreferences;
 
 public class CompanyProfileActivity extends AppCompatActivity {
 
@@ -61,9 +62,11 @@ public class CompanyProfileActivity extends AppCompatActivity {
 
         mToolbar = findViewById(R.id.profile_toolbar);
         setSupportActionBar(mToolbar);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setDisplayShowHomeEnabled(true);
-        getSupportActionBar().setDisplayShowTitleEnabled(false);
+        if(getSupportActionBar() != null) {
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+            getSupportActionBar().setDisplayShowHomeEnabled(true);
+            getSupportActionBar().setDisplayShowTitleEnabled(false);
+        }
     }
 
     // BACK BUTTON PRESSED
@@ -95,18 +98,32 @@ public class CompanyProfileActivity extends AppCompatActivity {
 
     // ALL COMPANY PROFILE FIELDS
     private void showCompanyProfile() {
-        companyName.setText(RegisterActivity1.getCompanyFields()[0]);
-        companyPhone.setText(RegisterActivity1.getCompanyFields()[1]);
-        companyEmail.setText(RegisterActivity1.getCompanyFields()[2]);
-        companyCeo.setText(RegisterActivity1.getCompanyFields()[3]);
-        companyRepresentative.setText(RegisterActivity1.getCompanyFields()[4]);
-        companyRepresentativeEmail.setText(RegisterActivity1.getCompanyFields()[5]);
-        companyAddress1.setText(RegisterActivity2.getCompanyFields()[0]);
-        companyAddress2.setText(RegisterActivity2.getCompanyFields()[1]);
-        companyCity.setText(RegisterActivity2.getCompanyFields()[2]);
-        companyProvince.setText(RegisterActivity2.getCompanyFields()[3]);
-        companyType.setText(RegisterActivity3.getCompanyFields()[0]);
-        companySubType.setText(RegisterActivity3.getCompanyFields()[1]);
+        String companyNameValue = SaveSharedPreferences.getSharedPreferenceValue(mContext, SaveSharedPreferences.PREF_COMPANY_NAME);
+        String companyPhoneValue = SaveSharedPreferences.getSharedPreferenceValue(mContext, SaveSharedPreferences.PREF_COMPANY_PHONE);
+        String companyEmailValue = SaveSharedPreferences.getSharedPreferenceValue(mContext, SaveSharedPreferences.PREF_COMPANY_EMAIL);
+        String companyCeoValue = SaveSharedPreferences.getSharedPreferenceValue(mContext, SaveSharedPreferences.PREF_COMPANY_CEO);
+        String companyRepresentativeValue = SaveSharedPreferences.getSharedPreferenceValue(mContext, SaveSharedPreferences.PREF_COMPANY_REPRESENTATIVE);
+        String companyRepresentativeEmailValue = SaveSharedPreferences.getSharedPreferenceValue(mContext,
+                SaveSharedPreferences.PREF_COMPANY_REPRESENTATIVE_EMAIL);
+        String companyAddress1Value = SaveSharedPreferences.getSharedPreferenceValue(mContext, SaveSharedPreferences.PREF_COMPANY_ADDRESS_1);
+        String companyAddress2Value = SaveSharedPreferences.getSharedPreferenceValue(mContext, SaveSharedPreferences.PREF_COMPANY_ADDRESS_2);
+        String companyCityValue = SaveSharedPreferences.getSharedPreferenceValue(mContext, SaveSharedPreferences.PREF_COMPANY_CITY);
+        String companyProvinceValue = SaveSharedPreferences.getSharedPreferenceValue(mContext, SaveSharedPreferences.PREF_COMPANY_PROVINCE);
+        String companyTypeValue = SaveSharedPreferences.getSharedPreferenceValue(mContext, SaveSharedPreferences.PREF_COMPANY_TYPE);
+        String companySubTypeValue = SaveSharedPreferences.getSharedPreferenceValue(mContext, SaveSharedPreferences.PREF_COMPANY_SUB_TYPE);
+
+        companyName.setText(companyNameValue);
+        companyPhone.setText(companyPhoneValue);
+        companyEmail.setText(companyEmailValue);
+        companyCeo.setText(companyCeoValue);
+        companyRepresentative.setText(companyRepresentativeValue);
+        companyRepresentativeEmail.setText(companyRepresentativeEmailValue);
+        companyAddress1.setText(companyAddress1Value);
+        companyAddress2.setText(companyAddress2Value);
+        companyCity.setText(companyCityValue);
+        companyProvince.setText(companyProvinceValue);
+        companyType.setText(companyTypeValue);
+        companySubType.setText(companySubTypeValue);
 //        compWechatId.setText(RegisterActivity3.getCompanyFields()[2]);
     }
 }

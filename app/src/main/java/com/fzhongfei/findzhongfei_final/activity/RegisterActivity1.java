@@ -31,14 +31,17 @@ import android.util.Patterns;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.volley.error.VolleyError;
 import com.fzhongfei.findzhongfei_final.R;
+import com.fzhongfei.findzhongfei_final.model.SaveSharedPreferences;
 import com.fzhongfei.findzhongfei_final.server.callBackImplement;
 import com.fzhongfei.findzhongfei_final.server.customStringRequest;
 import com.fzhongfei.findzhongfei_final.utils.InternetAvailability;
@@ -61,7 +64,7 @@ public class RegisterActivity1 extends AppCompatActivity {
     // VIEWS
     public static ProgressDialog dialog;
     private ImageButton logo, license;
-    private static EditText edtCompName, edtCompCEO, edtCompPhone, edtCompEmail, edtRepName, edtRepEmail, edtPassword;
+    private EditText edtCompName, edtCompCEO, edtCompPhone, edtCompEmail, edtRepName, edtRepEmail, edtPassword;
     private TextView profileTextVIew, licenseTextView;
     private Button nextRegistrationButton;
 
@@ -101,6 +104,7 @@ public class RegisterActivity1 extends AppCompatActivity {
         profileTextVIew = findViewById(R.id.tv_Logo);
         licenseTextView = findViewById(R.id.tv_License);
         nextRegistrationButton = findViewById(R.id.btnNextRegister1);
+        LinearLayout mLinearLayout = findViewById(R.id.register1_linear_layout);
 
         // VALIDATE EDIT TEXTS
         edtCompName.addTextChangedListener(editTextTextWatcher);
@@ -169,7 +173,19 @@ public class RegisterActivity1 extends AppCompatActivity {
                 } else if(!licenseIsSet) {
                     Toast.makeText(mContext, getResources().getString(R.string.license_image_error), Toast.LENGTH_SHORT).show();
                 } else if(InternetAvailability.internetIsAvailable(mContext)) {
+                    setCompanyFields();
                     processRegistration();
+                }
+            }
+        });
+
+        // HIDE KEYBOARD WHEN CLICKED OUTSIDE EDIT TEXT
+        mLinearLayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                InputMethodManager inputMethodManager = (InputMethodManager) getSystemService(INPUT_METHOD_SERVICE);
+                if(inputMethodManager != null && getCurrentFocus() != null) {
+                    inputMethodManager.hideSoftInputFromWindow((getCurrentFocus()).getWindowToken(), 0);
                 }
             }
         });
@@ -211,7 +227,6 @@ public class RegisterActivity1 extends AppCompatActivity {
     @Override
     public boolean onSupportNavigateUp() {
         onBackPressed();
-        finish();
         return true;
     }
 
@@ -547,10 +562,14 @@ public class RegisterActivity1 extends AppCompatActivity {
         return Base64.encodeToString(imgBytes, Base64.DEFAULT);
     }
 
-    // GETTER FOR COMPANY PROFILE
-    public static String[] getCompanyFields() {
-        return new String[]{edtCompName.getText().toString(), edtCompPhone.getText().toString(), edtCompEmail.getText().toString(),
-                edtCompCEO.getText().toString(), edtRepName.getText().toString(), edtRepEmail.getText().toString()};
+    // SETTER FOR COMPANY PROFILE
+    private void setCompanyFields() {
+        SaveSharedPreferences.setCompanyName(mContext, edtCompName.getText().toString());
+        SaveSharedPreferences.setCompanyPhone(mContext, edtCompPhone.getText().toString());
+        SaveSharedPreferences.setCompanyEmail(mContext, edtCompEmail.getText().toString());
+        SaveSharedPreferences.setCompanyCeo(mContext, edtCompCEO.getText().toString());
+        SaveSharedPreferences.setCompanyRepresentative(mContext, edtRepName.getText().toString());
+        SaveSharedPreferences.setCompanyRepresentativeEmail(mContext, edtRepEmail.getText().toString());
     }
 }
 
