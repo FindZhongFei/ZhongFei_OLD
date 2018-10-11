@@ -37,7 +37,6 @@
         <activity
             android:name="com.google.android.gms.ads.AdActivity"
             android:configChanges="keyboard|keyboardHidden|orientation|screenLayout|uiMode|screenSize|smallestScreenSize"/>
-
         <activity android:name=".activity.RegisterOrLoginPopupActivity">
         </activity>
         <activity android:name=".activity.FavoritesActivity">
@@ -54,8 +53,11 @@
         </activity>
         <activity android:name=".activity.UserLoginActivity">
         </activity>
-        <activity android:name=".activity.SplashScreenActivity"
-                  android:theme="@style/SplashScreen">
+        <activity
+            android:name=".activity.SplashScreenActivity"
+            android:theme="@style/SplashScreen">
+        </activity>
+        <activity android:name=".activity.UserRegisterActivity">
         </activity>
     </application>
 

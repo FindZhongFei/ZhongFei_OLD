@@ -149,6 +149,7 @@
             android:orientation="vertical">
 
             <LinearLayout
+                android:baselineAligned="false"
                 android:layout_width="match_parent"
                 android:layout_height="110sp"
                 android:background="@color/colorWhite"
@@ -414,16 +415,6 @@
                             android:src="@drawable/ic_arrow_right"/>
                     </RelativeLayout>
                 </LinearLayout>
-
-
-                <ListView
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent">
-
-
-
-                </ListView>
-
             </LinearLayout>
         </LinearLayout>
     </android.support.v4.widget.NestedScrollView>

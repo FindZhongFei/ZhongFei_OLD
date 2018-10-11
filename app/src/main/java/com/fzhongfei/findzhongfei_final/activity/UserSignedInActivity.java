@@ -87,7 +87,7 @@ public class UserSignedInActivity extends AppCompatActivity {
         Toast.makeText(mContext, String.valueOf(userSignedIn), Toast.LENGTH_SHORT).show();
 
         if(userSignedIn) {
-            displayUsernameAndEmail();
+            displayUserDetails();
             profileLayout.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
@@ -165,7 +165,7 @@ public class UserSignedInActivity extends AppCompatActivity {
     }
 
     // UI - Displaying email and user name
-    private void displayUsernameAndEmail() {
+    private void displayUserDetails() {
         String userEmail = SaveSharedPreferences.getSharedPreferenceValue(mContext, SaveSharedPreferences.PREF_USER_EMAIL);
         String userName = SaveSharedPreferences.getSharedPreferenceValue(mContext, SaveSharedPreferences.PREF_USER_USERNAME);
         String userPhone = SaveSharedPreferences.getSharedPreferenceValue(mContext, SaveSharedPreferences.PREF_USER_PHONE);

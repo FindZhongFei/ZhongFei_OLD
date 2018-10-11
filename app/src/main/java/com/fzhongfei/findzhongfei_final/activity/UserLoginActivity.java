@@ -36,12 +36,8 @@ public class UserLoginActivity extends AppCompatActivity {
 
     // VIEWS
     private EditText username, password;
-    private TextView registerButton;
     private Button loginButton;
     private ProgressBar loading;
-
-    // Saving data locally
-    private SaveSharedPreferences mSaveSharedPreferenceUser = new SaveSharedPreferences();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,9 +50,9 @@ public class UserLoginActivity extends AppCompatActivity {
         setUpActivityToolbar();
 
         // INITIALIZING VIEWS
+        TextView registerButton = findViewById(R.id.user_register_text_button);
         username = findViewById(R.id.user_login_edit_username);
         password = findViewById(R.id.user_login_edit_password);
-        registerButton = findViewById(R.id.user_register_text_button);
         loginButton = findViewById(R.id.user_login_button);
         loading = findViewById(R.id.loading_to_login_user);
         ImageView imageView = findViewById(R.id.login_logo);
@@ -90,13 +86,22 @@ public class UserLoginActivity extends AppCompatActivity {
             }
         });
 
+        registerButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(InternetAvailability.internetIsAvailable(mContext)) {
+                    startActivity(new Intent(mContext, UserRegisterActivity.class));
+                    finish();
+                }
+            }
+        });
+
         imageView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 hideKeyboard();
             }
         });
-
         linearLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

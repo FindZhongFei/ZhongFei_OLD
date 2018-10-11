@@ -142,6 +142,7 @@
     <string name="search_hint">Search by company name</string>
     <string name="username_hint">Username</string>
     <string name="password_hint">Password</string>
+    <string name="confirm_password_hint">Confirm password</string>
 
     <string name="contacts">Contacts</string>
     <string name="favorites">Favorites</string>
@@ -225,7 +226,12 @@
     <string name="addCompanyPhoto">&#x2b; Add company photo</string>
     <string name="addLicensePhoto">&#x2b; Add license photo</string>
 
+    <string name="userEmail">Email Address</string>
+    <string name="firstName">First Name</string>
+    <string name="lastName">Last Name</string>
+
     <string name="regLongTxt">You have successfully registered your company form. Please wait 3 &#8211; 6 days until we check and validate your form.</string>
     <string name="notAUserRegisterTxt">Don\&apos;t have an account yet? REGISTER HERE</string>
+    <string name="userLoginTxt">Already have an account? LOG IN HERE</string>
 
 </resources>
