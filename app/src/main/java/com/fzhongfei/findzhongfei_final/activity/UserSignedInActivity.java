@@ -7,7 +7,9 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.ActivityOptionsCompat;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
@@ -32,8 +34,6 @@ public class UserSignedInActivity extends AppCompatActivity {
     public static Activity finisher;
 
     // VIEWS
-    private ImageView backButton;
-    private ImageView settingsButton;
     private LinearLayout profileLayout;
     private ImageView profileButton;
     private AdView mAdView;
@@ -61,8 +61,6 @@ public class UserSignedInActivity extends AppCompatActivity {
         finisher = this;
 
         // INITIALIZING VIEWS
-        backButton = findViewById(R.id.user_signed_in_back_button);
-        settingsButton = findViewById(R.id.user_signed_in_settings_button);
         profileLayout = findViewById(R.id.view_profile_layout);
         profileButton = findViewById(R.id.view_profile_button);
         mAdView = findViewById(R.id.user_signed_in_ad);
@@ -80,20 +78,8 @@ public class UserSignedInActivity extends AppCompatActivity {
 //        loginText.setTypeface(myFont);
 
         makeFullScreen();
+        setUpActivityToolbar();
         new DisplayAds(mAdView, adLayout);
-
-        backButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                backButtonPressed(backButton);
-            }
-        });
-        settingsButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                goToSettings(settingsButton);
-            }
-        });
 
         Intent i = getIntent();
         userSignedIn = i.getBooleanExtra("isSignedIn", false);
@@ -136,24 +122,46 @@ public class UserSignedInActivity extends AppCompatActivity {
         window.setFlags(WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS, WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS);
     }
 
-    // UI - BACK BUTTON
-    public void backButtonPressed(View view) {
-        finish();
+    // SETTING UP THE TOOLBAR
+    private void setUpActivityToolbar() {
+        Toolbar mToolbar;
+
+        mToolbar = findViewById(R.id.user_signed_in_toolbar);
+        setSupportActionBar(mToolbar);
+        if(getSupportActionBar() != null) {
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+            getSupportActionBar().setDisplayShowHomeEnabled(true);
+            getSupportActionBar().setDisplayShowTitleEnabled(false);
+        }
     }
 
+    // UI - BACK BUTTON
+    @Override
+    public boolean onSupportNavigateUp() {
+        finish();
+        return true;
+    }
+
+    // UI - SETTINGS
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // INFLATING THE MENU
+        getMenuInflater().inflate(R.menu.menu_settings, menu);
+
+        return true;
+    }
+
+    // UI - TOOLBAR ITEMS CLICKED
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()){
             case android.R.id.home:
                 onBackPressed();
                 return true;
+            case R.id.profile_settings:
+                startActivity(new Intent(mContext, SettingsActivity.class));
         }
         return super.onOptionsItemSelected(item);
-    }
-
-    // UI - SETTINGS BUTTON
-    public void goToSettings(View view) {
-        startActivity(new Intent(mContext, SettingsActivity.class));
     }
 
     // UI - Displaying email and user name

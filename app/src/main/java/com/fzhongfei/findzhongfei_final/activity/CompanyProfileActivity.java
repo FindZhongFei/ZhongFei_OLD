@@ -69,7 +69,7 @@ public class CompanyProfileActivity extends AppCompatActivity {
         }
     }
 
-    // BACK BUTTON PRESSED
+    // UI - BACK BUTTON
     @Override
     public boolean onSupportNavigateUp() {
         finish();
@@ -84,6 +84,7 @@ public class CompanyProfileActivity extends AppCompatActivity {
 
         return true;
     }
+    // UI - TOOLBAR ITEMS CLICKED
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
