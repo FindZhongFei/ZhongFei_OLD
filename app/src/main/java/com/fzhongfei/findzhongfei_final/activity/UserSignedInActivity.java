@@ -167,7 +167,8 @@ public class UserSignedInActivity extends AppCompatActivity {
     // UI - Displaying email and user name
     private void displayUserDetails() {
         String userEmail = SaveSharedPreferences.getSharedPreferenceValue(mContext, SaveSharedPreferences.PREF_USER_EMAIL);
-        String userName = SaveSharedPreferences.getSharedPreferenceValue(mContext, SaveSharedPreferences.PREF_USER_USERNAME);
+        String userName = SaveSharedPreferences.getSharedPreferenceValue(mContext, SaveSharedPreferences.PREF_USER_FIRST_NAME + " " +
+                                                                                         SaveSharedPreferences.PREF_USER_LAST_NAME);
         String userPhone = SaveSharedPreferences.getSharedPreferenceValue(mContext, SaveSharedPreferences.PREF_USER_PHONE);
 
         hideIfNotLoggedIn.setVisibility(View.VISIBLE);

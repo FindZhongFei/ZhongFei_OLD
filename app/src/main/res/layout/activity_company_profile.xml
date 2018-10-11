@@ -21,6 +21,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:background="@drawable/coverimage"
+            app:titleEnabled="false"
             app:contentScrim="@drawable/shadow"
             app:expandedTitleMarginEnd="64dp"
             app:expandedTitleMarginStart="48dp"

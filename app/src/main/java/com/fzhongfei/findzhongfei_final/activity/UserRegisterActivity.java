@@ -5,9 +5,13 @@ import android.content.Intent;
 import android.graphics.drawable.GradientDrawable;
 import android.os.Build;
 import android.os.Bundle;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
@@ -21,6 +25,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.fzhongfei.findzhongfei_final.R;
+import com.fzhongfei.findzhongfei_final.model.SaveSharedPreferences;
 import com.fzhongfei.findzhongfei_final.server.callBackImplement;
 import com.fzhongfei.findzhongfei_final.server.customStringRequest;
 import com.fzhongfei.findzhongfei_final.utils.InternetAvailability;
@@ -60,6 +65,30 @@ public class UserRegisterActivity extends AppCompatActivity {
         loading = findViewById(R.id.loading_to_register_user);
         ImageView imageView = findViewById(R.id.register_logo);
         LinearLayout linearLayout = findViewById(R.id.register_linear_layout);
+
+        // VALIDATE EDIT TEXTS
+        firstNameEditText.addTextChangedListener(editTextTextWatcher);
+        lastNameEditText.addTextChangedListener(editTextTextWatcher);
+        emailAddressEditText.addTextChangedListener(editTextTextWatcher);
+        phoneNumberEditText.addTextChangedListener(editTextTextWatcher);
+        passwordEditText.addTextChangedListener(editTextTextWatcher);
+        confirmPasswordEditText.addTextChangedListener(editTextTextWatcher);
+
+        confirmPasswordEditText.setOnKeyListener(new View.OnKeyListener() {
+            @Override
+            public boolean onKey(View view, int i, KeyEvent keyEvent) {
+                if(i == KeyEvent.KEYCODE_ENTER && keyEvent.getAction() == KeyEvent.ACTION_DOWN && InternetAvailability.internetIsAvailable(mContext)) {
+                    if(registerButton.isEnabled()) {
+                        setCompanyFields();
+                        processRegistration();
+                    } else {
+                        Toast.makeText(mContext, getResources().getString(R.string.error_comp_fill_in_all_fields), Toast.LENGTH_SHORT).show();
+                    }
+                }
+
+                return false;
+            }
+        });
 
         registerButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -180,13 +209,45 @@ public class UserRegisterActivity extends AppCompatActivity {
         }
     }
 
+    // UI - VALIDATION
+    private TextWatcher editTextTextWatcher = new TextWatcher() {
+        @Override
+        public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+        }
+
+        @Override
+        public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+            String mFirstName = firstNameEditText.getText().toString().trim();
+            String mLastName = lastNameEditText.getText().toString().trim();
+            String mEmailAddress = emailAddressEditText.getText().toString().trim();
+            String mPhoneNumber = lastNameEditText.getText().toString().trim();
+            String mPassword = passwordEditText.getText().toString().trim();
+            String mConfirmPassword = confirmPasswordEditText.getText().toString().trim();
+
+            registerButton.setEnabled(
+                            !mFirstName.isEmpty() && !mLastName.isEmpty() &&
+                            !mEmailAddress.isEmpty() && !mPhoneNumber.isEmpty() &&
+                            !mPassword.isEmpty() && !mConfirmPassword.isEmpty());
+
+            if(registerButton.isEnabled())
+                registerButton.setBackground(ContextCompat.getDrawable(mContext, R.drawable.background_login_button));
+            else {
+                registerButton.setBackground(ContextCompat.getDrawable(mContext, R.drawable.btn_login_background_disabled));
+            }
+        }
+
+        @Override
+        public void afterTextChanged(Editable editable) {
+
+        }
+    };
+
     // SETTER FOR COMPANY PROFILE
     private void setCompanyFields() {
-//        SaveSharedPreferences.setUserEmail(mContext, emailAddressEditText.getText().toString());
-//        SaveSharedPreferences.setCompanyPhone(mContext, edtCompPhone.getText().toString());
-//        SaveSharedPreferences.setCompanyEmail(mContext, edtCompEmail.getText().toString());
-//        SaveSharedPreferences.setCompanyCeo(mContext, edtCompCEO.getText().toString());
-//        SaveSharedPreferences.setCompanyRepresentative(mContext, edtRepName.getText().toString());
-//        SaveSharedPreferences.setCompanyRepresentativeEmail(mContext, edtRepEmail.getText().toString());
+        SaveSharedPreferences.setUserFirstName(mContext, firstNameEditText.getText().toString());
+        SaveSharedPreferences.setUserLastName(mContext, lastNameEditText.getText().toString());
+        SaveSharedPreferences.setUserEmail(mContext, emailAddressEditText.getText().toString());
+        SaveSharedPreferences.setUserPhone(mContext, phoneNumberEditText.getText().toString());
     }
 }

@@ -234,4 +234,5 @@
     <string name="notAUserRegisterTxt">Don\&apos;t have an account yet? REGISTER HERE</string>
     <string name="userLoginTxt">Already have an account? LOG IN HERE</string>
     <string name="emailOrPhoneNumber">Email or Phone Number</string>
+    <string name="pressTwiceToExit">Press back button again to exit app</string>
 </resources>

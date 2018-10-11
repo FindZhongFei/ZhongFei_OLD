@@ -95,6 +95,14 @@ public class UserLoginActivity extends AppCompatActivity {
                 }
             }
         });
+
+
+        imageView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                hideKeyboard();
+            }
+        });
         linearLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -182,10 +190,13 @@ public class UserLoginActivity extends AppCompatActivity {
         loginButton.setVisibility(View.GONE);
 
         UserSignedInActivity.userSignedIn = true;
-
-        SaveSharedPreferences.setUserEmail(mContext, "kingneud55@gmail.com");
-        SaveSharedPreferences.setPhoneNumber(mContext, "+86 132 3657 6511");
-        SaveSharedPreferences.setUsername(mContext, username.getText().toString().trim());
+        String signedInWith = username.getText().toString().trim();
+        if(signedInWith.contains("@")) {
+            SaveSharedPreferences.setUserEmail(mContext, signedInWith);
+        } else {
+            SaveSharedPreferences.setUserPhone(mContext, signedInWith);
+        }
+        SaveSharedPreferences.setUserFirstName(mContext, username.getText().toString().trim());
 //        SaveSharedPreferences.setSharedPreferenceValue(mContext, SaveSharedPreferences.PREF_USER_USERNAME, username.toString());
 
         Intent i = new Intent(mContext, UserSignedInActivity.class);

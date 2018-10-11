@@ -20,6 +20,7 @@
             android:id="@+id/collapsingToolbar"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            ads:titleEnabled="false"
             android:background="@drawable/user_signed_in_background"
             ads:contentScrim="@color/toolbarColorLeft"
             ads:layout_scrollFlags="exitUntilCollapsed|scroll">

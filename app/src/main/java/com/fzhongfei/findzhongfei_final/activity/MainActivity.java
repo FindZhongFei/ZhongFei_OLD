@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.Fragment;
@@ -13,6 +14,7 @@ import android.util.Log;
 import android.view.MenuItem;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.Toast;
 
 import com.fzhongfei.findzhongfei_final.R;
 import com.fzhongfei.findzhongfei_final.fragments.FavoritesFragment;
@@ -25,6 +27,8 @@ public class MainActivity extends AppCompatActivity {
     private Context mContext = MainActivity.this;
 
     // VIEWS
+
+    private boolean backButtonPressedOnce = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,11 +46,32 @@ public class MainActivity extends AppCompatActivity {
 
         // LOAD FRAGMENTS INTO VIEW
         loadFragment(new MainFragment());
+
+        // CHECK IF USER IS LOGGED IN
+        checkUserPreferences();
     }
 
     @Override
     protected void onResume() {
         super.onResume();
+    }
+
+    @Override
+    public void onBackPressed() {
+        if (backButtonPressedOnce) {
+            super.onBackPressed();
+            return;
+        }
+
+        this.backButtonPressedOnce = true;
+        Toast.makeText(this, R.string.pressTwiceToExit, Toast.LENGTH_SHORT).show();
+
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                backButtonPressedOnce=false;
+            }
+        }, 2000);
     }
 
     // UI - SETTING UP THE TOOLBAR
@@ -91,5 +116,9 @@ public class MainActivity extends AppCompatActivity {
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
         transaction.replace(R.id.fragment_container, fragment);
         transaction.commit();
+    }
+
+    private void checkUserPreferences() {
+
     }
 }

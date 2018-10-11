@@ -6,8 +6,9 @@ import android.preference.PreferenceManager;
 
 public class SaveSharedPreferences {
     // USER DETAILS
+    public static final String PREF_USER_FIRST_NAME = "user_firstName";
+    public static final String PREF_USER_LAST_NAME = "user_lastName";
     public static final String PREF_USER_EMAIL = "user_email";
-    public static final String PREF_USER_USERNAME = "user_username";
     public static final String PREF_USER_PHONE = "user_phone";
 
     // COMPANY DETAILS
@@ -45,6 +46,20 @@ public class SaveSharedPreferences {
     }
 
     // USER - SETTER AND GETTERS
+    public static void setUserFirstName(Context mContext, String userFirstName) {
+        setSharedPreferenceValue(mContext, PREF_USER_FIRST_NAME, userFirstName);
+    }
+    public static String getUserFirstName(Context mContext) {
+        return getSharedPreferences(mContext).getString(PREF_USER_FIRST_NAME, "");
+    }
+
+    public static void setUserLastName(Context mContext, String userLastName) {
+        setSharedPreferenceValue(mContext, PREF_USER_LAST_NAME, userLastName);
+    }
+    public static String getUserLastName(Context mContext) {
+        return getSharedPreferences(mContext).getString(PREF_USER_LAST_NAME, "");
+    }
+
     public static void setUserEmail(Context mContext, String userEmail) {
         setSharedPreferenceValue(mContext, PREF_USER_EMAIL, userEmail);
     }
@@ -52,17 +67,10 @@ public class SaveSharedPreferences {
         return getSharedPreferences(mContext).getString(PREF_USER_EMAIL, "");
     }
 
-    public static void setUsername(Context mContext, String username) {
-        setSharedPreferenceValue(mContext, PREF_USER_USERNAME, username);
-    }
-    public static String getUsername(Context mContext) {
-        return getSharedPreferences(mContext).getString(PREF_USER_USERNAME, "");
-    }
-
-    public static void setPhoneNumber(Context mContext, String userPhone) {
+    public static void setUserPhone(Context mContext, String userPhone) {
         setSharedPreferenceValue(mContext, PREF_USER_PHONE, userPhone);
     }
-    public static String getPhoneNumber(Context mContext) {
+    public static String getUserPhone(Context mContext) {
         return getSharedPreferences(mContext).getString(PREF_USER_PHONE, "");
     }
 
