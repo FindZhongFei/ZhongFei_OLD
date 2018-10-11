@@ -51,7 +51,7 @@ public class UserLoginActivity extends AppCompatActivity {
 
         // INITIALIZING VIEWS
         TextView registerButton = findViewById(R.id.user_register_text_button);
-        username = findViewById(R.id.user_login_edit_username);
+        username = findViewById(R.id.user_login_edit_email_or_phone);
         password = findViewById(R.id.user_login_edit_password);
         loginButton = findViewById(R.id.user_login_button);
         loading = findViewById(R.id.loading_to_login_user);
@@ -93,13 +93,6 @@ public class UserLoginActivity extends AppCompatActivity {
                     startActivity(new Intent(mContext, UserRegisterActivity.class));
                     finish();
                 }
-            }
-        });
-
-        imageView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                hideKeyboard();
             }
         });
         linearLayout.setOnClickListener(new View.OnClickListener() {

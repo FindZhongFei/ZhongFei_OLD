@@ -61,7 +61,7 @@ public class UserRegisterActivity extends AppCompatActivity {
         ImageView imageView = findViewById(R.id.register_logo);
         LinearLayout linearLayout = findViewById(R.id.register_linear_layout);
 
-        loginButton.setOnClickListener(new View.OnClickListener() {
+        registerButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 if(InternetAvailability.internetIsAvailable(mContext)) {
@@ -121,7 +121,7 @@ public class UserRegisterActivity extends AppCompatActivity {
         }
 
         mToolbar.setBackground(mGradientDrawable);
-        mToolbar.setTitle(R.string.login);
+        mToolbar.setTitle(R.string.register);
     }
 
     // UI - TOOLBAR BACK BUTTON

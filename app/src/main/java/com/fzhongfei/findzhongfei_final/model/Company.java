@@ -34,6 +34,5 @@ public class Company {
     public double getRating() {
         return rating;
     }
-    
 }
 
