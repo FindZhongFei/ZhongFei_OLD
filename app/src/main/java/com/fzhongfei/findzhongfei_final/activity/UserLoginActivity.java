@@ -2,6 +2,7 @@ package com.fzhongfei.findzhongfei_final.activity;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.graphics.drawable.GradientDrawable;
 import android.os.Build;
 import android.os.Bundle;
@@ -9,7 +10,10 @@ import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.text.Editable;
+import android.text.Spannable;
+import android.text.SpannableStringBuilder;
 import android.text.TextWatcher;
+import android.text.style.ForegroundColorSpan;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
@@ -109,6 +113,17 @@ public class UserLoginActivity extends AppCompatActivity {
                 hideKeyboard();
             }
         });
+
+        // CHANGING COLOR OF THE 'REGISTER HERE' TEXT VIEW
+        SpannableStringBuilder spannable = new SpannableStringBuilder(getResources().getString(R.string.notAUserRegisterTxt));
+        spannable.setSpan(
+                new ForegroundColorSpan(Color.RED),
+                27, // start
+                39, // end
+                Spannable.SPAN_EXCLUSIVE_INCLUSIVE
+        );
+
+        registerButton.setText(spannable);
     }
 
     // UI - SETTING UP THE TOOLBAR

@@ -37,9 +37,10 @@ public class callBackImplement implements serverCallBack {
     public void onSuccess(JSONObject result) {
         Log.d(TAG, "onSuccess: Call back result is " + result);
         try {
-            String companyToken, pageNumber;
+            String companyToken, userToken, pageNumber;
 
             companyToken = result.get("comp_token").toString();
+            userToken = result.get("user_token").toString();
             pageNumber = result.get("process").toString();
             this.errorMessage = result.get("errorMessage").toString();
             this.isSuccess = (boolean)result.get("isSuccess");
@@ -76,8 +77,7 @@ public class callBackImplement implements serverCallBack {
                         break;
                     }
                     default: {
-                        Intent intent = new Intent(this.context, RegisterActivity1.class);
-                        context.getApplicationContext().startActivity(intent);
+                        context.getApplicationContext().startActivity(new Intent(this.context, RegisterActivity1.class));
                         break;
                     }
                 }

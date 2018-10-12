@@ -43,6 +43,8 @@ public class UserRegisterActivity extends AppCompatActivity {
     private Button registerButton;
     private ProgressBar loading;
 
+    String mPassword, mConfirmPassword;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -79,8 +81,12 @@ public class UserRegisterActivity extends AppCompatActivity {
             public boolean onKey(View view, int i, KeyEvent keyEvent) {
                 if(i == KeyEvent.KEYCODE_ENTER && keyEvent.getAction() == KeyEvent.ACTION_DOWN && InternetAvailability.internetIsAvailable(mContext)) {
                     if(registerButton.isEnabled()) {
-                        setCompanyFields();
-                        processRegistration();
+                        if(mPassword.equals(mConfirmPassword)) {
+                            setCompanyFields();
+                            processRegistration();
+                        } else {
+                            confirmPasswordEditText.setError("Passwords donot match!");
+                        }
                     } else {
                         Toast.makeText(mContext, getResources().getString(R.string.error_comp_fill_in_all_fields), Toast.LENGTH_SHORT).show();
                     }
@@ -168,6 +174,40 @@ public class UserRegisterActivity extends AppCompatActivity {
         }
     }
 
+    // UI - VALIDATION
+    private TextWatcher editTextTextWatcher = new TextWatcher() {
+        @Override
+        public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+        }
+
+        @Override
+        public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+            String mFirstName = firstNameEditText.getText().toString().trim();
+            String mLastName = lastNameEditText.getText().toString().trim();
+            String mEmailAddress = emailAddressEditText.getText().toString().trim();
+            String mPhoneNumber = lastNameEditText.getText().toString().trim();
+            mPassword = passwordEditText.getText().toString().trim();
+            mConfirmPassword = confirmPasswordEditText.getText().toString().trim();
+
+            registerButton.setEnabled(
+                    !mFirstName.isEmpty() && !mLastName.isEmpty() &&
+                            !mEmailAddress.isEmpty() && !mPhoneNumber.isEmpty() &&
+                            !mPassword.isEmpty() && !mConfirmPassword.isEmpty());
+
+            if(registerButton.isEnabled())
+                registerButton.setBackground(ContextCompat.getDrawable(mContext, R.drawable.background_login_button));
+            else {
+                registerButton.setBackground(ContextCompat.getDrawable(mContext, R.drawable.btn_login_background_disabled));
+            }
+        }
+
+        @Override
+        public void afterTextChanged(Editable editable) {
+
+        }
+    };
+
     // REGISTER USER
     private void processRegistration() {
         final String firstNameValue, lastNameValue, emailAddressValue, phoneNumberValue, passwordValue, confirmPasswordValue;
@@ -198,50 +238,7 @@ public class UserRegisterActivity extends AppCompatActivity {
         callBackImplement callBack = new callBackImplement(mContext);
         callBack.setParams(Params);
         registerRequest.startConnection(mContext, callBack, Params);
-
-        if (!callBack.isSuccess()) {
-            String errorMessage = callBack.getErrorMessage();
-            if(errorMessage != null) {
-                Toast.makeText(mContext, errorMessage, Toast.LENGTH_SHORT).show();
-            }
-        } else {
-            Toast.makeText(mContext, (callBack.getSuccessMessage()), Toast.LENGTH_SHORT).show();
-        }
     }
-
-    // UI - VALIDATION
-    private TextWatcher editTextTextWatcher = new TextWatcher() {
-        @Override
-        public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-
-        }
-
-        @Override
-        public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-            String mFirstName = firstNameEditText.getText().toString().trim();
-            String mLastName = lastNameEditText.getText().toString().trim();
-            String mEmailAddress = emailAddressEditText.getText().toString().trim();
-            String mPhoneNumber = lastNameEditText.getText().toString().trim();
-            String mPassword = passwordEditText.getText().toString().trim();
-            String mConfirmPassword = confirmPasswordEditText.getText().toString().trim();
-
-            registerButton.setEnabled(
-                            !mFirstName.isEmpty() && !mLastName.isEmpty() &&
-                            !mEmailAddress.isEmpty() && !mPhoneNumber.isEmpty() &&
-                            !mPassword.isEmpty() && !mConfirmPassword.isEmpty());
-
-            if(registerButton.isEnabled())
-                registerButton.setBackground(ContextCompat.getDrawable(mContext, R.drawable.background_login_button));
-            else {
-                registerButton.setBackground(ContextCompat.getDrawable(mContext, R.drawable.btn_login_background_disabled));
-            }
-        }
-
-        @Override
-        public void afterTextChanged(Editable editable) {
-
-        }
-    };
 
     // SETTER FOR COMPANY PROFILE
     private void setCompanyFields() {
