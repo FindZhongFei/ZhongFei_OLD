@@ -61,7 +61,8 @@ public class CompanyProfile {
     public void setCompanySubType(String companySubType) {
         this.companySubType = companySubType;
     }
-    public void setCompanyProvince(String companyProvince) {
+    public void setCompanyProvince(String companyProvince)
+    {
         this.companyProvince = companyProvince;
     }
     public void setCompanyCity(String companyCity) {
