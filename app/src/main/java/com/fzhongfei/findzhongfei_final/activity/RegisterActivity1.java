@@ -41,6 +41,7 @@ import android.widget.Toast;
 
 import com.android.volley.error.VolleyError;
 import com.fzhongfei.findzhongfei_final.R;
+import com.fzhongfei.findzhongfei_final.model.CompanyProfile;
 import com.fzhongfei.findzhongfei_final.model.SaveSharedPreferences;
 import com.fzhongfei.findzhongfei_final.server.callBackImplement;
 import com.fzhongfei.findzhongfei_final.server.customStringRequest;
@@ -388,20 +389,10 @@ public class RegisterActivity1 extends AppCompatActivity {
 
         callBackImplement callBack = new callBackImplement(mContext);
         callBack.setParams(Params);
+        callBack.SetRequestType("comp_registration");
         registerRequest.startConnection(mContext, callBack, Params);
 
-        if (!callBack.isSuccess()) {
-            String errorMessage = callBack.getErrorMessage();
-            if(errorMessage != null) {
-                Toast.makeText(mContext, errorMessage, Toast.LENGTH_SHORT).show();
-            }
 
-            Log.d(TAG, "NEUD===========================processRegistration: is success is: " + errorMessage);
-            Log.d(TAG, "NEUD===========================processRegistration: success message after failure: " + callBack.getSuccessMessage());
-        } else {
-            Toast.makeText(mContext, (callBack.getSuccessMessage()), Toast.LENGTH_SHORT).show();
-            Log.d(TAG, "NEUD===========================processRegistration: success message " + callBack.getSuccessMessage());
-        }
     }
 
     // REQUEST USER PERMISSION TO SELECT AN IMAGE FROM GALLERY
@@ -564,12 +555,21 @@ public class RegisterActivity1 extends AppCompatActivity {
 
     // SETTER FOR COMPANY PROFILE
     private void setCompanyFields() {
-        SaveSharedPreferences.setCompanyName(mContext, edtCompName.getText().toString());
-        SaveSharedPreferences.setCompanyPhone(mContext, edtCompPhone.getText().toString());
-        SaveSharedPreferences.setCompanyEmail(mContext, edtCompEmail.getText().toString());
-        SaveSharedPreferences.setCompanyCeo(mContext, edtCompCEO.getText().toString());
-        SaveSharedPreferences.setCompanyRepresentative(mContext, edtRepName.getText().toString());
-        SaveSharedPreferences.setCompanyRepresentativeEmail(mContext, edtRepEmail.getText().toString());
+        CompanyProfile companyProfile = new CompanyProfile();
+
+        companyProfile.setCompanyName(edtCompName.getText().toString());
+        companyProfile.setCompanyPhone(edtCompPhone.getText().toString());
+        companyProfile.setCompanyEmail(edtCompEmail.getText().toString());
+        companyProfile.setCompanyCeo(edtCompCEO.getText().toString());
+        companyProfile.setCompanyRepresentative(edtRepName.getText().toString());
+        companyProfile.setCompanyRepresentativeEmail(edtRepEmail.getText().toString());
+
+//        SaveSharedPreferences.setCompanyName(mContext, edtCompName.getText().toString());
+//        SaveSharedPreferences.setCompanyPhone(mContext, edtCompPhone.getText().toString());
+//        SaveSharedPreferences.setCompanyEmail(mContext, edtCompEmail.getText().toString());
+//        SaveSharedPreferences.setCompanyCeo(mContext, edtCompCEO.getText().toString());
+//        SaveSharedPreferences.setCompanyRepresentative(mContext, edtRepName.getText().toString());
+//        SaveSharedPreferences.setCompanyRepresentativeEmail(mContext, edtRepEmail.getText().toString());
     }
 }
 

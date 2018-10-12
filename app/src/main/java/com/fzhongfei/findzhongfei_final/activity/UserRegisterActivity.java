@@ -237,6 +237,7 @@ public class UserRegisterActivity extends AppCompatActivity {
 
         callBackImplement callBack = new callBackImplement(mContext);
         callBack.setParams(Params);
+        callBack.SetRequestType("user_registration");
         registerRequest.startConnection(mContext, callBack, Params);
     }
 

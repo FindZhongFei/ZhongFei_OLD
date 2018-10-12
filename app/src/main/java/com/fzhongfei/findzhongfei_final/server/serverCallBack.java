@@ -11,4 +11,6 @@ public interface serverCallBack {
     String getErrorMessage();
     HashMap<String, String> getParams();
     void setParams(HashMap<String,String> params);
+    public void SetRequestType(String type);
+    public String GetRequestType();
 }

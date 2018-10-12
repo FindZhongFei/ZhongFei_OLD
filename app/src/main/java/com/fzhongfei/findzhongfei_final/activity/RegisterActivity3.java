@@ -308,19 +308,9 @@ public class RegisterActivity3 extends AppCompatActivity {
 
         callBackImplement callBack = new callBackImplement(mContext);
         callBack.setParams(Params);
+        callBack.SetRequestType("comp_registration");
         registerRequest.startConnection(mContext, callBack, Params);
 
-        if (!callBack.isSuccess()) {
-            String errorMessage = callBack.getErrorMessage();
-            if(errorMessage != null) {
-                Toast.makeText(mContext, errorMessage, Toast.LENGTH_SHORT).show();
-//                Log.d(TAG, "NEUD===========================processRegistration: is success is: " + errorMessage);
-//                Log.d(TAG, "NEUD===========================processRegistration: success message after failure: " + callBack.getSuccessMessage());
-            }
-//        } else {
-//            Toast.makeText(mContext, (callBack.getSuccessMessage()), Toast.LENGTH_SHORT).show();
-//            Log.d(TAG, "NEUD===========================processRegistration: success message " + callBack.getSuccessMessage());
-        }
     }
 
     // SETTER FOR COMPANY PROFILE

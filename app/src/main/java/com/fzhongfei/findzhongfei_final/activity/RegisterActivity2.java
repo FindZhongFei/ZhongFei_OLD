@@ -233,16 +233,8 @@ public class RegisterActivity2 extends AppCompatActivity {
 
         callBackImplement callBack = new callBackImplement(mContext);
         callBack.setParams(Params);
+        callBack.SetRequestType("comp_registration");
         registerRequest.startConnection(mContext, callBack, Params);
-
-        if (!callBack.isSuccess()) {
-            String errorMessage = callBack.getErrorMessage();
-            if(errorMessage != null) {
-                Toast.makeText(mContext, errorMessage, Toast.LENGTH_SHORT).show();
-            }
-        } else {
-            Toast.makeText(mContext, (callBack.getSuccessMessage()), Toast.LENGTH_SHORT).show();
-        }
     }
 
     // SETTER FOR COMPANY PROFILE

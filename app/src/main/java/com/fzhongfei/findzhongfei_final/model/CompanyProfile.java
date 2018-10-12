@@ -8,11 +8,14 @@ public class CompanyProfile {
             companyCeo, companyRepresentative, companyLogo, companyLicense,
             companyRepresentativeEmail, companyAddress1, companyAddress2;
 
+    public CompanyProfile() {}
+
     public CompanyProfile(String companyName, String companyType, String companySubType, String companyProvince,
                           String companyCity, String companyPhone, String companyEmail, String companyCeo,
                           String companyRepresentative, String companyRepresentativeEmail, String companyAddress1,
                           String companyAddress2, String companyId, String companyToken,
-                          String companyLicense, String companyLogo) {
+                          String companyLicense, String companyLogo)
+    {
         this.companyId = companyId;
         this.companyToken = companyToken;
         this.companyLicense = companyLicense;
