@@ -22,7 +22,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.fzhongfei.findzhongfei_final.R;
-import com.fzhongfei.findzhongfei_final.model.SaveSharedPreferences;
 import com.fzhongfei.findzhongfei_final.utils.DisplayAds;
 import com.google.android.gms.ads.AdView;
 
@@ -82,7 +81,7 @@ public class UserSignedInActivity extends AppCompatActivity {
         new DisplayAds(mAdView, adLayout);
 
         Intent i = getIntent();
-        userSignedIn = i.getBooleanExtra("isSignedIn", false);
+        userSignedIn = i.getBooleanExtra("isSignedIn", userSignedIn);
 
         Toast.makeText(mContext, String.valueOf(userSignedIn), Toast.LENGTH_SHORT).show();
 
@@ -166,16 +165,22 @@ public class UserSignedInActivity extends AppCompatActivity {
 
     // UI - Displaying email and user name
     private void displayUserDetails() {
-        String userEmail = SaveSharedPreferences.getSharedPreferenceValue(mContext, SaveSharedPreferences.PREF_USER_EMAIL);
-        String userName = SaveSharedPreferences.getSharedPreferenceValue(mContext, SaveSharedPreferences.PREF_USER_FIRST_NAME + " " +
-                                                                                         SaveSharedPreferences.PREF_USER_LAST_NAME);
-        String userPhone = SaveSharedPreferences.getSharedPreferenceValue(mContext, SaveSharedPreferences.PREF_USER_PHONE);
+//        String userEmail = SaveSharedPreferences.getSharedPreferenceValue(mContext, SaveSharedPreferences.PREF_USER_EMAIL);
+//        String userName = SaveSharedPreferences.getSharedPreferenceValue(mContext, SaveSharedPreferences.PREF_USER_FIRST_NAME + " " +
+//                                                                                         SaveSharedPreferences.PREF_USER_LAST_NAME);
+//        String userPhone = SaveSharedPreferences.getSharedPreferenceValue(mContext, SaveSharedPreferences.PREF_USER_PHONE);
+
+        String userFirstName = UserRegisterActivity.sUserProfile.getUserFirstName();
+        String userLastName = UserRegisterActivity.sUserProfile.getUserLastName();
+        String userName = userFirstName + " " + userLastName;
+        String userEmail = UserRegisterActivity.sUserProfile.getUserEmail();
+        String userPhone = UserRegisterActivity.sUserProfile.getUserPhone();
 
         hideIfNotLoggedIn.setVisibility(View.VISIBLE);
 
+        userNameText.setText(userName);
         userEmailText.setText(userEmail);
         userPhoneText.setText(userPhone);
-        userNameText.setText(userName);
     }
 
     // UI - USER DIDN'T LOGIN

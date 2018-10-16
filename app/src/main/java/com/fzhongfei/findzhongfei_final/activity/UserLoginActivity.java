@@ -2,7 +2,6 @@ package com.fzhongfei.findzhongfei_final.activity;
 
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Color;
 import android.graphics.drawable.GradientDrawable;
 import android.os.Build;
 import android.os.Bundle;
@@ -13,7 +12,7 @@ import android.text.Editable;
 import android.text.Spannable;
 import android.text.SpannableStringBuilder;
 import android.text.TextWatcher;
-import android.text.style.ForegroundColorSpan;
+import android.text.style.UnderlineSpan;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
@@ -29,8 +28,9 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.fzhongfei.findzhongfei_final.R;
-import com.fzhongfei.findzhongfei_final.model.SaveSharedPreferences;
 import com.fzhongfei.findzhongfei_final.utils.InternetAvailability;
+
+import static com.fzhongfei.findzhongfei_final.activity.UserRegisterActivity.sUserProfile;
 
 public class UserLoginActivity extends AppCompatActivity {
 
@@ -117,10 +117,10 @@ public class UserLoginActivity extends AppCompatActivity {
         // CHANGING COLOR OF THE 'REGISTER HERE' TEXT VIEW
         SpannableStringBuilder spannable = new SpannableStringBuilder(getResources().getString(R.string.notAUserRegisterTxt));
         spannable.setSpan(
-                new ForegroundColorSpan(Color.RED),
+                new UnderlineSpan(),
                 27, // start
-                39, // end
-                Spannable.SPAN_EXCLUSIVE_INCLUSIVE
+                40, // end
+                Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
         );
 
         registerButton.setText(spannable);
@@ -206,13 +206,16 @@ public class UserLoginActivity extends AppCompatActivity {
 
         UserSignedInActivity.userSignedIn = true;
         String signedInWith = username.getText().toString().trim();
+        String userName = sUserProfile.getUserFirstName() + " " + sUserProfile.getUserLastName();
+
         if(signedInWith.contains("@")) {
-            SaveSharedPreferences.setUserEmail(mContext, signedInWith);
+            sUserProfile.setUserEmail(signedInWith);
         } else {
-            SaveSharedPreferences.setUserPhone(mContext, signedInWith);
+            sUserProfile.setUserPhone(signedInWith);
         }
-        SaveSharedPreferences.setUserFirstName(mContext, username.getText().toString().trim());
 //        SaveSharedPreferences.setSharedPreferenceValue(mContext, SaveSharedPreferences.PREF_USER_USERNAME, username.toString());
+
+        UserSignedInActivity.userSignedIn = true;
 
         Intent i = new Intent(mContext, UserSignedInActivity.class);
         i.putExtra("isSignedIn", true);

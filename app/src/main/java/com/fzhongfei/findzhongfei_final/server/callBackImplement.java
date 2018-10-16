@@ -96,8 +96,9 @@ public class callBackImplement implements serverCallBack {
                 else if(requestType.equals("user_registration"))
                 {
                     String userToken = result.get("user_token").toString();
-                    context.getApplicationContext().startActivity(new Intent(this.context,
-                            UserSignedInActivity.class));
+                    Intent intent = new Intent(this.context, UserSignedInActivity.class);
+                    intent.putExtra("isSignedIn", true);
+                    context.getApplicationContext().startActivity(intent);
                 }
 
             }

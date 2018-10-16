@@ -42,7 +42,6 @@ import android.widget.Toast;
 import com.android.volley.error.VolleyError;
 import com.fzhongfei.findzhongfei_final.R;
 import com.fzhongfei.findzhongfei_final.model.CompanyProfile;
-import com.fzhongfei.findzhongfei_final.model.SaveSharedPreferences;
 import com.fzhongfei.findzhongfei_final.server.callBackImplement;
 import com.fzhongfei.findzhongfei_final.server.customStringRequest;
 import com.fzhongfei.findzhongfei_final.utils.InternetAvailability;
@@ -68,6 +67,8 @@ public class RegisterActivity1 extends AppCompatActivity {
     private EditText edtCompName, edtCompCEO, edtCompPhone, edtCompEmail, edtRepName, edtRepEmail, edtPassword;
     private TextView profileTextVIew, licenseTextView;
     private Button nextRegistrationButton;
+
+    public static CompanyProfile sCompanyProfile = new CompanyProfile();
 
     // IMAGE FROM GALLERY
     private Uri uriSelectedImage;
@@ -415,8 +416,8 @@ public class RegisterActivity1 extends AppCompatActivity {
                 if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
 //                    Toast.makeText(mContext, "Permission Granted", Toast.LENGTH_SHORT).show();
                     openGallery();
-                    Log.d(TAG, "onRequestPermissionsResult: LICENSE IS CLICKED____________________________" + RegisterActivity1.this.licenseIsClicked);
-                    Log.d(TAG, "onRequestPermissionsResult: LOGO IS CLICKED____________________________" + RegisterActivity1.this.logoIsClicked);
+                    Log.d(TAG, "onRequestPermissionsResult: LICENSE IS CLICKED_________________" + RegisterActivity1.this.licenseIsClicked);
+                    Log.d(TAG, "onRequestPermissionsResult: LOGO IS CLICKED_________________" + RegisterActivity1.this.logoIsClicked);
 //                    if(licenseIsClicked){
 //                        licenseIsClicked = false;
 //                    }
@@ -461,12 +462,12 @@ public class RegisterActivity1 extends AppCompatActivity {
                     String logoPath = Environment.getExternalStorageDirectory() + "/temporary_holder.jpg";
                     logoBitmap = BitmapFactory.decodeFile(logoPath);
 
-                    Bitmap bitmap = BitmapFactory.decodeResource(getResources(),
-                            R.drawable.logo);
+//                    Bitmap bitmap = BitmapFactory.decodeResource(getResources(),
+//                            R.drawable.logo);
                     ByteArrayOutputStream stream = new ByteArrayOutputStream();
                     logoBitmap.compress(Bitmap.CompressFormat.JPEG, 100, stream);
                     byte[] logoInByte = stream.toByteArray();
-                    long logoLengthBmp = logoInByte.length;
+//                    long logoLengthBmp = logoInByte.length;
 
                     logo.setImageBitmap(logoBitmap);
                     profileTextVIew.setVisibility(View.GONE);
@@ -480,12 +481,12 @@ public class RegisterActivity1 extends AppCompatActivity {
                     String licensePath = Environment.getExternalStorageDirectory() + "/temporary_holder.jpg";
                     licenseBitmap = BitmapFactory.decodeFile(licensePath);
 
-                    Bitmap bitmap = BitmapFactory.decodeResource(getResources(),
-                            R.drawable.logo);
+//                    Bitmap bitmap = BitmapFactory.decodeResource(getResources(),
+//                            R.drawable.logo);
                     ByteArrayOutputStream stream = new ByteArrayOutputStream();
                     licenseBitmap.compress(Bitmap.CompressFormat.JPEG, 100, stream);
                     byte[] logoInByte = stream.toByteArray();
-                    long licenceLengthBmp = logoInByte.length;
+//                    long licenceLengthBmp = logoInByte.length;
 
                     license.setImageBitmap(licenseBitmap);
                     licenseTextView.setVisibility(View.GONE);
@@ -555,14 +556,12 @@ public class RegisterActivity1 extends AppCompatActivity {
 
     // SETTER FOR COMPANY PROFILE
     private void setCompanyFields() {
-        CompanyProfile companyProfile = new CompanyProfile();
-
-        companyProfile.setCompanyName(edtCompName.getText().toString());
-        companyProfile.setCompanyPhone(edtCompPhone.getText().toString());
-        companyProfile.setCompanyEmail(edtCompEmail.getText().toString());
-        companyProfile.setCompanyCeo(edtCompCEO.getText().toString());
-        companyProfile.setCompanyRepresentative(edtRepName.getText().toString());
-        companyProfile.setCompanyRepresentativeEmail(edtRepEmail.getText().toString());
+        sCompanyProfile.setCompanyName(edtCompName.getText().toString());
+        sCompanyProfile.setCompanyPhone(edtCompPhone.getText().toString());
+        sCompanyProfile.setCompanyEmail(edtCompEmail.getText().toString());
+        sCompanyProfile.setCompanyCeo(edtCompCEO.getText().toString());
+        sCompanyProfile.setCompanyRepresentative(edtRepName.getText().toString());
+        sCompanyProfile.setCompanyRepresentativeEmail(edtRepEmail.getText().toString());
 
 //        SaveSharedPreferences.setCompanyName(mContext, edtCompName.getText().toString());
 //        SaveSharedPreferences.setCompanyPhone(mContext, edtCompPhone.getText().toString());

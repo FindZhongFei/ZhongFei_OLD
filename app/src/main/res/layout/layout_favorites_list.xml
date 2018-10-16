@@ -1,25 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical">
 
     <android.support.v7.widget.CardView
         android:id="@+id/cardview"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:cardCornerRadius="8sp"
-        android:layout_marginLeft="10sp"
+        android:layout_marginTop="5sp"
+        android:layout_marginBottom="5sp"
         android:layout_marginStart="10sp"
-        android:layout_marginRight="10sp"
+        android:layout_marginLeft="10sp"
         android:layout_marginEnd="10sp"
-        app:cardElevation="2sp"
-        android:layout_marginVertical="5sp"
+        android:layout_marginRight="10sp"
         android:foreground="?android:attr/selectableItemBackground"
-        tools:targetApi="o">
+        app:cardCornerRadius="8sp"
+        app:cardElevation="2sp">
 
         <RelativeLayout
             android:layout_width="match_parent"
@@ -30,85 +30,86 @@
                 android:id="@+id/compImageView"
                 android:layout_width="120dp"
                 android:layout_height="match_parent"
+                android:layout_marginStart="2sp"
+                android:layout_marginLeft="2sp"
+                android:layout_marginEnd="8sp"
+                android:layout_marginRight="8sp"
+                android:contentDescription="@string/logo"
                 android:scaleType="centerCrop"
-                android:layout_marginLeft="12sp"
-                android:layout_marginStart="12sp"
-                android:layout_marginRight="3sp"
-                android:layout_marginEnd="3sp"
-                android:src="@drawable/img_wall_9"
-                android:contentDescription="@string/logo"/>
+                android:src="@drawable/img_wall_9"/>
 
             <TextView
                 android:id="@+id/compNameView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="5dp"
-                android:layout_marginStart="5dp"
-                android:layout_toRightOf="@id/compImageView"
                 android:layout_toEndOf="@id/compImageView"
+                android:layout_toRightOf="@id/compImageView"
                 android:text="@string/universityNameValue"
                 android:textAppearance="@style/Base.TextAppearance.AppCompat.Small"
-                android:textColor="#000000" />
+                android:textColor="#000000"/>
 
             <TextView
                 android:id="@+id/shortDescView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/compNameView"
-                android:layout_marginLeft="5dp"
-                android:layout_marginStart="5dp"
                 android:layout_marginTop="5dp"
-                android:layout_toRightOf="@id/compImageView"
                 android:layout_toEndOf="@id/compImageView"
+                android:layout_toRightOf="@id/compImageView"
                 android:text="@string/universityDescValue"
-                android:textAppearance="@style/Base.TextAppearance.AppCompat.Small" />
+                android:textAppearance="@style/Base.TextAppearance.AppCompat.Small"/>
 
             <TextView
                 android:id="@+id/viewRatingView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/shortDescView"
-                android:layout_marginLeft="5dp"
-                android:layout_marginStart="5dp"
                 android:layout_marginTop="5dp"
-                android:layout_toRightOf="@id/compImageView"
                 android:layout_toEndOf="@id/compImageView"
+                android:layout_toRightOf="@id/compImageView"
                 android:background="@color/colorPrimary"
                 android:paddingLeft="15dp"
                 android:paddingRight="15dp"
                 android:text="@string/four"
                 android:textAppearance="@style/Base.TextAppearance.AppCompat.Small.Inverse"
-                android:textStyle="bold" />
+                android:textStyle="bold"/>
 
             <TextView
                 android:id="@+id/compTypeView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/viewRatingView"
-                android:layout_marginLeft="5dp"
-                android:layout_marginStart="5dp"
                 android:layout_marginTop="5dp"
-                android:layout_toRightOf="@id/compImageView"
                 android:layout_toEndOf="@id/compImageView"
+                android:layout_toRightOf="@id/compImageView"
                 android:text="@string/university"
                 android:textAppearance="@style/Base.TextAppearance.AppCompat.Large"
-                android:textStyle="bold" />
+                android:textStyle="bold"/>
         </RelativeLayout>
+
+        <ImageView
+            android:layout_width="50sp"
+            android:layout_height="35sp"
+            android:layout_gravity="top|end"
+            android:contentDescription="@string/favorites"
+            android:elevation="2sp"
+            android:scaleType="fitXY"
+            android:src="@drawable/icon_favorited"
+            tools:targetApi="lollipop"/>
     </android.support.v7.widget.CardView>
 
-    <ImageView
-        android:layout_width="20sp"
-        android:layout_height="20sp"
-        android:layout_gravity="top"
-        android:layout_marginLeft="10sp"
-        android:layout_marginStart="10sp"
-        android:layout_marginRight="0dp"
-        android:layout_marginEnd="0dp"
-        android:layout_marginTop="12sp"
-        android:elevation="5sp"
-        android:scaleType="fitXY"
-        android:src="@drawable/ic_favorite"
-        android:contentDescription="@string/favorites"
-        tools:targetApi="lollipop"/>
-
+    <!--<ImageView-->
+        <!--android:layout_width="20sp"-->
+        <!--android:layout_height="20sp"-->
+        <!--android:layout_gravity="top"-->
+        <!--android:layout_marginStart="20sp"-->
+        <!--android:layout_marginLeft="20sp"-->
+        <!--android:layout_marginTop="15sp"-->
+        <!--android:layout_marginEnd="0dp"-->
+        <!--android:layout_marginRight="0dp"-->
+        <!--android:contentDescription="@string/favorites"-->
+        <!--android:elevation="5sp"-->
+        <!--android:scaleType="fitXY"-->
+        <!--android:src="@drawable/ic_favorite"-->
+        <!--tools:targetApi="lollipop"/>-->
 </FrameLayout>

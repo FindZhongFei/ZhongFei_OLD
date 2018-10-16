@@ -13,7 +13,6 @@ import android.view.WindowManager;
 import android.widget.TextView;
 
 import com.fzhongfei.findzhongfei_final.R;
-import com.fzhongfei.findzhongfei_final.model.CompanyProfile;
 import com.fzhongfei.findzhongfei_final.model.SaveSharedPreferences;
 
 public class CompanyProfileActivity extends AppCompatActivity {
@@ -114,14 +113,12 @@ public class CompanyProfileActivity extends AppCompatActivity {
         String companyTypeValue = SaveSharedPreferences.getSharedPreferenceValue(mContext, SaveSharedPreferences.PREF_COMPANY_TYPE);
         String companySubTypeValue = SaveSharedPreferences.getSharedPreferenceValue(mContext, SaveSharedPreferences.PREF_COMPANY_SUB_TYPE);
 
-        CompanyProfile companyProfile = new CompanyProfile();
-
-        String companyNameValue = companyProfile.getCompanyName();
-        String companyPhoneValue = companyProfile.getCompanyPhone();
-        String companyEmailValue = companyProfile.getCompanyEmail();
-        String companyCeoValue = companyProfile.getCompanyCeo();
-        String companyRepresentativeValue = companyProfile.getCompanyRepresentative();
-        String companyRepresentativeEmailValue = companyProfile.getCompanyRepresentativeEmail();
+        String companyNameValue = RegisterActivity1.sCompanyProfile.getCompanyName();
+        String companyPhoneValue = RegisterActivity1.sCompanyProfile.getCompanyPhone();
+        String companyEmailValue = RegisterActivity1.sCompanyProfile.getCompanyEmail();
+        String companyCeoValue = RegisterActivity1.sCompanyProfile.getCompanyCeo();
+        String companyRepresentativeValue = RegisterActivity1.sCompanyProfile.getCompanyRepresentative();
+        String companyRepresentativeEmailValue = RegisterActivity1.sCompanyProfile.getCompanyRepresentativeEmail();
 
         companyName.setText(companyNameValue);
         companyPhone.setText(companyPhoneValue);

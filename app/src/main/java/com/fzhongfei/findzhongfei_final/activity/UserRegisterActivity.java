@@ -9,7 +9,10 @@ import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.text.Editable;
+import android.text.Spannable;
+import android.text.SpannableStringBuilder;
 import android.text.TextWatcher;
+import android.text.style.UnderlineSpan;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
@@ -25,7 +28,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.fzhongfei.findzhongfei_final.R;
-import com.fzhongfei.findzhongfei_final.model.SaveSharedPreferences;
+import com.fzhongfei.findzhongfei_final.model.UserProfile;
 import com.fzhongfei.findzhongfei_final.server.callBackImplement;
 import com.fzhongfei.findzhongfei_final.server.customStringRequest;
 import com.fzhongfei.findzhongfei_final.utils.InternetAvailability;
@@ -44,6 +47,9 @@ public class UserRegisterActivity extends AppCompatActivity {
     private ProgressBar loading;
 
     String mPassword, mConfirmPassword;
+
+    // USER OBJECT
+    public static UserProfile sUserProfile = new UserProfile();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -125,6 +131,17 @@ public class UserRegisterActivity extends AppCompatActivity {
                 hideKeyboard();
             }
         });
+
+        // CHANGING COLOR OF THE 'REGISTER HERE' TEXT VIEW
+        SpannableStringBuilder spannable = new SpannableStringBuilder(getResources().getString(R.string.userLoginTxt));
+        spannable.setSpan(
+                new UnderlineSpan(),
+                25, // start
+                36, // end
+                Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
+        );
+
+        loginButton.setText(spannable);
     }
 
     // UI - SETTING UP THE TOOLBAR
@@ -243,9 +260,9 @@ public class UserRegisterActivity extends AppCompatActivity {
 
     // SETTER FOR COMPANY PROFILE
     private void setCompanyFields() {
-        SaveSharedPreferences.setUserFirstName(mContext, firstNameEditText.getText().toString());
-        SaveSharedPreferences.setUserLastName(mContext, lastNameEditText.getText().toString());
-        SaveSharedPreferences.setUserEmail(mContext, emailAddressEditText.getText().toString());
-        SaveSharedPreferences.setUserPhone(mContext, phoneNumberEditText.getText().toString());
+        sUserProfile.setUserFirstName(firstNameEditText.getText().toString());
+        sUserProfile.setUserLastName(lastNameEditText.getText().toString());
+        sUserProfile.setUserEmail(emailAddressEditText.getText().toString());
+        sUserProfile.setUserPhone(phoneNumberEditText.getText().toString());
     }
 }

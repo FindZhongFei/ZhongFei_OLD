@@ -103,7 +103,6 @@ public class UserProfileEditActivity extends AppCompatActivity {
 //        signOutProgressBar.setVisibility(View.VISIBLE);
 
         UserSignedInActivity.userSignedIn = false;
-        SaveSharedPreferences.clearSharedInformation(mContext);
 
         Intent i = new Intent(mContext, UserSignedInActivity.class);
         i.putExtra("isSignedIn", false);

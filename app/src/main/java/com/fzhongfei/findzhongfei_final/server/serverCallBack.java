@@ -5,12 +5,12 @@ import org.json.JSONObject;
 import java.util.HashMap;
 
 public interface serverCallBack {
-    void onSuccess(JSONObject result);
     boolean isSuccess();
     String getSuccessMessage();
     String getErrorMessage();
     HashMap<String, String> getParams();
+    void onSuccess(JSONObject result);
     void setParams(HashMap<String,String> params);
-    public void SetRequestType(String type);
-    public String GetRequestType();
+    void SetRequestType(String type);
+    String GetRequestType();
 }

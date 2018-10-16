@@ -52,78 +52,101 @@ public class CompanyProfile {
         this.companyAddress1 = compData.get("compAddress1");
         this.companyAddress2 = compData.get("compAddress2");
     }
-    public void setCompanyName(String companyName) {
+
+    public void setCompanyName(String companyName)
+    {
         this.companyName = companyName;
     }
-    public void setCompanyType(String companyType) {
+    public void setCompanyType(String companyType)
+    {
         this.companyType = companyType;
     }
-    public void setCompanySubType(String companySubType) {
+    public void setCompanySubType(String companySubType)
+    {
         this.companySubType = companySubType;
     }
     public void setCompanyProvince(String companyProvince)
     {
         this.companyProvince = companyProvince;
     }
-    public void setCompanyCity(String companyCity) {
+    public void setCompanyCity(String companyCity)
+    {
         this.companyCity = companyCity;
     }
-    public void setCompanyPhone(String companyPhone) {
+    public void setCompanyPhone(String companyPhone)
+    {
         this.companyPhone = companyPhone;
     }
-    public void setCompanyEmail(String companyEmail) {
+    public void setCompanyEmail(String companyEmail)
+    {
         this.companyEmail = companyEmail;
     }
-    public void setCompanyCeo(String companyCeo) {
+    public void setCompanyCeo(String companyCeo)
+    {
         this.companyCeo = companyCeo;
     }
-    public void setCompanyRepresentative(String companyRepresentative) {
+    public void setCompanyRepresentative(String companyRepresentative)
+    {
         this.companyRepresentative = companyRepresentative;
     }
-    public void setCompanyRepresentativeEmail(String companyRepresentativeEmail) {
+    public void setCompanyRepresentativeEmail(String companyRepresentativeEmail)
+    {
         this.companyRepresentativeEmail = companyRepresentativeEmail;
     }
-    public void setCompanyAddress1(String companyAddress1) {
+    public void setCompanyAddress1(String companyAddress1)
+    {
         this.companyAddress1 = companyAddress1;
     }
-    public void setCompanyAddress2(String companyAddress2) {
+    public void setCompanyAddress2(String companyAddress2)
+    {
         this.companyAddress2 = companyAddress2;
     }
 
-    public String getCompanyName() {
+    public String getCompanyName()
+    {
         return companyName;
     }
     public String getCompanyType() {
         return companyType;
     }
-    public String getCompanySubType() {
+    public String getCompanySubType()
+    {
         return companySubType;
     }
-    public String getCompanyProvince() {
+    public String getCompanyProvince()
+    {
         return companyProvince;
     }
-    public String getCompanyCity() {
+    public String getCompanyCity()
+    {
         return companyCity;
     }
-    public String getCompanyPhone() {
+    public String getCompanyPhone()
+    {
         return companyPhone;
     }
-    public String getCompanyEmail() {
+    public String getCompanyEmail()
+    {
         return companyEmail;
     }
-    public String getCompanyCeo() {
+    public String getCompanyCeo()
+    {
         return companyCeo;
     }
-    public String getCompanyRepresentative() {
+    public String getCompanyRepresentative()
+    {
         return companyRepresentative;
     }
-    public String getCompanyRepresentativeEmail() {
+    public String getCompanyRepresentativeEmail()
+    {
         return companyRepresentativeEmail;
     }
-    public String getCompanyAddress1() {
+    public String getCompanyAddress1()
+    {
         return companyAddress1;
     }
-    public String getCompanyAddress2() {
+    public String getCompanyAddress2()
+    {
         return companyAddress2;
     }
 
