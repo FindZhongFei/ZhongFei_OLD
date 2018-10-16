@@ -25,7 +25,6 @@ import android.widget.Toast;
 
 import com.android.volley.error.VolleyError;
 import com.fzhongfei.findzhongfei_final.R;
-import com.fzhongfei.findzhongfei_final.model.SaveSharedPreferences;
 import com.fzhongfei.findzhongfei_final.server.callBackImplement;
 import com.fzhongfei.findzhongfei_final.server.customStringRequest;
 import com.fzhongfei.findzhongfei_final.utils.InternetAvailability;
@@ -203,8 +202,8 @@ public class RegisterActivity2 extends AppCompatActivity {
             @Override
             public void run() {
                 if (dialog.isShowing()) {
-                    Toast.makeText(mContext, "Process is taking longer than usual please check your internet connection", Toast.LENGTH_SHORT)
-                            .show();
+                    Toast.makeText(mContext, "Process is taking longer than usual, " +
+                            "please check your internet connection", Toast.LENGTH_SHORT).show();
                 } else if(volleyError.getMessage() != null && dialog.isShowing()) {
                     Toast.makeText(mContext, "Volley Error" + volleyError.getMessage(), Toast.LENGTH_SHORT).show();
                     dialog.cancel();
@@ -239,9 +238,9 @@ public class RegisterActivity2 extends AppCompatActivity {
 
     // SETTER FOR COMPANY PROFILE
     private void setCompanyFields() {
-        SaveSharedPreferences.setCompanyAddress1(mContext, edtAddress1.getText().toString());
-        SaveSharedPreferences.setCompanyAddress2(mContext, edtAddress2.getText().toString());
-        SaveSharedPreferences.setCompanyCity(mContext, edtCity.getText().toString());
-        SaveSharedPreferences.setCompanyProvince(mContext, edtProvince.getText().toString());
+        RegisterActivity1.sCompanyProfile.setCompanyAddress1(mContext, edtAddress1.getText().toString());
+        RegisterActivity1.sCompanyProfile.setCompanyAddress2(mContext, edtAddress2.getText().toString());
+        RegisterActivity1.sCompanyProfile.setCompanyCity(mContext, edtCity.getText().toString());
+        RegisterActivity1.sCompanyProfile.setCompanyProvince(mContext, edtProvince.getText().toString());
     }
 }

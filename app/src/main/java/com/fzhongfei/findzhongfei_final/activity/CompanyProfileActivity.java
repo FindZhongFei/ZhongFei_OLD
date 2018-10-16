@@ -13,7 +13,6 @@ import android.view.WindowManager;
 import android.widget.TextView;
 
 import com.fzhongfei.findzhongfei_final.R;
-import com.fzhongfei.findzhongfei_final.model.SaveSharedPreferences;
 
 public class CompanyProfileActivity extends AppCompatActivity {
 
@@ -23,7 +22,8 @@ public class CompanyProfileActivity extends AppCompatActivity {
 
     // VIEWS
     TextView    companyName, companyType, companySubType, companyProvince, companyCity, companyPhone, companyEmail,
-                companyCeo, companyRepresentative, companyRepresentativeEmail, companyAddress1, companyAddress2;
+                companyCeo, companyRepresentative, companyRepresentativeEmail, companyAddress1, companyAddress2,
+                companyWechatId, companyDescription;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -99,26 +99,20 @@ public class CompanyProfileActivity extends AppCompatActivity {
 
     // ALL COMPANY PROFILE FIELDS
     private void showCompanyProfile() {
-//        String companyNameValue = SaveSharedPreferences.getSharedPreferenceValue(mContext, SaveSharedPreferences.PREF_COMPANY_NAME);
-//        String companyPhoneValue = SaveSharedPreferences.getSharedPreferenceValue(mContext, SaveSharedPreferences.PREF_COMPANY_PHONE);
-//        String companyEmailValue = SaveSharedPreferences.getSharedPreferenceValue(mContext, SaveSharedPreferences.PREF_COMPANY_EMAIL);
-//        String companyCeoValue = SaveSharedPreferences.getSharedPreferenceValue(mContext, SaveSharedPreferences.PREF_COMPANY_CEO);
-//        String companyRepresentativeValue = SaveSharedPreferences.getSharedPreferenceValue(mContext, SaveSharedPreferences.PREF_COMPANY_REPRESENTATIVE);
-//        String companyRepresentativeEmailValue = SaveSharedPreferences.getSharedPreferenceValue(mContext,
-//                SaveSharedPreferences.PREF_COMPANY_REPRESENTATIVE_EMAIL);
-        String companyAddress1Value = SaveSharedPreferences.getSharedPreferenceValue(mContext, SaveSharedPreferences.PREF_COMPANY_ADDRESS_1);
-        String companyAddress2Value = SaveSharedPreferences.getSharedPreferenceValue(mContext, SaveSharedPreferences.PREF_COMPANY_ADDRESS_2);
-        String companyCityValue = SaveSharedPreferences.getSharedPreferenceValue(mContext, SaveSharedPreferences.PREF_COMPANY_CITY);
-        String companyProvinceValue = SaveSharedPreferences.getSharedPreferenceValue(mContext, SaveSharedPreferences.PREF_COMPANY_PROVINCE);
-        String companyTypeValue = SaveSharedPreferences.getSharedPreferenceValue(mContext, SaveSharedPreferences.PREF_COMPANY_TYPE);
-        String companySubTypeValue = SaveSharedPreferences.getSharedPreferenceValue(mContext, SaveSharedPreferences.PREF_COMPANY_SUB_TYPE);
-
         String companyNameValue = RegisterActivity1.sCompanyProfile.getCompanyName();
         String companyPhoneValue = RegisterActivity1.sCompanyProfile.getCompanyPhone();
         String companyEmailValue = RegisterActivity1.sCompanyProfile.getCompanyEmail();
         String companyCeoValue = RegisterActivity1.sCompanyProfile.getCompanyCeo();
         String companyRepresentativeValue = RegisterActivity1.sCompanyProfile.getCompanyRepresentative();
         String companyRepresentativeEmailValue = RegisterActivity1.sCompanyProfile.getCompanyRepresentativeEmail();
+        String companyAddress1Value = RegisterActivity1.sCompanyProfile.getCompanyAddress1();
+        String companyAddress2Value = RegisterActivity1.sCompanyProfile.getCompanyAddress2();
+        String companyCityValue = RegisterActivity1.sCompanyProfile.getCompanyCity();
+        String companyProvinceValue = RegisterActivity1.sCompanyProfile.getCompanyProvince();
+        String companyTypeValue = RegisterActivity1.sCompanyProfile.getCompanyType();
+        String companySubTypeValue = RegisterActivity1.sCompanyProfile.getCompanySubType();
+        String companyWechatIdValue = RegisterActivity1.sCompanyProfile.getCompanyWechatId();
+        String companyDescriptionValue = RegisterActivity1.sCompanyProfile.getCompanyDescription();
 
         companyName.setText(companyNameValue);
         companyPhone.setText(companyPhoneValue);
@@ -132,6 +126,7 @@ public class CompanyProfileActivity extends AppCompatActivity {
         companyProvince.setText(companyProvinceValue);
         companyType.setText(companyTypeValue);
         companySubType.setText(companySubTypeValue);
-//        compWechatId.setText(RegisterActivity3.getCompanyFields()[2]);
+        companyWechatId.setText(companyWechatIdValue);
+        companyDescription.setText(companyDescriptionValue);
     }
 }

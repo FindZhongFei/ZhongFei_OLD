@@ -2,6 +2,7 @@ package com.fzhongfei.findzhongfei_final.activity;
 
 import android.Manifest;
 import android.annotation.TargetApi;
+import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.ActivityNotFoundException;
 import android.content.Context;
@@ -60,6 +61,7 @@ public class RegisterActivity1 extends AppCompatActivity {
     // EVERY ACTIVITY SETUP
     private static final String TAG = "RegisterActivity1";
     public Context mContext = RegisterActivity1.this;
+    public static Activity mActivity ;
 
     // VIEWS
     public static ProgressDialog dialog;
@@ -68,7 +70,7 @@ public class RegisterActivity1 extends AppCompatActivity {
     private TextView profileTextVIew, licenseTextView;
     private Button nextRegistrationButton;
 
-    public static CompanyProfile sCompanyProfile = new CompanyProfile();
+    public static CompanyProfile sCompanyProfile;
 
     // IMAGE FROM GALLERY
     private Uri uriSelectedImage;
@@ -86,6 +88,10 @@ public class RegisterActivity1 extends AppCompatActivity {
         setContentView(R.layout.activity_register1);
 
         Log.d(TAG, "onCreate: Running...");
+
+
+        mActivity = this;
+        sCompanyProfile = new CompanyProfile(mActivity);
 
         // PERMISSION
         final int permissionCheck = ContextCompat.checkSelfPermission(mContext, Manifest.permission.READ_EXTERNAL_STORAGE);
@@ -325,8 +331,8 @@ public class RegisterActivity1 extends AppCompatActivity {
             @Override
             public void run() {
                 if (dialog.isShowing()) {
-                    Toast.makeText(mContext, "Process is taking longer than usual please check your internet connection", Toast.LENGTH_SHORT)
-                            .show();
+                    Toast.makeText(mContext, "Process is taking longer than usual, " +
+                            "please check your internet connection", Toast.LENGTH_SHORT).show();
                 } else if(volleyError.getMessage() != null && dialog.isShowing()) {
                     Toast.makeText(mContext, volleyError.getMessage(), Toast.LENGTH_SHORT).show();
                     dialog.cancel();
@@ -556,19 +562,12 @@ public class RegisterActivity1 extends AppCompatActivity {
 
     // SETTER FOR COMPANY PROFILE
     private void setCompanyFields() {
-        sCompanyProfile.setCompanyName(edtCompName.getText().toString());
-        sCompanyProfile.setCompanyPhone(edtCompPhone.getText().toString());
-        sCompanyProfile.setCompanyEmail(edtCompEmail.getText().toString());
-        sCompanyProfile.setCompanyCeo(edtCompCEO.getText().toString());
-        sCompanyProfile.setCompanyRepresentative(edtRepName.getText().toString());
-        sCompanyProfile.setCompanyRepresentativeEmail(edtRepEmail.getText().toString());
-
-//        SaveSharedPreferences.setCompanyName(mContext, edtCompName.getText().toString());
-//        SaveSharedPreferences.setCompanyPhone(mContext, edtCompPhone.getText().toString());
-//        SaveSharedPreferences.setCompanyEmail(mContext, edtCompEmail.getText().toString());
-//        SaveSharedPreferences.setCompanyCeo(mContext, edtCompCEO.getText().toString());
-//        SaveSharedPreferences.setCompanyRepresentative(mContext, edtRepName.getText().toString());
-//        SaveSharedPreferences.setCompanyRepresentativeEmail(mContext, edtRepEmail.getText().toString());
+        sCompanyProfile.setCompanyName(mContext, edtCompName.getText().toString());
+        sCompanyProfile.setCompanyPhone(mContext, edtCompPhone.getText().toString());
+        sCompanyProfile.setCompanyEmail(mContext, edtCompEmail.getText().toString());
+        sCompanyProfile.setCompanyCeo(mContext, edtCompCEO.getText().toString());
+        sCompanyProfile.setCompanyRepresentative(mContext, edtRepName.getText().toString());
+        sCompanyProfile.setCompanyRepresentativeEmail(mContext, edtRepEmail.getText().toString());
     }
 }
 

@@ -33,7 +33,6 @@ import android.widget.Toast;
 
 import com.android.volley.error.VolleyError;
 import com.fzhongfei.findzhongfei_final.R;
-import com.fzhongfei.findzhongfei_final.model.SaveSharedPreferences;
 import com.fzhongfei.findzhongfei_final.server.callBackImplement;
 import com.fzhongfei.findzhongfei_final.server.customStringRequest;
 import com.fzhongfei.findzhongfei_final.utils.InternetAvailability;
@@ -228,9 +227,11 @@ public class RegisterActivity3 extends AppCompatActivity {
             }
 
             if(doneRegistrationButton.isEnabled())
-                doneRegistrationButton.setBackground(ContextCompat.getDrawable(mContext, R.drawable.btn_login_background));
+                doneRegistrationButton.setBackground(ContextCompat.getDrawable(mContext,
+                        R.drawable.btn_login_background));
             else {
-                doneRegistrationButton.setBackground(ContextCompat.getDrawable(mContext, R.drawable.btn_login_background_disabled));
+                doneRegistrationButton.setBackground(ContextCompat.getDrawable(mContext,
+                        R.drawable.btn_login_background_disabled));
             }
         }
 
@@ -257,8 +258,8 @@ public class RegisterActivity3 extends AppCompatActivity {
             @Override
             public void run() {
                 if (dialog.isShowing()) {
-                    Toast.makeText(mContext, "Process is taking longer than usual please check your internet connection", Toast.LENGTH_SHORT)
-                            .show();
+                    Toast.makeText(mContext, "Process is taking longer than usual, " +
+                                    "please check your internet connection", Toast.LENGTH_SHORT).show();
                 } else if(volleyError.getMessage() != null && dialog.isShowing()) {
                     Toast.makeText(mContext, volleyError.getMessage(), Toast.LENGTH_SHORT).show();
                     dialog.cancel();
@@ -316,17 +317,18 @@ public class RegisterActivity3 extends AppCompatActivity {
     // SETTER FOR COMPANY PROFILE
     private void setCompanyFields() {
         if(custom_comp_type && custom_comp_sub_type) {
-            SaveSharedPreferences.setCompanyType(mContext, edtCompType.getText().toString());
-            SaveSharedPreferences.setCompanySubType(mContext, edtCompSubType.getText().toString());
-//        SaveSharedPreferences.setCompanyWechatId(mContext, edtWechatId.getText().toString());
-//        SaveSharedPreferences.setCompanyDescription(mContext, textScroll.getText().toString());
+            RegisterActivity1.sCompanyProfile.setCompanyType(mContext, edtCompType.getText().toString());
+            RegisterActivity1.sCompanyProfile.setCompanySubType(mContext, edtCompSubType.getText().toString());
         } else if(custom_comp_sub_type) {
-            SaveSharedPreferences.setCompanyType(mContext, compTypeSpinner.getSelectedItem().toString());
-            SaveSharedPreferences.setCompanySubType(mContext, edtCompSubType.getText().toString());
+            RegisterActivity1.sCompanyProfile.setCompanyType(mContext, compTypeSpinner.getSelectedItem().toString());
+            RegisterActivity1.sCompanyProfile.setCompanySubType(mContext, edtCompSubType.getText().toString());
         } else {
-            SaveSharedPreferences.setCompanyType(mContext, compTypeSpinner.getSelectedItem().toString());
-            SaveSharedPreferences.setCompanySubType(mContext, compSubTypeSpinner.getSelectedItem().toString());
+            RegisterActivity1.sCompanyProfile.setCompanyType(mContext, compTypeSpinner.getSelectedItem().toString());
+            RegisterActivity1.sCompanyProfile.setCompanySubType(mContext, compSubTypeSpinner.getSelectedItem().toString());
         }
+
+        RegisterActivity1.sCompanyProfile.setCompanyWechatId(mContext, edtWechatId.getText().toString());
+        RegisterActivity1.sCompanyProfile.setCompanyDescription(mContext, textScroll.getText().toString());
     }
 
     // INNER CLASS

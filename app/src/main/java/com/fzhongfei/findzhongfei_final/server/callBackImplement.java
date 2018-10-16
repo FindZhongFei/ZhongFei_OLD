@@ -80,6 +80,7 @@ public class callBackImplement implements serverCallBack {
                         }
                         case "final":
                         {
+                            RegisterActivity1.sCompanyProfile.initiateLogin(context.getApplicationContext());
                             Intent intent = new Intent(this.context, SuccessfullyRegisteredActivity.class);
                             RegisterActivity3.dialog.dismiss();
                             context.getApplicationContext().startActivity(intent);
