@@ -44,8 +44,8 @@ public class UserLoginActivity extends AppCompatActivity {
 
     // VIEWS
     private EditText username, password;
-    private static Button loginButton;
-    private static ProgressBar loading;
+    private Button loginButton;
+    private ProgressBar loading;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -204,7 +204,7 @@ public class UserLoginActivity extends AppCompatActivity {
     };
 
     // STOP LOADING
-    public static void stopUserLoginConnection() {
+    public void stopUserLoginConnection() {
         loading.setVisibility(View.GONE);
         loginButton.setVisibility(View.VISIBLE);
     }
@@ -232,6 +232,18 @@ public class UserLoginActivity extends AppCompatActivity {
         Params.put("user_username", usernameValue);
         Params.put("user_usernameType", usernameTypeValue);
         Params.put("user_password", passwordValue);
+//        Params.put("phone_serial_number", Build.SERIAL);
+//        Params.put("phone_model_number", Build.MODEL);
+//        Params.put("phone_id_number", Build.ID);
+//        Params.put("phone_manufacturer", Build.MANUFACTURER);
+//        Params.put("phone_brand", Build.BRAND);
+//        Params.put("phone_type", Build.TYPE);
+//        Params.put("phone_user", Build.USER);
+//        Params.put("phone_base", String.valueOf(Build.VERSION_CODES.BASE));
+//        Params.put("phone_sdk_version", String.valueOf(Build.VERSION.SDK_INT));
+//        Params.put("phone_host", Build.HOST);
+//        Params.put("phone_fingerprint", Build.FINGERPRINT);
+//        Params.put("phone_release", Build.VERSION.RELEASE);
 
         registerRequest.setParams(Params);
 
@@ -257,7 +269,7 @@ public class UserLoginActivity extends AppCompatActivity {
 
         Intent i = new Intent(mContext, UserSignedInActivity.class);
         i.putExtra("isSignedIn", true);
-        UserSignedInActivity.finisher.finish();
+        ((UserSignedInActivity) mContext).finish();
         startActivity(i);
         finish();
     }

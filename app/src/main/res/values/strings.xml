@@ -231,6 +231,7 @@
     <string name="lastName">Last Name</string>
 
     <string name="rememberMe">Remember me</string>
+    <string name="forgotPassword">Forgot password?</string>
 
     <string name="regLongTxt">You have successfully registered your company form. Please wait 3 &#8211; 6 days until we check and validate your form.</string>
     <string name="notAUserRegisterTxt">Don\&apos;t have an account yet? REGISTER HERE</string>

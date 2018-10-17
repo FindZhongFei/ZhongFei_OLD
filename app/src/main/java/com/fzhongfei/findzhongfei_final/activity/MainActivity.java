@@ -37,6 +37,22 @@ public class MainActivity extends AppCompatActivity {
 
         Log.d(TAG, "onCreate: Running...");
 
+//        for(int i = 0; i<10; i++) {
+//            Toast.makeText(mContext, "phone_serial_number: " + Build.SERIAL + "\n" +
+//                            "phone_model_number: "+ Build.MODEL + "\n" +
+//                            "phone_id_number: "+ Build.ID + "\n" +
+//                            "phone_manufacturer: "+ Build.MANUFACTURER + "\n" +
+//                            "phone_brand: "+ Build.BRAND + "\n" +
+//                            "phone_type: "+ Build.TYPE + "\n" +
+//                            "phone_user: "+ Build.USER + "\n" +
+//                            "phone_base: "+ String.valueOf(Build.VERSION_CODES.BASE) + "\n" +
+//                            "phone_sdk_version: "+ String.valueOf(Build.VERSION.SDK_INT) + "\n" +
+//                            "phone_host: "+ Build.HOST + "\n" +
+//                            "phone_fingerprint: "+ Build.FINGERPRINT + "\n" +
+//                            "phone_release: "+ Build.VERSION.RELEASE + "\n"
+//                    ,Toast.LENGTH_LONG).show();
+//        }
+
         // TOOLBAR
         setUpActivityToolbar();
 

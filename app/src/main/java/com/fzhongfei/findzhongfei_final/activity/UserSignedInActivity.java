@@ -19,7 +19,6 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.fzhongfei.findzhongfei_final.R;
 import com.fzhongfei.findzhongfei_final.utils.DisplayAds;
@@ -30,16 +29,12 @@ public class UserSignedInActivity extends AppCompatActivity {
     // EVERY ACTIVITY SETUP
     private static final String TAG = "UserSignedInActivity";
     private Context mContext = UserSignedInActivity.this;
-    public static Activity finisher;
 
     // VIEWS
     private LinearLayout profileLayout;
     private ImageView profileButton;
-    private AdView mAdView;
     private Dialog mDialog;
-    private RelativeLayout adLayout;
 
-    private LinearLayout loginTextDisplay;
     private LinearLayout hideIfNotLoggedIn;
     private TextView userNameText;
     private TextView userPhoneText;
@@ -57,21 +52,19 @@ public class UserSignedInActivity extends AppCompatActivity {
 
         Log.d(TAG, "onCreate: Running...");
 
-        finisher = this;
-
         // INITIALIZING VIEWS
+        AdView mAdView = findViewById(R.id.user_signed_in_ad);
         profileLayout = findViewById(R.id.view_profile_layout);
         profileButton = findViewById(R.id.view_profile_button);
-        mAdView = findViewById(R.id.user_signed_in_ad);
-        adLayout = findViewById(R.id.signed_in_ad_view);
+        RelativeLayout adLayout = findViewById(R.id.signed_in_ad_view);
         mDialog = new Dialog(mContext, android.R.style.Theme_Black_NoTitleBar_Fullscreen);
 
-        loginTextDisplay = findViewById(R.id.login_text_if_not_logged_in);
         hideIfNotLoggedIn = findViewById(R.id.user_signed_in_hidden);
         userNameText = findViewById(R.id.user_signed_in_username);
         userPhoneText = findViewById(R.id.user_signed_in_phone_number);
         userEmailText = findViewById(R.id.user_signed_in_email);
 
+//        LinearLayout loginTextDisplay = findViewById(R.id.login_text_if_not_logged_in);
 //        loginText = findViewById(R.id.user_signed_in_username);
 //        myFont = Typeface.createFromAsset(this.getAssets(), "fonts/HelveticaNeue.ttf");
 //        loginText.setTypeface(myFont);
@@ -82,8 +75,6 @@ public class UserSignedInActivity extends AppCompatActivity {
 
         Intent i = getIntent();
         userSignedIn = i.getBooleanExtra("isSignedIn", userSignedIn);
-
-        Toast.makeText(mContext, String.valueOf(userSignedIn), Toast.LENGTH_SHORT).show();
 
         if(userSignedIn) {
             displayUserDetails();

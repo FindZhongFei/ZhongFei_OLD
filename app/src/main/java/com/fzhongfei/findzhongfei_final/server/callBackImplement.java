@@ -10,6 +10,7 @@ import com.fzhongfei.findzhongfei_final.activity.RegisterActivity1;
 import com.fzhongfei.findzhongfei_final.activity.RegisterActivity2;
 import com.fzhongfei.findzhongfei_final.activity.RegisterActivity3;
 import com.fzhongfei.findzhongfei_final.activity.SuccessfullyRegisteredActivity;
+import com.fzhongfei.findzhongfei_final.activity.UserLoginActivity;
 import com.fzhongfei.findzhongfei_final.activity.UserRegisterActivity;
 import com.fzhongfei.findzhongfei_final.activity.UserSignedInActivity;
 
@@ -17,11 +18,6 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.HashMap;
-
-import static com.fzhongfei.findzhongfei_final.activity.RegisterActivity1.stopConnection1;
-import static com.fzhongfei.findzhongfei_final.activity.RegisterActivity2.stopConnection2;
-import static com.fzhongfei.findzhongfei_final.activity.RegisterActivity3.stopConnection3;
-import static com.fzhongfei.findzhongfei_final.activity.UserLoginActivity.stopUserLoginConnection;
 
 public class callBackImplement implements serverCallBack {
 
@@ -98,18 +94,15 @@ public class callBackImplement implements serverCallBack {
                 }
                 else if(requestType.equals("user_registration"))
                 {
-                    String userToken = result.get("user_token").toString();
-
                     Intent intent = new Intent(this.context, UserSignedInActivity.class);
                     intent.putExtra("isSignedIn", true);
+                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                     context.getApplicationContext().startActivity(intent);
-                    UserSignedInActivity.finisher.finish();
-
                 }
                 else if(requestType.equals("user_login")) {
                     JSONObject jObject = new JSONObject(String.valueOf(result.get("userData")));
 
-                    UserRegisterActivity.sUserProfile.setUserId(jObject.getString("user_id").toString());
+                    UserRegisterActivity.sUserProfile.setUserId(jObject.getString("user_id"));
                     UserRegisterActivity.sUserProfile.setUserToken(jObject.getString("user_token"));
                     UserRegisterActivity.sUserProfile.setUserFirstName(jObject.getString("user_fname"));
                     UserRegisterActivity.sUserProfile.setUserLastName(jObject.getString("user_sname"));
@@ -118,26 +111,31 @@ public class callBackImplement implements serverCallBack {
 
                     Intent intent = new Intent(this.context, UserSignedInActivity.class);
                     intent.putExtra("isSignedIn", true);
+                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                     context.getApplicationContext().startActivity(intent);
-                    UserSignedInActivity.finisher.finish();
                 }
             }
             else
             {
                 if(context.toString().contains("RegisterActivity1"))
                 {
-                    stopConnection1();
+                    ((RegisterActivity1) context).stopCompanyRegistrationConnection1();
                 }
                 else if(context.toString().contains("RegisterActivity2"))
                 {
-                    stopConnection2();
+                    ((RegisterActivity2) context).stopCompanyRegistrationConnection2();
                 }
                 else if(context.toString().contains("RegisterActivity3"))
                 {
-                    stopConnection3();
-                } else if(context.toString().contains("UserLoginActivity"))
+                    ((RegisterActivity3) context).stopCompanyRegistrationConnection3();
+                }
+                else if(context.toString().contains("UserLoginActivity"))
                 {
-                    stopUserLoginConnection();
+                    ((UserLoginActivity) context).stopUserLoginConnection();
+                }
+                else if(context.toString().contains("UserRegisterActivity"))
+                {
+                    ((UserRegisterActivity) context).stopUserRegisterConnection();
                 }
 
                 Toast.makeText(this.context, this.errorMessage, Toast.LENGTH_LONG).show();

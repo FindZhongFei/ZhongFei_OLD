@@ -185,7 +185,7 @@ public class RegisterActivity2 extends AppCompatActivity {
         }
     };
 
-    public static void stopConnection2() {
+    public void stopCompanyRegistrationConnection2() {
         if(dialog.isShowing()) {
             dialog.dismiss();
         }

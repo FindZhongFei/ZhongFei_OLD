@@ -301,7 +301,7 @@ public class RegisterActivity1 extends AppCompatActivity {
         }
     };
 
-    public static void stopConnection1() {
+    public void stopCompanyRegistrationConnection1() {
         if(dialog.isShowing()) {
             dialog.dismiss();
         }
@@ -396,8 +396,6 @@ public class RegisterActivity1 extends AppCompatActivity {
         callBack.setParams(Params);
         callBack.SetRequestType("comp_registration");
         registerRequest.startConnection(mContext, callBack, Params);
-
-
     }
 
     // REQUEST USER PERMISSION TO SELECT AN IMAGE FROM GALLERY

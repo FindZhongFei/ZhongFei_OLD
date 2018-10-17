@@ -106,9 +106,8 @@ public class UserProfileEditActivity extends AppCompatActivity {
 
         Intent i = new Intent(mContext, UserSignedInActivity.class);
         i.putExtra("isSignedIn", false);
+        i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         startActivity(i);
-        UserProfileActivity.finisher.finish();
-        UserSignedInActivity.finisher.finish();
         finish();
     }
 }

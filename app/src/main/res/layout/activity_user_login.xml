@@ -78,14 +78,35 @@
                     android:textSize="16sp"/>
             </android.support.design.widget.TextInputLayout>
 
-            <CheckBox
-                android:id="@+id/user_remember_check_box"
+            <LinearLayout
                 android:layout_width="280sp"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
                 android:layout_marginBottom="10sp"
-                android:checked="true"
-                android:text="@string/rememberMe"/>
+                android:orientation="horizontal"
+                android:weightSum="2">
+
+                <android.support.v7.widget.AppCompatCheckBox
+                    android:id="@+id/user_remember_check_box"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_weight="1"
+                    android:buttonTint="@color/toolbarColorRight"
+                    android:checked="true"
+                    android:text="@string/rememberMe"
+                    tools:targetApi="lollipop"/>
+
+                <TextView
+                    android:id="@+id/user_login_forgot_password"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="end"
+                    android:padding="6sp"
+                    android:text="@string/forgotPassword"/>
+
+            </LinearLayout>
 
             <ProgressBar
                 android:id="@+id/loading_to_login_user"

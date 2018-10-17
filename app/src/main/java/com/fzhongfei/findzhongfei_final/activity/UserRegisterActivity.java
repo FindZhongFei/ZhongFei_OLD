@@ -258,6 +258,12 @@ public class UserRegisterActivity extends AppCompatActivity {
         registerRequest.startConnection(mContext, callBack, Params);
     }
 
+    // STOP LOADING
+    public void stopUserRegisterConnection() {
+        loading.setVisibility(View.GONE);
+        registerButton.setVisibility(View.VISIBLE);
+    }
+
     // SETTER FOR COMPANY PROFILE
     private void setCompanyFields() {
         sUserProfile.setUserFirstName(firstNameEditText.getText().toString());
