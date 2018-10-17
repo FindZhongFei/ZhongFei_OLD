@@ -52,6 +52,8 @@ public class CompanyProfileActivity extends AppCompatActivity {
         companyRepresentativeEmail = findViewById(R.id.TextViewRepEmail);
         companyAddress1 = findViewById(R.id.TextViewAddress1);
         companyAddress2 = findViewById(R.id.TextViewAddress2);
+        companyWechatId = findViewById(R.id.TextViewWechatId);
+        companyDescription = findViewById(R.id.TextViewDescription);
 
         showCompanyProfile();
     }

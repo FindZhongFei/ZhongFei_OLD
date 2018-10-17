@@ -2,14 +2,12 @@ package com.fzhongfei.findzhongfei_final.model;
 
 import android.content.Context;
 import android.content.SharedPreferences;
-import android.preference.PreferenceManager;
 
 import java.util.HashMap;
 
 public class CompanyProfile {
-    private String companyId, companyToken, companyName, companyType, companySubType, companyProvince,
-            companyCity, companyPhone, companyEmail,
-            companyCeo, companyRepresentative, companyLogo, companyLicense,
+    private String companyId, companyToken, companyLogo, companyLicense, companyName, companyType, companySubType, companyCity,
+            companyProvince, companyPhone, companyEmail, companyCeo, companyRepresentative,
             companyRepresentativeEmail, companyAddress1, companyAddress2, companyWechatId, companyDescription;
     private boolean isLoggedIn = false;
 
@@ -17,29 +15,24 @@ public class CompanyProfile {
     {
         SharedPreferences sharedPreference = context.getSharedPreferences( "companyPreference", 0);
 
-        if(sharedPreference.contains("isLoggedIn"))
-        {
-            this.isLoggedIn = true;
-        }
-        else
-            this.isLoggedIn = false;
+        this.isLoggedIn = sharedPreference.contains("isLoggedIn");
     }
 
-    public CompanyProfile(String companyName, String companyType, String companySubType, String companyProvince,
-                          String companyCity, String companyPhone, String companyEmail, String companyCeo,
+    public CompanyProfile(String companyId, String companyToken, String companyLogo, String companyLicense,
+                          String companyName, String companyType, String companySubType, String companyCity,
+                          String companyProvince, String companyPhone, String companyEmail, String companyCeo,
                           String companyRepresentative, String companyRepresentativeEmail, String companyAddress1,
-                          String companyAddress2, String companyId, String companyToken,
-                          String companyLicense, String companyLogo)
+                          String companyAddress2, String companyWechatId, String companyDescription)
     {
         this.companyId = companyId;
         this.companyToken = companyToken;
-        this.companyLicense = companyLicense;
         this.companyLogo = companyLogo;
+        this.companyLicense = companyLicense;
         this.companyName = companyName;
         this.companyType = companyType;
         this.companySubType = companySubType;
-        this.companyProvince = companyProvince;
         this.companyCity = companyCity;
+        this.companyProvince = companyProvince;
         this.companyPhone = companyPhone;
         this.companyEmail = companyEmail;
         this.companyCeo = companyCeo;
@@ -47,9 +40,11 @@ public class CompanyProfile {
         this.companyRepresentativeEmail = companyRepresentativeEmail;
         this.companyAddress1 = companyAddress1;
         this.companyAddress2 = companyAddress2;
+        this.companyWechatId = companyWechatId;
+        this.companyDescription = companyDescription;
     }
 
-    public void setSharedPreference(Context context, String keyName, String value, int valueType)
+    private void setSharedPreference(Context context, String keyName, String value, int valueType)
     {
         SharedPreferences sharedPreferences = context.getSharedPreferences("companyPreference",0);
         SharedPreferences.Editor sharedEditor = sharedPreferences.edit();
@@ -100,6 +95,8 @@ public class CompanyProfile {
         this.companyRepresentativeEmail = compData.get("compRepEmail");
         this.companyAddress1 = compData.get("compAddress1");
         this.companyAddress2 = compData.get("compAddress2");
+        this.companyWechatId = compData.get("compWechatId");
+        this.companyDescription = compData.get("compDescription");
     }
 
     public void setCompanyName(Context context, String companyName)
@@ -224,11 +221,11 @@ public class CompanyProfile {
     }
     public String getCompanyWechatId()
     {
-        return companyAddress2;
+        return companyWechatId;
     }
     public String getCompanyDescription()
     {
-        return companyAddress2;
+        return companyDescription;
     }
     public boolean getIsLoggedIn()
     {

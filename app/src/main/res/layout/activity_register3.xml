@@ -271,7 +271,7 @@
                         android:ems="10"
                         android:hint="@string/descriptionValue"
                         android:imeOptions="actionDone"
-                        android:inputType="textCapSentences|textMultiLine"
+                        android:inputType="textMultiLine|textCapSentences"
                         android:maxLength="450"
                         android:maxLines="10"
                         android:overScrollMode="always"

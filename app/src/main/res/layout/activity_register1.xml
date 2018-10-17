@@ -93,7 +93,7 @@
                         android:background="@drawable/rounded_edit_text"
                         android:ems="10"
                         android:hint="@string/compNameValue"
-                        android:inputType="textPersonName|textCapSentences"
+                        android:inputType="textPersonName|textCapWords"
                         android:paddingStart="0sp"
                         android:paddingLeft="0sp"
                         android:paddingEnd="15sp"
@@ -139,7 +139,7 @@
                         android:background="@drawable/rounded_edit_text"
                         android:ems="10"
                         android:hint="@string/ceoValue"
-                        android:inputType="textPersonName|textCapSentences"
+                        android:inputType="textPersonName|textCapWords"
                         android:paddingStart="0sp"
                         android:paddingLeft="0sp"
                         android:paddingEnd="15sp"
@@ -182,7 +182,7 @@
                         android:background="@drawable/rounded_edit_text"
                         android:ems="10"
                         android:hint="@string/representativeValue"
-                        android:inputType="textPersonName|textCapSentences"
+                        android:inputType="textPersonName|textCapWords"
                         android:paddingStart="0sp"
                         android:paddingLeft="0sp"
                         android:paddingEnd="15sp"
@@ -347,7 +347,7 @@
                         android:textColor="@color/colorBlack"
                         android:textSize="16sp"/>
 
-                    <EditText
+                    <android.support.design.widget.TextInputEditText
                         android:id="@+id/in_compPassword"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -363,7 +363,8 @@
                         android:textColor="@color/colorBlack"
                         android:textColorHighlight="@color/toolbarColorLeft"
                         android:textSize="16sp"
-                        tools:ignore="TextFields"/>
+                        tools:ignore="TextFields"
+                        app:passwordToggleEnabled="true"/>
 
                 </LinearLayout>
             </LinearLayout>

@@ -28,7 +28,11 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.fzhongfei.findzhongfei_final.R;
+import com.fzhongfei.findzhongfei_final.server.callBackImplement;
+import com.fzhongfei.findzhongfei_final.server.customStringRequest;
 import com.fzhongfei.findzhongfei_final.utils.InternetAvailability;
+
+import java.util.HashMap;
 
 import static com.fzhongfei.findzhongfei_final.activity.UserRegisterActivity.sUserProfile;
 
@@ -71,7 +75,7 @@ public class UserLoginActivity extends AppCompatActivity {
             public boolean onKey(View view, int i, KeyEvent keyEvent) {
                 if(i == KeyEvent.KEYCODE_ENTER && keyEvent.getAction() == KeyEvent.ACTION_DOWN && InternetAvailability.internetIsAvailable(mContext)) {
                     if(loginButton.isEnabled()) {
-                        attemptLogin();
+                        processLogin();
                     } else {
                         Toast.makeText(mContext, getResources().getString(R.string.error_comp_fill_in_all_fields), Toast.LENGTH_SHORT).show();
                     }
@@ -85,7 +89,7 @@ public class UserLoginActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 if(InternetAvailability.internetIsAvailable(mContext)) {
-                    attemptLogin();
+                    processLogin();
                 }
             }
         });
@@ -199,11 +203,40 @@ public class UserLoginActivity extends AppCompatActivity {
         }
     };
 
-    // UI - LOGIN USER
-    private void attemptLogin() {
+    // LOGIN USER
+    private void processLogin() {
+        final String usernameValue, usernameTypeValue, passwordValue;
+        customStringRequest registerRequest = new customStringRequest("user/login.php");
+
         loading.setVisibility(View.VISIBLE);
         loginButton.setVisibility(View.GONE);
 
+        usernameValue = username.getText().toString();
+        passwordValue = password.getText().toString();
+
+        if(usernameValue.contains("@")) {
+            usernameTypeValue = "isEmail";
+        } else {
+            usernameTypeValue = "isPhone";
+        }
+
+        HashMap<String, String> Params = new HashMap<>();
+
+        Params.put("action", "user_login");
+        Params.put("user_username", usernameValue);
+        Params.put("user_usernameType", usernameValue);
+        Params.put("user_password", passwordValue);
+
+        registerRequest.setParams(Params);
+
+        callBackImplement callBack = new callBackImplement(mContext);
+        callBack.setParams(Params);
+        callBack.SetRequestType("user_login");
+        registerRequest.startConnection(mContext, callBack, Params);
+    }
+
+    // UI - LOGIN USER
+    private void attemptLogin() {
         UserSignedInActivity.userSignedIn = true;
         String signedInWith = username.getText().toString().trim();
         String userName = sUserProfile.getUserFirstName() + " " + sUserProfile.getUserLastName();
@@ -213,7 +246,6 @@ public class UserLoginActivity extends AppCompatActivity {
         } else {
             sUserProfile.setUserPhone(signedInWith);
         }
-//        SaveSharedPreferences.setSharedPreferenceValue(mContext, SaveSharedPreferences.PREF_USER_USERNAME, username.toString());
 
         UserSignedInActivity.userSignedIn = true;
 
