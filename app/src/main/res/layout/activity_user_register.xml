@@ -178,7 +178,7 @@
                 android:layout_height="45sp"
                 android:layout_gravity="center_horizontal"
                 android:layout_marginTop="20sp"
-                android:background="@drawable/btn_login_background"
+                android:background="@drawable/background_login_button"
                 android:indeterminateTint="@color/colorWhite"
                 android:visibility="gone"
                 tools:ignore="UnusedAttribute"/>

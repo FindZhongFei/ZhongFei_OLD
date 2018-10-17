@@ -44,8 +44,8 @@ public class UserLoginActivity extends AppCompatActivity {
 
     // VIEWS
     private EditText username, password;
-    private Button loginButton;
-    private ProgressBar loading;
+    private static Button loginButton;
+    private static ProgressBar loading;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -203,6 +203,12 @@ public class UserLoginActivity extends AppCompatActivity {
         }
     };
 
+    // STOP LOADING
+    public static void stopUserLoginConnection() {
+        loading.setVisibility(View.GONE);
+        loginButton.setVisibility(View.VISIBLE);
+    }
+
     // LOGIN USER
     private void processLogin() {
         final String usernameValue, usernameTypeValue, passwordValue;
@@ -224,7 +230,7 @@ public class UserLoginActivity extends AppCompatActivity {
 
         Params.put("action", "user_login");
         Params.put("user_username", usernameValue);
-        Params.put("user_usernameType", usernameValue);
+        Params.put("user_usernameType", usernameTypeValue);
         Params.put("user_password", passwordValue);
 
         registerRequest.setParams(Params);

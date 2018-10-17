@@ -16,8 +16,8 @@
     <color name="dark_gray">#6B6B76</color>
 
     // BACKGROUND COLORS
-    <color name="toolbarColorLeft">#FF5258A6</color>
-    <color name="toolbarColorRight">#FF7375B7</color>
+    <color name="toolbarColorLeft">#FF6EA5FF</color>
+    <color name="toolbarColorRight">#FF545FCF</color>
     <color name="bottomNavColor">#7788DD</color>
     <color name="register_background">#E3E8F1</color>
 

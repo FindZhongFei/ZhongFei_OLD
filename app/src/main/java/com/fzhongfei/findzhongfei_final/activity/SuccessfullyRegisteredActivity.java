@@ -30,7 +30,7 @@ public class SuccessfullyRegisteredActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_successfully_registered);
+        setContentView(R.layout.activity_company_successfully_registered);
 
         Log.d(TAG, "onCreate: Running....");
 

@@ -85,7 +85,7 @@ public class RegisterActivity1 extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_register1);
+        setContentView(R.layout.activity_company_register1);
 
         Log.d(TAG, "onCreate: Running...");
 
@@ -206,8 +206,8 @@ public class RegisterActivity1 extends AppCompatActivity {
         GradientDrawable mGradientDrawable;
 
         mGradientDrawable = new GradientDrawable(
-                GradientDrawable.Orientation.RIGHT_LEFT,
-                new int[]{0xFF5258A6, 0xFF7375B7});
+                GradientDrawable.Orientation.LEFT_RIGHT,
+                new int[]{0xFF6EA5FF, 0xFF545FCF});
 
         // CHANGE THE STATUS BAR COLOR TO TRANSPARENT
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
@@ -336,8 +336,6 @@ public class RegisterActivity1 extends AppCompatActivity {
                 } else if(volleyError.getMessage() != null && dialog.isShowing()) {
                     Toast.makeText(mContext, volleyError.getMessage(), Toast.LENGTH_SHORT).show();
                     dialog.cancel();
-                } else {
-
                 }
             }
         };

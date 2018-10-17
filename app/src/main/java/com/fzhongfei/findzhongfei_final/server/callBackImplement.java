@@ -10,6 +10,7 @@ import com.fzhongfei.findzhongfei_final.activity.RegisterActivity1;
 import com.fzhongfei.findzhongfei_final.activity.RegisterActivity2;
 import com.fzhongfei.findzhongfei_final.activity.RegisterActivity3;
 import com.fzhongfei.findzhongfei_final.activity.SuccessfullyRegisteredActivity;
+import com.fzhongfei.findzhongfei_final.activity.UserRegisterActivity;
 import com.fzhongfei.findzhongfei_final.activity.UserSignedInActivity;
 
 import org.json.JSONException;
@@ -20,6 +21,7 @@ import java.util.HashMap;
 import static com.fzhongfei.findzhongfei_final.activity.RegisterActivity1.stopConnection1;
 import static com.fzhongfei.findzhongfei_final.activity.RegisterActivity2.stopConnection2;
 import static com.fzhongfei.findzhongfei_final.activity.RegisterActivity3.stopConnection3;
+import static com.fzhongfei.findzhongfei_final.activity.UserLoginActivity.stopUserLoginConnection;
 
 public class callBackImplement implements serverCallBack {
 
@@ -97,11 +99,28 @@ public class callBackImplement implements serverCallBack {
                 else if(requestType.equals("user_registration"))
                 {
                     String userToken = result.get("user_token").toString();
+
                     Intent intent = new Intent(this.context, UserSignedInActivity.class);
                     intent.putExtra("isSignedIn", true);
                     context.getApplicationContext().startActivity(intent);
-                }
+                    UserSignedInActivity.finisher.finish();
 
+                }
+                else if(requestType.equals("user_login")) {
+                    JSONObject jObject = new JSONObject(String.valueOf(result.get("userData")));
+
+                    UserRegisterActivity.sUserProfile.setUserId(jObject.getString("user_id").toString());
+                    UserRegisterActivity.sUserProfile.setUserToken(jObject.getString("user_token"));
+                    UserRegisterActivity.sUserProfile.setUserFirstName(jObject.getString("user_fname"));
+                    UserRegisterActivity.sUserProfile.setUserLastName(jObject.getString("user_sname"));
+                    UserRegisterActivity.sUserProfile.setUserEmail(jObject.getString("user_email"));
+                    UserRegisterActivity.sUserProfile.setUserPhone(jObject.getString("user_phone"));
+
+                    Intent intent = new Intent(this.context, UserSignedInActivity.class);
+                    intent.putExtra("isSignedIn", true);
+                    context.getApplicationContext().startActivity(intent);
+                    UserSignedInActivity.finisher.finish();
+                }
             }
             else
             {
@@ -116,6 +135,9 @@ public class callBackImplement implements serverCallBack {
                 else if(context.toString().contains("RegisterActivity3"))
                 {
                     stopConnection3();
+                } else if(context.toString().contains("UserLoginActivity"))
+                {
+                    stopUserLoginConnection();
                 }
 
                 Toast.makeText(this.context, this.errorMessage, Toast.LENGTH_LONG).show();
@@ -132,32 +154,38 @@ public class callBackImplement implements serverCallBack {
     }
 
     @Override
-    public String getErrorMessage() {
+    public String getErrorMessage()
+    {
         Log.d(TAG, "getErrorMessage: Error Message: " + this.errorMessage);
         return this.errorMessage;
     }
 
     @Override
-    public String getSuccessMessage() {
+    public String getSuccessMessage()
+    {
         Log.d(TAG, "getSuccessMessage: success Message: " + this.successMessage);
         return this.successMessage;
     }
 
     @Override
-    public boolean isSuccess() {
+    public boolean isSuccess()
+    {
         Log.d(TAG, "isSuccess: is success::: " + this.isSuccess);
         return this.isSuccess;
     }
 
-    public HashMap<String, String > getParams() {
+    public HashMap<String, String > getParams()
+    {
         return this.Params;
     }
-    public void setParams(HashMap<String,String> param) {
+    public void setParams(HashMap<String,String> param)
+    {
         this.Params = param;
     }
 
     @Override
-    public void SetRequestType(String type) {
+    public void SetRequestType(String type)
+    {
         this.requestType = type;
     }
     @Override

@@ -22,7 +22,7 @@
             android:layout_height="match_parent"
             ads:titleEnabled="false"
             android:background="@drawable/user_signed_in_background"
-            ads:contentScrim="@color/toolbarColorLeft"
+            ads:contentScrim="@color/toolbarColorRight"
             ads:layout_scrollFlags="exitUntilCollapsed|scroll">
 
             <LinearLayout
@@ -133,8 +133,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="75sp"
                 android:paddingTop="25sp"
-                ads:layout_collapseMode="pin"
-                ads:popupTheme="@style/ThemeOverlay.AppCompat.Light"/>
+                app:layout_collapseMode="pin"
+                app:popupTheme="@drawable/background_gradient_toolbar"/>
 
         </android.support.design.widget.CollapsingToolbarLayout>
     </android.support.design.widget.AppBarLayout>

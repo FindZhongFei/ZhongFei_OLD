@@ -47,7 +47,7 @@ public class RegisterActivity2 extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_register2);
+        setContentView(R.layout.activity_company_register2);
 
         Log.d(TAG, "onCreate: Running...");
 

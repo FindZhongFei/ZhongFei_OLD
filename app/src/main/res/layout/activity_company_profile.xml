@@ -13,6 +13,7 @@
         android:id="@+id/app_bar"
         android:layout_width="match_parent"
         android:layout_height="300sp"
+        android:fitsSystemWindows="true"
         android:contentDescription="@string/backgroundPicture"
         android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
 
@@ -24,8 +25,9 @@
             app:titleEnabled="false"
             app:contentScrim="@drawable/shadow"
             app:expandedTitleMarginEnd="64dp"
+            android:fitsSystemWindows="true"
             app:expandedTitleMarginStart="48dp"
-            app:layout_scrollFlags="exitUntilCollapsed|scroll">
+            app:layout_scrollFlags="enterAlways|scroll">
 
             <android.support.v7.widget.Toolbar
                 android:id="@+id/profile_toolbar"
