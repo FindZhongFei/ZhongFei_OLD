@@ -8,7 +8,8 @@ import java.util.HashMap;
 public class CompanyProfile {
     private String companyId, companyToken, companyLogo, companyLicense, companyName, companyType, companySubType, companyCity,
             companyProvince, companyPhone, companyEmail, companyCeo, companyRepresentative,
-            companyRepresentativeEmail, companyAddress1, companyAddress2, companyWechatId, companyDescription;
+            companyRepresentativeEmail, companyAddress1, companyAddress2, companyWechatId, companyDescription,
+            companyRegistrationTime, companyStatus;
     private boolean isLoggedIn = false;
 
     public CompanyProfile(Context context)
@@ -22,7 +23,8 @@ public class CompanyProfile {
                           String companyName, String companyType, String companySubType, String companyCity,
                           String companyProvince, String companyPhone, String companyEmail, String companyCeo,
                           String companyRepresentative, String companyRepresentativeEmail, String companyAddress1,
-                          String companyAddress2, String companyWechatId, String companyDescription)
+                          String companyAddress2, String companyWechatId, String companyDescription,
+                          String companyRegistrationTime, String companyStatus)
     {
         this.companyId = companyId;
         this.companyToken = companyToken;
@@ -42,6 +44,8 @@ public class CompanyProfile {
         this.companyAddress2 = companyAddress2;
         this.companyWechatId = companyWechatId;
         this.companyDescription = companyDescription;
+        this.companyRegistrationTime = companyRegistrationTime;
+        this.companyStatus = companyStatus;
     }
 
     private void setSharedPreference(Context context, String keyName, String value, int valueType)
@@ -88,6 +92,7 @@ public class CompanyProfile {
         this.companyType = compData.get("compType");
         this.companySubType = compData.get("compSubType");
         this.companyProvince = compData.get("compProvince");
+        this.companyCity = compData.get("compCity");
         this.companyPhone = compData.get("compPhone");
         this.companyCeo = compData.get("compCeo");
         this.companyEmail = compData.get("compEmail");
@@ -97,6 +102,8 @@ public class CompanyProfile {
         this.companyAddress2 = compData.get("compAddress2");
         this.companyWechatId = compData.get("compWechatId");
         this.companyDescription = compData.get("compDescription");
+        this.companyRegistrationTime =compData.get("compRegistration");
+        this.companyStatus = compData.get("compStatus");
     }
 
     public void setCompanyName(Context context, String companyName)
@@ -170,6 +177,31 @@ public class CompanyProfile {
     {
         this.companyDescription = companyDescription;
         this.setSharedPreference(context, "comp_description", companyDescription, 0);
+    }
+    public void setCompanyLogo(Context context, String companyLogo)
+    {
+        this.companyLogo = companyLogo;
+        this.setSharedPreference(context, "comp_logo", companyLogo, 0);
+    }
+    public void setCompanyLicense(Context context, String companyLicense)
+    {
+        this.companyLicense = companyLicense;
+        this.setSharedPreference(context, "comp_license", companyLicense, 0);
+    }
+    public void setCompanyToken(Context context, String companyToken)
+    {
+        this.companyToken = companyToken;
+        this.setSharedPreference(context, "comp_token", companyToken, 0);
+    }
+    public void setCompanyRegistrationTime(Context context, String companyRegistrationTime)
+    {
+        this.companyRegistrationTime = companyRegistrationTime;
+        this.setSharedPreference(context, "comp_registrationTime", companyRegistrationTime, 0);
+    }
+    public void setCompanyStatus(Context context, String companyStatus)
+    {
+        this.companyStatus = companyStatus;
+        this.setSharedPreference(context, "comp_status", companyStatus, 0);
     }
 
     public String getCompanyName()
