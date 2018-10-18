@@ -1,6 +1,7 @@
 package com.fzhongfei.findzhongfei_final.activity;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.drawable.GradientDrawable;
 import android.os.Build;
 import android.os.Bundle;
@@ -23,6 +24,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.fzhongfei.findzhongfei_final.R;
+import com.fzhongfei.findzhongfei_final.model.CompanyProfile;
 import com.fzhongfei.findzhongfei_final.server.callBackImplement;
 import com.fzhongfei.findzhongfei_final.server.customStringRequest;
 import com.fzhongfei.findzhongfei_final.utils.InternetAvailability;
@@ -44,7 +46,13 @@ public class CompanyLoginActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_company_login);
+        if(CompanyRegistrationActivity1.sCompanyProfile == null)
+            setContentView(R.layout.activity_company_login);
+        else
+        {
+            Intent companyProfile = new Intent(mContext, CompanyProfileActivity.class);
+            mContext.getApplicationContext().startActivity(companyProfile);
+        }
 
         Log.d(TAG, "onCreate: Running....");
 

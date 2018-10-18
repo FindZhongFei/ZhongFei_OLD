@@ -11,6 +11,7 @@ import android.view.MenuItem;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.fzhongfei.findzhongfei_final.R;
 
@@ -101,34 +102,44 @@ public class CompanyProfileActivity extends AppCompatActivity {
 
     // ALL COMPANY PROFILE FIELDS
     private void showCompanyProfile() {
-        String companyNameValue = CompanyRegistrationActivity1.sCompanyProfile.getCompanyName();
-        String companyPhoneValue = CompanyRegistrationActivity1.sCompanyProfile.getCompanyPhone();
-        String companyEmailValue = CompanyRegistrationActivity1.sCompanyProfile.getCompanyEmail();
-        String companyCeoValue = CompanyRegistrationActivity1.sCompanyProfile.getCompanyCeo();
-        String companyRepresentativeValue = CompanyRegistrationActivity1.sCompanyProfile.getCompanyRepresentative();
-        String companyRepresentativeEmailValue = CompanyRegistrationActivity1.sCompanyProfile.getCompanyRepresentativeEmail();
-        String companyAddress1Value = CompanyRegistrationActivity1.sCompanyProfile.getCompanyAddress1();
-        String companyAddress2Value = CompanyRegistrationActivity1.sCompanyProfile.getCompanyAddress2();
-        String companyCityValue = CompanyRegistrationActivity1.sCompanyProfile.getCompanyCity();
-        String companyProvinceValue = CompanyRegistrationActivity1.sCompanyProfile.getCompanyProvince();
-        String companyTypeValue = CompanyRegistrationActivity1.sCompanyProfile.getCompanyType();
-        String companySubTypeValue = CompanyRegistrationActivity1.sCompanyProfile.getCompanySubType();
-        String companyWechatIdValue = CompanyRegistrationActivity1.sCompanyProfile.getCompanyWechatId();
-        String companyDescriptionValue = CompanyRegistrationActivity1.sCompanyProfile.getCompanyDescription();
+        if(CompanyRegistrationActivity1.sCompanyProfile.getIsLoggedIn())
+        {
+            String companyNameValue = CompanyRegistrationActivity1.sCompanyProfile.getCompanyName();
+            String companyPhoneValue = CompanyRegistrationActivity1.sCompanyProfile.getCompanyPhone();
+            String companyEmailValue = CompanyRegistrationActivity1.sCompanyProfile.getCompanyEmail();
+            String companyCeoValue = CompanyRegistrationActivity1.sCompanyProfile.getCompanyCeo();
+            String companyRepresentativeValue = CompanyRegistrationActivity1.sCompanyProfile.getCompanyRepresentative();
+            String companyRepresentativeEmailValue = CompanyRegistrationActivity1.sCompanyProfile.getCompanyRepresentativeEmail();
+            String companyAddress1Value = CompanyRegistrationActivity1.sCompanyProfile.getCompanyAddress1();
+            String companyAddress2Value = CompanyRegistrationActivity1.sCompanyProfile.getCompanyAddress2();
+            String companyCityValue = CompanyRegistrationActivity1.sCompanyProfile.getCompanyCity();
+            String companyProvinceValue = CompanyRegistrationActivity1.sCompanyProfile.getCompanyProvince();
+            String companyTypeValue = CompanyRegistrationActivity1.sCompanyProfile.getCompanyType();
+            String companySubTypeValue = CompanyRegistrationActivity1.sCompanyProfile.getCompanySubType();
+            String companyWechatIdValue = CompanyRegistrationActivity1.sCompanyProfile.getCompanyWechatId();
+            String companyDescriptionValue = CompanyRegistrationActivity1.sCompanyProfile.getCompanyDescription();
 
-        companyName.setText(companyNameValue);
-        companyPhone.setText(companyPhoneValue);
-        companyEmail.setText(companyEmailValue);
-        companyCeo.setText(companyCeoValue);
-        companyRepresentative.setText(companyRepresentativeValue);
-        companyRepresentativeEmail.setText(companyRepresentativeEmailValue);
-        companyAddress1.setText(companyAddress1Value);
-        companyAddress2.setText(companyAddress2Value);
-        companyCity.setText(companyCityValue);
-        companyProvince.setText(companyProvinceValue);
-        companyType.setText(companyTypeValue);
-        companySubType.setText(companySubTypeValue);
-        companyWechatId.setText(companyWechatIdValue);
-        companyDescription.setText(companyDescriptionValue);
+            companyName.setText(companyNameValue);
+            companyPhone.setText(companyPhoneValue);
+            companyEmail.setText(companyEmailValue);
+            companyCeo.setText(companyCeoValue);
+            companyRepresentative.setText(companyRepresentativeValue);
+            companyRepresentativeEmail.setText(companyRepresentativeEmailValue);
+            companyAddress1.setText(companyAddress1Value);
+            companyAddress2.setText(companyAddress2Value);
+            companyCity.setText(companyCityValue);
+            companyProvince.setText(companyProvinceValue);
+            companyType.setText(companyTypeValue);
+            companySubType.setText(companySubTypeValue);
+            companyWechatId.setText(companyWechatIdValue);
+            companyDescription.setText(companyDescriptionValue);
+        }
+        else
+        {
+            Toast.makeText(mContext, "Please login", Toast.LENGTH_LONG).show();
+            Intent companyLoginScreen = new Intent(mContext,CompanyLoginActivity.class);
+            mContext.getApplicationContext().startActivity(companyLoginScreen);
+        }
+
     }
 }

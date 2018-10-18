@@ -7,6 +7,7 @@ import android.util.Log;
 import android.widget.Toast;
 
 import com.fzhongfei.findzhongfei_final.activity.CompanyLoginActivity;
+import com.fzhongfei.findzhongfei_final.activity.CompanyProfileActivity;
 import com.fzhongfei.findzhongfei_final.activity.CompanyRegistrationActivity1;
 import com.fzhongfei.findzhongfei_final.activity.CompanyRegistrationActivity2;
 import com.fzhongfei.findzhongfei_final.activity.CompanyRegistrationActivity3;
@@ -14,6 +15,7 @@ import com.fzhongfei.findzhongfei_final.activity.CompanySuccessfullyRegisteredAc
 import com.fzhongfei.findzhongfei_final.activity.UserLoginActivity;
 import com.fzhongfei.findzhongfei_final.activity.UserRegistrationActivity;
 import com.fzhongfei.findzhongfei_final.activity.UserSignedInActivity;
+import com.fzhongfei.findzhongfei_final.model.Company;
 import com.fzhongfei.findzhongfei_final.model.CompanyProfile;
 
 import org.json.JSONException;
@@ -96,9 +98,35 @@ public class callBackImplement implements serverCallBack {
                 }
                 else if(requestType.equals("comp_login"))
                 {
-                    Intent intent = new Intent(this.context, CompanyProfile.class);
+                    Intent intent = new Intent(this.context, CompanyProfileActivity.class);
                     intent.putExtra("isSignedIn", true);
                     intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                    JSONObject companyData = new JSONObject(String.valueOf(result.get("compData")));
+                    HashMap<String, String> hashCompData = new HashMap<>();
+                    hashCompData.put("compId",companyData.getString("comp_id"));
+                    hashCompData.put("compName",companyData.getString("comp_name"));
+                    hashCompData.put("compRepName",companyData.getString("comp_representative"));
+                    hashCompData.put("compRepEmail",companyData.getString("comp_rep_email"));
+                    hashCompData.put("compCeo",companyData.getString("comp_ceo"));
+                    hashCompData.put("compLogo",companyData.getString("comp_logo"));
+                    hashCompData.put("compLicense",companyData.getString("comp_license"));
+                    hashCompData.put("compPhone",companyData.getString("comp_phone"));
+                    hashCompData.put("compEmail",companyData.getString("comp_email"));
+                    hashCompData.put("compToken",companyData.getString("comp_token"));
+                    hashCompData.put("compRegistration",companyData.getString("comp_reg_time"));
+                    hashCompData.put("compStatus",companyData.getString("comp_status"));
+                    hashCompData.put("compAddress1",companyData.getString("comp_addr_one"));
+                    hashCompData.put("compAddress2",companyData.getString("comp_addr_two"));
+                    hashCompData.put("compCity",companyData.getString("comp_city"));
+                    hashCompData.put("compProvince",companyData.getString("comp_province"));
+                    hashCompData.put("compType",companyData.getString("comp_type"));
+                    hashCompData.put("compSubType",companyData.getString("comp_subtype"));
+                    hashCompData.put("compDescription",companyData.getString("comp_desc"));
+                    hashCompData.put("compWechatId",companyData.getString("comp_wechat"));
+
+                    CompanyRegistrationActivity1.InitiateCompanyProfile(this.context);
+                    CompanyRegistrationActivity1.sCompanyProfile.initiateLogin(this.context);
+                    CompanyRegistrationActivity1.sCompanyProfile.SetCompData(hashCompData);
                     context.getApplicationContext().startActivity(intent);
                 }
                 else if(requestType.equals("user_registration"))

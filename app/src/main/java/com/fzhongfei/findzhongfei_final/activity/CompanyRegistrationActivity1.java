@@ -59,7 +59,7 @@ import java.util.regex.Pattern;
 public class CompanyRegistrationActivity1 extends AppCompatActivity {
 
     // EVERY ACTIVITY SETUP
-    private static final String TAG = "CompanyRegistrationActivity1";
+    private static final String TAG = "CompanyRegistration1";
     public Context mContext = CompanyRegistrationActivity1.this;
     public static Activity mActivity ;
 
@@ -91,7 +91,8 @@ public class CompanyRegistrationActivity1 extends AppCompatActivity {
 
 
         mActivity = this;
-        sCompanyProfile = new CompanyProfile(mActivity);
+//        sCompanyProfile = new CompanyProfile(mActivity);
+        InitiateCompanyProfile(mActivity);
 
         // PERMISSION
         final int permissionCheck = ContextCompat.checkSelfPermission(mContext, Manifest.permission.READ_EXTERNAL_STORAGE);
@@ -564,6 +565,12 @@ public class CompanyRegistrationActivity1 extends AppCompatActivity {
         sCompanyProfile.setCompanyCeo(mContext, edtCompCEO.getText().toString());
         sCompanyProfile.setCompanyRepresentative(mContext, edtRepName.getText().toString());
         sCompanyProfile.setCompanyRepresentativeEmail(mContext, edtRepEmail.getText().toString());
+    }
+
+    //initiate sCompanyProfile when the activity has not been called  before
+    public static void InitiateCompanyProfile(Context context)
+    {
+        sCompanyProfile = new CompanyProfile(context);
     }
 }
 
