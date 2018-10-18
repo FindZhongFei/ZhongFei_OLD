@@ -149,7 +149,7 @@ public class UserSignedInActivity extends AppCompatActivity {
                 onBackPressed();
                 return true;
             case R.id.profile_settings:
-                startActivity(new Intent(mContext, SettingsActivity.class));
+                startActivity(new Intent(mContext, UserSettingsActivity.class));
         }
         return super.onOptionsItemSelected(item);
     }
@@ -161,11 +161,11 @@ public class UserSignedInActivity extends AppCompatActivity {
 //                                                                                         SaveSharedPreferences.PREF_USER_LAST_NAME);
 //        String userPhone = SaveSharedPreferences.getSharedPreferenceValue(mContext, SaveSharedPreferences.PREF_USER_PHONE);
 
-        String userFirstName = UserRegisterActivity.sUserProfile.getUserFirstName();
-        String userLastName = UserRegisterActivity.sUserProfile.getUserLastName();
+        String userFirstName = UserRegistrationActivity.sUserProfile.getUserFirstName();
+        String userLastName = UserRegistrationActivity.sUserProfile.getUserLastName();
         String userName = userFirstName + " " + userLastName;
-        String userEmail = UserRegisterActivity.sUserProfile.getUserEmail();
-        String userPhone = UserRegisterActivity.sUserProfile.getUserPhone();
+        String userEmail = UserRegistrationActivity.sUserProfile.getUserEmail();
+        String userPhone = UserRegistrationActivity.sUserProfile.getUserPhone();
 
         hideIfNotLoggedIn.setVisibility(View.VISIBLE);
 
@@ -223,7 +223,7 @@ public class UserSignedInActivity extends AppCompatActivity {
         registerButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(mContext, RegisterActivity1.class));
+                startActivity(new Intent(mContext, CompanyLoginActivity.class));
                 mDialog.dismiss();
             }
         });

@@ -35,11 +35,11 @@ import com.fzhongfei.findzhongfei_final.utils.InternetAvailability;
 
 import java.util.HashMap;
 
-public class UserRegisterActivity extends AppCompatActivity {
+public class UserRegistrationActivity extends AppCompatActivity {
 
     // EVERY ACTIVITY SETUP
-    private static final String TAG = "RegisterActivity1";
-    public Context mContext = UserRegisterActivity.this;
+    private static final String TAG = "CompanyRegistrationActivity1";
+    public Context mContext = UserRegistrationActivity.this;
 
     // VIEWS
     private EditText firstNameEditText, lastNameEditText, emailAddressEditText, phoneNumberEditText, passwordEditText, confirmPasswordEditText;

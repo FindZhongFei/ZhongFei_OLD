@@ -30,7 +30,7 @@
         </activity>
         <activity android:name=".activity.UserProfileEditActivity">
         </activity>
-        <activity android:name=".activity.SettingsActivity">
+        <activity android:name=".activity.UserSettingsActivity">
         </activity>
 
         <!-- AD ACTIVITY -->
@@ -41,13 +41,13 @@
         </activity>
         <activity android:name=".activity.FavoritesActivity">
         </activity>
-        <activity android:name=".activity.RegisterActivity1">
+        <activity android:name=".activity.CompanyRegistrationActivity1">
         </activity>
-        <activity android:name=".activity.RegisterActivity2">
+        <activity android:name=".activity.CompanyRegistrationActivity2">
         </activity>
-        <activity android:name=".activity.RegisterActivity3">
+        <activity android:name=".activity.CompanyRegistrationActivity3">
         </activity>
-        <activity android:name=".activity.SuccessfullyRegisteredActivity">
+        <activity android:name=".activity.CompanySuccessfullyRegisteredActivity">
         </activity>
         <activity android:name=".activity.CompanyProfileActivity">
         </activity>
@@ -57,7 +57,9 @@
             android:name=".activity.SplashScreenActivity"
             android:theme="@style/SplashScreen">
         </activity>
-        <activity android:name=".activity.UserRegisterActivity">
+        <activity android:name=".activity.UserRegistrationActivity">
+        </activity>
+        <activity android:name=".activity.CompanyLoginActivity">
         </activity>
     </application>
 

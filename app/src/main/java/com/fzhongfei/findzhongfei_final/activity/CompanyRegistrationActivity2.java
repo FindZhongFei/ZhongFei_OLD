@@ -31,11 +31,11 @@ import com.fzhongfei.findzhongfei_final.utils.InternetAvailability;
 
 import java.util.HashMap;
 
-public class RegisterActivity2 extends AppCompatActivity {
+public class CompanyRegistrationActivity2 extends AppCompatActivity {
 
     // EVERY ACTIVITY SETUP
-    private static final String TAG = "RegisterActivity2";
-    private Context mContext = RegisterActivity2.this;
+    private static final String TAG = "CompanyRegistrationActivity2";
+    private Context mContext = CompanyRegistrationActivity2.this;
 
     // VIEWS
     public static ProgressDialog dialog;
@@ -238,9 +238,9 @@ public class RegisterActivity2 extends AppCompatActivity {
 
     // SETTER FOR COMPANY PROFILE
     private void setCompanyFields() {
-        RegisterActivity1.sCompanyProfile.setCompanyAddress1(mContext, edtAddress1.getText().toString());
-        RegisterActivity1.sCompanyProfile.setCompanyAddress2(mContext, edtAddress2.getText().toString());
-        RegisterActivity1.sCompanyProfile.setCompanyCity(mContext, edtCity.getText().toString());
-        RegisterActivity1.sCompanyProfile.setCompanyProvince(mContext, edtProvince.getText().toString());
+        CompanyRegistrationActivity1.sCompanyProfile.setCompanyAddress1(mContext, edtAddress1.getText().toString());
+        CompanyRegistrationActivity1.sCompanyProfile.setCompanyAddress2(mContext, edtAddress2.getText().toString());
+        CompanyRegistrationActivity1.sCompanyProfile.setCompanyCity(mContext, edtCity.getText().toString());
+        CompanyRegistrationActivity1.sCompanyProfile.setCompanyProvince(mContext, edtProvince.getText().toString());
     }
 }

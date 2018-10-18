@@ -93,7 +93,7 @@ public class CompanyProfileActivity extends AppCompatActivity {
 
         // MENU ITEM CLICK HANDLING
         if(id == R.id.profile_settings) {
-            startActivity(new Intent(mContext, SettingsActivity.class));
+            startActivity(new Intent(mContext, UserSettingsActivity.class));
         }
 
         return super.onOptionsItemSelected(item);
@@ -101,20 +101,20 @@ public class CompanyProfileActivity extends AppCompatActivity {
 
     // ALL COMPANY PROFILE FIELDS
     private void showCompanyProfile() {
-        String companyNameValue = RegisterActivity1.sCompanyProfile.getCompanyName();
-        String companyPhoneValue = RegisterActivity1.sCompanyProfile.getCompanyPhone();
-        String companyEmailValue = RegisterActivity1.sCompanyProfile.getCompanyEmail();
-        String companyCeoValue = RegisterActivity1.sCompanyProfile.getCompanyCeo();
-        String companyRepresentativeValue = RegisterActivity1.sCompanyProfile.getCompanyRepresentative();
-        String companyRepresentativeEmailValue = RegisterActivity1.sCompanyProfile.getCompanyRepresentativeEmail();
-        String companyAddress1Value = RegisterActivity1.sCompanyProfile.getCompanyAddress1();
-        String companyAddress2Value = RegisterActivity1.sCompanyProfile.getCompanyAddress2();
-        String companyCityValue = RegisterActivity1.sCompanyProfile.getCompanyCity();
-        String companyProvinceValue = RegisterActivity1.sCompanyProfile.getCompanyProvince();
-        String companyTypeValue = RegisterActivity1.sCompanyProfile.getCompanyType();
-        String companySubTypeValue = RegisterActivity1.sCompanyProfile.getCompanySubType();
-        String companyWechatIdValue = RegisterActivity1.sCompanyProfile.getCompanyWechatId();
-        String companyDescriptionValue = RegisterActivity1.sCompanyProfile.getCompanyDescription();
+        String companyNameValue = CompanyRegistrationActivity1.sCompanyProfile.getCompanyName();
+        String companyPhoneValue = CompanyRegistrationActivity1.sCompanyProfile.getCompanyPhone();
+        String companyEmailValue = CompanyRegistrationActivity1.sCompanyProfile.getCompanyEmail();
+        String companyCeoValue = CompanyRegistrationActivity1.sCompanyProfile.getCompanyCeo();
+        String companyRepresentativeValue = CompanyRegistrationActivity1.sCompanyProfile.getCompanyRepresentative();
+        String companyRepresentativeEmailValue = CompanyRegistrationActivity1.sCompanyProfile.getCompanyRepresentativeEmail();
+        String companyAddress1Value = CompanyRegistrationActivity1.sCompanyProfile.getCompanyAddress1();
+        String companyAddress2Value = CompanyRegistrationActivity1.sCompanyProfile.getCompanyAddress2();
+        String companyCityValue = CompanyRegistrationActivity1.sCompanyProfile.getCompanyCity();
+        String companyProvinceValue = CompanyRegistrationActivity1.sCompanyProfile.getCompanyProvince();
+        String companyTypeValue = CompanyRegistrationActivity1.sCompanyProfile.getCompanyType();
+        String companySubTypeValue = CompanyRegistrationActivity1.sCompanyProfile.getCompanySubType();
+        String companyWechatIdValue = CompanyRegistrationActivity1.sCompanyProfile.getCompanyWechatId();
+        String companyDescriptionValue = CompanyRegistrationActivity1.sCompanyProfile.getCompanyDescription();
 
         companyName.setText(companyNameValue);
         companyPhone.setText(companyPhoneValue);

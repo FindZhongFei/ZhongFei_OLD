@@ -34,7 +34,7 @@ import com.fzhongfei.findzhongfei_final.utils.InternetAvailability;
 
 import java.util.HashMap;
 
-import static com.fzhongfei.findzhongfei_final.activity.UserRegisterActivity.sUserProfile;
+import static com.fzhongfei.findzhongfei_final.activity.UserRegistrationActivity.sUserProfile;
 
 public class UserLoginActivity extends AppCompatActivity {
 
@@ -43,9 +43,10 @@ public class UserLoginActivity extends AppCompatActivity {
     private Context mContext = UserLoginActivity.this;
 
     // VIEWS
-    private EditText username, password;
+    private EditText userEmailOrPhone, userPassword;
     private Button loginButton;
     private ProgressBar loading;
+    private String mUsernameValue, mPasswordValue;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,18 +60,18 @@ public class UserLoginActivity extends AppCompatActivity {
 
         // INITIALIZING VIEWS
         TextView registerButton = findViewById(R.id.user_register_text_button);
-        username = findViewById(R.id.user_login_edit_email_or_phone);
-        password = findViewById(R.id.user_login_edit_password);
+        userEmailOrPhone = findViewById(R.id.user_login_edit_email_or_phone);
+        userPassword = findViewById(R.id.user_login_edit_password);
         loginButton = findViewById(R.id.user_login_button);
         loading = findViewById(R.id.loading_to_login_user);
         ImageView imageView = findViewById(R.id.login_logo);
-        LinearLayout linearLayout = findViewById(R.id.login_linear_layout);
+        LinearLayout linearLayout = findViewById(R.id.user_login_linear_layout);
 
         // VALIDATE EDIT TEXTS
-        username.addTextChangedListener(editTextTextWatcher);
-        password.addTextChangedListener(editTextTextWatcher);
+        userEmailOrPhone.addTextChangedListener(editTextTextWatcher);
+        userPassword.addTextChangedListener(editTextTextWatcher);
 
-        password.setOnKeyListener(new View.OnKeyListener() {
+        userPassword.setOnKeyListener(new View.OnKeyListener() {
             @Override
             public boolean onKey(View view, int i, KeyEvent keyEvent) {
                 if(i == KeyEvent.KEYCODE_ENTER && keyEvent.getAction() == KeyEvent.ACTION_DOWN && InternetAvailability.internetIsAvailable(mContext)) {
@@ -98,7 +99,7 @@ public class UserLoginActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 if(InternetAvailability.internetIsAvailable(mContext)) {
-                    startActivity(new Intent(mContext, UserRegisterActivity.class));
+                    startActivity(new Intent(mContext, UserRegistrationActivity.class));
                     finish();
                 }
             }
@@ -186,10 +187,10 @@ public class UserLoginActivity extends AppCompatActivity {
 
         @Override
         public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-            String mUsername = username.getText().toString().trim();
-            String mPassword = password.getText().toString().trim();
+            mUsernameValue = userEmailOrPhone.getText().toString().trim();
+            mPasswordValue = userPassword.getText().toString().trim();
 
-            loginButton.setEnabled(!mUsername.isEmpty() && !mPassword.isEmpty());
+            loginButton.setEnabled(!mUsernameValue.isEmpty() && !mPasswordValue.isEmpty());
 
             if(loginButton.isEnabled())
                 loginButton.setBackground(ContextCompat.getDrawable(mContext, R.drawable.background_login_button));
@@ -211,16 +212,13 @@ public class UserLoginActivity extends AppCompatActivity {
 
     // LOGIN USER
     private void processLogin() {
-        final String usernameValue, usernameTypeValue, passwordValue;
+        final String usernameTypeValue;
         customStringRequest registerRequest = new customStringRequest("user/login.php");
 
         loading.setVisibility(View.VISIBLE);
         loginButton.setVisibility(View.GONE);
 
-        usernameValue = username.getText().toString();
-        passwordValue = password.getText().toString();
-
-        if(usernameValue.contains("@")) {
+        if(mUsernameValue.contains("@")) {
             usernameTypeValue = "isEmail";
         } else {
             usernameTypeValue = "isPhone";
@@ -229,9 +227,10 @@ public class UserLoginActivity extends AppCompatActivity {
         HashMap<String, String> Params = new HashMap<>();
 
         Params.put("action", "user_login");
-        Params.put("user_username", usernameValue);
+        Params.put("user_username", mUsernameValue);
         Params.put("user_usernameType", usernameTypeValue);
-        Params.put("user_password", passwordValue);
+        Params.put("user_password", mPasswordValue);
+
 //        Params.put("phone_serial_number", Build.SERIAL);
 //        Params.put("phone_model_number", Build.MODEL);
 //        Params.put("phone_id_number", Build.ID);
@@ -256,7 +255,7 @@ public class UserLoginActivity extends AppCompatActivity {
     // UI - LOGIN USER
     private void attemptLogin() {
         UserSignedInActivity.userSignedIn = true;
-        String signedInWith = username.getText().toString().trim();
+        String signedInWith = userEmailOrPhone.getText().toString().trim();
         String userName = sUserProfile.getUserFirstName() + " " + sUserProfile.getUserLastName();
 
         if(signedInWith.contains("@")) {

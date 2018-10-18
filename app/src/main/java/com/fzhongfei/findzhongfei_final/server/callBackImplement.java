@@ -6,12 +6,12 @@ import android.content.Intent;
 import android.util.Log;
 import android.widget.Toast;
 
-import com.fzhongfei.findzhongfei_final.activity.RegisterActivity1;
-import com.fzhongfei.findzhongfei_final.activity.RegisterActivity2;
-import com.fzhongfei.findzhongfei_final.activity.RegisterActivity3;
-import com.fzhongfei.findzhongfei_final.activity.SuccessfullyRegisteredActivity;
+import com.fzhongfei.findzhongfei_final.activity.CompanyRegistrationActivity1;
+import com.fzhongfei.findzhongfei_final.activity.CompanyRegistrationActivity2;
+import com.fzhongfei.findzhongfei_final.activity.CompanyRegistrationActivity3;
+import com.fzhongfei.findzhongfei_final.activity.CompanySuccessfullyRegisteredActivity;
 import com.fzhongfei.findzhongfei_final.activity.UserLoginActivity;
-import com.fzhongfei.findzhongfei_final.activity.UserRegisterActivity;
+import com.fzhongfei.findzhongfei_final.activity.UserRegistrationActivity;
 import com.fzhongfei.findzhongfei_final.activity.UserSignedInActivity;
 
 import org.json.JSONException;
@@ -60,34 +60,34 @@ public class callBackImplement implements serverCallBack {
                     {
                         case "page2":
                         {
-                            Intent intent = new Intent(this.context, RegisterActivity2.class);
+                            Intent intent = new Intent(this.context, CompanyRegistrationActivity2.class);
                             intent.putExtra("comp_token", companyToken);
-                            RegisterActivity1.dialog.dismiss();
+                            CompanyRegistrationActivity1.dialog.dismiss();
                             context.getApplicationContext().startActivity(intent);
                             ((Activity) context).finish();
                             break;
                         }
                         case "page3":
                         {
-                            Intent intent = new Intent(this.context, RegisterActivity3.class);
+                            Intent intent = new Intent(this.context, CompanyRegistrationActivity3.class);
                             intent.putExtra("comp_token", companyToken);
-                            RegisterActivity2.dialog.dismiss();
+                            CompanyRegistrationActivity2.dialog.dismiss();
                             context.getApplicationContext().startActivity(intent);
                             ((Activity) context).finish();
                             break;
                         }
                         case "final":
                         {
-                            RegisterActivity1.sCompanyProfile.initiateLogin(context.getApplicationContext());
-                            Intent intent = new Intent(this.context, SuccessfullyRegisteredActivity.class);
-                            RegisterActivity3.dialog.dismiss();
+                            CompanyRegistrationActivity1.sCompanyProfile.initiateLogin(context.getApplicationContext());
+                            Intent intent = new Intent(this.context, CompanySuccessfullyRegisteredActivity.class);
+                            CompanyRegistrationActivity3.dialog.dismiss();
                             context.getApplicationContext().startActivity(intent);
                             ((Activity) context).finish();
                             break;
                         }
                         default:
                         {
-                            context.getApplicationContext().startActivity(new Intent(this.context, RegisterActivity1.class));
+                            context.getApplicationContext().startActivity(new Intent(this.context, CompanyRegistrationActivity1.class));
                             break;
                         }
                     }
@@ -102,12 +102,12 @@ public class callBackImplement implements serverCallBack {
                 else if(requestType.equals("user_login")) {
                     JSONObject jObject = new JSONObject(String.valueOf(result.get("userData")));
 
-                    UserRegisterActivity.sUserProfile.setUserId(jObject.getString("user_id"));
-                    UserRegisterActivity.sUserProfile.setUserToken(jObject.getString("user_token"));
-                    UserRegisterActivity.sUserProfile.setUserFirstName(jObject.getString("user_fname"));
-                    UserRegisterActivity.sUserProfile.setUserLastName(jObject.getString("user_sname"));
-                    UserRegisterActivity.sUserProfile.setUserEmail(jObject.getString("user_email"));
-                    UserRegisterActivity.sUserProfile.setUserPhone(jObject.getString("user_phone"));
+                    UserRegistrationActivity.sUserProfile.setUserId(jObject.getString("user_id"));
+                    UserRegistrationActivity.sUserProfile.setUserToken(jObject.getString("user_token"));
+                    UserRegistrationActivity.sUserProfile.setUserFirstName(jObject.getString("user_fname"));
+                    UserRegistrationActivity.sUserProfile.setUserLastName(jObject.getString("user_sname"));
+                    UserRegistrationActivity.sUserProfile.setUserEmail(jObject.getString("user_email"));
+                    UserRegistrationActivity.sUserProfile.setUserPhone(jObject.getString("user_phone"));
 
                     Intent intent = new Intent(this.context, UserSignedInActivity.class);
                     intent.putExtra("isSignedIn", true);
@@ -117,25 +117,25 @@ public class callBackImplement implements serverCallBack {
             }
             else
             {
-                if(context.toString().contains("RegisterActivity1"))
+                if(context.toString().contains("CompanyRegistrationActivity1"))
                 {
-                    ((RegisterActivity1) context).stopCompanyRegistrationConnection1();
+                    ((CompanyRegistrationActivity1) context).stopCompanyRegistrationConnection1();
                 }
-                else if(context.toString().contains("RegisterActivity2"))
+                else if(context.toString().contains("CompanyRegistrationActivity2"))
                 {
-                    ((RegisterActivity2) context).stopCompanyRegistrationConnection2();
+                    ((CompanyRegistrationActivity2) context).stopCompanyRegistrationConnection2();
                 }
-                else if(context.toString().contains("RegisterActivity3"))
+                else if(context.toString().contains("CompanyRegistrationActivity3"))
                 {
-                    ((RegisterActivity3) context).stopCompanyRegistrationConnection3();
+                    ((CompanyRegistrationActivity3) context).stopCompanyRegistrationConnection3();
                 }
                 else if(context.toString().contains("UserLoginActivity"))
                 {
                     ((UserLoginActivity) context).stopUserLoginConnection();
                 }
-                else if(context.toString().contains("UserRegisterActivity"))
+                else if(context.toString().contains("UserRegistrationActivity"))
                 {
-                    ((UserRegisterActivity) context).stopUserRegisterConnection();
+                    ((UserRegistrationActivity) context).stopUserRegisterConnection();
                 }
 
                 Toast.makeText(this.context, this.errorMessage, Toast.LENGTH_LONG).show();

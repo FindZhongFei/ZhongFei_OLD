@@ -56,11 +56,11 @@ import java.security.NoSuchAlgorithmException;
 import java.util.HashMap;
 import java.util.regex.Pattern;
 
-public class RegisterActivity1 extends AppCompatActivity {
+public class CompanyRegistrationActivity1 extends AppCompatActivity {
 
     // EVERY ACTIVITY SETUP
-    private static final String TAG = "RegisterActivity1";
-    public Context mContext = RegisterActivity1.this;
+    private static final String TAG = "CompanyRegistrationActivity1";
+    public Context mContext = CompanyRegistrationActivity1.this;
     public static Activity mActivity ;
 
     // VIEWS
@@ -141,9 +141,9 @@ public class RegisterActivity1 extends AppCompatActivity {
 //                    logoIsClicked = false;
                     RequestRuntimePermission();
                 } else {
-                    RegisterActivity1.this.logoIsClicked = true;
+                    CompanyRegistrationActivity1.this.logoIsClicked = true;
                     openGallery();
-                    Toast.makeText(mContext, "" + RegisterActivity1.this.logoIsClicked, Toast.LENGTH_SHORT).show();
+                    Toast.makeText(mContext, "" + CompanyRegistrationActivity1.this.logoIsClicked, Toast.LENGTH_SHORT).show();
                 }
             }
         });
@@ -156,9 +156,9 @@ public class RegisterActivity1 extends AppCompatActivity {
                     RequestRuntimePermission();
 //                    licenseIsClicked = false;
                 } else {
-                    RegisterActivity1.this.licenseIsClicked = true;
+                    CompanyRegistrationActivity1.this.licenseIsClicked = true;
                     openGallery();
-                    Toast.makeText(mContext, "" + RegisterActivity1.this.licenseIsClicked, Toast.LENGTH_SHORT).show();
+                    Toast.makeText(mContext, "" + CompanyRegistrationActivity1.this.licenseIsClicked, Toast.LENGTH_SHORT).show();
                 }
             }
         });
@@ -400,12 +400,12 @@ public class RegisterActivity1 extends AppCompatActivity {
 
     // REQUEST USER PERMISSION TO SELECT AN IMAGE FROM GALLERY
     private void RequestRuntimePermission() {
-        if (ActivityCompat.shouldShowRequestPermissionRationale(RegisterActivity1.this, Manifest.permission.READ_EXTERNAL_STORAGE)) {
+        if (ActivityCompat.shouldShowRequestPermissionRationale(CompanyRegistrationActivity1.this, Manifest.permission.READ_EXTERNAL_STORAGE)) {
             Toast.makeText(mContext, "Let the app use your gallery", Toast.LENGTH_SHORT).show();
-            ActivityCompat.requestPermissions(RegisterActivity1.this, new String[]{Manifest.permission.READ_EXTERNAL_STORAGE},
+            ActivityCompat.requestPermissions(CompanyRegistrationActivity1.this, new String[]{Manifest.permission.READ_EXTERNAL_STORAGE},
                     requestPermissionCode);
         } else {
-            ActivityCompat.requestPermissions(RegisterActivity1.this, new String[]{Manifest.permission.READ_EXTERNAL_STORAGE},
+            ActivityCompat.requestPermissions(CompanyRegistrationActivity1.this, new String[]{Manifest.permission.READ_EXTERNAL_STORAGE},
                     requestPermissionCode);
         }
     }
@@ -418,13 +418,13 @@ public class RegisterActivity1 extends AppCompatActivity {
                 if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
 //                    Toast.makeText(mContext, "Permission Granted", Toast.LENGTH_SHORT).show();
                     openGallery();
-                    Log.d(TAG, "onRequestPermissionsResult: LICENSE IS CLICKED_________________" + RegisterActivity1.this.licenseIsClicked);
-                    Log.d(TAG, "onRequestPermissionsResult: LOGO IS CLICKED_________________" + RegisterActivity1.this.logoIsClicked);
+                    Log.d(TAG, "onRequestPermissionsResult: LICENSE IS CLICKED_________________" + CompanyRegistrationActivity1.this.licenseIsClicked);
+                    Log.d(TAG, "onRequestPermissionsResult: LOGO IS CLICKED_________________" + CompanyRegistrationActivity1.this.logoIsClicked);
 //                    if(licenseIsClicked){
 //                        licenseIsClicked = false;
 //                    }
-//                    if(!RegisterActivity1.this.logoIsClicked) {
-//                        RegisterActivity1.this.logoIsClicked = true;
+//                    if(!CompanyRegistrationActivity1.this.logoIsClicked) {
+//                        CompanyRegistrationActivity1.this.logoIsClicked = true;
 //                    }
 //                } else {
 //                    Toast.makeText(mContext, "Permission Denied", Toast.LENGTH_SHORT).show();
@@ -460,7 +460,7 @@ public class RegisterActivity1 extends AppCompatActivity {
 //                Bitmap logoBitmap = ((BitmapDrawable) logo.getDrawable()).getBitmap();
 //                Bitmap licenseBitmap = ((BitmapDrawable) license.getDrawable()).getBitmap();
 
-                if(RegisterActivity1.this.logoIsClicked) {
+                if(CompanyRegistrationActivity1.this.logoIsClicked) {
                     String logoPath = Environment.getExternalStorageDirectory() + "/temporary_holder.jpg";
                     logoBitmap = BitmapFactory.decodeFile(logoPath);
 
@@ -474,12 +474,12 @@ public class RegisterActivity1 extends AppCompatActivity {
                     logo.setImageBitmap(logoBitmap);
                     profileTextVIew.setVisibility(View.GONE);
                     logoIsSet = true;
-                    RegisterActivity1.this.logoIsClicked = false;
+                    CompanyRegistrationActivity1.this.logoIsClicked = false;
 
                 } else {
-                    Toast.makeText(mContext, String.valueOf(RegisterActivity1.this.logoIsClicked), Toast.LENGTH_SHORT).show();
+                    Toast.makeText(mContext, String.valueOf(CompanyRegistrationActivity1.this.logoIsClicked), Toast.LENGTH_SHORT).show();
                 }
-                if(RegisterActivity1.this.licenseIsClicked) {
+                if(CompanyRegistrationActivity1.this.licenseIsClicked) {
                     String licensePath = Environment.getExternalStorageDirectory() + "/temporary_holder.jpg";
                     licenseBitmap = BitmapFactory.decodeFile(licensePath);
 
@@ -493,7 +493,7 @@ public class RegisterActivity1 extends AppCompatActivity {
                     license.setImageBitmap(licenseBitmap);
                     licenseTextView.setVisibility(View.GONE);
                     licenseIsSet = true;
-                    RegisterActivity1.this.licenseIsClicked = false;
+                    CompanyRegistrationActivity1.this.licenseIsClicked = false;
                 }
             }
         }

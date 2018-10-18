@@ -16,9 +16,9 @@ import org.json.JSONObject;
 import java.util.HashMap;
 import java.util.Map;
 
-import static com.fzhongfei.findzhongfei_final.activity.RegisterActivity1.stopConnection1;
-import static com.fzhongfei.findzhongfei_final.activity.RegisterActivity2.stopConnection2;
-import static com.fzhongfei.findzhongfei_final.activity.RegisterActivity3.stopConnection3;
+import static com.fzhongfei.findzhongfei_final.activity.CompanyRegistrationActivity1.stopConnection1;
+import static com.fzhongfei.findzhongfei_final.activity.CompanyRegistrationActivity2.stopConnection2;
+import static com.fzhongfei.findzhongfei_final.activity.CompanyRegistrationActivity3.stopConnection3;
 
 public class customStringRequest {
         private String  urlPath = Constants.SERVER_URL;
@@ -67,11 +67,11 @@ public class customStringRequest {
                     }, new Response.ErrorListener() {
                 @Override
                 public void onErrorResponse(VolleyError error) {
-                    if(context.toString().contains("RegisterActivity1")) {
+                    if(context.toString().contains("CompanyRegistrationActivity1")) {
                         stopConnection1();
-                    } else if(context.toString().contains("RegisterActivity2")) {
+                    } else if(context.toString().contains("CompanyRegistrationActivity2")) {
                         stopConnection2();
-                    } else if(context.toString().contains("RegisterActivity3")) {
+                    } else if(context.toString().contains("CompanyRegistrationActivity3")) {
                         stopConnection3();
                     }
                     Log.d(TAG, "onErrorResponse: " + error.toString());

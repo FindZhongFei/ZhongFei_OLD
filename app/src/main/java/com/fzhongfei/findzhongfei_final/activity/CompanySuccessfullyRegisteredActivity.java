@@ -17,11 +17,11 @@ import android.widget.ImageView;
 
 import com.fzhongfei.findzhongfei_final.R;
 
-public class SuccessfullyRegisteredActivity extends AppCompatActivity {
+public class CompanySuccessfullyRegisteredActivity extends AppCompatActivity {
 
     // EVERY ACTIVITY SETUP
     private static final String TAG = "SuccessfullyRegisteredA";
-    private Context mContext = SuccessfullyRegisteredActivity.this;
+    private Context mContext = CompanySuccessfullyRegisteredActivity.this;
 
     // VIEWS
     ImageView mImageView;

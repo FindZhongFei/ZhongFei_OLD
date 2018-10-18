@@ -39,11 +39,11 @@ import com.fzhongfei.findzhongfei_final.utils.InternetAvailability;
 
 import java.util.HashMap;
 
-public class RegisterActivity3 extends AppCompatActivity {
+public class CompanyRegistrationActivity3 extends AppCompatActivity {
 
     // EVERY ACTIVITY SETUP
-    private static final String TAG = "RegisterActivity3";
-    private Context mContext = RegisterActivity3.this;
+    private static final String TAG = "CompanyRegistrationActivity3";
+    private Context mContext = CompanyRegistrationActivity3.this;
 
     // VIEWS
     public static ProgressDialog dialog;
@@ -317,18 +317,18 @@ public class RegisterActivity3 extends AppCompatActivity {
     // SETTER FOR COMPANY PROFILE
     private void setCompanyFields() {
         if(custom_comp_type && custom_comp_sub_type) {
-            RegisterActivity1.sCompanyProfile.setCompanyType(mContext, edtCompType.getText().toString());
-            RegisterActivity1.sCompanyProfile.setCompanySubType(mContext, edtCompSubType.getText().toString());
+            CompanyRegistrationActivity1.sCompanyProfile.setCompanyType(mContext, edtCompType.getText().toString());
+            CompanyRegistrationActivity1.sCompanyProfile.setCompanySubType(mContext, edtCompSubType.getText().toString());
         } else if(custom_comp_sub_type) {
-            RegisterActivity1.sCompanyProfile.setCompanyType(mContext, compTypeSpinner.getSelectedItem().toString());
-            RegisterActivity1.sCompanyProfile.setCompanySubType(mContext, edtCompSubType.getText().toString());
+            CompanyRegistrationActivity1.sCompanyProfile.setCompanyType(mContext, compTypeSpinner.getSelectedItem().toString());
+            CompanyRegistrationActivity1.sCompanyProfile.setCompanySubType(mContext, edtCompSubType.getText().toString());
         } else {
-            RegisterActivity1.sCompanyProfile.setCompanyType(mContext, compTypeSpinner.getSelectedItem().toString());
-            RegisterActivity1.sCompanyProfile.setCompanySubType(mContext, compSubTypeSpinner.getSelectedItem().toString());
+            CompanyRegistrationActivity1.sCompanyProfile.setCompanyType(mContext, compTypeSpinner.getSelectedItem().toString());
+            CompanyRegistrationActivity1.sCompanyProfile.setCompanySubType(mContext, compSubTypeSpinner.getSelectedItem().toString());
         }
 
-        RegisterActivity1.sCompanyProfile.setCompanyWechatId(mContext, edtWechatId.getText().toString());
-        RegisterActivity1.sCompanyProfile.setCompanyDescription(mContext, textScroll.getText().toString());
+        CompanyRegistrationActivity1.sCompanyProfile.setCompanyWechatId(mContext, edtWechatId.getText().toString());
+        CompanyRegistrationActivity1.sCompanyProfile.setCompanyDescription(mContext, textScroll.getText().toString());
     }
 
     // INNER CLASS

@@ -12,11 +12,11 @@ import android.view.WindowManager;
 
 import com.fzhongfei.findzhongfei_final.R;
 
-public class SettingsActivity extends AppCompatActivity {
+public class UserSettingsActivity extends AppCompatActivity {
 
     // EVERY ACTIVITY SETUP
-    private static final String TAG = "SettingsActivity";
-    private Context mContext = SettingsActivity.this;
+    private static final String TAG = "UserSettingsActivity";
+    private Context mContext = UserSettingsActivity.this;
 
     // VIEWS
 
