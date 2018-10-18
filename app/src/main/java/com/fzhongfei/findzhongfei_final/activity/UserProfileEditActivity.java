@@ -102,8 +102,6 @@ public class UserProfileEditActivity extends AppCompatActivity {
         signOutText.setVisibility(View.GONE);
 //        signOutProgressBar.setVisibility(View.VISIBLE);
 
-        UserSignedInActivity.userSignedIn = false;
-
         Intent i = new Intent(mContext, UserSignedInActivity.class);
         i.putExtra("isSignedIn", false);
         i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);

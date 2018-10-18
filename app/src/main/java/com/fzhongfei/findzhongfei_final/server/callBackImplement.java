@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.util.Log;
 import android.widget.Toast;
 
+import com.fzhongfei.findzhongfei_final.activity.CompanyLoginActivity;
 import com.fzhongfei.findzhongfei_final.activity.CompanyRegistrationActivity1;
 import com.fzhongfei.findzhongfei_final.activity.CompanyRegistrationActivity2;
 import com.fzhongfei.findzhongfei_final.activity.CompanyRegistrationActivity3;
@@ -13,6 +14,7 @@ import com.fzhongfei.findzhongfei_final.activity.CompanySuccessfullyRegisteredAc
 import com.fzhongfei.findzhongfei_final.activity.UserLoginActivity;
 import com.fzhongfei.findzhongfei_final.activity.UserRegistrationActivity;
 import com.fzhongfei.findzhongfei_final.activity.UserSignedInActivity;
+import com.fzhongfei.findzhongfei_final.model.CompanyProfile;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -92,9 +94,17 @@ public class callBackImplement implements serverCallBack {
                         }
                     }
                 }
+                else if(requestType.equals("comp_login"))
+                {
+                    Intent intent = new Intent(this.context, CompanyProfile.class);
+                    intent.putExtra("isSignedIn", true);
+                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                    context.getApplicationContext().startActivity(intent);
+                }
                 else if(requestType.equals("user_registration"))
                 {
                     Intent intent = new Intent(this.context, UserSignedInActivity.class);
+                    UserLoginActivity.isLoggedIn = true;
                     intent.putExtra("isSignedIn", true);
                     intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                     context.getApplicationContext().startActivity(intent);
@@ -110,6 +120,7 @@ public class callBackImplement implements serverCallBack {
                     UserRegistrationActivity.sUserProfile.setUserPhone(jObject.getString("user_phone"));
 
                     Intent intent = new Intent(this.context, UserSignedInActivity.class);
+                    boolean remember = UserLoginActivity.isLoggedIn = true;
                     intent.putExtra("isSignedIn", true);
                     intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                     context.getApplicationContext().startActivity(intent);
@@ -129,6 +140,10 @@ public class callBackImplement implements serverCallBack {
                 {
                     ((CompanyRegistrationActivity3) context).stopCompanyRegistrationConnection3();
                 }
+                else if(context.toString().contains("CompanyLoginActivity"))
+                {
+                    ((CompanyLoginActivity) context).stopCompanyLoginConnection();
+                }
                 else if(context.toString().contains("UserLoginActivity"))
                 {
                     ((UserLoginActivity) context).stopUserLoginConnection();
@@ -137,6 +152,7 @@ public class callBackImplement implements serverCallBack {
                 {
                     ((UserRegistrationActivity) context).stopUserRegisterConnection();
                 }
+
 
                 Toast.makeText(this.context, this.errorMessage, Toast.LENGTH_LONG).show();
 

@@ -118,7 +118,7 @@ public class MainActivity extends AppCompatActivity {
                     return true;
                 case R.id.ic_profile:
                     Intent i = new Intent(mContext, UserSignedInActivity.class);
-                    i.putExtra("isSignedIn", UserSignedInActivity.userSignedIn);
+                    i.putExtra("isSignedIn", checkUserPreferences());
                     mContext.startActivity(i);   // ACTIVITY_NUMBER = 2
                     return true;
             }
@@ -134,7 +134,8 @@ public class MainActivity extends AppCompatActivity {
         transaction.commit();
     }
 
-    private void checkUserPreferences() {
-
+    private boolean checkUserPreferences() {
+        boolean userRemembered = UserLoginActivity.isLoggedIn;
+        return userRemembered;
     }
 }

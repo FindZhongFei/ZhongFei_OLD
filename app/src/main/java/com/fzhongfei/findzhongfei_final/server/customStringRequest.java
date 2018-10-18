@@ -8,6 +8,9 @@ import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.error.VolleyError;
 import com.android.volley.request.StringRequest;
+import com.fzhongfei.findzhongfei_final.activity.CompanyRegistrationActivity1;
+import com.fzhongfei.findzhongfei_final.activity.CompanyRegistrationActivity2;
+import com.fzhongfei.findzhongfei_final.activity.CompanyRegistrationActivity3;
 import com.fzhongfei.findzhongfei_final.constants.Constants;
 
 import org.json.JSONException;
@@ -15,10 +18,6 @@ import org.json.JSONObject;
 
 import java.util.HashMap;
 import java.util.Map;
-
-import static com.fzhongfei.findzhongfei_final.activity.CompanyRegistrationActivity1.stopConnection1;
-import static com.fzhongfei.findzhongfei_final.activity.CompanyRegistrationActivity2.stopConnection2;
-import static com.fzhongfei.findzhongfei_final.activity.CompanyRegistrationActivity3.stopConnection3;
 
 public class customStringRequest {
         private String  urlPath = Constants.SERVER_URL;
@@ -68,11 +67,11 @@ public class customStringRequest {
                 @Override
                 public void onErrorResponse(VolleyError error) {
                     if(context.toString().contains("CompanyRegistrationActivity1")) {
-                        stopConnection1();
+                        ((CompanyRegistrationActivity1) context).stopCompanyRegistrationConnection1();
                     } else if(context.toString().contains("CompanyRegistrationActivity2")) {
-                        stopConnection2();
+                        ((CompanyRegistrationActivity2) context).stopCompanyRegistrationConnection2();
                     } else if(context.toString().contains("CompanyRegistrationActivity3")) {
-                        stopConnection3();
+                        ((CompanyRegistrationActivity3) context).stopCompanyRegistrationConnection3();
                     }
                     Log.d(TAG, "onErrorResponse: " + error.toString());
 

@@ -40,11 +40,6 @@ public class UserSignedInActivity extends AppCompatActivity {
     private TextView userPhoneText;
     private TextView userEmailText;
 
-    public static boolean userSignedIn;
-
-    // Saving data locally
-//    private SaveSharedPreferences mSaveSharedPreferenceUser = new SaveSharedPreferences();
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -74,9 +69,22 @@ public class UserSignedInActivity extends AppCompatActivity {
         new DisplayAds(mAdView, adLayout);
 
         Intent i = getIntent();
-        userSignedIn = i.getBooleanExtra("isSignedIn", userSignedIn);
+        Boolean userSignedIn = (Boolean) i.getExtras().get("isSignedIn");
 
-        if(userSignedIn) {
+        if(userSignedIn == null || !userSignedIn) {
+            profileLayout.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    showPopup(profileLayout);
+                }
+            });
+            profileButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    showPopup(profileButton);
+                }
+            });
+        } else if(userSignedIn) {
             displayUserDetails();
             profileLayout.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -88,19 +96,6 @@ public class UserSignedInActivity extends AppCompatActivity {
                 @Override
                 public void onClick(View view) {
                     goToProfile();
-                }
-            });
-        } else {
-            profileLayout.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    showPopup(profileLayout);
-                }
-            });
-            profileButton.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    showPopup(profileButton);
                 }
             });
         }

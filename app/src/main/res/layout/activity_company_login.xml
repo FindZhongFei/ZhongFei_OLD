@@ -5,9 +5,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".activity.CompanyLoginActivity"
     android:background="@color/colorWhite"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    tools:context=".activity.CompanyLoginActivity">
 
     <include
         android:id="@+id/activity_login_user_toolbar"
@@ -36,7 +36,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:background="@drawable/background_login_username_and_password"
-                    android:hint="@string/emailOrPhoneNumber"
+                    android:hint="@string/repEmail"
                     android:inputType="textEmailAddress"
                     android:nextFocusDown="@id/etPasswordLayout"
                     android:paddingTop="10sp"

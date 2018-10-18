@@ -48,6 +48,8 @@ public class UserLoginActivity extends AppCompatActivity {
     private ProgressBar loading;
     private String mUsernameValue, mPasswordValue;
 
+    public static boolean isLoggedIn;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -254,7 +256,6 @@ public class UserLoginActivity extends AppCompatActivity {
 
     // UI - LOGIN USER
     private void attemptLogin() {
-        UserSignedInActivity.userSignedIn = true;
         String signedInWith = userEmailOrPhone.getText().toString().trim();
         String userName = sUserProfile.getUserFirstName() + " " + sUserProfile.getUserLastName();
 
@@ -263,8 +264,6 @@ public class UserLoginActivity extends AppCompatActivity {
         } else {
             sUserProfile.setUserPhone(signedInWith);
         }
-
-        UserSignedInActivity.userSignedIn = true;
 
         Intent i = new Intent(mContext, UserSignedInActivity.class);
         i.putExtra("isSignedIn", true);

@@ -10,20 +10,22 @@ import android.support.v7.widget.Toolbar;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.fzhongfei.findzhongfei_final.R;
 import com.fzhongfei.findzhongfei_final.server.callBackImplement;
 import com.fzhongfei.findzhongfei_final.server.customStringRequest;
+import com.fzhongfei.findzhongfei_final.utils.InternetAvailability;
 
 import java.util.HashMap;
 
@@ -55,8 +57,42 @@ public class CompanyLoginActivity extends AppCompatActivity {
         companyPassword = findViewById(R.id.comp_login_edit_password);
         loginCompanyButton = findViewById(R.id.comp_login_button);
         loading = findViewById(R.id.loading_to_login_comp);
-        ImageView imageView = findViewById(R.id.login_logo);
         LinearLayout linearLayout = findViewById(R.id.comp_login_linear_layout);
+
+        // VALIDATE EDIT TEXTS
+        representativeEmail.addTextChangedListener(editTextTextWatcher);
+        companyPassword.addTextChangedListener(editTextTextWatcher);
+
+        companyPassword.setOnKeyListener(new View.OnKeyListener() {
+            @Override
+            public boolean onKey(View view, int i, KeyEvent keyEvent) {
+                if(i == KeyEvent.KEYCODE_ENTER && keyEvent.getAction() == KeyEvent.ACTION_DOWN && InternetAvailability.internetIsAvailable(mContext)) {
+                    if(loginCompanyButton.isEnabled()) {
+                        processLogin();
+                    } else {
+                        Toast.makeText(mContext, getResources().getString(R.string.error_comp_fill_in_all_fields), Toast.LENGTH_SHORT).show();
+                    }
+                }
+
+                return false;
+            }
+        });
+
+        loginCompanyButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(InternetAvailability.internetIsAvailable(mContext)) {
+                    processLogin();
+                }
+            }
+        });
+
+        linearLayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                hideKeyboard();
+            }
+        });
     }
 
     // UI - SETTING UP THE TOOLBAR
@@ -133,7 +169,7 @@ public class CompanyLoginActivity extends AppCompatActivity {
     };
 
     // STOP LOADING
-    public void stopUserLoginConnection() {
+    public void stopCompanyLoginConnection() {
         loading.setVisibility(View.GONE);
         loginCompanyButton.setVisibility(View.VISIBLE);
     }
