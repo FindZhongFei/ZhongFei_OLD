@@ -137,8 +137,7 @@ public class CompanyProfileActivity extends AppCompatActivity {
         else
         {
             Toast.makeText(mContext, "Please login", Toast.LENGTH_LONG).show();
-            Intent companyLoginScreen = new Intent(mContext,CompanyLoginActivity.class);
-            mContext.getApplicationContext().startActivity(companyLoginScreen);
+            startActivity(new Intent(mContext,CompanyLoginActivity.class));
         }
 
     }

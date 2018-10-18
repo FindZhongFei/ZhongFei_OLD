@@ -10,7 +10,7 @@
     tools:context=".activity.CompanyLoginActivity">
 
     <include
-        android:id="@+id/activity_login_user_toolbar"
+        android:id="@+id/activity_login_comp_toolbar"
         layout="@layout/layout_toolbar"/>
 
     <ScrollView

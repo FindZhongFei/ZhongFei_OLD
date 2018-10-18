@@ -153,7 +153,7 @@ public class UserLoginActivity extends AppCompatActivity {
             window.setBackgroundDrawable(mGradientDrawable);
         }
 
-        mToolbar = findViewById(R.id.activity_login_user_toolbar);
+        mToolbar = findViewById(R.id.activity_register_user_toolbar);
         setSupportActionBar(mToolbar);
         if(getSupportActionBar() != null) {
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);

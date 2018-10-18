@@ -94,8 +94,8 @@ public class CompanyProfile {
         this.companyProvince = compData.get("compProvince");
         this.companyCity = compData.get("compCity");
         this.companyPhone = compData.get("compPhone");
-        this.companyCeo = compData.get("compCeo");
         this.companyEmail = compData.get("compEmail");
+        this.companyCeo = compData.get("compCeo");
         this.companyRepresentative = compData.get("compRepName");
         this.companyRepresentativeEmail = compData.get("compRepEmail");
         this.companyAddress1 = compData.get("compAddress1");

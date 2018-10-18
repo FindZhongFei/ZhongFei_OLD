@@ -15,8 +15,6 @@ import com.fzhongfei.findzhongfei_final.activity.CompanySuccessfullyRegisteredAc
 import com.fzhongfei.findzhongfei_final.activity.UserLoginActivity;
 import com.fzhongfei.findzhongfei_final.activity.UserRegistrationActivity;
 import com.fzhongfei.findzhongfei_final.activity.UserSignedInActivity;
-import com.fzhongfei.findzhongfei_final.model.Company;
-import com.fzhongfei.findzhongfei_final.model.CompanyProfile;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -98,10 +96,8 @@ public class callBackImplement implements serverCallBack {
                 }
                 else if(requestType.equals("comp_login"))
                 {
-                    Intent intent = new Intent(this.context, CompanyProfileActivity.class);
-                    intent.putExtra("isSignedIn", true);
-                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                     JSONObject companyData = new JSONObject(String.valueOf(result.get("compData")));
+
                     HashMap<String, String> hashCompData = new HashMap<>();
                     hashCompData.put("compId",companyData.getString("comp_id"));
                     hashCompData.put("compName",companyData.getString("comp_name"));
@@ -127,6 +123,9 @@ public class callBackImplement implements serverCallBack {
                     CompanyRegistrationActivity1.InitiateCompanyProfile(this.context);
                     CompanyRegistrationActivity1.sCompanyProfile.initiateLogin(this.context);
                     CompanyRegistrationActivity1.sCompanyProfile.SetCompData(hashCompData);
+
+                    Intent intent = new Intent(this.context, CompanyProfileActivity.class);
+                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                     context.getApplicationContext().startActivity(intent);
                 }
                 else if(requestType.equals("user_registration"))

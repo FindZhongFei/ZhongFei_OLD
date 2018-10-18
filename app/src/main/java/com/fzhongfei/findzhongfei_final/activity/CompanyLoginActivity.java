@@ -24,7 +24,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.fzhongfei.findzhongfei_final.R;
-import com.fzhongfei.findzhongfei_final.model.CompanyProfile;
 import com.fzhongfei.findzhongfei_final.server.callBackImplement;
 import com.fzhongfei.findzhongfei_final.server.customStringRequest;
 import com.fzhongfei.findzhongfei_final.utils.InternetAvailability;
@@ -46,61 +45,63 @@ public class CompanyLoginActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if(CompanyRegistrationActivity1.sCompanyProfile == null)
-            setContentView(R.layout.activity_company_login);
-        else
-        {
-            Intent companyProfile = new Intent(mContext, CompanyProfileActivity.class);
-            mContext.getApplicationContext().startActivity(companyProfile);
-        }
+        setContentView(R.layout.activity_company_login);
 
         Log.d(TAG, "onCreate: Running....");
 
-        // TOOLBAR
-        setUpActivityToolbar();
+        if(CompanyRegistrationActivity1.sCompanyProfile == null)
+        {
+            // TOOLBAR
+            setUpActivityToolbar();
 
-        // INITIALIZING VIEWS
-        TextView registerButton = findViewById(R.id.comp_register_text_button);
-        representativeEmail = findViewById(R.id.comp_login_edit_email_or_phone);
-        companyPassword = findViewById(R.id.comp_login_edit_password);
-        loginCompanyButton = findViewById(R.id.comp_login_button);
-        loading = findViewById(R.id.loading_to_login_comp);
-        LinearLayout linearLayout = findViewById(R.id.comp_login_linear_layout);
+            // INITIALIZING VIEWS
+            TextView registerButton = findViewById(R.id.comp_register_text_button);
+            representativeEmail = findViewById(R.id.comp_login_edit_email_or_phone);
+            companyPassword = findViewById(R.id.comp_login_edit_password);
+            loginCompanyButton = findViewById(R.id.comp_login_button);
+            loading = findViewById(R.id.loading_to_login_comp);
+            LinearLayout linearLayout = findViewById(R.id.comp_login_linear_layout);
 
-        // VALIDATE EDIT TEXTS
-        representativeEmail.addTextChangedListener(editTextTextWatcher);
-        companyPassword.addTextChangedListener(editTextTextWatcher);
+            // VALIDATE EDIT TEXTS
+            representativeEmail.addTextChangedListener(editTextTextWatcher);
+            companyPassword.addTextChangedListener(editTextTextWatcher);
 
-        companyPassword.setOnKeyListener(new View.OnKeyListener() {
-            @Override
-            public boolean onKey(View view, int i, KeyEvent keyEvent) {
-                if(i == KeyEvent.KEYCODE_ENTER && keyEvent.getAction() == KeyEvent.ACTION_DOWN && InternetAvailability.internetIsAvailable(mContext)) {
-                    if(loginCompanyButton.isEnabled()) {
+            companyPassword.setOnKeyListener(new View.OnKeyListener() {
+                @Override
+                public boolean onKey(View view, int i, KeyEvent keyEvent) {
+                    if(i == KeyEvent.KEYCODE_ENTER && keyEvent.getAction() == KeyEvent.ACTION_DOWN && InternetAvailability.internetIsAvailable(mContext)) {
+                        if(loginCompanyButton.isEnabled()) {
+                            processLogin();
+                        } else {
+                            Toast.makeText(mContext, getResources().getString(R.string.error_comp_fill_in_all_fields), Toast.LENGTH_SHORT).show();
+                        }
+                    }
+
+                    return false;
+                }
+            });
+
+            loginCompanyButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    if(InternetAvailability.internetIsAvailable(mContext)) {
                         processLogin();
-                    } else {
-                        Toast.makeText(mContext, getResources().getString(R.string.error_comp_fill_in_all_fields), Toast.LENGTH_SHORT).show();
                     }
                 }
+            });
 
-                return false;
-            }
-        });
-
-        loginCompanyButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if(InternetAvailability.internetIsAvailable(mContext)) {
-                    processLogin();
+            linearLayout.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    hideKeyboard();
                 }
-            }
-        });
-
-        linearLayout.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                hideKeyboard();
-            }
-        });
+            });
+        }
+        else
+        {
+            startActivity(new Intent(mContext, CompanyProfileActivity.class));
+            finish();
+        }
     }
 
     // UI - SETTING UP THE TOOLBAR
@@ -123,7 +124,7 @@ public class CompanyLoginActivity extends AppCompatActivity {
             window.setBackgroundDrawable(mGradientDrawable);
         }
 
-        mToolbar = findViewById(R.id.activity_login_user_toolbar);
+        mToolbar = findViewById(R.id.activity_login_comp_toolbar);
         setSupportActionBar(mToolbar);
         if(getSupportActionBar() != null) {
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
