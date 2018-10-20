@@ -2,18 +2,28 @@ package com.fzhongfei.findzhongfei_final.activity;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Base64;
+import android.util.JsonReader;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.fzhongfei.findzhongfei_final.R;
+import com.fzhongfei.findzhongfei_final.model.CompanyProfile;
+import com.fzhongfei.findzhongfei_final.server.callBackImplement;
+import com.fzhongfei.findzhongfei_final.server.customStringRequest;
+
+import java.util.HashMap;
 
 public class CompanyProfileActivity extends AppCompatActivity {
 
@@ -26,6 +36,8 @@ public class CompanyProfileActivity extends AppCompatActivity {
                 companyCeo, companyRepresentative, companyRepresentativeEmail, companyAddress1, companyAddress2,
                 companyWechatId, companyDescription;
 
+    public static ImageView   companyLogo;
+    CompanyProfile companyProfile;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -39,24 +51,33 @@ public class CompanyProfileActivity extends AppCompatActivity {
 
         // TOOLBAR
         setUpActivityToolbar();
+        companyProfile = new CompanyProfile(mContext);
+        companyProfile.setPropertiesFromSharePreference(mContext);
+        if(companyProfile.getIsLoggedIn())
+        {
+            // INITIALIZING VIEWS
+            companyLogo = findViewById(R.id.company_profile_logo);
+            companyName = findViewById(R.id.TextViewCompName);
+            companyType = findViewById(R.id.TextViewCompType);
+            companySubType = findViewById(R.id.TextViewCompSubType);
+            companyProvince = findViewById(R.id.TextViewProvince);
+            companyCity = findViewById(R.id.TextViewCity);
+            companyPhone = findViewById(R.id.TextViewCompPhone);
+            companyEmail = findViewById(R.id.TextViewCompEmail);
+            companyCeo = findViewById(R.id.TextViewCeo);
+            companyRepresentative = findViewById(R.id.TextViewRepresentative);
+            companyRepresentativeEmail = findViewById(R.id.TextViewRepEmail);
+            companyAddress1 = findViewById(R.id.TextViewAddress1);
+            companyAddress2 = findViewById(R.id.TextViewAddress2);
+            companyWechatId = findViewById(R.id.TextViewWechatId);
+            companyDescription = findViewById(R.id.TextViewDescription);
 
-        // INITIALIZING VIEWS
-        companyName = findViewById(R.id.TextViewCompName);
-        companyType = findViewById(R.id.TextViewCompType);
-        companySubType = findViewById(R.id.TextViewCompSubType);
-        companyProvince = findViewById(R.id.TextViewProvince);
-        companyCity = findViewById(R.id.TextViewCity);
-        companyPhone = findViewById(R.id.TextViewCompPhone);
-        companyEmail = findViewById(R.id.TextViewCompEmail);
-        companyCeo = findViewById(R.id.TextViewCeo);
-        companyRepresentative = findViewById(R.id.TextViewRepresentative);
-        companyRepresentativeEmail = findViewById(R.id.TextViewRepEmail);
-        companyAddress1 = findViewById(R.id.TextViewAddress1);
-        companyAddress2 = findViewById(R.id.TextViewAddress2);
-        companyWechatId = findViewById(R.id.TextViewWechatId);
-        companyDescription = findViewById(R.id.TextViewDescription);
+            showCompanyProfile();
+        }
+        else
+            startActivity(new Intent(mContext, CompanyLoginActivity.class));
 
-        showCompanyProfile();
+
     }
 
     // SETTING UP THE TOOLBAR
@@ -102,22 +123,40 @@ public class CompanyProfileActivity extends AppCompatActivity {
 
     // ALL COMPANY PROFILE FIELDS
     private void showCompanyProfile() {
-        if(CompanyRegistrationActivity1.sCompanyProfile.getIsLoggedIn())
+        if(this.companyProfile.getIsLoggedIn())
         {
-            String companyNameValue = CompanyRegistrationActivity1.sCompanyProfile.getCompanyName();
-            String companyPhoneValue = CompanyRegistrationActivity1.sCompanyProfile.getCompanyPhone();
-            String companyEmailValue = CompanyRegistrationActivity1.sCompanyProfile.getCompanyEmail();
-            String companyCeoValue = CompanyRegistrationActivity1.sCompanyProfile.getCompanyCeo();
-            String companyRepresentativeValue = CompanyRegistrationActivity1.sCompanyProfile.getCompanyRepresentative();
-            String companyRepresentativeEmailValue = CompanyRegistrationActivity1.sCompanyProfile.getCompanyRepresentativeEmail();
-            String companyAddress1Value = CompanyRegistrationActivity1.sCompanyProfile.getCompanyAddress1();
-            String companyAddress2Value = CompanyRegistrationActivity1.sCompanyProfile.getCompanyAddress2();
-            String companyCityValue = CompanyRegistrationActivity1.sCompanyProfile.getCompanyCity();
-            String companyProvinceValue = CompanyRegistrationActivity1.sCompanyProfile.getCompanyProvince();
-            String companyTypeValue = CompanyRegistrationActivity1.sCompanyProfile.getCompanyType();
-            String companySubTypeValue = CompanyRegistrationActivity1.sCompanyProfile.getCompanySubType();
-            String companyWechatIdValue = CompanyRegistrationActivity1.sCompanyProfile.getCompanyWechatId();
-            String companyDescriptionValue = CompanyRegistrationActivity1.sCompanyProfile.getCompanyDescription();
+            customStringRequest imageRequest = new customStringRequest();
+
+            String companyNameValue = this.companyProfile.getCompanyName();
+            String companyPhoneValue = this.companyProfile.getCompanyPhone();
+            String companyEmailValue = this.companyProfile.getCompanyEmail();
+            String companyCeoValue = this.companyProfile.getCompanyCeo();
+            String companyRepresentativeValue = this.companyProfile.getCompanyRepresentative();
+            String companyRepresentativeEmailValue = this.companyProfile.getCompanyRepresentativeEmail();
+            String companyAddress1Value = this.companyProfile.getCompanyAddress1();
+            String companyAddress2Value = this.companyProfile.getCompanyAddress2();
+            String companyCityValue = this.companyProfile.getCompanyCity();
+            String companyProvinceValue = this.companyProfile.getCompanyProvince();
+            String companyTypeValue = this.companyProfile.getCompanyType();
+            String companySubTypeValue = this.companyProfile.getCompanySubType();
+            String companyWechatIdValue = this.companyProfile.getCompanyWechatId();
+            String companyDescriptionValue = this.companyProfile.getCompanyDescription();
+            String companyLogoUrl = this.companyProfile.getCompanyLogoUrl();
+            String companyToken = this.companyProfile.getCompanyToken();
+            String companyLogoValue = this.companyProfile.getCompanyLogo();
+            HashMap<String,String> params = new HashMap();
+            params.put("requestType", "requestCompLogo");
+            params.put("logoUrl", companyLogoUrl);
+            params.put("compToken", companyToken);
+
+            imageRequest.setUrlPath("comp/fetchImage.php");
+            imageRequest.setParams(params);
+
+            callBackImplement callBack = new callBackImplement(mContext);
+            callBack.setParams(params);
+            callBack.SetRequestType("requestCompLogo");
+
+            imageRequest.startConnection(mContext, callBack, params);
 
             companyName.setText(companyNameValue);
             companyPhone.setText(companyPhoneValue);
@@ -133,6 +172,7 @@ public class CompanyProfileActivity extends AppCompatActivity {
             companySubType.setText(companySubTypeValue);
             companyWechatId.setText(companyWechatIdValue);
             companyDescription.setText(companyDescriptionValue);
+            Log.d(TAG, "showCompanyProfile: COMPANY LOGO BASE64 "+companyLogoValue);
         }
         else
         {

@@ -4,48 +4,21 @@ import android.content.Context;
 import android.content.SharedPreferences;
 
 import java.util.HashMap;
+import java.util.Map;
 
 public class CompanyProfile {
     private String companyId, companyToken, companyLogo, companyLicense, companyName, companyType, companySubType, companyCity,
             companyProvince, companyPhone, companyEmail, companyCeo, companyRepresentative,
             companyRepresentativeEmail, companyAddress1, companyAddress2, companyWechatId, companyDescription,
-            companyRegistrationTime, companyStatus;
+            companyRegistrationTime, companyStatus, companyLogoUrl;
+    private SharedPreferences sharedPreference ;
     private boolean isLoggedIn = false;
 
     public CompanyProfile(Context context)
     {
-        SharedPreferences sharedPreference = context.getSharedPreferences( "companyPreference", 0);
+        sharedPreference = context.getSharedPreferences( "companyPreference", 0);
 
         this.isLoggedIn = sharedPreference.contains("isLoggedIn");
-    }
-
-    public CompanyProfile(String companyId, String companyToken, String companyLogo, String companyLicense,
-                          String companyName, String companyType, String companySubType, String companyCity,
-                          String companyProvince, String companyPhone, String companyEmail, String companyCeo,
-                          String companyRepresentative, String companyRepresentativeEmail, String companyAddress1,
-                          String companyAddress2, String companyWechatId, String companyDescription,
-                          String companyRegistrationTime, String companyStatus)
-    {
-        this.companyId = companyId;
-        this.companyToken = companyToken;
-        this.companyLogo = companyLogo;
-        this.companyLicense = companyLicense;
-        this.companyName = companyName;
-        this.companyType = companyType;
-        this.companySubType = companySubType;
-        this.companyCity = companyCity;
-        this.companyProvince = companyProvince;
-        this.companyPhone = companyPhone;
-        this.companyEmail = companyEmail;
-        this.companyCeo = companyCeo;
-        this.companyRepresentative = companyRepresentative;
-        this.companyRepresentativeEmail = companyRepresentativeEmail;
-        this.companyAddress1 = companyAddress1;
-        this.companyAddress2 = companyAddress2;
-        this.companyWechatId = companyWechatId;
-        this.companyDescription = companyDescription;
-        this.companyRegistrationTime = companyRegistrationTime;
-        this.companyStatus = companyStatus;
     }
 
     private void setSharedPreference(Context context, String keyName, String value, int valueType)
@@ -82,28 +55,39 @@ public class CompanyProfile {
         this.setSharedPreference(context, "isLoggedIn",  "true", 1);
     }
 
-    public void SetCompData(HashMap<String, String> compData)
+    public void SetCompData(Context context, HashMap<String, String> compData)
     {
-        this.companyId = compData.get("compId");
-        this.companyToken = compData.get("compToken");
-        this.companyLogo = compData.get("compLogo");
-        this.companyLicense = compData.get("compLicense");
-        this.companyName = compData.get("compName");
-        this.companyType = compData.get("compType");
-        this.companySubType = compData.get("compSubType");
-        this.companyProvince = compData.get("compProvince");
-        this.companyCity = compData.get("compCity");
-        this.companyPhone = compData.get("compPhone");
-        this.companyEmail = compData.get("compEmail");
-        this.companyCeo = compData.get("compCeo");
-        this.companyRepresentative = compData.get("compRepName");
-        this.companyRepresentativeEmail = compData.get("compRepEmail");
-        this.companyAddress1 = compData.get("compAddress1");
-        this.companyAddress2 = compData.get("compAddress2");
-        this.companyWechatId = compData.get("compWechatId");
-        this.companyDescription = compData.get("compDescription");
-        this.companyRegistrationTime =compData.get("compRegistration");
-        this.companyStatus = compData.get("compStatus");
+        setCompanyId(context, compData.get("compId"));
+        setCompanyToken(context,compData.get("compToken"));
+        setCompanyLogo(context,compData.get("compLogo"));
+        setCompanyLogoUrl(context,compData.get("compLogoUrl"));
+        setCompanyLicense(context,compData.get("compLicense"));
+        setCompanyName(context,compData.get("compName"));
+        setCompanyType(context,compData.get("compType"));
+        setCompanySubType(context,compData.get("compSubType"));
+        setCompanyProvince(context,compData.get("compProvince"));
+        setCompanyCity(context,compData.get("compCity"));
+        setCompanyPhone(context,compData.get("compPhone"));
+        setCompanyEmail(context,compData.get("compEmail"));
+        setCompanyCeo(context,compData.get("compCeo"));
+        setCompanyRepresentative(context,compData.get("compRepName"));
+        setCompanyRepresentativeEmail(context,compData.get("compRepEmail"));
+        setCompanyAddress1(context,compData.get("compAddress1"));
+        setCompanyAddress2(context,compData.get("compAddress2"));
+        setCompanyWechatId(context,compData.get("compWechatId"));
+        setCompanyDescription(context,compData.get("compDescription"));
+        setCompanyRegistrationTime(context,compData.get("compRegistration"));
+        setCompanyStatus(context,compData.get("compStatus"));
+    }
+    public void setCompanyId(Context context, String companyId)
+    {
+        this.companyId = companyId;
+        this.setSharedPreference(context, "comp_id", companyId, 0);
+    }
+    public void setCompanyLogoUrl(Context context, String companyLogoUrl)
+    {
+        this.companyLogoUrl = companyLogoUrl;
+        this.setSharedPreference(context, "comp_logoUrl", companyLogoUrl, 0);
     }
 
     public void setCompanyName(Context context, String companyName)
@@ -203,7 +187,41 @@ public class CompanyProfile {
         this.companyStatus = companyStatus;
         this.setSharedPreference(context, "comp_status", companyStatus, 0);
     }
+    public void setPropertiesFromSharePreference(Context context)
+    {
 
+        setCompanyId(context, sharedPreference.getString("comp_id",null));
+        setCompanyToken(context,sharedPreference.getString("comp_token",null));
+        setCompanyLogo(context,sharedPreference.getString("comp_logo",null));
+        setCompanyLicense(context,sharedPreference.getString("comp_license",null));
+        setCompanyName(context,sharedPreference.getString("comp_name",null));
+        setCompanyType(context,sharedPreference.getString("comp_type",null));
+        setCompanySubType(context,sharedPreference.getString("comp_subType",null));
+        setCompanyProvince(context,sharedPreference.getString("comp_province",null));
+        setCompanyCity(context,sharedPreference.getString("comp_city",null));
+//        setCompanyPhone(context,  String.valueOf(sharedPreference.getLong("comp_phone", Long.parseLong(null))));
+        setCompanyEmail(context,sharedPreference.getString("comp_email",null));
+        setCompanyCeo(context,sharedPreference.getString("comp_ceo",null));
+        setCompanyRepresentative(context,sharedPreference.getString("comp_representative",null));
+        setCompanyRepresentativeEmail(context,sharedPreference.getString("comp_representativeEmail",null));
+        setCompanyAddress1(context,sharedPreference.getString("comp_address1",null));
+        setCompanyAddress2(context,sharedPreference.getString("comp_address2",null));
+        setCompanyWechatId(context,sharedPreference.getString("comp_wechat",null));
+        setCompanyDescription(context,sharedPreference.getString("comp_description",null));
+        setCompanyRegistrationTime(context,sharedPreference.getString("comp_registrationTime",null));
+        setCompanyStatus(context,sharedPreference.getString("comp_status",null));
+        setCompanyLogoUrl(context, sharedPreference.getString("comp_logoUrl", null));
+    }
+
+    public  String getCompanyLogoUrl(){return companyLogoUrl;}
+    public String getCompanyLogo()
+    {
+        return companyLogo;
+    }
+    public String getCompanyLicense()
+    {
+        return companyLicense;
+    }
     public String getCompanyName()
     {
         return companyName;
@@ -258,6 +276,10 @@ public class CompanyProfile {
     public String getCompanyDescription()
     {
         return companyDescription;
+    }
+    public String getCompanyToken()
+    {
+        return companyToken;
     }
     public boolean getIsLoggedIn()
     {

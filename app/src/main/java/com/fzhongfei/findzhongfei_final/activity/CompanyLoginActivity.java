@@ -2,6 +2,7 @@ package com.fzhongfei.findzhongfei_final.activity;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.drawable.GradientDrawable;
 import android.os.Build;
 import android.os.Bundle;
@@ -20,7 +21,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
-import android.widget.TextView;
+//import android.widget.TextView;
 import android.widget.Toast;
 
 import com.fzhongfei.findzhongfei_final.R;
@@ -48,14 +49,15 @@ public class CompanyLoginActivity extends AppCompatActivity {
         setContentView(R.layout.activity_company_login);
 
         Log.d(TAG, "onCreate: Running....");
-
-        if(CompanyRegistrationActivity1.sCompanyProfile == null)
+        SharedPreferences sharedPreferences = getSharedPreferences("companyPreference", 0);
+//        if(CompanyRegistrationActivity1.sCompanyProfile == null)
+        if(sharedPreferences.contains("isLoggedIn"))
         {
             // TOOLBAR
             setUpActivityToolbar();
 
             // INITIALIZING VIEWS
-            TextView registerButton = findViewById(R.id.comp_register_text_button);
+//            TextView registerButton = findViewById(R.id.comp_register_text_button);
             representativeEmail = findViewById(R.id.comp_login_edit_email_or_phone);
             companyPassword = findViewById(R.id.comp_login_edit_password);
             loginCompanyButton = findViewById(R.id.comp_login_button);

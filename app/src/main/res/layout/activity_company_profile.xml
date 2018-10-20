@@ -28,6 +28,7 @@
             app:titleEnabled="false">
 
             <ImageView
+                android:id="@+id/company_profile_logo"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:contentDescription="@string/backgroundPicture"

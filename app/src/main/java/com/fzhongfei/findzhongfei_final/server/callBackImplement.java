@@ -3,6 +3,8 @@ package com.fzhongfei.findzhongfei_final.server;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.BitmapFactory;
+import android.util.Base64;
 import android.util.Log;
 import android.widget.Toast;
 
@@ -15,6 +17,7 @@ import com.fzhongfei.findzhongfei_final.activity.CompanySuccessfullyRegisteredAc
 import com.fzhongfei.findzhongfei_final.activity.UserLoginActivity;
 import com.fzhongfei.findzhongfei_final.activity.UserRegistrationActivity;
 import com.fzhongfei.findzhongfei_final.activity.UserSignedInActivity;
+import com.fzhongfei.findzhongfei_final.model.CompanyProfile;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -49,7 +52,7 @@ public class callBackImplement implements serverCallBack {
 
             if(this.isSuccess || this.successMessage.equals ("success"))
             {
-                if(requestType.equals(null))
+                if(requestType.isEmpty())
                 {
                     Toast.makeText(this.context, "Request type null", Toast.LENGTH_LONG).show();
                     //TO DO: SHOW ERROR DIVISION NOT TOAST
@@ -104,7 +107,7 @@ public class callBackImplement implements serverCallBack {
                     hashCompData.put("compRepName",companyData.getString("comp_representative"));
                     hashCompData.put("compRepEmail",companyData.getString("comp_rep_email"));
                     hashCompData.put("compCeo",companyData.getString("comp_ceo"));
-                    hashCompData.put("compLogo",companyData.getString("comp_logo"));
+                    hashCompData.put("compLogoUrl",companyData.getString("comp_logo"));
                     hashCompData.put("compLicense",companyData.getString("comp_license"));
                     hashCompData.put("compPhone",companyData.getString("comp_phone"));
                     hashCompData.put("compEmail",companyData.getString("comp_email"));
@@ -120,9 +123,12 @@ public class callBackImplement implements serverCallBack {
                     hashCompData.put("compDescription",companyData.getString("comp_desc"));
                     hashCompData.put("compWechatId",companyData.getString("comp_wechat"));
 
-                    CompanyRegistrationActivity1.InitiateCompanyProfile(this.context);
-                    CompanyRegistrationActivity1.sCompanyProfile.initiateLogin(this.context);
-                    CompanyRegistrationActivity1.sCompanyProfile.SetCompData(hashCompData);
+//                    CompanyRegistrationActivity1.InitiateCompanyProfile(this.context);
+//                    CompanyRegistrationActivity1.sCompanyProfile.initiateLogin(this.context);
+//                    CompanyRegistrationActivity1.sCompanyProfile.SetCompData(hashCompData);
+                    CompanyProfile companyProfile = new CompanyProfile(this.context);
+                    companyProfile.initiateLogin(this.context);
+                    companyProfile.SetCompData(this.context,hashCompData);
 
                     Intent intent = new Intent(this.context, CompanyProfileActivity.class);
                     intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
@@ -147,11 +153,23 @@ public class callBackImplement implements serverCallBack {
                     UserRegistrationActivity.sUserProfile.setUserPhone(jObject.getString("user_phone"));
 
                     Intent intent = new Intent(this.context, UserSignedInActivity.class);
-                    boolean remember = UserLoginActivity.isLoggedIn = true;
+//                    boolean remember = UserLoginActivity.isLoggedIn = true;
                     intent.putExtra("isSignedIn", true);
                     intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                     context.getApplicationContext().startActivity(intent);
                 }
+                else if(requestType.equals("requestCompLogo"))
+                {
+//                    Log.d(TAG, "onSuccess: Company Logo is: " + result.get("logoData").toString());
+                    CompanyProfile companyProfile = new CompanyProfile(this.context);
+                    companyProfile.setCompanyLogo(this.context, result.get("imageFile").toString());
+                    Log.d(TAG, "onSuccess: Company Logo from result "+companyProfile.getCompanyLogo());
+                    byte[] decodedLogo = Base64.decode(result.get("imageFile").toString(),Base64.DEFAULT);
+                    CompanyProfileActivity.companyLogo.setImageBitmap(BitmapFactory.decodeByteArray(decodedLogo, 0, decodedLogo.length));
+                    //TO DO: LOGO HASH AND VERIFYING LOGO
+                }
+                else
+                    Log.d(TAG, "onSuccess: Unknown Request type -------------------------------------- "+"");
             }
             else
             {
