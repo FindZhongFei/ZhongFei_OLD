@@ -83,7 +83,6 @@ public class UserLoginActivity extends AppCompatActivity {
                         Toast.makeText(mContext, getResources().getString(R.string.error_comp_fill_in_all_fields), Toast.LENGTH_SHORT).show();
                     }
                 }
-
                 return false;
             }
         });
@@ -153,7 +152,7 @@ public class UserLoginActivity extends AppCompatActivity {
             window.setBackgroundDrawable(mGradientDrawable);
         }
 
-        mToolbar = findViewById(R.id.activity_register_user_toolbar);
+        mToolbar = findViewById(R.id.activity_login_user_toolbar);
         setSupportActionBar(mToolbar);
         if(getSupportActionBar() != null) {
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -260,9 +259,9 @@ public class UserLoginActivity extends AppCompatActivity {
         String userName = sUserProfile.getUserFirstName() + " " + sUserProfile.getUserLastName();
 
         if(signedInWith.contains("@")) {
-            sUserProfile.setUserEmail(signedInWith);
+            sUserProfile.setUserEmail(mContext, signedInWith);
         } else {
-            sUserProfile.setUserPhone(signedInWith);
+            sUserProfile.setUserPhone(mContext, signedInWith);
         }
 
         Intent i = new Intent(mContext, UserSignedInActivity.class);

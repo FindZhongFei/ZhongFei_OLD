@@ -2,13 +2,11 @@ package com.fzhongfei.findzhongfei_final.activity;
 
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Base64;
-import android.util.JsonReader;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -32,12 +30,12 @@ public class CompanyProfileActivity extends AppCompatActivity {
     private Context mContext = CompanyProfileActivity.this;
 
     // VIEWS
-    TextView    companyName, companyType, companySubType, companyProvince, companyCity, companyPhone, companyEmail,
-                companyCeo, companyRepresentative, companyRepresentativeEmail, companyAddress1, companyAddress2,
-                companyWechatId, companyDescription;
+    private TextView    companyName, companyType, companySubType, companyProvince, companyCity, companyPhone, companyEmail,
+                        companyCeo, companyRepresentative, companyRepresentativeEmail, companyAddress1, companyAddress2,
+                        companyWechatId, companyDescription;
+    public static ImageView companyLogo;
+    private CompanyProfile companyProfile;
 
-    public static ImageView   companyLogo;
-    CompanyProfile companyProfile;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -49,11 +47,13 @@ public class CompanyProfileActivity extends AppCompatActivity {
         Window window = getWindow();
         window.setFlags(WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS, WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS);
 
-        // TOOLBAR
+        // UI - TOOLBAR
         setUpActivityToolbar();
+
         companyProfile = new CompanyProfile(mContext);
         companyProfile.setPropertiesFromSharePreference(mContext);
-        if(companyProfile.getIsLoggedIn())
+
+        if(companyProfile.getCompanyIsLoggedIn())
         {
             // INITIALIZING VIEWS
             companyLogo = findViewById(R.id.company_profile_logo);
@@ -74,9 +74,10 @@ public class CompanyProfileActivity extends AppCompatActivity {
 
             showCompanyProfile();
         }
-        else
+        else {
             startActivity(new Intent(mContext, CompanyLoginActivity.class));
-
+            finish();
+        }
 
     }
 
@@ -123,9 +124,14 @@ public class CompanyProfileActivity extends AppCompatActivity {
 
     // ALL COMPANY PROFILE FIELDS
     private void showCompanyProfile() {
-        if(this.companyProfile.getIsLoggedIn())
+        if(this.companyProfile.getCompanyIsLoggedIn())
         {
             customStringRequest imageRequest = new customStringRequest();
+
+            String companyTokenValue = this.companyProfile.getCompanyToken();
+            String companyLogoUrl = this.companyProfile.getCompanyLogoUrl();
+            String companyLogoValue = this.companyProfile.getCompanyLogo();
+            Boolean logoIsDownloaded = this.companyProfile.isCompanyLogoDownloaded();
 
             String companyNameValue = this.companyProfile.getCompanyName();
             String companyPhoneValue = this.companyProfile.getCompanyPhone();
@@ -141,22 +147,32 @@ public class CompanyProfileActivity extends AppCompatActivity {
             String companySubTypeValue = this.companyProfile.getCompanySubType();
             String companyWechatIdValue = this.companyProfile.getCompanyWechatId();
             String companyDescriptionValue = this.companyProfile.getCompanyDescription();
-            String companyLogoUrl = this.companyProfile.getCompanyLogoUrl();
-            String companyToken = this.companyProfile.getCompanyToken();
-            String companyLogoValue = this.companyProfile.getCompanyLogo();
-            HashMap<String,String> params = new HashMap();
-            params.put("requestType", "requestCompLogo");
-            params.put("logoUrl", companyLogoUrl);
-            params.put("compToken", companyToken);
 
-            imageRequest.setUrlPath("comp/fetchImage.php");
-            imageRequest.setParams(params);
+            if(!logoIsDownloaded || companyLogoValue == null)
+            {
+                HashMap<String, String> params = new HashMap<>();
 
-            callBackImplement callBack = new callBackImplement(mContext);
-            callBack.setParams(params);
-            callBack.SetRequestType("requestCompLogo");
+                params.put("requestType", "requestCompLogo");
+                params.put("logoUrl", companyLogoUrl);
+                params.put("compToken", companyTokenValue);
 
-            imageRequest.startConnection(mContext, callBack, params);
+                imageRequest.setUrlPath("comp/fetchImage.php");
+                imageRequest.setParams(params);
+
+                callBackImplement callBack = new callBackImplement(mContext);
+                callBack.setParams(params);
+                callBack.SetRequestType("requestCompLogo");
+
+                imageRequest.startConnection(mContext, callBack, params);
+            }
+            else
+            {
+                Log.d(TAG, "onSuccess: Company Logo from result " + companyProfile.getCompanyLogo());
+                Log.d(TAG, "onSuccess: logo is downloaded " + logoIsDownloaded);
+                byte[] decodedLogo = Base64.decode(companyLogoValue, Base64.DEFAULT);
+                companyLogo.setImageBitmap(BitmapFactory.decodeByteArray(decodedLogo, 0, decodedLogo.length));
+            }
+
 
             companyName.setText(companyNameValue);
             companyPhone.setText(companyPhoneValue);
@@ -172,7 +188,7 @@ public class CompanyProfileActivity extends AppCompatActivity {
             companySubType.setText(companySubTypeValue);
             companyWechatId.setText(companyWechatIdValue);
             companyDescription.setText(companyDescriptionValue);
-            Log.d(TAG, "showCompanyProfile: COMPANY LOGO BASE64 "+companyLogoValue);
+            Log.d(TAG, "showCompanyProfile: COMPANY LOGO BASE64 " + companyLogoValue);
         }
         else
         {

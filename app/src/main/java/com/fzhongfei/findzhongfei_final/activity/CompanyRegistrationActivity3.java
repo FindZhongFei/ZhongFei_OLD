@@ -42,7 +42,7 @@ import java.util.HashMap;
 public class CompanyRegistrationActivity3 extends AppCompatActivity {
 
     // EVERY ACTIVITY SETUP
-    private static final String TAG = "CompanyRegistrationActivity3";
+    private static final String TAG = "CompanyRegistration3";
     private Context mContext = CompanyRegistrationActivity3.this;
 
     // VIEWS

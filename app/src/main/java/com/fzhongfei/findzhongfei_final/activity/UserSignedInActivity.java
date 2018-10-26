@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v4.app.ActivityOptionsCompat;
 import android.support.v7.app.AppCompatActivity;
@@ -19,8 +20,10 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.fzhongfei.findzhongfei_final.R;
+import com.fzhongfei.findzhongfei_final.model.UserProfile;
 import com.fzhongfei.findzhongfei_final.utils.DisplayAds;
 import com.google.android.gms.ads.AdView;
 
@@ -34,11 +37,12 @@ public class UserSignedInActivity extends AppCompatActivity {
     private LinearLayout profileLayout;
     private ImageView profileButton;
     private Dialog mDialog;
-
     private LinearLayout hideIfNotLoggedIn;
     private TextView userNameText;
     private TextView userPhoneText;
     private TextView userEmailText;
+
+    private UserProfile sUserProfile;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,6 +50,8 @@ public class UserSignedInActivity extends AppCompatActivity {
         setContentView(R.layout.activity_user_signed_in);
 
         Log.d(TAG, "onCreate: Running...");
+        SharedPreferences companySharedPreferences = getSharedPreferences("companyPreference", 0);
+        SharedPreferences userSharedPreferences = getSharedPreferences("userPreference", 0);
 
         // INITIALIZING VIEWS
         AdView mAdView = findViewById(R.id.user_signed_in_ad);
@@ -68,23 +74,31 @@ public class UserSignedInActivity extends AppCompatActivity {
         setUpActivityToolbar();
         new DisplayAds(mAdView, adLayout);
 
-        Intent i = getIntent();
-        Boolean userSignedIn = (Boolean) i.getExtras().get("isSignedIn");
-
-        if(userSignedIn == null || !userSignedIn) {
+        if(!companySharedPreferences.contains("companyIsLoggedIn") && !userSharedPreferences.contains("userIsLoggedIn"))
+        {
             profileLayout.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    showPopup(profileLayout);
-                }
-            });
+                    @Override
+                    public void onClick(View view) { showPopup(profileLayout);
+                    }
+                });
             profileButton.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    showPopup(profileButton);
-                }
-            });
-        } else if(userSignedIn) {
+                    @Override
+                    public void onClick(View view) { showPopup(profileButton);
+                    }
+                });
+        }
+        else if(companySharedPreferences.contains("companyIsLoggedIn"))
+        {
+            startActivity(new Intent(mContext, CompanyProfileActivity.class));
+        }
+        else if(userSharedPreferences.contains("userIsLoggedIn"))
+        {
+            sUserProfile = new UserProfile(mContext);
+            sUserProfile.setPropertiesFromSharePreference(mContext);
+
+            Toast.makeText(mContext, sUserProfile.getUserLastName(), Toast.LENGTH_SHORT).show();
+            Log.d(TAG, "onCreate: usersharedpreferences is logged in "+sUserProfile.getUserIsLoggedIn());
+            Log.d(TAG, "onCreate: usersharedpreferences is getname in "+sUserProfile.getUserEmail());
             displayUserDetails();
             profileLayout.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -151,22 +165,18 @@ public class UserSignedInActivity extends AppCompatActivity {
 
     // UI - Displaying email and user name
     private void displayUserDetails() {
-//        String userEmail = SaveSharedPreferences.getSharedPreferenceValue(mContext, SaveSharedPreferences.PREF_USER_EMAIL);
-//        String userName = SaveSharedPreferences.getSharedPreferenceValue(mContext, SaveSharedPreferences.PREF_USER_FIRST_NAME + " " +
-//                                                                                         SaveSharedPreferences.PREF_USER_LAST_NAME);
-//        String userPhone = SaveSharedPreferences.getSharedPreferenceValue(mContext, SaveSharedPreferences.PREF_USER_PHONE);
+        String firstNameValue = sUserProfile.getUserFirstName();
+        String lastNameValue = sUserProfile.getUserLastName();
+        String userEmailValue = sUserProfile.getUserEmail();
+        String userPhoneValue = sUserProfile.getUserPhone();
 
-        String userFirstName = UserRegistrationActivity.sUserProfile.getUserFirstName();
-        String userLastName = UserRegistrationActivity.sUserProfile.getUserLastName();
-        String userName = userFirstName + " " + userLastName;
-        String userEmail = UserRegistrationActivity.sUserProfile.getUserEmail();
-        String userPhone = UserRegistrationActivity.sUserProfile.getUserPhone();
+        String userName = firstNameValue + " " + lastNameValue;
 
         hideIfNotLoggedIn.setVisibility(View.VISIBLE);
 
         userNameText.setText(userName);
-        userEmailText.setText(userEmail);
-        userPhoneText.setText(userPhone);
+        userEmailText.setText(userEmailValue);
+        userPhoneText.setText(userPhoneValue);
     }
 
     // UI - USER DIDN'T LOGIN

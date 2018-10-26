@@ -1,16 +1,21 @@
 package com.fzhongfei.findzhongfei_final.activity;
 
 import android.content.Context;
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.drawable.GradientDrawable;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.Button;
 
 import com.fzhongfei.findzhongfei_final.R;
+import com.fzhongfei.findzhongfei_final.model.CompanyProfile;
 
 public class UserSettingsActivity extends AppCompatActivity {
 
@@ -19,13 +24,29 @@ public class UserSettingsActivity extends AppCompatActivity {
     private Context mContext = UserSettingsActivity.this;
 
     // VIEWS
+    Button signOutBtn;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_settings);
+        setContentView(R.layout.activity_user_settings);
 
         Log.d(TAG, "onCreate: Running");
+
+        // VIEWS
+        signOutBtn = findViewById(R.id.company_signout_button);
+
+        SharedPreferences sharedPreferences = getSharedPreferences("companyPreference", 0);
+        if(sharedPreferences.contains("companyIsLoggedIn")) {
+            signOutBtn.setVisibility(View.VISIBLE);
+        }
+
+        signOutBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                signOutCompany();
+            }
+        });
 
         // TOOLBAR
         setUpActivityToolbar();
@@ -53,9 +74,11 @@ public class UserSettingsActivity extends AppCompatActivity {
 
         mToolbar = findViewById(R.id.activity_settings_toolbar);
         setSupportActionBar(mToolbar);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setDisplayShowHomeEnabled(true);
-        getSupportActionBar().setDisplayShowTitleEnabled(false);
+        if(getSupportActionBar() != null) {
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+            getSupportActionBar().setDisplayShowHomeEnabled(true);
+            getSupportActionBar().setDisplayShowTitleEnabled(false);
+        }
 
         mToolbar.setBackground(mGradientDrawable);
         mToolbar.setTitle(R.string.settingsTitle);
@@ -66,5 +89,14 @@ public class UserSettingsActivity extends AppCompatActivity {
     public boolean onSupportNavigateUp() {
         onBackPressed();
         return true;
+    }
+
+    // UI - SIGN OUT
+    public void signOutCompany() {
+        Intent i = new Intent(mContext, MainActivity.class);
+        new CompanyProfile(mContext).clearSharedPreference(mContext);
+        finishAffinity();
+        startActivity(i);
+        finish();
     }
 }

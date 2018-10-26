@@ -51,7 +51,7 @@ public class CompanyLoginActivity extends AppCompatActivity {
         Log.d(TAG, "onCreate: Running....");
         SharedPreferences sharedPreferences = getSharedPreferences("companyPreference", 0);
 //        if(CompanyRegistrationActivity1.sCompanyProfile == null)
-        if(sharedPreferences.contains("isLoggedIn"))
+        if(!sharedPreferences.contains("isLoggedIn"))
         {
             // TOOLBAR
             setUpActivityToolbar();

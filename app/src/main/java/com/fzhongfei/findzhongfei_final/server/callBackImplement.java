@@ -18,6 +18,7 @@ import com.fzhongfei.findzhongfei_final.activity.UserLoginActivity;
 import com.fzhongfei.findzhongfei_final.activity.UserRegistrationActivity;
 import com.fzhongfei.findzhongfei_final.activity.UserSignedInActivity;
 import com.fzhongfei.findzhongfei_final.model.CompanyProfile;
+import com.fzhongfei.findzhongfei_final.model.UserProfile;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -102,74 +103,86 @@ public class callBackImplement implements serverCallBack {
                     JSONObject companyData = new JSONObject(String.valueOf(result.get("compData")));
 
                     HashMap<String, String> hashCompData = new HashMap<>();
-                    hashCompData.put("compId",companyData.getString("comp_id"));
-                    hashCompData.put("compName",companyData.getString("comp_name"));
-                    hashCompData.put("compRepName",companyData.getString("comp_representative"));
-                    hashCompData.put("compRepEmail",companyData.getString("comp_rep_email"));
-                    hashCompData.put("compCeo",companyData.getString("comp_ceo"));
-                    hashCompData.put("compLogoUrl",companyData.getString("comp_logo"));
-                    hashCompData.put("compLicense",companyData.getString("comp_license"));
-                    hashCompData.put("compPhone",companyData.getString("comp_phone"));
-                    hashCompData.put("compEmail",companyData.getString("comp_email"));
-                    hashCompData.put("compToken",companyData.getString("comp_token"));
-                    hashCompData.put("compRegistration",companyData.getString("comp_reg_time"));
-                    hashCompData.put("compStatus",companyData.getString("comp_status"));
-                    hashCompData.put("compAddress1",companyData.getString("comp_addr_one"));
-                    hashCompData.put("compAddress2",companyData.getString("comp_addr_two"));
-                    hashCompData.put("compCity",companyData.getString("comp_city"));
-                    hashCompData.put("compProvince",companyData.getString("comp_province"));
-                    hashCompData.put("compType",companyData.getString("comp_type"));
-                    hashCompData.put("compSubType",companyData.getString("comp_subtype"));
-                    hashCompData.put("compDescription",companyData.getString("comp_desc"));
-                    hashCompData.put("compWechatId",companyData.getString("comp_wechat"));
+                    hashCompData.put("compId", companyData.getString("comp_id"));
+                    hashCompData.put("compName", companyData.getString("comp_name"));
+                    hashCompData.put("compRepName", companyData.getString("comp_representative"));
+                    hashCompData.put("compRepEmail", companyData.getString("comp_rep_email"));
+                    hashCompData.put("compCeo", companyData.getString("comp_ceo"));
+                    hashCompData.put("compLogoUrl", companyData.getString("comp_logo"));
+                    hashCompData.put("compLicense", companyData.getString("comp_license"));
+                    hashCompData.put("compPhone", companyData.getString("comp_phone"));
+                    hashCompData.put("compEmail", companyData.getString("comp_email"));
+                    hashCompData.put("compToken", companyData.getString("comp_token"));
+                    hashCompData.put("compRegistration", companyData.getString("comp_reg_time"));
+                    hashCompData.put("compStatus", companyData.getString("comp_status"));
+                    hashCompData.put("compAddress1", companyData.getString("comp_addr_one"));
+                    hashCompData.put("compAddress2", companyData.getString("comp_addr_two"));
+                    hashCompData.put("compCity", companyData.getString("comp_city"));
+                    hashCompData.put("compProvince", companyData.getString("comp_province"));
+                    hashCompData.put("compType", companyData.getString("comp_type"));
+                    hashCompData.put("compSubType", companyData.getString("comp_subtype"));
+                    hashCompData.put("compDescription", companyData.getString("comp_desc"));
+                    hashCompData.put("compWechatId", companyData.getString("comp_wechat"));
 
-//                    CompanyRegistrationActivity1.InitiateCompanyProfile(this.context);
-//                    CompanyRegistrationActivity1.sCompanyProfile.initiateLogin(this.context);
-//                    CompanyRegistrationActivity1.sCompanyProfile.SetCompData(hashCompData);
                     CompanyProfile companyProfile = new CompanyProfile(this.context);
                     companyProfile.initiateLogin(this.context);
-                    companyProfile.SetCompData(this.context,hashCompData);
+                    companyProfile.SetCompData(this.context, hashCompData);
 
                     Intent intent = new Intent(this.context, CompanyProfileActivity.class);
-                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                    ((Activity) context).finish();
                     context.getApplicationContext().startActivity(intent);
                 }
                 else if(requestType.equals("user_registration"))
                 {
                     Intent intent = new Intent(this.context, UserSignedInActivity.class);
                     UserLoginActivity.isLoggedIn = true;
-                    intent.putExtra("isSignedIn", true);
                     intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                     context.getApplicationContext().startActivity(intent);
                 }
                 else if(requestType.equals("user_login")) {
-                    JSONObject jObject = new JSONObject(String.valueOf(result.get("userData")));
+                    JSONObject userData = new JSONObject(String.valueOf(result.get("userData")));
 
-                    UserRegistrationActivity.sUserProfile.setUserId(jObject.getString("user_id"));
-                    UserRegistrationActivity.sUserProfile.setUserToken(jObject.getString("user_token"));
-                    UserRegistrationActivity.sUserProfile.setUserFirstName(jObject.getString("user_fname"));
-                    UserRegistrationActivity.sUserProfile.setUserLastName(jObject.getString("user_sname"));
-                    UserRegistrationActivity.sUserProfile.setUserEmail(jObject.getString("user_email"));
-                    UserRegistrationActivity.sUserProfile.setUserPhone(jObject.getString("user_phone"));
+                    HashMap<String, String> hashUserData = new HashMap<>();
+                    hashUserData.put("userId", userData.getString("user_id"));
+                    hashUserData.put("userToken", userData.getString("user_token"));
+                    hashUserData.put("userFirstName", userData.getString("user_fname"));
+                    hashUserData.put("userLastName", userData.getString("user_sname"));
+                    hashUserData.put("userEmail", userData.getString("user_email"));
+                    hashUserData.put("userPhone", userData.getString("user_phone"));
+
+                    UserProfile userProfile = new UserProfile(this.context);
+                    userProfile.initiateLogin(this.context);
+                    userProfile.SetUserData(this.context, hashUserData);
 
                     Intent intent = new Intent(this.context, UserSignedInActivity.class);
-//                    boolean remember = UserLoginActivity.isLoggedIn = true;
-                    intent.putExtra("isSignedIn", true);
                     intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                    ((Activity) context).finish();
                     context.getApplicationContext().startActivity(intent);
                 }
                 else if(requestType.equals("requestCompLogo"))
                 {
-//                    Log.d(TAG, "onSuccess: Company Logo is: " + result.get("logoData").toString());
                     CompanyProfile companyProfile = new CompanyProfile(this.context);
                     companyProfile.setCompanyLogo(this.context, result.get("imageFile").toString());
-                    Log.d(TAG, "onSuccess: Company Logo from result "+companyProfile.getCompanyLogo());
-                    byte[] decodedLogo = Base64.decode(result.get("imageFile").toString(),Base64.DEFAULT);
+                    Log.d(TAG, "onSuccess: Company Logo from result " + companyProfile.getCompanyLogo());
+                    byte[] decodedLogo = Base64.decode(result.get("imageFile").toString(), Base64.DEFAULT);
+
                     CompanyProfileActivity.companyLogo.setImageBitmap(BitmapFactory.decodeByteArray(decodedLogo, 0, decodedLogo.length));
                     //TO DO: LOGO HASH AND VERIFYING LOGO
                 }
-                else
-                    Log.d(TAG, "onSuccess: Unknown Request type -------------------------------------- "+"");
+                else if(requestType.equals("requestUserProfilePicture"))
+                {
+//                    Log.d(TAG, "onSuccess: User profile is: " + result.get("profilePictureData").toString());
+                    UserProfile userProfile = new UserProfile(this.context);
+                    userProfile.setUserProfilePicture(this.context, result.get("imageFile").toString());
+                    Log.d(TAG, "onSuccess: Company Logo from result " + userProfile.getUserProfilePicture());
+                    byte[] decodedLogo = Base64.decode(result.get("imageFile").toString(), Base64.DEFAULT);
+
+                    CompanyProfileActivity.companyLogo.setImageBitmap(BitmapFactory.decodeByteArray(decodedLogo, 0, decodedLogo.length));
+                    //TO DO: LOGO HASH AND VERIFYING LOGO
+                }
+                else {
+                    Log.d(TAG, "onSuccess: Unknown Request type");
+                }
             }
             else
             {

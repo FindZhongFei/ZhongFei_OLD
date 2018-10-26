@@ -24,7 +24,7 @@
             android:fitsSystemWindows="true"
             android:background="@drawable/user_signed_in_background"
             app:contentScrim="@drawable/background_gradient_toolbar"
-            app:layout_scrollFlags="exitUntilCollapsed|scroll">
+            app:layout_scrollFlags="exitUntilCollapsed|scroll|snap">
 
             <LinearLayout
                 android:id="@+id/view_profile_layout"
@@ -132,6 +132,7 @@
             <android.support.v7.widget.Toolbar
                 android:id="@+id/user_signed_in_toolbar"
                 android:layout_width="match_parent"
+                app:layout_scrollFlags="snap|exitUntilCollapsed|scroll"
                 android:layout_height="75sp"
                 android:paddingTop="25sp"
                 app:layout_collapseMode="pin"

@@ -289,6 +289,13 @@
                 </RelativeLayout>
             </LinearLayout>
 
+            <Button
+                android:id="@+id/company_signout_button"
+                android:layout_width="280sp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:text="@string/signOut"
+                android:visibility="gone"/>
         </LinearLayout>
     </ScrollView>
 </LinearLayout>

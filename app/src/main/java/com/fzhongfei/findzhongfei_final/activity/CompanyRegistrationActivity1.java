@@ -89,7 +89,6 @@ public class CompanyRegistrationActivity1 extends AppCompatActivity {
 
         Log.d(TAG, "onCreate: Running...");
 
-
         mActivity = this;
 //        sCompanyProfile = new CompanyProfile(mActivity);
         InitiateCompanyProfile(mActivity);
@@ -313,7 +312,7 @@ public class CompanyRegistrationActivity1 extends AppCompatActivity {
         File file = null;
         try {
             String fileName = Uri.parse(url).getLastPathSegment();
-            file = File.createTempFile("token:", null, context.getCacheDir());
+            file = File.createTempFile("token ", null, context.getCacheDir());
         } catch (IOException e) {
             // Error while creating file
         }
@@ -558,7 +557,8 @@ public class CompanyRegistrationActivity1 extends AppCompatActivity {
     }
 
     // SETTER FOR COMPANY PROFILE
-    private void setCompanyFields() {
+    private void setCompanyFields()
+    {
         sCompanyProfile.setCompanyName(mContext, edtCompName.getText().toString());
         sCompanyProfile.setCompanyPhone(mContext, edtCompPhone.getText().toString());
         sCompanyProfile.setCompanyEmail(mContext, edtCompEmail.getText().toString());
@@ -567,108 +567,9 @@ public class CompanyRegistrationActivity1 extends AppCompatActivity {
         sCompanyProfile.setCompanyRepresentativeEmail(mContext, edtRepEmail.getText().toString());
     }
 
-    //initiate sCompanyProfile when the activity has not been called  before
+    // INITIATE 'sCompanyProfile' WHEN THE ACTIVITY HAS NOT BEEN CALLED BEFORE
     public static void InitiateCompanyProfile(Context context)
     {
         sCompanyProfile = new CompanyProfile(context);
     }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-// UPLOAD IMAGE AS SOON AS THE USER SELECTS AN IMAGE
-//    new UploadImage(mContext, logoBitmap).execute();
-
-
-
-//    private static class UploadImage extends AsyncTask<Void, Void, JSONObject> {
-//        Bitmap image;
-////        public AsyncResponse delegate = null;
-//        Context context;
-//
-//        // THE IMAGE SELECTED
-//        private UploadImage(Context context, Bitmap image) {
-//            this.image = image;
-//            this.context = context;
-////            this.delegate = delegate;
-//        }
-//
-//        @Override
-//        protected JSONObject doInBackground(Void... voids) {
-//            JSONObject jsonObject = new JSONObject();
-//
-//            // ENCODE THE IMAGE TO BASE 64
-//            ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
-//            image.compress(Bitmap.CompressFormat.JPEG, 100, byteArrayOutputStream);
-//            String encodedImage = Base64.encodeToString(byteArrayOutputStream.toByteArray(), Base64.DEFAULT);
-//
-//            // LIST OF THINGS SENDING TO THE SERVER
-//            ArrayList<NameValuePair> dataToSend = new ArrayList<>();
-//            dataToSend.add(new BasicNameValuePair("comp_logo", encodedImage));
-//
-//            HttpParams httpRequestParams = getHttpRequestParams();
-//            HttpClient client = new DefaultHttpClient(httpRequestParams);
-//            HttpPost post = new HttpPost(MainActivity.SERVER_URL + "register/index.php");
-//
-//            try {
-//                post.setEntity(new UrlEncodedFormEntity(dataToSend));
-//                client.execute(post);
-//
-//                HttpResponse response = client.execute(post);
-//                // CHECK IF WE HAVE RESPONSE FORM SERVER
-//                int status = response.getStatusLine().getStatusCode();
-//
-//                // 200 -> SUCCESSFULLY RECEIVED SOME DATA
-//                if(status == 200) {
-//                    // GET THE RESPONSE AND MAKE IT A STRING
-//                    Log.d(TAG, "doInBackground: STATUS ++++++++++++++++++++++++++" + status);
-//                    HttpEntity entity = response.getEntity();
-//                    String data = EntityUtils.toString(entity);
-//
-////                    HttpParams entity = response.getParams();
-//                    Log.d(TAG, "doInBackground: PARAMS: " + data);
-//
-//                    jsonObject = new JSONObject(data);
-////                    JSONArray jsonArray = jsonObject.getJSONArray("success");
-//                }
-//            } catch(ClientProtocolException e) {
-//                e.printStackTrace();
-//            } catch(Exception e) {
-//                e.printStackTrace();
-//            }
-//
-//            Log.d(TAG, "doInBackground: RESPONSE::" + jsonObject);
-//            return jsonObject;
-//        }
-//
-////        public interface AsyncResponse {
-////            // DATA WE LIKE TO RETURN FROM ASYNC
-////            JSONObject processFinish(JSONObject response);
-////        }
-//
-//        // WHEN THE CODE FINISHES RUNNING
-//        @Override
-//        protected void onPostExecute(JSONObject response) {
-////            delegate.processFinish(response);
-////            Toast.makeText(context, response.toString(), Toast.LENGTH_LONG).show();
-//        }
-//    }
-//
-//    // GAINING CONNECTION WITH THE SERVER
-//    private static HttpParams getHttpRequestParams() {
-//        HttpParams httpRequestParams = new BasicHttpParams();
-//        HttpConnectionParams.setConnectionTimeout(httpRequestParams, 30 * 1000);
-//        HttpConnectionParams.setSoTimeout(httpRequestParams, 30 * 1000);
-//
-//        return httpRequestParams;
-//    }
-

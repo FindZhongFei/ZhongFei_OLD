@@ -37,6 +37,9 @@ public class MainActivity extends AppCompatActivity {
 
         Log.d(TAG, "onCreate: Running...");
 
+//        CompanyProfile companyProfile = new CompanyProfile(mContext);
+//        companyProfile.clearSharedPreference(mContext);
+
 //        for(int i = 0; i<10; i++) {
 //            Toast.makeText(mContext, "phone_serial_number: " + Build.SERIAL + "\n" +
 //                            "phone_model_number: "+ Build.MODEL + "\n" +
@@ -62,9 +65,6 @@ public class MainActivity extends AppCompatActivity {
 
         // LOAD FRAGMENTS INTO VIEW
         loadFragment(new MainFragment());
-
-        // CHECK IF USER IS LOGGED IN
-        checkUserPreferences();
     }
 
     @Override
@@ -118,7 +118,6 @@ public class MainActivity extends AppCompatActivity {
                     return true;
                 case R.id.ic_profile:
                     Intent i = new Intent(mContext, UserSignedInActivity.class);
-                    i.putExtra("isSignedIn", checkUserPreferences());
                     mContext.startActivity(i);   // ACTIVITY_NUMBER = 2
                     return true;
             }
@@ -132,10 +131,5 @@ public class MainActivity extends AppCompatActivity {
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
         transaction.replace(R.id.fragment_container, fragment);
         transaction.commit();
-    }
-
-    private boolean checkUserPreferences() {
-        boolean userRemembered = UserLoginActivity.isLoggedIn;
-        return userRemembered;
     }
 }

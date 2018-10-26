@@ -34,7 +34,7 @@ public class customStringRequest {
         }
 
         public void setUrlPath(String domain) {
-            this.urlPath = this.urlPath+domain;
+            this.urlPath = this.urlPath + domain;
         }
 
         public void setParams(HashMap params) {

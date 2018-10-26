@@ -1,5 +1,6 @@
 package com.fzhongfei.findzhongfei_final.activity;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.drawable.GradientDrawable;
@@ -40,6 +41,7 @@ public class UserRegistrationActivity extends AppCompatActivity {
     // EVERY ACTIVITY SETUP
     private static final String TAG = "CompanyRegistrationActivity1";
     public Context mContext = UserRegistrationActivity.this;
+    public static Activity mActivity ;
 
     // VIEWS
     private EditText firstNameEditText, lastNameEditText, emailAddressEditText, phoneNumberEditText, passwordEditText, confirmPasswordEditText;
@@ -49,7 +51,7 @@ public class UserRegistrationActivity extends AppCompatActivity {
     String mPassword, mConfirmPassword;
 
     // USER OBJECT
-    public static UserProfile sUserProfile = new UserProfile();
+    public static UserProfile sUserProfile;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,6 +59,8 @@ public class UserRegistrationActivity extends AppCompatActivity {
         setContentView(R.layout.activity_user_register);
 
         Log.d(TAG, "onCreate: Running...");
+
+        InitiateUserProfile(mActivity);
 
         // TOOLBAR
         setUpActivityToolbar();
@@ -164,7 +168,7 @@ public class UserRegistrationActivity extends AppCompatActivity {
             window.setBackgroundDrawable(mGradientDrawable);
         }
 
-        mToolbar = findViewById(R.id.activity_login_user_toolbar);
+        mToolbar = findViewById(R.id.activity_register_user_toolbar);
         setSupportActionBar(mToolbar);
         if(getSupportActionBar() != null) {
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -266,9 +270,15 @@ public class UserRegistrationActivity extends AppCompatActivity {
 
     // SETTER FOR COMPANY PROFILE
     private void setCompanyFields() {
-        sUserProfile.setUserFirstName(firstNameEditText.getText().toString());
-        sUserProfile.setUserLastName(lastNameEditText.getText().toString());
-        sUserProfile.setUserEmail(emailAddressEditText.getText().toString());
-        sUserProfile.setUserPhone(phoneNumberEditText.getText().toString());
+        sUserProfile.setUserFirstName(mContext, firstNameEditText.getText().toString());
+        sUserProfile.setUserLastName(mContext, lastNameEditText.getText().toString());
+        sUserProfile.setUserEmail(mContext, emailAddressEditText.getText().toString());
+        sUserProfile.setUserPhone(mContext, phoneNumberEditText.getText().toString());
+    }
+
+    // INITIATE 'sCompanyProfile' WHEN THE ACTIVITY HAS NOT BEEN CALLED BEFORE
+    public static void InitiateUserProfile(Context context)
+    {
+        sUserProfile = new UserProfile(context);
     }
 }

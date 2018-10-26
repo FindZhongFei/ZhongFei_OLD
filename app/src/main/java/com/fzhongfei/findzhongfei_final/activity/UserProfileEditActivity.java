@@ -16,7 +16,7 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.fzhongfei.findzhongfei_final.R;
-import com.fzhongfei.findzhongfei_final.model.SaveSharedPreferences;
+import com.fzhongfei.findzhongfei_final.model.UserProfile;
 
 public class UserProfileEditActivity extends AppCompatActivity {
 
@@ -31,8 +31,6 @@ public class UserProfileEditActivity extends AppCompatActivity {
     private ProgressBar signOutProgressBar;
     private int pStatus = 0;
     private Handler handler = new Handler();
-
-    private SaveSharedPreferences mSharedPreferencesUser = new SaveSharedPreferences();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -102,9 +100,9 @@ public class UserProfileEditActivity extends AppCompatActivity {
         signOutText.setVisibility(View.GONE);
 //        signOutProgressBar.setVisibility(View.VISIBLE);
 
-        Intent i = new Intent(mContext, UserSignedInActivity.class);
-        i.putExtra("isSignedIn", false);
-        i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        Intent i = new Intent(mContext, MainActivity.class);
+        new UserProfile(mContext).clearSharedPreference(mContext);
+        finishAffinity();
         startActivity(i);
         finish();
     }
