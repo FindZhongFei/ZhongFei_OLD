@@ -6,6 +6,8 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.support.design.widget.AppBarLayout;
+import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.v4.app.ActivityOptionsCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -20,7 +22,6 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.fzhongfei.findzhongfei_final.R;
 import com.fzhongfei.findzhongfei_final.model.UserProfile;
@@ -96,9 +97,6 @@ public class UserSignedInActivity extends AppCompatActivity {
             sUserProfile = new UserProfile(mContext);
             sUserProfile.setPropertiesFromSharePreference(mContext);
 
-            Toast.makeText(mContext, sUserProfile.getUserLastName(), Toast.LENGTH_SHORT).show();
-            Log.d(TAG, "onCreate: usersharedpreferences is logged in "+sUserProfile.getUserIsLoggedIn());
-            Log.d(TAG, "onCreate: usersharedpreferences is getname in "+sUserProfile.getUserEmail());
             displayUserDetails();
             profileLayout.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -124,6 +122,8 @@ public class UserSignedInActivity extends AppCompatActivity {
     // SETTING UP THE TOOLBAR
     private void setUpActivityToolbar() {
         Toolbar mToolbar;
+        final CollapsingToolbarLayout collapsingToolbarLayout = findViewById(R.id.user_signed_in_collapsing_toolbar);
+        AppBarLayout appBarLayout = findViewById(R.id.user_signed_in_app_bar);
 
         mToolbar = findViewById(R.id.user_signed_in_toolbar);
         setSupportActionBar(mToolbar);
@@ -132,6 +132,23 @@ public class UserSignedInActivity extends AppCompatActivity {
             getSupportActionBar().setDisplayShowHomeEnabled(true);
             getSupportActionBar().setDisplayShowTitleEnabled(false);
         }
+
+        mToolbar.setTitleMarginStart(-100);
+        appBarLayout.addOnOffsetChangedListener(new AppBarLayout.OnOffsetChangedListener() {
+            @Override
+            public void onOffsetChanged(AppBarLayout appBarLayout, int verticalOffset) {
+                if (Math.abs(verticalOffset)-appBarLayout.getTotalScrollRange() == 0 && sUserProfile.getUserLastName() != null)
+                {
+                    // Collapsed
+                    collapsingToolbarLayout.setTitle(sUserProfile.getUserLastName());
+                }
+                else
+                {
+                    // Expanded
+                    collapsingToolbarLayout.setTitle("");
+                }
+            }
+        });
     }
 
     // UI - BACK BUTTON
