@@ -1,6 +1,5 @@
 package com.fzhongfei.findzhongfei_final.activity;
 
-import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.drawable.GradientDrawable;
@@ -39,9 +38,8 @@ import java.util.HashMap;
 public class UserRegistrationActivity extends AppCompatActivity {
 
     // EVERY ACTIVITY SETUP
-    private static final String TAG = "CompanyRegistrationActivity1";
+    private static final String TAG = "UserRegistratActivity";
     public Context mContext = UserRegistrationActivity.this;
-    public static Activity mActivity ;
 
     // VIEWS
     private EditText firstNameEditText, lastNameEditText, emailAddressEditText, phoneNumberEditText, passwordEditText, confirmPasswordEditText;
@@ -60,7 +58,7 @@ public class UserRegistrationActivity extends AppCompatActivity {
 
         Log.d(TAG, "onCreate: Running...");
 
-        InitiateUserProfile(mActivity);
+        InitiateUserProfile(mContext);
 
         // TOOLBAR
         setUpActivityToolbar();
@@ -92,8 +90,8 @@ public class UserRegistrationActivity extends AppCompatActivity {
                 if(i == KeyEvent.KEYCODE_ENTER && keyEvent.getAction() == KeyEvent.ACTION_DOWN && InternetAvailability.internetIsAvailable(mContext)) {
                     if(registerButton.isEnabled()) {
                         if(mPassword.equals(mConfirmPassword)) {
-                            setCompanyFields();
                             processRegistration();
+                            setUserFields();
                         } else {
                             confirmPasswordEditText.setError("Passwords donot match!");
                         }
@@ -176,6 +174,7 @@ public class UserRegistrationActivity extends AppCompatActivity {
             getSupportActionBar().setDisplayShowTitleEnabled(false);
         }
 
+        mToolbar.setTitleMarginStart(-70);
         mToolbar.setBackground(mGradientDrawable);
         mToolbar.setTitle(R.string.register);
     }
@@ -268,8 +267,8 @@ public class UserRegistrationActivity extends AppCompatActivity {
         registerButton.setVisibility(View.VISIBLE);
     }
 
-    // SETTER FOR COMPANY PROFILE
-    private void setCompanyFields() {
+    // SETTER FOR USER PROFILE
+    private void setUserFields() {
         sUserProfile.setUserFirstName(mContext, firstNameEditText.getText().toString());
         sUserProfile.setUserLastName(mContext, lastNameEditText.getText().toString());
         sUserProfile.setUserEmail(mContext, emailAddressEditText.getText().toString());

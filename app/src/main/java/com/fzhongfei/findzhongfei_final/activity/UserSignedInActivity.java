@@ -43,6 +43,8 @@ public class UserSignedInActivity extends AppCompatActivity {
     private TextView userPhoneText;
     private TextView userEmailText;
 
+    private Boolean rememberedUser, rememberedCompany;
+
     private UserProfile sUserProfile;
 
     @Override
@@ -87,9 +89,12 @@ public class UserSignedInActivity extends AppCompatActivity {
                     public void onClick(View view) { showPopup(profileButton);
                     }
                 });
+            rememberedUser = false;
+            rememberedCompany = false;
         }
         else if(companySharedPreferences.contains("companyIsLoggedIn"))
         {
+            rememberedCompany = true;
             startActivity(new Intent(mContext, CompanyProfileActivity.class));
         }
         else if(userSharedPreferences.contains("userIsLoggedIn"))
@@ -97,6 +102,7 @@ public class UserSignedInActivity extends AppCompatActivity {
             sUserProfile = new UserProfile(mContext);
             sUserProfile.setPropertiesFromSharePreference(mContext);
 
+            rememberedUser = true;
             displayUserDetails();
             profileLayout.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -137,10 +143,17 @@ public class UserSignedInActivity extends AppCompatActivity {
         appBarLayout.addOnOffsetChangedListener(new AppBarLayout.OnOffsetChangedListener() {
             @Override
             public void onOffsetChanged(AppBarLayout appBarLayout, int verticalOffset) {
-                if (Math.abs(verticalOffset)-appBarLayout.getTotalScrollRange() == 0 && sUserProfile.getUserLastName() != null)
+                if (Math.abs(verticalOffset)-appBarLayout.getTotalScrollRange() == 0)
                 {
                     // Collapsed
-                    collapsingToolbarLayout.setTitle(sUserProfile.getUserLastName());
+                    if(rememberedUser)
+                    {
+                        collapsingToolbarLayout.setTitle(sUserProfile.getUserLastName());
+                    }
+                    else
+                    {
+                        collapsingToolbarLayout.setTitle("Profile");
+                    }
                 }
                 else
                 {

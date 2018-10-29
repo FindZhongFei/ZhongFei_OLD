@@ -34,8 +34,6 @@ import com.fzhongfei.findzhongfei_final.utils.InternetAvailability;
 
 import java.util.HashMap;
 
-import static com.fzhongfei.findzhongfei_final.activity.UserRegistrationActivity.sUserProfile;
-
 public class UserLoginActivity extends AppCompatActivity {
 
     // EVERY ACTIVITY SETUP
@@ -47,8 +45,6 @@ public class UserLoginActivity extends AppCompatActivity {
     private Button loginButton;
     private ProgressBar loading;
     private String mUsernameValue, mPasswordValue;
-
-    public static boolean isLoggedIn;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -160,6 +156,7 @@ public class UserLoginActivity extends AppCompatActivity {
             getSupportActionBar().setDisplayShowTitleEnabled(false);
         }
 
+        mToolbar.setTitleMarginStart(-70);
         mToolbar.setBackground(mGradientDrawable);
         mToolbar.setTitle(R.string.login);
     }
@@ -251,23 +248,5 @@ public class UserLoginActivity extends AppCompatActivity {
         callBack.setParams(Params);
         callBack.SetRequestType("user_login");
         registerRequest.startConnection(mContext, callBack, Params);
-    }
-
-    // UI - LOGIN USER
-    private void attemptLogin() {
-        String signedInWith = userEmailOrPhone.getText().toString().trim();
-        String userName = sUserProfile.getUserFirstName() + " " + sUserProfile.getUserLastName();
-
-        if(signedInWith.contains("@")) {
-            sUserProfile.setUserEmail(mContext, signedInWith);
-        } else {
-            sUserProfile.setUserPhone(mContext, signedInWith);
-        }
-
-        Intent i = new Intent(mContext, UserSignedInActivity.class);
-        i.putExtra("isSignedIn", true);
-        ((UserSignedInActivity) mContext).finish();
-        startActivity(i);
-        finish();
     }
 }

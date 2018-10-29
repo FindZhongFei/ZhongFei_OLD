@@ -84,6 +84,7 @@ public class UserProfileEditActivity extends AppCompatActivity {
             getSupportActionBar().setDisplayShowTitleEnabled(false);
         }
 
+        mToolbar.setTitleMarginStart(-70);
         mToolbar.setBackground(mGradientDrawable);
         mToolbar.setTitle(R.string.profileTitle);
     }
