@@ -18,14 +18,15 @@
         android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
 
         <android.support.design.widget.CollapsingToolbarLayout
-            android:id="@+id/collapsingToolbar"
+            android:id="@+id/company_profile_collapsing_toolbar"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            app:collapsedTitleGravity="center_horizontal"
             android:fitsSystemWindows="true"
             app:contentScrim="@drawable/shadow"
             app:expandedTitleGravity="center_horizontal|bottom"
             app:layout_scrollFlags="exitUntilCollapsed|scroll"
-            app:title="Amazon"
+            app:title="Company"
             app:titleEnabled="true">
 
             <ImageView

@@ -49,6 +49,7 @@
                         app:cardCornerRadius="36sp">
 
                         <ImageView
+                            android:id="@+id/user_signed_in_profile_picture"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             android:layout_gravity="center"
@@ -83,14 +84,12 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="10sp"
                         android:orientation="horizontal"
-                        android:visibility="gone"
-                        android:weightSum="2">
+                        android:visibility="gone">
 
                         <TextView
                             android:id="@+id/user_signed_in_phone_number"
-                            android:layout_width="match_parent"
+                            android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_weight="1"
                             android:ellipsize="end"
                             android:maxEms="10"
                             android:singleLine="true"
@@ -102,20 +101,15 @@
                             android:layout_width="1sp"
                             android:layout_height="15sp"
                             android:layout_gravity="center_vertical"
-                            android:layout_marginHorizontal="5sp"
-                            android:layout_marginLeft="-20sp"
-                            android:layout_marginStart="-20sp"
+                            android:layout_marginHorizontal="10sp"
                             android:background="@color/colorWhite"
                             tools:ignore="UnusedAttribute"/>
 
                         <TextView
                             android:id="@+id/user_signed_in_email"
-                            android:layout_width="match_parent"
+                            android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_weight="1"
                             android:ellipsize="end"
-                            android:layout_marginLeft="7sp"
-                            android:layout_marginStart="7sp"
                             android:maxEms="10"
                             android:singleLine="true"
                             android:text="@string/emailAddress"

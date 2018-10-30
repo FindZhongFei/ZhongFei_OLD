@@ -120,12 +120,12 @@ public class CompanyProfile {
     }
     public void setCompanyLogoUrl(Context context, String companyLogoUrl)
     {
-        this.compLogoIsDownloaded = true;
         this.companyLogoUrl = companyLogoUrl;
         this.setSharedPreference(context, "comp_logoUrl", companyLogoUrl, 0);
     }
     public void setCompanyLogo(Context context, String companyLogo)
     {
+        this.compLogoIsDownloaded = true;
         this.companyLogo = companyLogo;
         this.setSharedPreference(context, "comp_logo", companyLogo, 0);
     }

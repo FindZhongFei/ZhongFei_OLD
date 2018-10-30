@@ -15,6 +15,8 @@ import com.fzhongfei.findzhongfei_final.activity.CompanyRegistrationActivity2;
 import com.fzhongfei.findzhongfei_final.activity.CompanyRegistrationActivity3;
 import com.fzhongfei.findzhongfei_final.activity.CompanySuccessfullyRegisteredActivity;
 import com.fzhongfei.findzhongfei_final.activity.UserLoginActivity;
+import com.fzhongfei.findzhongfei_final.activity.UserProfileActivity;
+import com.fzhongfei.findzhongfei_final.activity.UserProfileEditActivity;
 import com.fzhongfei.findzhongfei_final.activity.UserRegistrationActivity;
 import com.fzhongfei.findzhongfei_final.activity.UserSignedInActivity;
 import com.fzhongfei.findzhongfei_final.model.CompanyProfile;
@@ -142,7 +144,7 @@ public class callBackImplement implements serverCallBack {
                     ((Activity) context).finish();
                     context.getApplicationContext().startActivity(intent);
                 }
-                else if(requestType.equals("user_login")) 
+                else if(requestType.equals("user_login"))
                 {
                     JSONObject userData = new JSONObject(String.valueOf(result.get("userData")));
 
@@ -153,6 +155,7 @@ public class callBackImplement implements serverCallBack {
                     hashUserData.put("userLastName", userData.getString("user_sname"));
                     hashUserData.put("userEmail", userData.getString("user_email"));
                     hashUserData.put("userPhone", userData.getString("user_phone"));
+                    hashUserData.put("userProfileUrl", userData.getString("user_profile"));
 
                     UserProfile userProfile = new UserProfile(this.context);
                     userProfile.initiateLogin(this.context);
@@ -183,13 +186,13 @@ public class callBackImplement implements serverCallBack {
                 }
                 else if(requestType.equals("requestUserProfilePicture"))
                 {
-//                    Log.d(TAG, "onSuccess: User profile is: " + result.get("profilePictureData").toString());
                     UserProfile userProfile = new UserProfile(this.context);
                     userProfile.setUserProfilePicture(this.context, result.get("imageFile").toString());
-                    Log.d(TAG, "onSuccess: Company Logo from result " + userProfile.getUserProfilePicture());
+                    Log.d(TAG, "onSuccess: User Logo from result " + userProfile.getUserProfilePicture());
                     byte[] decodedLogo = Base64.decode(result.get("imageFile").toString(), Base64.DEFAULT);
 
-                    CompanyProfileActivity.companyLogo.setImageBitmap(BitmapFactory.decodeByteArray(decodedLogo, 0, decodedLogo.length));
+                    UserProfileEditActivity.editProfilePicture.setImageBitmap(BitmapFactory.decodeByteArray(decodedLogo, 0, decodedLogo.length));
+                    UserProfileActivity.profilePicture.setImageBitmap(BitmapFactory.decodeByteArray(decodedLogo, 0, decodedLogo.length));
                     //TO DO: LOGO HASH AND VERIFYING LOGO
                 }
                 else 

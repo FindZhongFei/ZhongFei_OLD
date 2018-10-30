@@ -27,12 +27,9 @@ import com.fzhongfei.findzhongfei_final.R;
 import com.fzhongfei.findzhongfei_final.adapter.HistoryRVAdapter;
 import com.fzhongfei.findzhongfei_final.model.HistoryItem;
 import com.fzhongfei.findzhongfei_final.model.UserProfile;
-import com.fzhongfei.findzhongfei_final.server.callBackImplement;
-import com.fzhongfei.findzhongfei_final.server.customStringRequest;
 import com.fzhongfei.findzhongfei_final.utils.OnSwipeTouchListener;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 
 public class UserProfileActivity extends AppCompatActivity {
@@ -42,10 +39,13 @@ public class UserProfileActivity extends AppCompatActivity {
     private Context mContext = UserProfileActivity.this;
 
     // VIEWS
-    private static ImageView profilePicture;
+    public static ImageView profilePicture;
+    private ImageView fullScreenProfilePicture;
     private TextView userNameText;
     private Dialog imageDialog;
     private UserProfile mUserProfile;
+
+    private String userProfilePictureValue;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -151,7 +151,12 @@ public class UserProfileActivity extends AppCompatActivity {
     public void showPopup(View view) {
         imageDialog.setContentView(R.layout.layout_popup_full_image_view);
         ImageView closeButton = imageDialog.findViewById(R.id.close_popup_button);
-        ImageView fullScreenImage = imageDialog.findViewById(R.id.fullview);
+        fullScreenProfilePicture = imageDialog.findViewById(R.id.profile_picture_full_screen);
+
+        if(userProfilePictureValue != null) {
+            byte[] decodedLogo = Base64.decode(userProfilePictureValue, Base64.DEFAULT);
+            fullScreenProfilePicture.setImageBitmap(BitmapFactory.decodeByteArray(decodedLogo, 0, decodedLogo.length));
+        }
 
 //        imageDialog.getWindow().setBackgroundDrawableResource(R.color.transparentBackground);
 
@@ -163,7 +168,7 @@ public class UserProfileActivity extends AppCompatActivity {
             }
         });
 
-        fullScreenImage.setOnTouchListener(new OnSwipeTouchListener(mContext) {
+        fullScreenProfilePicture.setOnTouchListener(new OnSwipeTouchListener(mContext) {
             public void onSwipeTop() {
                 imageDialog.dismiss();
             }
@@ -224,41 +229,17 @@ public class UserProfileActivity extends AppCompatActivity {
     private void showUserProfile() {
         if(mUserProfile.getUserIsLoggedIn())
         {
-            customStringRequest imageRequest = new customStringRequest();
-
-            String userTokenValue = mUserProfile.getUserToken();
-            String userProfileUrl = mUserProfile.getUserProfileUrl();
-            String userProfilePictureValue = mUserProfile.getUserProfilePicture();
-            Boolean profilePictureIsDownloaded = mUserProfile.isUserProfileDownloaded();
-
             String firstNameValue = mUserProfile.getUserFirstName();
             String lastNameValue = mUserProfile.getUserLastName();
 //            String userEmailValue = mUserProfile.getUserEmail();
 //            String userPhoneValue = mUserProfile.getUserPhone();
 
-            if(!profilePictureIsDownloaded || userProfilePictureValue == null)
-            {
-                HashMap<String, String> params = new HashMap<>();
+            userProfilePictureValue = mUserProfile.getUserProfilePicture();
 
-                params.put("requestType", "requestUserPicture");
-                params.put("profilePictureUrl", userProfileUrl);
-                params.put("userToken", userTokenValue);
-
-                imageRequest.setUrlPath("user/fetchImage.php");
-                imageRequest.setParams(params);
-
-                callBackImplement callBack = new callBackImplement(mContext);
-                callBack.setParams(params);
-                callBack.SetRequestType("requestUserProfilePicture");
-
-                imageRequest.startConnection(mContext, callBack, params);
-            }
-            else
-            {
+            if(userProfilePictureValue != null) {
                 byte[] decodedLogo = Base64.decode(userProfilePictureValue, Base64.DEFAULT);
                 profilePicture.setImageBitmap(BitmapFactory.decodeByteArray(decodedLogo, 0, decodedLogo.length));
             }
-
             String username = firstNameValue + " " + lastNameValue;
 
             userNameText.setText(username);

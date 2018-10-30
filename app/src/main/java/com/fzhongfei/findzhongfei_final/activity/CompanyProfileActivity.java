@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.support.design.widget.AppBarLayout;
+import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
@@ -85,7 +86,23 @@ public class CompanyProfileActivity extends AppCompatActivity {
             startActivity(new Intent(mContext, CompanyLoginActivity.class));
             finish();
         }
+    }
 
+    // SETTING UP THE TOOLBAR
+    private void setUpActivityToolbar() {
+        Toolbar mToolbar;
+        final CollapsingToolbarLayout collapsingToolbarLayout = findViewById(R.id.company_profile_collapsing_toolbar);
+        AppBarLayout appBarLayout = findViewById(R.id.company_profile_app_bar);
+
+        mToolbar = findViewById(R.id.profile_toolbar);
+        setSupportActionBar(mToolbar);
+        if(getSupportActionBar() != null) {
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+            getSupportActionBar().setDisplayShowHomeEnabled(true);
+            getSupportActionBar().setDisplayShowTitleEnabled(false);
+        }
+
+        // HIDE AND SHOW FAB ACCORDING TO COLLAPSING TOOLBAR
         FloatingActionButton fab = findViewById(R.id.company_profile_action_bar);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -95,13 +112,15 @@ public class CompanyProfileActivity extends AppCompatActivity {
             }
         });
 
-        AppBarLayout mAppBarLayout = findViewById(R.id.company_profile_app_bar);
-        mAppBarLayout.addOnOffsetChangedListener(new AppBarLayout.OnOffsetChangedListener() {
+        mToolbar.setTitleMarginStart(-200);
+        appBarLayout.addOnOffsetChangedListener(new AppBarLayout.OnOffsetChangedListener() {
             boolean isShow = false;
             int scrollRange = -1;
 
             @Override
             public void onOffsetChanged(AppBarLayout appBarLayout, int verticalOffset) {
+                collapsingToolbarLayout.setTitle(companyProfile.getCompanyName());
+
                 if(scrollRange == -1)
                 {
                     scrollRange = appBarLayout.getTotalScrollRange();
@@ -118,19 +137,6 @@ public class CompanyProfileActivity extends AppCompatActivity {
                 }
             }
         });
-    }
-
-    // SETTING UP THE TOOLBAR
-    private void setUpActivityToolbar() {
-        Toolbar mToolbar;
-
-        mToolbar = findViewById(R.id.profile_toolbar);
-        setSupportActionBar(mToolbar);
-        if(getSupportActionBar() != null) {
-            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-            getSupportActionBar().setDisplayShowHomeEnabled(true);
-            getSupportActionBar().setDisplayShowTitleEnabled(false);
-        }
     }
 
     // UI - BACK BUTTON

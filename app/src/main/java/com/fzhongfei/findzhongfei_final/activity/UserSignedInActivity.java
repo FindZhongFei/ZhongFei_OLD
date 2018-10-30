@@ -5,12 +5,14 @@ import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.v4.app.ActivityOptionsCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Base64;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -25,8 +27,12 @@ import android.widget.TextView;
 
 import com.fzhongfei.findzhongfei_final.R;
 import com.fzhongfei.findzhongfei_final.model.UserProfile;
+import com.fzhongfei.findzhongfei_final.server.callBackImplement;
+import com.fzhongfei.findzhongfei_final.server.customStringRequest;
 import com.fzhongfei.findzhongfei_final.utils.DisplayAds;
 import com.google.android.gms.ads.AdView;
+
+import java.util.HashMap;
 
 public class UserSignedInActivity extends AppCompatActivity {
 
@@ -37,15 +43,14 @@ public class UserSignedInActivity extends AppCompatActivity {
     // VIEWS
     private LinearLayout profileLayout;
     private ImageView profileButton;
+    public static ImageView userProfilePicture;
     private Dialog mDialog;
     private LinearLayout hideIfNotLoggedIn;
-    private TextView userNameText;
-    private TextView userPhoneText;
-    private TextView userEmailText;
+    private TextView userNameText, userPhoneText, userEmailText;
 
     private Boolean rememberedUser, rememberedCompany;
 
-    private UserProfile sUserProfile;
+    private UserProfile mUserProfile;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,6 +65,7 @@ public class UserSignedInActivity extends AppCompatActivity {
         AdView mAdView = findViewById(R.id.user_signed_in_ad);
         profileLayout = findViewById(R.id.view_profile_layout);
         profileButton = findViewById(R.id.view_profile_button);
+        userProfilePicture = findViewById(R.id.user_signed_in_profile_picture);
         RelativeLayout adLayout = findViewById(R.id.signed_in_ad_view);
         mDialog = new Dialog(mContext, android.R.style.Theme_Black_NoTitleBar_Fullscreen);
 
@@ -99,8 +105,8 @@ public class UserSignedInActivity extends AppCompatActivity {
         }
         else if(userSharedPreferences.contains("userIsLoggedIn"))
         {
-            sUserProfile = new UserProfile(mContext);
-            sUserProfile.setPropertiesFromSharePreference(mContext);
+            mUserProfile = new UserProfile(mContext);
+            mUserProfile.setPropertiesFromSharePreference(mContext);
 
             rememberedUser = true;
             displayUserDetails();
@@ -148,7 +154,7 @@ public class UserSignedInActivity extends AppCompatActivity {
                     // Collapsed
                     if(rememberedUser)
                     {
-                        collapsingToolbarLayout.setTitle(sUserProfile.getUserLastName());
+                        collapsingToolbarLayout.setTitle(mUserProfile.getUserLastName());
                     }
                     else
                     {
@@ -195,18 +201,49 @@ public class UserSignedInActivity extends AppCompatActivity {
 
     // UI - Displaying email and user name
     private void displayUserDetails() {
-        String firstNameValue = sUserProfile.getUserFirstName();
-        String lastNameValue = sUserProfile.getUserLastName();
-        String userEmailValue = sUserProfile.getUserEmail();
-        String userPhoneValue = sUserProfile.getUserPhone();
+        customStringRequest imageRequest = new customStringRequest();
+
+        String userTokenValue = mUserProfile.getUserToken();
+        String userProfileUrl = mUserProfile.getUserProfileUrl();
+        String userProfilePictureValue = mUserProfile.getUserProfilePicture();
+        Boolean profilePictureIsDownloaded = mUserProfile.isUserProfileDownloaded();
+
+        if(!profilePictureIsDownloaded || userProfilePictureValue == null)
+        {
+            HashMap<String, String> params = new HashMap<>();
+
+            params.put("requestType", "requestUserPicture");
+            params.put("profilePictureUrl", userProfileUrl);
+            params.put("userToken", userTokenValue);
+
+            imageRequest.setUrlPath("user/fetchImage.php");
+            imageRequest.setParams(params);
+
+            callBackImplement callBack = new callBackImplement(mContext);
+            callBack.setParams(params);
+            callBack.SetRequestType("requestUserProfilePicture");
+
+            imageRequest.startConnection(mContext, callBack, params);
+        }
+        else
+        {
+            byte[] decodedLogo = Base64.decode(userProfilePictureValue, Base64.DEFAULT);
+            userProfilePicture.setImageBitmap(BitmapFactory.decodeByteArray(decodedLogo, 0, decodedLogo.length));
+        }
+
+        String firstNameValue = mUserProfile.getUserFirstName();
+        String lastNameValue = mUserProfile.getUserLastName();
+        String userEmailValue = mUserProfile.getUserEmail();
+        String userPhoneValue = mUserProfile.getUserPhone();
 
         String userName = firstNameValue + " " + lastNameValue;
+        String phoneNumber = "+" + userPhoneValue;
 
         hideIfNotLoggedIn.setVisibility(View.VISIBLE);
 
         userNameText.setText(userName);
         userEmailText.setText(userEmailValue);
-        userPhoneText.setText(userPhoneValue);
+        userPhoneText.setText(phoneNumber);
     }
 
     // UI - USER DIDN'T LOGIN

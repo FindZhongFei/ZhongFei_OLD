@@ -68,6 +68,8 @@ public class UserProfile {
         setUserLastName(context, sharedPreference.getString("user_lastName",null));
         setUserEmail(context, sharedPreference.getString("user_email",null));
         setUserPhone(context, sharedPreference.getString("user_phone",null));
+        setUserProfileUrl(context, sharedPreference.getString("user_userProfileUrl",null));
+        setUserProfilePicture(context, sharedPreference.getString("user_userProfilePicture",null));
     }
 
     public void SetUserData(Context context, HashMap<String, String> userData)
@@ -78,18 +80,19 @@ public class UserProfile {
         setUserLastName(context, userData.get("userLastName"));
         setUserEmail(context, userData.get("userEmail"));
         setUserPhone(context, userData.get("userPhone"));
+        setUserProfileUrl(context, userData.get("userProfileUrl"));
     }
 
     public void setUserProfileUrl(Context context, String userProfileUrl)
     {
-        this.profilePictureIsDownloaded = true;
         this.userProfileUrl = userProfileUrl;
         this.setSharedPreference(context, "user_userProfileUrl", userProfileUrl, 0);
     }
     public void setUserProfilePicture(Context context, String userProfilePicture)
     {
+        this.profilePictureIsDownloaded = true;
         this.userProfilePicture = userProfilePicture;
-        this.setSharedPreference(context, "user_userProfileUrl", userProfilePicture, 0);
+        this.setSharedPreference(context, "user_userProfilePicture", userProfilePicture, 0);
     }
     public void setUserId(Context context, String userId)
     {

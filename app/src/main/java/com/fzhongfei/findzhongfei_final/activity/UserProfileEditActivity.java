@@ -44,7 +44,7 @@ public class UserProfileEditActivity extends AppCompatActivity {
 
     // VIEWS
     private TextView signOutText;
-    private ImageView editProfilePicture;
+    public static ImageView editProfilePicture;
 
     // IMAGE FROM GALLERY
     private Uri uriSelectedImage;
@@ -68,6 +68,9 @@ public class UserProfileEditActivity extends AppCompatActivity {
 
         // TOOLBAR
         setUpActivityToolbar();
+
+        // SHOW PROFILE DETAILS
+        showProfileDetails();
 
         // SIGN OUT
         signOutButton.setOnClickListener(new View.OnClickListener() {
@@ -125,6 +128,19 @@ public class UserProfileEditActivity extends AppCompatActivity {
     public boolean onSupportNavigateUp() {
         onBackPressed();
         return true;
+    }
+
+    // SHOW PROFILE DETAILS
+    private void showProfileDetails() {
+        UserProfile userProfile = new UserProfile(mContext);
+        userProfile.setPropertiesFromSharePreference(mContext);
+
+        String userProfilePicValue = userProfile.getUserProfilePicture();
+
+        if(userProfilePicValue != null) {
+            byte[] decodedLogo = Base64.decode(userProfilePicValue, Base64.DEFAULT);
+            editProfilePicture.setImageBitmap(BitmapFactory.decodeByteArray(decodedLogo, 0, decodedLogo.length));
+        }
     }
 
     // UI - SIGN OUT
@@ -254,6 +270,8 @@ public class UserProfileEditActivity extends AppCompatActivity {
                 try {
                     profilePictureBitmap.compress(Bitmap.CompressFormat.JPEG, 100, new ByteArrayOutputStream());
                     editProfilePicture.setImageBitmap(profilePictureBitmap);
+                    UserProfileActivity.profilePicture.setImageBitmap(profilePictureBitmap);
+                    UserSignedInActivity.userProfilePicture.setImageBitmap(profilePictureBitmap);
                 } catch (Exception e) {
                     Toast.makeText(mContext, e.toString(), Toast.LENGTH_SHORT).show();
                     e.printStackTrace();
@@ -277,7 +295,6 @@ public class UserProfileEditActivity extends AppCompatActivity {
             BigInteger logoHash = new BigInteger(1, MD5.digest());
 
             profilePictureSignature = logoHash.toString(16);
-            Log.d(TAG, "setProfilePicture: PROFILE PICTURE SIGNATURE " + profilePictureSignature);
         } catch (NoSuchAlgorithmException e) {
             e.printStackTrace();
             Log.d(TAG, "setProfilePicture: NOT VALID ALGORITHM");

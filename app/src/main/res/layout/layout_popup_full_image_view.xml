@@ -3,7 +3,9 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/transparentBackground">
+    xmlns:tools="http://schemas.android.com/tools"
+    android:background="@color/transparentBackground"
+    tools:context=".activity.UserProfileActivity">
 
     <ImageView
         android:id="@+id/close_popup_button"
@@ -17,7 +19,7 @@
         android:contentDescription="@string/close"/>
 
     <ImageView
-        android:id="@+id/fullview"
+        android:id="@+id/profile_picture_full_screen"
         android:layout_width="384sp"
         android:layout_height="384sp"
         android:layout_centerInParent="true"
