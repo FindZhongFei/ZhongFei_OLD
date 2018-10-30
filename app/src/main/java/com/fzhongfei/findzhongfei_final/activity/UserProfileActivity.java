@@ -78,7 +78,7 @@ public class UserProfileActivity extends AppCompatActivity {
                 }
             });
         } else {
-            startActivity(new Intent(mContext, CompanyLoginActivity.class));
+            startActivity(new Intent(mContext, UserLoginActivity.class));
             finish();
         }
     }
@@ -125,7 +125,7 @@ public class UserProfileActivity extends AppCompatActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // INFLATING THE MENU
-        getMenuInflater().inflate(R.menu.menu_edit_profile, menu);
+        getMenuInflater().inflate(R.menu.menu_edit_user_profile, menu);
 
         return true;
     }
@@ -233,8 +233,8 @@ public class UserProfileActivity extends AppCompatActivity {
 
             String firstNameValue = mUserProfile.getUserFirstName();
             String lastNameValue = mUserProfile.getUserLastName();
-            String userEmailValue = mUserProfile.getUserEmail();
-            String userPhoneValue = mUserProfile.getUserPhone();
+//            String userEmailValue = mUserProfile.getUserEmail();
+//            String userPhoneValue = mUserProfile.getUserPhone();
 
             if(!profilePictureIsDownloaded || userProfilePictureValue == null)
             {
@@ -255,8 +255,6 @@ public class UserProfileActivity extends AppCompatActivity {
             }
             else
             {
-                Log.d(TAG, "onSuccess: Company Logo from result " + mUserProfile.getUserProfilePicture());
-                Log.d(TAG, "onSuccess: logo is downloaded " + profilePictureIsDownloaded);
                 byte[] decodedLogo = Base64.decode(userProfilePictureValue, Base64.DEFAULT);
                 profilePicture.setImageBitmap(BitmapFactory.decodeByteArray(decodedLogo, 0, decodedLogo.length));
             }
@@ -270,6 +268,5 @@ public class UserProfileActivity extends AppCompatActivity {
             Toast.makeText(mContext, "Please login", Toast.LENGTH_LONG).show();
             startActivity(new Intent(mContext, UserLoginActivity.class));
         }
-
     }
 }

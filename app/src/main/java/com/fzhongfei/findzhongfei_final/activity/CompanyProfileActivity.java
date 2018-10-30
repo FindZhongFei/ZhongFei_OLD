@@ -4,12 +4,16 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
+import android.support.design.widget.AppBarLayout;
+import android.support.design.widget.FloatingActionButton;
+import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Base64;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.ImageView;
@@ -34,6 +38,8 @@ public class CompanyProfileActivity extends AppCompatActivity {
                         companyCeo, companyRepresentative, companyRepresentativeEmail, companyAddress1, companyAddress2,
                         companyWechatId, companyDescription;
     public static ImageView companyLogo;
+
+    private Menu menu;
     private CompanyProfile companyProfile;
 
     @Override
@@ -74,11 +80,44 @@ public class CompanyProfileActivity extends AppCompatActivity {
 
             showCompanyProfile();
         }
-        else {
+        else
+        {
             startActivity(new Intent(mContext, CompanyLoginActivity.class));
             finish();
         }
 
+        FloatingActionButton fab = findViewById(R.id.company_profile_action_bar);
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
+                        .setAction("Action", null).show();
+            }
+        });
+
+        AppBarLayout mAppBarLayout = findViewById(R.id.company_profile_app_bar);
+        mAppBarLayout.addOnOffsetChangedListener(new AppBarLayout.OnOffsetChangedListener() {
+            boolean isShow = false;
+            int scrollRange = -1;
+
+            @Override
+            public void onOffsetChanged(AppBarLayout appBarLayout, int verticalOffset) {
+                if(scrollRange == -1)
+                {
+                    scrollRange = appBarLayout.getTotalScrollRange();
+                }
+                if(scrollRange + verticalOffset == 0)
+                {
+                    isShow = true;
+                    showOption();
+                }
+                else if(isShow)
+                {
+                    isShow = false;
+                    hideOption();
+                }
+            }
+        });
     }
 
     // SETTING UP THE TOOLBAR
@@ -105,7 +144,9 @@ public class CompanyProfileActivity extends AppCompatActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // INFLATING THE MENU
+        this.menu = menu;
         getMenuInflater().inflate(R.menu.menu_settings, menu);
+        hideOption();
 
         return true;
     }
@@ -115,11 +156,28 @@ public class CompanyProfileActivity extends AppCompatActivity {
         int id = item.getItemId();
 
         // MENU ITEM CLICK HANDLING
-        if(id == R.id.profile_settings) {
+        if(id == R.id.profile_settings)
+        {
             startActivity(new Intent(mContext, UserSettingsActivity.class));
+        }
+        else if(id == R.id.edit_company_profile)
+        {
+            return true;
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    // HIDE EDIT ICON WHEN APPBAR IS EXPANDED
+    private void hideOption() {
+        MenuItem item = menu.findItem(R.id.edit_company_profile);
+        item.setVisible(false);
+    }
+
+    // SHOW EDIT ICON WHEN APPBAR IS COLLAPSED
+    private void showOption() {
+        MenuItem item = menu.findItem(R.id.edit_company_profile);
+        item.setVisible(true);
     }
 
     // ALL COMPANY PROFILE FIELDS
@@ -167,12 +225,9 @@ public class CompanyProfileActivity extends AppCompatActivity {
             }
             else
             {
-                Log.d(TAG, "onSuccess: Company Logo from result " + companyProfile.getCompanyLogo());
-                Log.d(TAG, "onSuccess: logo is downloaded " + logoIsDownloaded);
                 byte[] decodedLogo = Base64.decode(companyLogoValue, Base64.DEFAULT);
                 companyLogo.setImageBitmap(BitmapFactory.decodeByteArray(decodedLogo, 0, decodedLogo.length));
             }
-
 
             companyName.setText(companyNameValue);
             companyPhone.setText(companyPhoneValue);

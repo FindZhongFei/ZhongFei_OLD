@@ -8,7 +8,7 @@ import java.util.HashMap;
 public class UserProfile {
     private String userId, userToken, userFirstName, userLastName, userEmail, userPhone, userProfileUrl, userProfilePicture;
     private SharedPreferences sharedPreference;
-    private boolean isLoggedIn , profilePictureIsDownloaded;
+    private boolean isLoggedIn, profilePictureIsDownloaded;
 
     public UserProfile(Context context)
     {

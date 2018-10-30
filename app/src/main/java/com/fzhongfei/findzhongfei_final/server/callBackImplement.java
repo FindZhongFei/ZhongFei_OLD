@@ -142,7 +142,8 @@ public class callBackImplement implements serverCallBack {
                     ((Activity) context).finish();
                     context.getApplicationContext().startActivity(intent);
                 }
-                else if(requestType.equals("user_login")) {
+                else if(requestType.equals("user_login")) 
+                {
                     JSONObject userData = new JSONObject(String.valueOf(result.get("userData")));
 
                     HashMap<String, String> hashUserData = new HashMap<>();
@@ -161,6 +162,14 @@ public class callBackImplement implements serverCallBack {
                     intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                     ((Activity) context).finish();
                     context.getApplicationContext().startActivity(intent);
+                }
+                else if(requestType.equals("user_setProfilePicture"))
+                {
+                    String profileUrl = result.get("userProfileUrl").toString();
+
+                    UserProfile userProfile = new UserProfile(context);
+                    userProfile.setUserProfileUrl(context, profileUrl);
+                    userProfile.setUserProfilePicture(context, Params.get("user_profile"));
                 }
                 else if(requestType.equals("requestCompLogo"))
                 {
@@ -183,7 +192,8 @@ public class callBackImplement implements serverCallBack {
                     CompanyProfileActivity.companyLogo.setImageBitmap(BitmapFactory.decodeByteArray(decodedLogo, 0, decodedLogo.length));
                     //TO DO: LOGO HASH AND VERIFYING LOGO
                 }
-                else {
+                else 
+                    {
                     Log.d(TAG, "onSuccess: Unknown Request type");
                 }
             }
@@ -213,8 +223,7 @@ public class callBackImplement implements serverCallBack {
                 {
                     ((UserRegistrationActivity) context).stopUserRegisterConnection();
                 }
-
-
+                
                 Toast.makeText(this.context, this.errorMessage, Toast.LENGTH_LONG).show();
 
                 Log.d(TAG, "onSuccess: errorMessage: " + this.errorMessage);

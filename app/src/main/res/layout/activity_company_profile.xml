@@ -7,10 +7,11 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:theme="@style/AppTheme.NoActionBar"
+    android:background="@drawable/rounded_corners"
     tools:context=".activity.CompanyProfileActivity">
 
     <android.support.design.widget.AppBarLayout
-        android:id="@+id/app_bar"
+        android:id="@+id/company_profile_app_bar"
         android:layout_width="match_parent"
         android:layout_height="310sp"
         android:fitsSystemWindows="true"
@@ -59,7 +60,7 @@
         android:src="@drawable/ic_edit_black"
         android:translationY="-15sp"
         app:fabCustomSize="55sp"
-        app:layout_anchor="@id/app_bar"
+        app:layout_anchor="@id/company_profile_app_bar"
         app:layout_anchorGravity="bottom|right"
         app:pressedTranslationZ="15sp"
         tools:targetApi="lollipop"/>

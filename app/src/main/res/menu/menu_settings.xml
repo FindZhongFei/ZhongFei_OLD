@@ -3,9 +3,16 @@
       xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <item
+        android:title="@string/edit"
+        android:id="@+id/edit_company_profile"
+        android:icon="@drawable/ic_edit_black"
+        app:showAsAction="ifRoom"
+        android:visible="false"/>
+
+    <item
         android:id="@+id/profile_settings"
         android:icon="@drawable/icon_settings"
         android:title="@string/settingsTitle"
-        app:showAsAction="always"/>
+        app:showAsAction="ifRoom"/>
 
 </menu>

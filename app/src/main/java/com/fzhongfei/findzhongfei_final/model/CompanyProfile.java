@@ -11,7 +11,7 @@ public class CompanyProfile {
                     companyRepresentativeEmail, companyAddress1, companyAddress2, companyWechatId, companyDescription,
                     companyRegistrationTime, companyStatus, companyLogoUrl;
     private SharedPreferences sharedPreference;
-    private boolean isLoggedIn , compLogoIsDownloaded;
+    private boolean isLoggedIn, compLogoIsDownloaded;
 
     public CompanyProfile(Context context)
     {
@@ -74,7 +74,7 @@ public class CompanyProfile {
         setCompanySubType(context, sharedPreference.getString("comp_subType",null));
         setCompanyProvince(context, sharedPreference.getString("comp_province",null));
         setCompanyCity(context, sharedPreference.getString("comp_city",null));
-//        setCompanyPhone(context,  String.valueOf(sharedPreference.getLong("comp_phone", Long.parseLong(null))));
+        setCompanyPhone(context,  String.valueOf(sharedPreference.getString("comp_phone",null)));
         setCompanyEmail(context, sharedPreference.getString("comp_email",null));
         setCompanyCeo(context, sharedPreference.getString("comp_ceo",null));
         setCompanyRepresentative(context, sharedPreference.getString("comp_representative",null));
@@ -159,7 +159,7 @@ public class CompanyProfile {
     public void setCompanyPhone(Context context, String companyPhone)
     {
         this.companyPhone = companyPhone;
-        this.setSharedPreference(context, "comp_phone", companyPhone, 4);
+        this.setSharedPreference(context, "comp_phone", companyPhone, 0);
     }
     public void setCompanyEmail(Context context, String companyEmail)
     {

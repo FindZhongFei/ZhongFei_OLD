@@ -352,7 +352,7 @@ public class CompanyRegistrationActivity1 extends AppCompatActivity {
         rep_email = edtRepEmail.getText().toString();
         comp_password = edtPassword.getText().toString();
 
-        // VOLLEY STRING REQUEST TO SEND USER DATA TO SERVER
+        // VOLLEY STRING REQUEST TO SEND COMPANY DATA TO SERVER
         byte[] logoBytes = imageToString(logoBitmap).getBytes();
         byte[] licenseBytes = imageToString(licenseBitmap).getBytes();
         String logoSignature = null;
@@ -500,7 +500,7 @@ public class CompanyRegistrationActivity1 extends AppCompatActivity {
         }
     }
 
-    // CROPPING THE IMAGES IE. PROFILE AND LICENSE
+    // CROPPING THE IMAGES - BOTH PROFILE AND LICENSE
     private void performCrop() {
         Intent cropIntent;
         try {
@@ -546,7 +546,7 @@ public class CompanyRegistrationActivity1 extends AppCompatActivity {
         try {
             bitmap.compress(Bitmap.CompressFormat.JPEG, 100, byteArrayOutputStream);
         } catch (Exception e) {
-//            Log.d(TAG, "NEUD===========================imageToString: " + e.toString());
+            e.printStackTrace();
         }
 
         //  THE IMAGE IS INSIDE THE OUTPUT STREAM - CONVERT IT TO BYTES

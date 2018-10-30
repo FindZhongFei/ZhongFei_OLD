@@ -103,6 +103,8 @@
                             android:layout_height="15sp"
                             android:layout_gravity="center_vertical"
                             android:layout_marginHorizontal="5sp"
+                            android:layout_marginLeft="-20sp"
+                            android:layout_marginStart="-20sp"
                             android:background="@color/colorWhite"
                             tools:ignore="UnusedAttribute"/>
 
@@ -112,6 +114,8 @@
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
                             android:ellipsize="end"
+                            android:layout_marginLeft="7sp"
+                            android:layout_marginStart="7sp"
                             android:maxEms="10"
                             android:singleLine="true"
                             android:text="@string/emailAddress"
@@ -127,7 +131,7 @@
                     android:layout_gravity="center_vertical"
                     android:layout_weight="0.5"
                     android:contentDescription="@string/profileTitle"
-                    android:src="@drawable/ic_arrow_right_white"/>
+                    app:srcCompat="@drawable/ic_arrow_right_white"/>
             </LinearLayout>
 
             <android.support.v7.widget.Toolbar
@@ -177,7 +181,7 @@
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_horizontal"
                         android:contentDescription="@string/region"
-                        android:src="@drawable/ic_location"/>
+                        app:srcCompat="@drawable/ic_location"/>
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -205,7 +209,7 @@
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_horizontal"
                         android:contentDescription="@string/region"
-                        android:src="@drawable/ic_home"/>
+                        app:srcCompat="@drawable/ic_home"/>
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -233,7 +237,7 @@
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_horizontal"
                         android:contentDescription="@string/region"
-                        android:src="@drawable/ic_location"/>
+                        app:srcCompat="@drawable/ic_location"/>
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -261,7 +265,7 @@
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_horizontal"
                         android:contentDescription="@string/region"
-                        android:src="@drawable/ic_home"/>
+                        app:srcCompat="@drawable/ic_home"/>
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -334,7 +338,7 @@
                             android:layout_alignParentEnd="true"
                             android:layout_alignParentRight="true"
                             android:contentDescription="@string/go"
-                            android:src="@drawable/ic_arrow_right"/>
+                            app:srcCompat="@drawable/ic_arrow_right"/>
                     </RelativeLayout>
                 </LinearLayout>
 
@@ -375,7 +379,7 @@
                             android:layout_alignParentEnd="true"
                             android:layout_alignParentRight="true"
                             android:contentDescription="@string/go"
-                            android:src="@drawable/ic_arrow_right"/>
+                            app:srcCompat="@drawable/ic_arrow_right"/>
                     </RelativeLayout>
                 </LinearLayout>
 
@@ -416,7 +420,7 @@
                             android:layout_alignParentEnd="true"
                             android:layout_alignParentRight="true"
                             android:contentDescription="@string/go"
-                            android:src="@drawable/ic_arrow_right"/>
+                            app:srcCompat="@drawable/ic_arrow_right"/>
                     </RelativeLayout>
                 </LinearLayout>
             </LinearLayout>
