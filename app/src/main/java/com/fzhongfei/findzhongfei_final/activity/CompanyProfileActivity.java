@@ -112,7 +112,7 @@ public class CompanyProfileActivity extends AppCompatActivity {
             }
         });
 
-        mToolbar.setTitleMarginStart(-200);
+        mToolbar.setTitleMarginStart(-100);
         appBarLayout.addOnOffsetChangedListener(new AppBarLayout.OnOffsetChangedListener() {
             boolean isShow = false;
             int scrollRange = -1;
@@ -120,6 +120,17 @@ public class CompanyProfileActivity extends AppCompatActivity {
             @Override
             public void onOffsetChanged(AppBarLayout appBarLayout, int verticalOffset) {
                 collapsingToolbarLayout.setTitle(companyProfile.getCompanyName());
+                if (Math.abs(verticalOffset)-appBarLayout.getTotalScrollRange() == 0)
+                {
+                    // Collapsed
+                    collapsingToolbarLayout.setTitle(companyProfile.getCompanyName());
+                    companyName.setVisibility(View.GONE);
+                }
+                else
+                {
+                    // Expanded
+                    collapsingToolbarLayout.setTitle("");
+                }
 
                 if(scrollRange == -1)
                 {
@@ -256,6 +267,5 @@ public class CompanyProfileActivity extends AppCompatActivity {
             Toast.makeText(mContext, "Please login", Toast.LENGTH_LONG).show();
             startActivity(new Intent(mContext,CompanyLoginActivity.class));
         }
-
     }
 }

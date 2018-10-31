@@ -181,6 +181,7 @@ public class callBackImplement implements serverCallBack {
                     Log.d(TAG, "onSuccess: Company Logo from result " + companyProfile.getCompanyLogo());
                     byte[] decodedLogo = Base64.decode(result.get("imageFile").toString(), Base64.DEFAULT);
 
+//                    CompanyProfileActivity.setCompanyLogo(BitmapFactory.decodeByteArray(decodedLogo, 0, decodedLogo.length));
                     CompanyProfileActivity.companyLogo.setImageBitmap(BitmapFactory.decodeByteArray(decodedLogo, 0, decodedLogo.length));
                     //TO DO: LOGO HASH AND VERIFYING LOGO
                 }
@@ -192,6 +193,7 @@ public class callBackImplement implements serverCallBack {
                     byte[] decodedLogo = Base64.decode(result.get("imageFile").toString(), Base64.DEFAULT);
 
                     UserProfileEditActivity.editProfilePicture.setImageBitmap(BitmapFactory.decodeByteArray(decodedLogo, 0, decodedLogo.length));
+                    UserSignedInActivity.userProfilePicture.setImageBitmap(BitmapFactory.decodeByteArray(decodedLogo, 0, decodedLogo.length));
                     UserProfileActivity.profilePicture.setImageBitmap(BitmapFactory.decodeByteArray(decodedLogo, 0, decodedLogo.length));
                     //TO DO: LOGO HASH AND VERIFYING LOGO
                 }

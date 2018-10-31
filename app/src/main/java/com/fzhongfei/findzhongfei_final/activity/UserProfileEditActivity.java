@@ -271,6 +271,7 @@ public class UserProfileEditActivity extends AppCompatActivity {
                     profilePictureBitmap.compress(Bitmap.CompressFormat.JPEG, 100, new ByteArrayOutputStream());
                     editProfilePicture.setImageBitmap(profilePictureBitmap);
                     UserProfileActivity.profilePicture.setImageBitmap(profilePictureBitmap);
+                    UserProfileActivity.fullScreenProfilePicture.setImageBitmap(profilePictureBitmap);
                     UserSignedInActivity.userProfilePicture.setImageBitmap(profilePictureBitmap);
                 } catch (Exception e) {
                     Toast.makeText(mContext, e.toString(), Toast.LENGTH_SHORT).show();

@@ -39,8 +39,8 @@ public class UserProfileActivity extends AppCompatActivity {
     private Context mContext = UserProfileActivity.this;
 
     // VIEWS
-    public static ImageView profilePicture;
-    private ImageView fullScreenProfilePicture;
+    public static ImageView profilePicture, fullScreenProfilePicture;
+//    private ImageView fullScreenProfilePicture;
     private TextView userNameText;
     private Dialog imageDialog;
     private UserProfile mUserProfile;

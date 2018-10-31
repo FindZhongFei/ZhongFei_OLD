@@ -15,7 +15,7 @@
         android:layout_alignParentEnd="true"
         android:layout_alignParentRight="true"
         android:layout_margin="20sp"
-        android:src="@drawable/icon_close_black"
+        android:src="@drawable/icon_close_white"
         android:contentDescription="@string/close"/>
 
     <ImageView

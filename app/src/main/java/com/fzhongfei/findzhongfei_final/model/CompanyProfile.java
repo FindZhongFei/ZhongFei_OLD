@@ -51,7 +51,8 @@ public class CompanyProfile {
         }
     }
 
-    public void clearSharedPreference(Context context) {
+    public void clearSharedPreference(Context context)
+    {
         compLogoIsDownloaded = false;
         SharedPreferences.Editor editor = this.sharedPreference.edit();
         editor.clear();
