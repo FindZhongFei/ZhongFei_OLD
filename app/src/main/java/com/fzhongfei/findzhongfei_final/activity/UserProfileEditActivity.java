@@ -2,6 +2,7 @@ package com.fzhongfei.findzhongfei_final.activity;
 
 import android.content.ActivityNotFoundException;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -12,6 +13,7 @@ import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
 import android.support.annotation.RequiresApi;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Base64;
@@ -19,7 +21,9 @@ import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -43,7 +47,8 @@ public class UserProfileEditActivity extends AppCompatActivity {
     private Context mContext = UserProfileEditActivity.this;
 
     // VIEWS
-    private TextView signOutText;
+    private TextView usernameText, phoneNumberText, emailText, signOutText;
+    private TextView usernameTitle, phoneNumberTitle, emailTitle, signOutTitle;
     public static ImageView editProfilePicture;
 
     // IMAGE FROM GALLERY
@@ -62,9 +67,24 @@ public class UserProfileEditActivity extends AppCompatActivity {
         mUserProfile = new UserProfile(mContext);
         mUserProfile.setPropertiesFromSharePreference(mContext);
 
+        // INITIALIZING VIEWS
         TextView signOutButton = findViewById(R.id.sign_out_button);
+
+        LinearLayout profilePictureLayout = findViewById(R.id.user_profile_edit_profile_pic_linear);
+        LinearLayout nameLayout = findViewById(R.id.user_profile_edit_name_linear);
+        LinearLayout phoneLayout = findViewById(R.id.user_profile_edit_phone_linear);
+        LinearLayout emailLayout = findViewById(R.id.user_profile_edit_email_linear);
+
+        usernameTitle = findViewById(R.id.user_profile_edit_name_text);
+        phoneNumberTitle = findViewById(R.id.user_profile_edit_phone_text);
+        emailTitle = findViewById(R.id.user_profile_edit_email_text);
+
+        usernameText = findViewById(R.id.user_profile_edit_name);
+        phoneNumberText = findViewById(R.id.user_profile_edit_phone_number);
+        emailText = findViewById(R.id.user_profile_edit_email);
         editProfilePicture = findViewById(R.id.edit_profile_picture);
         signOutText = findViewById(R.id.user_profile_signout_text);
+
 
         // TOOLBAR
         setUpActivityToolbar();
@@ -80,12 +100,30 @@ public class UserProfileEditActivity extends AppCompatActivity {
             }
         });
 
-        editProfilePicture.setOnClickListener(new View.OnClickListener() {
+        profilePictureLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP_MR1) {
                     openGallery();
                 }
+            }
+        });
+        nameLayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                updateProfile(usernameTitle, usernameText);
+            }
+        });
+        phoneLayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                updateProfile(phoneNumberTitle, phoneNumberText);
+            }
+        });
+        emailLayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                updateProfile(emailTitle, emailText);
             }
         });
     }
@@ -153,6 +191,37 @@ public class UserProfileEditActivity extends AppCompatActivity {
         finishAffinity();
         startActivity(i);
         finish();
+    }
+
+    // UPDATE PROFILE FIELDS
+    private void updateProfile(TextView title, final TextView fieldToEdit) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(mContext);
+        builder.setTitle("Edit");
+        builder.setMessage(title.getText());
+
+        final EditText input = new EditText(mContext);
+        builder.setView(input);
+
+        // POSITIVE BUTTON
+        builder.setPositiveButton("Save", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                String updatedText = input.getText().toString();
+
+                fieldToEdit.setText(updatedText);
+            }
+        });
+
+        // NEGATIVE BUTTON
+        builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.dismiss();
+            }
+        });
+
+        builder.create();
+        builder.show();
     }
 
     /*
