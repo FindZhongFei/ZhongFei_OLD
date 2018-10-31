@@ -1,6 +1,7 @@
 package com.fzhongfei.findzhongfei_final.activity;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
@@ -8,6 +9,7 @@ import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Base64;
@@ -17,7 +19,9 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -38,6 +42,9 @@ public class CompanyProfileActivity extends AppCompatActivity {
     private TextView    companyName, companyType, companySubType, companyProvince, companyCity, companyPhone, companyEmail,
                         companyCeo, companyRepresentative, companyRepresentativeEmail, companyAddress1, companyAddress2,
                         companyWechatId, companyDescription;
+    private TextView    companyNameTitle, companyTypeTitle, companySubTypeTitle, companyProvinceTitle, companyCityTitle, companyPhoneTitle,
+                        companyEmailTitle, companyCeoTitle, companyRepresentativeTitle, companyRepresentativeEmailTitle, companyAddress1Title,
+                        companyAddress2Title, companyWechatIdTitle, companyDescriptionTitle;
     public static ImageView companyLogo;
 
     private Menu menu;
@@ -63,6 +70,34 @@ public class CompanyProfileActivity extends AppCompatActivity {
         if(companyProfile.getCompanyIsLoggedIn())
         {
             // INITIALIZING VIEWS
+            LinearLayout compTypeLayout = findViewById(R.id.comp_type_linear_layout);
+            LinearLayout compSubTypeLayout = findViewById(R.id.comp_sub_type_linear_layout);
+            LinearLayout compProvinceLayout = findViewById(R.id.comp_province_linear_layout);
+            LinearLayout compCityLayout = findViewById(R.id.comp_city_linear_layout);
+            LinearLayout compPhoneLayout = findViewById(R.id.comp_phone_linear_layout);
+            LinearLayout compWechatLayout = findViewById(R.id.comp_wechat_linear_layout);
+            LinearLayout compEmailLayout = findViewById(R.id.comp_email_linear_layout);
+            LinearLayout compCeoLayout = findViewById(R.id.comp_ceo_linear_layout);
+            LinearLayout compRepNameLayout = findViewById(R.id.comp_rep_name_linear_layout);
+            LinearLayout compRepEmailLayout = findViewById(R.id.comp_rep_email_linear_layout);
+            LinearLayout compAddress1Layout = findViewById(R.id.comp_address1_linear_layout);
+            LinearLayout compAddress2Layout = findViewById(R.id.comp_address2_linear_layout);
+            LinearLayout compDescLayout = findViewById(R.id.comp_desc_linear_layout);
+
+            companyTypeTitle = findViewById(R.id.compTypeTitle);
+            companySubTypeTitle = findViewById(R.id.compSubTypeTitle);
+            companyProvinceTitle = findViewById(R.id.provinceTitle);
+            companyCityTitle = findViewById(R.id.cityTitle);
+            companyPhoneTitle = findViewById(R.id.compPhoneTitle);
+            companyWechatIdTitle  = findViewById(R.id.wechatIdTitle);
+            companyEmailTitle = findViewById(R.id.compEmailTitle);
+            companyCeoTitle = findViewById(R.id.ceoTitle);
+            companyRepresentativeTitle = findViewById(R.id.representativeTitle);
+            companyRepresentativeEmailTitle = findViewById(R.id.repEmailTitle);
+            companyAddress1Title = findViewById(R.id.address1Title);
+            companyAddress2Title = findViewById(R.id.address2Title);
+            companyDescriptionTitle= findViewById(R.id.descTitle);
+
             companyLogo = findViewById(R.id.company_profile_logo);
             companyName = findViewById(R.id.TextViewCompName);
             companyType = findViewById(R.id.TextViewCompType);
@@ -70,14 +105,93 @@ public class CompanyProfileActivity extends AppCompatActivity {
             companyProvince = findViewById(R.id.TextViewProvince);
             companyCity = findViewById(R.id.TextViewCity);
             companyPhone = findViewById(R.id.TextViewCompPhone);
+            companyWechatId = findViewById(R.id.TextViewWechatId);
             companyEmail = findViewById(R.id.TextViewCompEmail);
             companyCeo = findViewById(R.id.TextViewCeo);
             companyRepresentative = findViewById(R.id.TextViewRepresentative);
             companyRepresentativeEmail = findViewById(R.id.TextViewRepEmail);
             companyAddress1 = findViewById(R.id.TextViewAddress1);
             companyAddress2 = findViewById(R.id.TextViewAddress2);
-            companyWechatId = findViewById(R.id.TextViewWechatId);
             companyDescription = findViewById(R.id.TextViewDescription);
+
+            compTypeLayout.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    updateProfile(companyTypeTitle, companyType);
+                }
+            });
+            compSubTypeLayout.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    updateProfile(companySubTypeTitle, companySubType);
+                }
+            });
+            compProvinceLayout.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    updateProfile(companyProvinceTitle, companyProvince);
+                }
+            });
+            compCityLayout.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    updateProfile(companyCityTitle, companyCity);
+                }
+            });
+            compPhoneLayout.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    updateProfile(companyPhoneTitle, companyPhone);
+                }
+            });
+            compWechatLayout.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    updateProfile(companyWechatIdTitle, companyWechatId);
+                }
+            });
+            compEmailLayout.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    updateProfile(companyEmailTitle, companyEmail);
+                }
+            });
+            compCeoLayout.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    updateProfile(companyCeoTitle, companyCeo);
+                }
+            });
+            compRepNameLayout.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    updateProfile(companyRepresentativeTitle, companyRepresentative);
+                }
+            });
+            compRepEmailLayout.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    updateProfile(companyRepresentativeEmailTitle, companyRepresentativeEmail);
+                }
+            });
+            compAddress1Layout.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    updateProfile(companyAddress1Title, companyAddress1);
+                }
+            });
+            compAddress2Layout.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    updateProfile(companyAddress2Title, companyAddress2);
+                }
+            });
+            compDescLayout.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    updateProfile(companyDescriptionTitle, companyDescription);
+                }
+            });
 
             showCompanyProfile();
         }
@@ -109,10 +223,12 @@ public class CompanyProfileActivity extends AppCompatActivity {
             public void onClick(View view) {
                 Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
                         .setAction("Action", null).show();
+
+                updateProfile(companyName, companyName);
             }
         });
 
-        mToolbar.setTitleMarginStart(-100);
+        mToolbar.setTitleMarginStart(-70);
         appBarLayout.addOnOffsetChangedListener(new AppBarLayout.OnOffsetChangedListener() {
             boolean isShow = false;
             int scrollRange = -1;
@@ -130,6 +246,7 @@ public class CompanyProfileActivity extends AppCompatActivity {
                 {
                     // Expanded
                     collapsingToolbarLayout.setTitle("");
+                    companyName.setVisibility(View.VISIBLE);
                 }
 
                 if(scrollRange == -1)
@@ -267,5 +384,36 @@ public class CompanyProfileActivity extends AppCompatActivity {
             Toast.makeText(mContext, "Please login", Toast.LENGTH_LONG).show();
             startActivity(new Intent(mContext,CompanyLoginActivity.class));
         }
+    }
+
+    // UPDATE PROFILE FIELDS
+    private void updateProfile(TextView title, final TextView fieldToEdit) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(mContext);
+        builder.setTitle("Edit");
+        builder.setMessage(title.getText());
+
+        final EditText input = new EditText(mContext);
+        builder.setView(input);
+
+        // POSITIVE BUTTON
+        builder.setPositiveButton("Save", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                String updatedText = input.getText().toString();
+
+                fieldToEdit.setText(updatedText);
+            }
+        });
+
+        // NEGATIVE BUTTON
+        builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+               dialog.dismiss();
+            }
+        });
+
+        builder.create();
+        builder.show();
     }
 }

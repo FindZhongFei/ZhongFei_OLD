@@ -112,6 +112,7 @@
                 android:weightSum="2">
 
                 <LinearLayout
+                    android:id="@+id/comp_type_linear_layout"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
@@ -132,10 +133,10 @@
                         android:text="@string/compTypeValue"
                         android:textColor="@color/colorBlack"
                         android:textSize="18sp"/>
-
                 </LinearLayout>
 
                 <LinearLayout
+                    android:id="@+id/comp_sub_type_linear_layout"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
@@ -159,7 +160,6 @@
                         android:text="@string/compSubTypeValue"
                         android:textColor="@color/colorBlack"
                         android:textSize="18sp"/>
-
                 </LinearLayout>
             </LinearLayout>
 
@@ -180,6 +180,7 @@
                 android:weightSum="2">
 
                 <LinearLayout
+                    android:id="@+id/comp_province_linear_layout"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
@@ -200,10 +201,10 @@
                         android:text="@string/provinceValue"
                         android:textColor="@color/colorBlack"
                         android:textSize="18sp"/>
-
                 </LinearLayout>
 
                 <LinearLayout
+                    android:id="@+id/comp_city_linear_layout"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
@@ -224,7 +225,6 @@
                         android:text="@string/cityValue"
                         android:textColor="@color/colorBlack"
                         android:textSize="18sp"/>
-
                 </LinearLayout>
             </LinearLayout>
 
@@ -236,21 +236,29 @@
                 android:background="@color/light_gray"
                 tools:ignore="SmallSp"/>
 
-            <TextView
-                android:id="@+id/compPhoneTitle"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/compPhone"/>
 
-            <TextView
-                android:id="@+id/TextViewCompPhone"
-                android:layout_width="wrap_content"
+            <LinearLayout
+                android:id="@+id/comp_phone_linear_layout"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="5sp"
-                android:fontFamily="sans-serif-light"
-                android:text="@string/compPhoneValue"
-                android:textColor="@color/colorBlack"
-                android:textSize="18sp"/>
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/compPhoneTitle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/compPhone"/>
+
+                <TextView
+                    android:id="@+id/TextViewCompPhone"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5sp"
+                    android:fontFamily="sans-serif-light"
+                    android:text="@string/compPhoneValue"
+                    android:textColor="@color/colorBlack"
+                    android:textSize="18sp"/>
+            </LinearLayout>
 
             <View
                 android:layout_width="match_parent"
@@ -260,21 +268,28 @@
                 android:background="@color/light_gray"
                 tools:ignore="SmallSp"/>
 
-            <TextView
-                android:id="@+id/wechatIdTitle"
-                android:layout_width="wrap_content"
+            <LinearLayout
+                android:id="@+id/comp_wechat_linear_layout"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/wechatId"/>
+                android:orientation="vertical">
 
-            <TextView
-                android:id="@+id/TextViewWechatId"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="5sp"
-                android:fontFamily="sans-serif-light"
-                android:text="@string/wechatIdValue"
-                android:textColor="@color/colorBlack"
-                android:textSize="18sp"/>
+                    <TextView
+                        android:id="@+id/wechatIdTitle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/wechatId"/>
+
+                    <TextView
+                        android:id="@+id/TextViewWechatId"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="5sp"
+                        android:fontFamily="sans-serif-light"
+                        android:text="@string/wechatIdValue"
+                        android:textColor="@color/colorBlack"
+                        android:textSize="18sp"/>
+            </LinearLayout>
 
             <View
                 android:layout_width="match_parent"
@@ -284,21 +299,28 @@
                 android:background="@color/light_gray"
                 tools:ignore="SmallSp"/>
 
-            <TextView
-                android:id="@+id/compEmailTitle"
-                android:layout_width="wrap_content"
+            <LinearLayout
+                android:id="@+id/comp_email_linear_layout"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/compEmail"/>
+                android:orientation="vertical">
 
-            <TextView
-                android:id="@+id/TextViewCompEmail"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="5sp"
-                android:fontFamily="sans-serif-light"
-                android:text="@string/compEmailValue"
-                android:textColor="@color/colorBlack"
-                android:textSize="18sp"/>
+                    <TextView
+                        android:id="@+id/compEmailTitle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/compEmail"/>
+
+                    <TextView
+                        android:id="@+id/TextViewCompEmail"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="5sp"
+                        android:fontFamily="sans-serif-light"
+                        android:text="@string/compEmailValue"
+                        android:textColor="@color/colorBlack"
+                        android:textSize="18sp"/>
+            </LinearLayout>
 
             <View
                 android:layout_width="match_parent"
@@ -308,21 +330,28 @@
                 android:background="@color/light_gray"
                 tools:ignore="SmallSp"/>
 
-            <TextView
-                android:id="@+id/ceoTitle"
-                android:layout_width="wrap_content"
+            <LinearLayout
+                android:id="@+id/comp_ceo_linear_layout"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/ceo"/>
+                android:orientation="vertical">
 
-            <TextView
-                android:id="@+id/TextViewCeo"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="5sp"
-                android:fontFamily="sans-serif-light"
-                android:text="@string/ceoValue"
-                android:textColor="@color/colorBlack"
-                android:textSize="18sp"/>
+                <TextView
+                    android:id="@+id/ceoTitle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/ceo"/>
+
+                <TextView
+                    android:id="@+id/TextViewCeo"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5sp"
+                    android:fontFamily="sans-serif-light"
+                    android:text="@string/ceoValue"
+                    android:textColor="@color/colorBlack"
+                    android:textSize="18sp"/>
+            </LinearLayout>
 
             <View
                 android:layout_width="match_parent"
@@ -332,21 +361,28 @@
                 android:background="@color/light_gray"
                 tools:ignore="SmallSp"/>
 
-            <TextView
-                android:id="@+id/representativeTitle"
-                android:layout_width="wrap_content"
+            <LinearLayout
+                android:id="@+id/comp_rep_name_linear_layout"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/representative"/>
+                android:orientation="vertical">
 
-            <TextView
-                android:id="@+id/TextViewRepresentative"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="5sp"
-                android:fontFamily="sans-serif-light"
-                android:text="@string/representativeValue"
-                android:textColor="@color/colorBlack"
-                android:textSize="18sp"/>
+                <TextView
+                    android:id="@+id/representativeTitle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/representative"/>
+
+                <TextView
+                    android:id="@+id/TextViewRepresentative"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5sp"
+                    android:fontFamily="sans-serif-light"
+                    android:text="@string/representativeValue"
+                    android:textColor="@color/colorBlack"
+                    android:textSize="18sp"/>
+            </LinearLayout>
 
             <View
                 android:layout_width="match_parent"
@@ -356,21 +392,28 @@
                 android:background="@color/light_gray"
                 tools:ignore="SmallSp"/>
 
-            <TextView
-                android:id="@+id/repEmailTitle"
-                android:layout_width="wrap_content"
+            <LinearLayout
+                android:id="@+id/comp_rep_email_linear_layout"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/repEmail"/>
+                android:orientation="vertical">
 
-            <TextView
-                android:id="@+id/TextViewRepEmail"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="5sp"
-                android:fontFamily="sans-serif-light"
-                android:text="@string/repEmailValue"
-                android:textColor="@color/colorBlack"
-                android:textSize="18sp"/>
+                <TextView
+                    android:id="@+id/repEmailTitle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/repEmail"/>
+
+                <TextView
+                    android:id="@+id/TextViewRepEmail"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5sp"
+                    android:fontFamily="sans-serif-light"
+                    android:text="@string/repEmailValue"
+                    android:textColor="@color/colorBlack"
+                    android:textSize="18sp"/>
+            </LinearLayout>
 
             <View
                 android:layout_width="match_parent"
@@ -380,21 +423,28 @@
                 android:background="@color/light_gray"
                 tools:ignore="SmallSp"/>
 
-            <TextView
-                android:id="@+id/address1Title"
-                android:layout_width="wrap_content"
+            <LinearLayout
+                android:id="@+id/comp_address1_linear_layout"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/add1"/>
+                android:orientation="vertical">
 
-            <TextView
-                android:id="@+id/TextViewAddress1"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="5sp"
-                android:fontFamily="sans-serif-light"
-                android:text="@string/add1Value"
-                android:textColor="@color/colorBlack"
-                android:textSize="18sp"/>
+                <TextView
+                    android:id="@+id/address1Title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/add1"/>
+
+                <TextView
+                    android:id="@+id/TextViewAddress1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5sp"
+                    android:fontFamily="sans-serif-light"
+                    android:text="@string/add1Value"
+                    android:textColor="@color/colorBlack"
+                    android:textSize="18sp"/>
+            </LinearLayout>
 
             <View
                 android:layout_width="match_parent"
@@ -404,21 +454,28 @@
                 android:background="@color/light_gray"
                 tools:ignore="SmallSp"/>
 
-            <TextView
-                android:id="@+id/address2Title"
-                android:layout_width="wrap_content"
+            <LinearLayout
+                android:id="@+id/comp_address2_linear_layout"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/add2"/>
+                android:orientation="vertical">
 
-            <TextView
-                android:id="@+id/TextViewAddress2"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="5sp"
-                android:fontFamily="sans-serif-light"
-                android:text="@string/add2Value"
-                android:textColor="@color/colorBlack"
-                android:textSize="18sp"/>
+                <TextView
+                    android:id="@+id/address2Title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/add2"/>
+
+                <TextView
+                    android:id="@+id/TextViewAddress2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5sp"
+                    android:fontFamily="sans-serif-light"
+                    android:text="@string/add2Value"
+                    android:textColor="@color/colorBlack"
+                    android:textSize="18sp"/>
+            </LinearLayout>
 
             <View
                 android:layout_width="match_parent"
@@ -428,22 +485,29 @@
                 android:background="@color/light_gray"
                 tools:ignore="SmallSp"/>
 
-            <TextView
-                android:id="@+id/descTitle"
-                android:layout_width="wrap_content"
+            <LinearLayout
+                android:id="@+id/comp_desc_linear_layout"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/description"/>
+                android:orientation="vertical">
 
-            <TextView
-                android:id="@+id/TextViewDescription"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="5sp"
-                android:layout_marginBottom="15sp"
-                android:fontFamily="sans-serif-light"
-                android:text="@string/ceoValue"
-                android:textColor="@color/colorBlack"
-                android:textSize="18sp"/>
+                <TextView
+                    android:id="@+id/descTitle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/description"/>
+
+                <TextView
+                    android:id="@+id/TextViewDescription"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5sp"
+                    android:layout_marginBottom="15sp"
+                    android:fontFamily="sans-serif-light"
+                    android:text="@string/ceoValue"
+                    android:textColor="@color/colorBlack"
+                    android:textSize="18sp"/>
+            </LinearLayout>
 
         </LinearLayout>
     </android.support.v4.widget.NestedScrollView>
