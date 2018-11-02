@@ -50,7 +50,10 @@ public class CompanyProfile {
                 break;
         }
     }
-
+    public void setAbstractField(Context context, String fieldKey, String fieldValue)
+    {
+        this.setSharedPreference(context, fieldKey, fieldValue, 0);
+    }
     public void clearSharedPreference(Context context)
     {
         compLogoIsDownloaded = false;
@@ -222,10 +225,10 @@ public class CompanyProfile {
         this.companyStatus = companyStatus;
         this.setSharedPreference(context, "comp_status", companyStatus, 0);
     }
-
     public boolean isCompanyLogoDownloaded() {
         return compLogoIsDownloaded;
     }
+    public String getCompanyId(){return  companyId;}
     public  String getCompanyLogoUrl() {
         return companyLogoUrl;
     }

@@ -117,79 +117,79 @@ public class CompanyProfileActivity extends AppCompatActivity {
             compTypeLayout.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    updateProfile(companyTypeTitle, companyType);
+                    updateProfile(companyTypeTitle, companyType, "companyType");
                 }
             });
             compSubTypeLayout.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    updateProfile(companySubTypeTitle, companySubType);
+                    updateProfile(companySubTypeTitle, companySubType, "companySubType");
                 }
             });
             compProvinceLayout.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    updateProfile(companyProvinceTitle, companyProvince);
+                    updateProfile(companyProvinceTitle, companyProvince, "companyProvince");
                 }
             });
             compCityLayout.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    updateProfile(companyCityTitle, companyCity);
+                    updateProfile(companyCityTitle, companyCity, "companyCity");
                 }
             });
             compPhoneLayout.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    updateProfile(companyPhoneTitle, companyPhone);
+                    updateProfile(companyPhoneTitle, companyPhone, "companyPhone");
                 }
             });
             compWechatLayout.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    updateProfile(companyWechatIdTitle, companyWechatId);
+                    updateProfile(companyWechatIdTitle, companyWechatId, "companyWechatID");
                 }
             });
             compEmailLayout.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    updateProfile(companyEmailTitle, companyEmail);
+                    updateProfile(companyEmailTitle, companyEmail, "companyEmail");
                 }
             });
             compCeoLayout.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    updateProfile(companyCeoTitle, companyCeo);
+                    updateProfile(companyCeoTitle, companyCeo, "companyCeo");
                 }
             });
             compRepNameLayout.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    updateProfile(companyRepresentativeTitle, companyRepresentative);
+                    updateProfile(companyRepresentativeTitle, companyRepresentative, "companyRepName");
                 }
             });
             compRepEmailLayout.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    updateProfile(companyRepresentativeEmailTitle, companyRepresentativeEmail);
+                    updateProfile(companyRepresentativeEmailTitle, companyRepresentativeEmail, "companyRepEmail");
                 }
             });
             compAddress1Layout.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    updateProfile(companyAddress1Title, companyAddress1);
+                    updateProfile(companyAddress1Title, companyAddress1, "companyAddress1");
                 }
             });
             compAddress2Layout.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    updateProfile(companyAddress2Title, companyAddress2);
+                    updateProfile(companyAddress2Title, companyAddress2, "companyAddress2");
                 }
             });
             compDescLayout.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    updateProfile(companyDescriptionTitle, companyDescription);
+                    updateProfile(companyDescriptionTitle, companyDescription, "companyDesc");
                 }
             });
 
@@ -224,7 +224,7 @@ public class CompanyProfileActivity extends AppCompatActivity {
                 Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
                         .setAction("Action", null).show();
 
-                updateProfile(companyName, companyName);
+                updateProfile(companyName, companyName, "companyName");
             }
         });
 
@@ -387,12 +387,13 @@ public class CompanyProfileActivity extends AppCompatActivity {
     }
 
     // UPDATE PROFILE FIELDS
-    private void updateProfile(TextView title, final TextView fieldToEdit) {
+    private void updateProfile(final TextView title, final TextView fieldToEdit, final String updateField) {
         AlertDialog.Builder builder = new AlertDialog.Builder(mContext);
         builder.setTitle("Edit");
         builder.setMessage(title.getText());
 
         final EditText input = new EditText(mContext);
+        input.setHint("Update "+title.getText());
         builder.setView(input);
 
         // POSITIVE BUTTON
@@ -401,7 +402,26 @@ public class CompanyProfileActivity extends AppCompatActivity {
             public void onClick(DialogInterface dialog, int which) {
                 String updatedText = input.getText().toString();
 
-                fieldToEdit.setText(updatedText);
+                customStringRequest imageRequest = new customStringRequest();
+                HashMap<String, String> params = new HashMap<>();
+
+                params.put("requestType", "updateCompanyProfile");
+                params.put("updateField", updateField);
+                params.put("updateValue", updatedText);
+                params.put("companyToken", companyProfile.getCompanyToken());
+                params.put("companyId", companyProfile.getCompanyId());
+
+
+                imageRequest.setUrlPath("comp/update.php");
+                imageRequest.setParams(params);
+
+                callBackImplement callBack = new callBackImplement(mContext);
+                callBack.setParams(params);
+                callBack.SetRequestType("updateCompanyInfo");
+                callBack.setFieldTextView(fieldToEdit);
+                imageRequest.startConnection(mContext, callBack, params);
+//                fieldToEdit.setText(updatedText);
+
             }
         });
 

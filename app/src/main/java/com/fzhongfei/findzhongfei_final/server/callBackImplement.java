@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.graphics.BitmapFactory;
 import android.util.Base64;
 import android.util.Log;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.fzhongfei.findzhongfei_final.activity.CompanyLoginActivity;
@@ -36,6 +37,9 @@ public class callBackImplement implements serverCallBack {
     private String errorMessage = null;
     private String successMessage = null;
     private String requestType = null;
+
+    //extras
+    TextView fieldTextView;
 
     private HashMap<String, String > Params = new HashMap<>();
 
@@ -197,6 +201,12 @@ public class callBackImplement implements serverCallBack {
                     UserProfileActivity.profilePicture.setImageBitmap(BitmapFactory.decodeByteArray(decodedLogo, 0, decodedLogo.length));
                     //TO DO: LOGO HASH AND VERIFYING LOGO
                 }
+                else if(requestType.equals("updateCompanyInfo"))
+                {
+                    CompanyProfile compProfile = new CompanyProfile(this.context);
+                    compProfile.setAbstractField(this.context, result.getString("fieldName"), result.getString("fieldValue"));
+                    fieldTextView.setText(result.getString("fieldValue"));
+                }
                 else 
                     {
                     Log.d(TAG, "onSuccess: Unknown Request type");
@@ -271,7 +281,7 @@ public class callBackImplement implements serverCallBack {
     {
         this.Params = param;
     }
-
+    public void setFieldTextView(TextView fieldView) { this.fieldTextView = fieldView;}
     @Override
     public void SetRequestType(String type)
     {
