@@ -256,12 +256,12 @@ public class CompanyProfileActivity extends AppCompatActivity {
                 if(scrollRange + verticalOffset == 0)
                 {
                     isShow = true;
-                    showOption();
+                    toggleEditIcon(true);
                 }
                 else if(isShow)
                 {
                     isShow = false;
-                    hideOption();
+                    toggleEditIcon(false);
                 }
             }
         });
@@ -280,10 +280,11 @@ public class CompanyProfileActivity extends AppCompatActivity {
         // INFLATING THE MENU
         this.menu = menu;
         getMenuInflater().inflate(R.menu.menu_settings, menu);
-        hideOption();
+        toggleEditIcon(false);
 
         return true;
     }
+
     // UI - TOOLBAR ITEMS CLICKED
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
@@ -303,15 +304,12 @@ public class CompanyProfileActivity extends AppCompatActivity {
     }
 
     // HIDE EDIT ICON WHEN APPBAR IS EXPANDED
-    private void hideOption() {
-        MenuItem item = menu.findItem(R.id.edit_company_profile);
-        item.setVisible(false);
-    }
-
-    // SHOW EDIT ICON WHEN APPBAR IS COLLAPSED
-    private void showOption() {
-        MenuItem item = menu.findItem(R.id.edit_company_profile);
-        item.setVisible(true);
+    private void toggleEditIcon(boolean show) {
+        if(menu != null)
+        {
+            MenuItem item = menu.findItem(R.id.edit_company_profile);
+            item.setVisible(show);
+        }
     }
 
     // ALL COMPANY PROFILE FIELDS
@@ -393,7 +391,7 @@ public class CompanyProfileActivity extends AppCompatActivity {
         builder.setMessage(title.getText());
 
         final EditText input = new EditText(mContext);
-        input.setHint("Update "+title.getText());
+        input.setHint(fieldToEdit.getText());
         builder.setView(input);
 
         // POSITIVE BUTTON
@@ -402,7 +400,7 @@ public class CompanyProfileActivity extends AppCompatActivity {
             public void onClick(DialogInterface dialog, int which) {
                 String updatedText = input.getText().toString();
 
-                customStringRequest imageRequest = new customStringRequest();
+                customStringRequest editRequest = new customStringRequest();
                 HashMap<String, String> params = new HashMap<>();
 
                 params.put("requestType", "updateCompanyProfile");
@@ -412,15 +410,14 @@ public class CompanyProfileActivity extends AppCompatActivity {
                 params.put("companyId", companyProfile.getCompanyId());
 
 
-                imageRequest.setUrlPath("comp/update.php");
-                imageRequest.setParams(params);
+                editRequest.setUrlPath("comp/update.php");
+                editRequest.setParams(params);
 
                 callBackImplement callBack = new callBackImplement(mContext);
                 callBack.setParams(params);
                 callBack.SetRequestType("updateCompanyInfo");
                 callBack.setFieldTextView(fieldToEdit);
-                imageRequest.startConnection(mContext, callBack, params);
-//                fieldToEdit.setText(updatedText);
+                editRequest.startConnection(mContext, callBack, params);
 
             }
         });

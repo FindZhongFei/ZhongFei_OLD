@@ -7,7 +7,7 @@
     android:id="@+id/activity_user_profile_vertical_linear_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/colorWhite"
+    android:background="@color/user_signed_in_background"
     android:orientation="vertical">
 
     <include

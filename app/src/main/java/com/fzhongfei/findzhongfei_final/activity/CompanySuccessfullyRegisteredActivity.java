@@ -1,17 +1,23 @@
 package com.fzhongfei.findzhongfei_final.activity;
 
+import android.animation.ObjectAnimator;
+import android.animation.PropertyValuesHolder;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.drawable.Animatable;
 import android.graphics.drawable.GradientDrawable;
 import android.os.Build;
 import android.os.Bundle;
+import android.support.v4.view.animation.FastOutSlowInInterpolator;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
+import android.view.animation.Animation;
+import android.view.animation.AnimationSet;
+import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.ImageView;
 
@@ -24,7 +30,7 @@ public class CompanySuccessfullyRegisteredActivity extends AppCompatActivity {
     private Context mContext = CompanySuccessfullyRegisteredActivity.this;
 
     // VIEWS
-    ImageView mImageView;
+    ImageView mImageView, mImageView2;
     Button btnProfile;
 
     @Override
@@ -39,7 +45,39 @@ public class CompanySuccessfullyRegisteredActivity extends AppCompatActivity {
 
         // ANIMATING THE TICK
         mImageView = findViewById(R.id.scsImgView);
+        mImageView2 = findViewById(R.id.scsImgView2);
         ((Animatable) mImageView.getDrawable()).start();
+
+        AnimationSet s = new AnimationSet(false);   // false means don't share interpolators
+        AnimationSet s2 = new AnimationSet(false);
+        final Animation pulse1 = AnimationUtils.loadAnimation(mContext, R.anim.pulse);
+        final Animation pulse2 = AnimationUtils.loadAnimation(mContext, R.anim.pulse2);
+
+        pulse1.setStartOffset(500);
+        pulse2.setStartOffset(1000);
+        pulse2.setAnimationListener(new Animation.AnimationListener() {
+            @Override
+            public void onAnimationStart(Animation animation) {
+
+            }
+
+            @Override
+            public void onAnimationEnd(Animation animation) {
+
+            }
+
+            @Override
+            public void onAnimationRepeat(Animation animation) {
+                pulse2.setStartOffset(0);
+            }
+        });
+
+        s2.addAnimation(pulse1);
+        mImageView.startAnimation(s2);
+
+//        pulse2.setStartOffset(500);
+        s.addAnimation(pulse2);
+        mImageView2.startAnimation(pulse2);
 
         btnProfile = findViewById(R.id.btnShowProfile);
 

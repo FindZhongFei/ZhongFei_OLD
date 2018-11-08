@@ -1,20 +1,37 @@
 <?xml version="1.0" encoding="utf-8"?>
-<set xmlns:android="http://schemas.android.com/apk/res/android"
-     android:interpolator="@android:anim/accelerate_interpolator"
-     android:ordering="sequentially"
-     android:shareInterpolator="false">
+<set
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:interpolator="@android:anim/accelerate_interpolator"
+    android:ordering="sequentially"
+    android:shareInterpolator="false">
+
     <!-- Step 1 -->
     <objectAnimator
         android:duration="@android:integer/config_shortAnimTime"
         android:propertyName="pathData"
-        android:valueFrom="M6,11 l0,0 l0,0"
-        android:valueTo="M6,11 l3.5,4 l0,0"
+        android:valueFrom=" M8.5, 12.5
+                            l0, 0
+                            l0,0"
+        android:valueTo="   M7.5, 12.5
+                            l3, 2.8
+                            l0,0"
         android:valueType="pathType" />
+
+    <!--
+        Start:Left-Right, Up-Down
+        Corner:Left-Right, Corner:Up-Down
+        Tip:Left-Right, Tip:Up-Down
+    -->
+
     <!-- Step 2 -->
     <objectAnimator
         android:duration="@android:integer/config_shortAnimTime"
         android:propertyName="pathData"
-        android:valueFrom="M6,11 l3.5,4 l0,0"
-        android:valueTo="M6,11 l3.5,4 l8,-7"
+        android:valueFrom=" M7.5, 12.5
+                            l3, 2.8
+                            l0, 0"
+        android:valueTo="   M7.5, 12.5
+                            l3, 2.8
+                            l6, -5.2"
         android:valueType="pathType" />
 </set>

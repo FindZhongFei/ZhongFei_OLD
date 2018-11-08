@@ -9,18 +9,59 @@
     <group android:name="background">
         <path
             android:name="circle"
-            android:fillColor="#00FFFFFF"
-            android:strokeColor="#00BCD4"
-            android:strokeWidth=".3"
-            android:pathData="M12,12m-10,0a10,10 0,1 1,20 0a10,10 0,1 1,-20 0" />
+            android:fillColor="@color/colorGreen"
+            android:pathData="M12,12m-10,0a10,10 0,1 1,20 0a10,10 0,1 1,-20 0"/>
     </group>
 
     <group android:name="check">
         <path
             android:name="tick"
-            android:pathData="M6,11 l0,0 l0,0"
-            android:strokeColor="#00BCD4"
-            android:strokeWidth=".5" />
+            android:pathData="M8.3, 12.17l2.41, 2.41l0, 0l0,0l0, 0l4.3, -4.2"
+            android:strokeColor="@color/colorWhite"
+            android:strokeLineCap="round"
+            android:strokeLineJoin="round"
+            android:strokeWidth=".75"/>
     </group>
 
 </vector>
+
+<!--<vector-->
+    <!--xmlns:android="http://schemas.android.com/apk/res/android"-->
+    <!--android:width="24dp"-->
+    <!--android:height="24dp"-->
+    <!--android:viewportHeight="24.0"-->
+    <!--android:viewportWidth="24.0">-->
+
+    <!--<group android:name="biggest">-->
+        <!--<path-->
+            <!--android:name="biggest_circle"-->
+            <!--android:strokeColor="@color/GreenTrans10"-->
+            <!--android:strokeWidth="9"-->
+            <!--android:pathData="M15,15m-10,0a10,10 0,1 1,20 0a10,10 0,1 1,-20 0" />-->
+    <!--</group>-->
+
+    <!--<group android:name="middle">-->
+        <!--<path-->
+            <!--android:name="middle_circle"-->
+            <!--android:strokeColor="@color/GreenTrans10"-->
+            <!--android:strokeWidth="4"-->
+            <!--android:pathData="M15,15m-10,0a10,10 0,1 1,20 0a10,10 0,1 1,-20 0" />-->
+    <!--</group>-->
+
+    <!--<group android:name="background">-->
+        <!--<path-->
+            <!--android:name="biggest_circle"-->
+            <!--android:fillColor="@color/colorGreen"-->
+            <!--android:strokeWidth=".3"-->
+            <!--android:pathData="M15,15m-10,0a10,10 0,1 1,20 0a10,10 0,1 1,-20 0" />-->
+    <!--</group>-->
+
+    <!--<group android:name="check">-->
+        <!--<path-->
+            <!--android:name="tick"-->
+            <!--android:pathData="M6,11 l0,0 l0,0"-->
+            <!--android:strokeColor="@color/colorWhite"-->
+            <!--android:strokeWidth=".5" />-->
+    <!--</group>-->
+
+<!--</vector>-->

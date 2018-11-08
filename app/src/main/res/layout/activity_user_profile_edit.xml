@@ -111,7 +111,7 @@
                     tools:ignore="UnusedAttribute"/>
 
                 <LinearLayout
-                    android:id="@+id/user_profile_edit_name_linear"
+                    android:id="@+id/user_profile_edit_first_name_linear"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="@color/colorWhite"
@@ -121,12 +121,12 @@
                     android:focusable="true">
 
                     <TextView
-                        android:id="@+id/user_profile_edit_name_text"
+                        android:id="@+id/user_profile_edit_first_name_text"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:gravity="center"
                         android:padding="8sp"
-                        android:text="@string/username"
+                        android:text="@string/firstName"
                         android:textColor="@color/colorLightBlack"
                         android:textSize="16sp"/>
 
@@ -135,12 +135,12 @@
                         android:layout_height="wrap_content">
 
                         <TextView
-                            android:id="@+id/user_profile_edit_name"
+                            android:id="@+id/user_profile_edit_first_name"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_alignParentEnd="true"
                             android:layout_alignParentRight="true"
-                            android:text="@string/username"
+                            android:text="@string/firstName"
                             android:textColor="@color/gray"/>
                     </RelativeLayout>
                 </LinearLayout>
@@ -151,6 +151,50 @@
                     android:background="@color/light_gray"
                     android:layout_marginHorizontal="20sp"
                     tools:ignore="UnusedAttribute"/>
+
+                <LinearLayout
+                    android:id="@+id/user_profile_edit_last_name_linear"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/colorWhite"
+                    android:orientation="horizontal"
+                    android:padding="10sp"
+                    android:clickable="true"
+                    android:focusable="true">
+
+                    <TextView
+                        android:id="@+id/user_profile_edit_last_name_text"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:padding="8sp"
+                        android:text="@string/lastName"
+                        android:textColor="@color/colorLightBlack"
+                        android:textSize="16sp"/>
+
+                    <RelativeLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content">
+
+                        <TextView
+                            android:id="@+id/user_profile_edit_last_name"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentEnd="true"
+                            android:layout_alignParentRight="true"
+                            android:text="@string/lastName"
+                            android:textColor="@color/gray"/>
+                    </RelativeLayout>
+                </LinearLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="0.2sp"
+                    android:background="@color/light_gray"
+                    android:layout_marginHorizontal="20sp"
+                    tools:ignore="UnusedAttribute"/>
+
+
 
                 <LinearLayout
                     android:id="@+id/user_profile_edit_phone_linear"

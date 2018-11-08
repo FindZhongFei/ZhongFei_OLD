@@ -6,6 +6,7 @@ import android.content.SharedPreferences;
 import java.util.HashMap;
 
 public class CompanyProfile {
+
     private String  companyId, companyToken, companyLogo, companyLicense, companyName, companyType, companySubType, companyCity,
                     companyProvince, companyPhone, companyEmail, companyCeo, companyRepresentative,
                     companyRepresentativeEmail, companyAddress1, companyAddress2, companyWechatId, companyDescription,
@@ -50,10 +51,12 @@ public class CompanyProfile {
                 break;
         }
     }
+
     public void setAbstractField(Context context, String fieldKey, String fieldValue)
     {
         this.setSharedPreference(context, fieldKey, fieldValue, 0);
     }
+
     public void clearSharedPreference(Context context)
     {
         compLogoIsDownloaded = false;
@@ -142,7 +145,6 @@ public class CompanyProfile {
     {
         this.companyType = companyType;
         this.setSharedPreference(context, "comp_type", companyType, 0);
-
     }
     public void setCompanySubType(Context context, String companySubType)
     {
@@ -158,7 +160,6 @@ public class CompanyProfile {
     {
         this.companyCity = companyCity;
         this.setSharedPreference(context, "comp_city", companyCity, 0);
-
     }
     public void setCompanyPhone(Context context, String companyPhone)
     {
@@ -225,10 +226,14 @@ public class CompanyProfile {
         this.companyStatus = companyStatus;
         this.setSharedPreference(context, "comp_status", companyStatus, 0);
     }
+
     public boolean isCompanyLogoDownloaded() {
         return compLogoIsDownloaded;
     }
-    public String getCompanyId(){return  companyId;}
+    public String getCompanyId()
+    {
+        return companyId;
+    }
     public  String getCompanyLogoUrl() {
         return companyLogoUrl;
     }

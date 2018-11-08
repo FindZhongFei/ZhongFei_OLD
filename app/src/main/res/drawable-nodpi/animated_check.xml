@@ -7,6 +7,6 @@
 
     <target
         android:name="tick"
-        android:animation="@anim/check_animation" />
+        android:animation="@animator/checkmark_animator" />
 
 </animated-vector>

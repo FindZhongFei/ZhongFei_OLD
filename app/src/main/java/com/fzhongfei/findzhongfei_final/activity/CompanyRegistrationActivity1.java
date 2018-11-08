@@ -137,13 +137,16 @@ public class CompanyRegistrationActivity1 extends AppCompatActivity {
             @TargetApi(Build.VERSION_CODES.LOLLIPOP_MR1)
             @Override
             public void onClick(View view) {
-                if (permissionCheck == PackageManager.PERMISSION_DENIED) {
+                if(permissionCheck == PackageManager.PERMISSION_DENIED)
+                {
 //                    logoIsClicked = false;
                     RequestRuntimePermission();
-                } else {
-                    CompanyRegistrationActivity1.this.logoIsClicked = true;
+                }
+                else if(permissionCheck == PackageManager.PERMISSION_GRANTED)
+                {
+                    logoIsClicked = true;
                     openGallery();
-                    Toast.makeText(mContext, "" + CompanyRegistrationActivity1.this.logoIsClicked, Toast.LENGTH_SHORT).show();
+                    Toast.makeText(mContext, "" + logoIsClicked, Toast.LENGTH_SHORT).show();
                 }
             }
         });
@@ -152,13 +155,16 @@ public class CompanyRegistrationActivity1 extends AppCompatActivity {
             @TargetApi(Build.VERSION_CODES.LOLLIPOP_MR1)
             @Override
             public void onClick(View view) {
-                if (permissionCheck == PackageManager.PERMISSION_DENIED) {
+                if(permissionCheck == PackageManager.PERMISSION_DENIED)
+                {
                     RequestRuntimePermission();
 //                    licenseIsClicked = false;
-                } else {
-                    CompanyRegistrationActivity1.this.licenseIsClicked = true;
+                }
+                else
+                {
+                    licenseIsClicked = true;
                     openGallery();
-                    Toast.makeText(mContext, "" + CompanyRegistrationActivity1.this.licenseIsClicked, Toast.LENGTH_SHORT).show();
+                    Toast.makeText(mContext, "" + licenseIsClicked, Toast.LENGTH_SHORT).show();
                 }
             }
         });
@@ -445,24 +451,48 @@ public class CompanyRegistrationActivity1 extends AppCompatActivity {
 
     // AFTER USER SELECTED AN IMAGE
     @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent imageReturnedIntent) {
-        if (requestCode == 0 && resultCode == RESULT_OK) {
-            performCrop();
-        } else if (requestCode == 2) {
-            if(imageReturnedIntent != null) {
-                uriSelectedImage = imageReturnedIntent.getData();
-                performCrop();
+    protected void onActivityResult(int requestCode, int resultCode, Intent imageReturnedIntent)
+    {
+        if (requestCode == 0 && resultCode == RESULT_OK)
+        {
+            if(logoIsClicked)
+            {
+                performCrop("logo");
             }
-        } else if(requestCode == 1) {
-            if (imageReturnedIntent != null) {
+            else if(licenseIsClicked)
+            {
+                performCrop("license");
+            }
+
+        } else if (requestCode == 2)
+        {
+            if(imageReturnedIntent != null)
+            {
+                uriSelectedImage = imageReturnedIntent.getData();
+                if(logoIsClicked)
+                {
+                    performCrop("logo");
+                }
+                else if(licenseIsClicked)
+                {
+                    performCrop("license");
+                }
+            }
+        }
+        else if(requestCode == 1)
+        {
+            if (imageReturnedIntent != null)
+            {
 //                Bundle bundle = imageReturnedIntent.getExtras();
 //                Bitmap bitmap = bundle.getParcelable("data");
 
 //                Bitmap logoBitmap = ((BitmapDrawable) logo.getDrawable()).getBitmap();
 //                Bitmap licenseBitmap = ((BitmapDrawable) license.getDrawable()).getBitmap();
 
-                if(CompanyRegistrationActivity1.this.logoIsClicked) {
-                    String logoPath = Environment.getExternalStorageDirectory() + "/temporary_holder.jpg";
+                if(this.logoIsClicked)
+                {
+                    Toast.makeText(mContext, "LOGO HERE", Toast.LENGTH_SHORT).show();
+                    String logoPath = Environment.getExternalStorageDirectory() + "/temporary_logo.jpg";
                     logoBitmap = BitmapFactory.decodeFile(logoPath);
 
 //                    Bitmap bitmap = BitmapFactory.decodeResource(getResources(),
@@ -475,13 +505,16 @@ public class CompanyRegistrationActivity1 extends AppCompatActivity {
                     logo.setImageBitmap(logoBitmap);
                     profileTextVIew.setVisibility(View.GONE);
                     logoIsSet = true;
-                    CompanyRegistrationActivity1.this.logoIsClicked = false;
+                    logoIsClicked = false;
 
-                } else {
-                    Toast.makeText(mContext, String.valueOf(CompanyRegistrationActivity1.this.logoIsClicked), Toast.LENGTH_SHORT).show();
                 }
-                if(CompanyRegistrationActivity1.this.licenseIsClicked) {
-                    String licensePath = Environment.getExternalStorageDirectory() + "/temporary_holder.jpg";
+                else
+                {
+                    Toast.makeText(mContext, String.valueOf(licenseIsClicked), Toast.LENGTH_SHORT).show();
+                }
+                if(licenseIsClicked)
+                {
+                    String licensePath = Environment.getExternalStorageDirectory() + "/temporary_license.jpg";
                     licenseBitmap = BitmapFactory.decodeFile(licensePath);
 
 //                    Bitmap bitmap = BitmapFactory.decodeResource(getResources(),
@@ -494,16 +527,22 @@ public class CompanyRegistrationActivity1 extends AppCompatActivity {
                     license.setImageBitmap(licenseBitmap);
                     licenseTextView.setVisibility(View.GONE);
                     licenseIsSet = true;
-                    CompanyRegistrationActivity1.this.licenseIsClicked = false;
+                    licenseIsClicked = false;
                 }
+            }
+            else
+            {
+                Toast.makeText(mContext, "Unsupported image", Toast.LENGTH_SHORT).show();
             }
         }
     }
 
     // CROPPING THE IMAGES - BOTH PROFILE AND LICENSE
-    private void performCrop() {
+    private void performCrop(String imageName)
+    {
         Intent cropIntent;
-        try {
+        try
+        {
             cropIntent = new Intent("com.android.camera.action.CROP");
             //indicate image type and Uri
             cropIntent.setDataAndType(uriSelectedImage, "image/*");
@@ -519,27 +558,41 @@ public class CompanyRegistrationActivity1 extends AppCompatActivity {
             cropIntent.putExtra("return-data", true);
             cropIntent.putExtra("scaleUpIfNeeded", true);
 
-            File f = new File(Environment.getExternalStorageDirectory(),
-                    "/temporary_holder.jpg");
+            File image = new File(Environment.getExternalStorageDirectory(), "/temporary_logo.jpg");
+
+            if(imageName.equals("logo"))
+            {
+                 image = new File(Environment.getExternalStorageDirectory(),
+                        "/temporary_logo.jpg");
+            }
+            else if(imageName.equals("license"))
+            {
+                image = new File(Environment.getExternalStorageDirectory(),
+                        "/temporary_license.jpg");
+            }
+
             try {
-                f.createNewFile();
+                image.createNewFile();
             } catch (IOException ex) {
                 Log.e("io", ex.getMessage());
             }
 
-            uriSelectedImage = Uri.fromFile(f);
+            uriSelectedImage = Uri.fromFile(image);
 
             cropIntent.putExtra(MediaStore.EXTRA_OUTPUT, uriSelectedImage);
 
             // START THE ACTIVITY - HANDLE RETURNING IN onActivityResult
             startActivityForResult(cropIntent, 1);
-        } catch (ActivityNotFoundException e) {
+        }
+        catch (ActivityNotFoundException e)
+        {
             Toast.makeText(mContext, "Your device doesn't support image cropping", Toast.LENGTH_SHORT).show();
         }
     }
 
     // CHANGING THE IMAGE BITMAP TO STRING
-    private String imageToString(Bitmap bitmap) {
+    private String imageToString(Bitmap bitmap)
+    {
         ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
 
         // COMPRESS THE BITMAP INTO JPEG FORMAT

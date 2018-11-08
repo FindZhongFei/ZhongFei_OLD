@@ -1,9 +1,12 @@
 package com.fzhongfei.findzhongfei_final.activity;
 
+import android.Manifest;
+import android.annotation.TargetApi;
 import android.content.ActivityNotFoundException;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.drawable.GradientDrawable;
@@ -12,7 +15,10 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
+import android.support.annotation.NonNull;
 import android.support.annotation.RequiresApi;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -47,13 +53,14 @@ public class UserProfileEditActivity extends AppCompatActivity {
     private Context mContext = UserProfileEditActivity.this;
 
     // VIEWS
-    private TextView usernameText, phoneNumberText, emailText, signOutText;
-    private TextView usernameTitle, phoneNumberTitle, emailTitle, signOutTitle;
+    private TextView userFirstName, userLastName, userPhoneNumber, userEmail, signOutText;
+    private TextView firstNameTitle, lastNameTitle, phoneNumberTitle, emailTitle;
     public static ImageView editProfilePicture;
 
     // IMAGE FROM GALLERY
     private Uri uriSelectedImage;
     private Bitmap profilePictureBitmap;
+    private final int requestPermissionCode = 1;
 
     UserProfile mUserProfile;
 
@@ -71,17 +78,20 @@ public class UserProfileEditActivity extends AppCompatActivity {
         TextView signOutButton = findViewById(R.id.sign_out_button);
 
         LinearLayout profilePictureLayout = findViewById(R.id.user_profile_edit_profile_pic_linear);
-        LinearLayout nameLayout = findViewById(R.id.user_profile_edit_name_linear);
+        LinearLayout firstNameLayout = findViewById(R.id.user_profile_edit_first_name_linear);
+        LinearLayout lastNameLayout = findViewById(R.id.user_profile_edit_last_name_linear);
         LinearLayout phoneLayout = findViewById(R.id.user_profile_edit_phone_linear);
         LinearLayout emailLayout = findViewById(R.id.user_profile_edit_email_linear);
 
-        usernameTitle = findViewById(R.id.user_profile_edit_name_text);
+        firstNameTitle = findViewById(R.id.user_profile_edit_first_name_text);
+        lastNameTitle = findViewById(R.id.user_profile_edit_last_name_text);
         phoneNumberTitle = findViewById(R.id.user_profile_edit_phone_text);
         emailTitle = findViewById(R.id.user_profile_edit_email_text);
 
-        usernameText = findViewById(R.id.user_profile_edit_name);
-        phoneNumberText = findViewById(R.id.user_profile_edit_phone_number);
-        emailText = findViewById(R.id.user_profile_edit_email);
+        userFirstName = findViewById(R.id.user_profile_edit_first_name);
+        userLastName = findViewById(R.id.user_profile_edit_last_name);
+        userPhoneNumber = findViewById(R.id.user_profile_edit_phone_number);
+        userEmail = findViewById(R.id.user_profile_edit_email);
         editProfilePicture = findViewById(R.id.edit_profile_picture);
         signOutText = findViewById(R.id.user_profile_signout_text);
 
@@ -91,6 +101,9 @@ public class UserProfileEditActivity extends AppCompatActivity {
 
         // SHOW PROFILE DETAILS
         showProfileDetails();
+
+        // PERMISSION
+        final int permissionCheck = ContextCompat.checkSelfPermission(mContext, Manifest.permission.READ_EXTERNAL_STORAGE);
 
         // SIGN OUT
         signOutButton.setOnClickListener(new View.OnClickListener() {
@@ -104,26 +117,36 @@ public class UserProfileEditActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP_MR1) {
-                    openGallery();
+                    if (permissionCheck == PackageManager.PERMISSION_DENIED) {
+                        RequestRuntimePermission();
+                    } else {
+                        openGallery();
+                    }
                 }
             }
         });
-        nameLayout.setOnClickListener(new View.OnClickListener() {
+        firstNameLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                updateProfile(usernameTitle, usernameText);
+                updateProfile(firstNameTitle, userFirstName, "userFirstName");
+            }
+        });
+        lastNameLayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                updateProfile(lastNameTitle, userLastName, "userLastName");
             }
         });
         phoneLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                updateProfile(phoneNumberTitle, phoneNumberText);
+                updateProfile(phoneNumberTitle, userPhoneNumber, "userPhoneNumber");
             }
         });
         emailLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                updateProfile(emailTitle, emailText);
+                updateProfile(emailTitle, userEmail, "userEmail");
             }
         });
     }
@@ -174,11 +197,20 @@ public class UserProfileEditActivity extends AppCompatActivity {
         userProfile.setPropertiesFromSharePreference(mContext);
 
         String userProfilePicValue = userProfile.getUserProfilePicture();
+        String userFirstNameValue = userProfile.getUserFirstName();
+        String userLastNameValue = userProfile.getUserLastName();
+        String userPhoneNumberValue = "+" + userProfile.getUserPhone();
+        String userEmailValue = userProfile.getUserEmail();
 
         if(userProfilePicValue != null) {
             byte[] decodedLogo = Base64.decode(userProfilePicValue, Base64.DEFAULT);
             editProfilePicture.setImageBitmap(BitmapFactory.decodeByteArray(decodedLogo, 0, decodedLogo.length));
         }
+
+        userFirstName.setText(userFirstNameValue);
+        userLastName.setText(userLastNameValue);
+        userPhoneNumber.setText(userPhoneNumberValue);
+        userEmail.setText(userEmailValue);
     }
 
     // UI - SIGN OUT
@@ -194,12 +226,13 @@ public class UserProfileEditActivity extends AppCompatActivity {
     }
 
     // UPDATE PROFILE FIELDS
-    private void updateProfile(TextView title, final TextView fieldToEdit) {
+    private void updateProfile(final TextView title, final TextView fieldToEdit, final String updateField) {
         AlertDialog.Builder builder = new AlertDialog.Builder(mContext);
         builder.setTitle("Edit");
         builder.setMessage(title.getText());
 
         final EditText input = new EditText(mContext);
+        input.setText(fieldToEdit.getText());
         builder.setView(input);
 
         // POSITIVE BUTTON
@@ -208,7 +241,23 @@ public class UserProfileEditActivity extends AppCompatActivity {
             public void onClick(DialogInterface dialog, int which) {
                 String updatedText = input.getText().toString();
 
-                fieldToEdit.setText(updatedText);
+                customStringRequest editProfileRequest = new customStringRequest();
+                HashMap<String, String> params = new HashMap<>();
+
+                params.put("requestType", "updateUserProfile");
+                params.put("updateField", updateField);
+                params.put("updateValue", updatedText);
+                params.put("userToken", mUserProfile.getUserToken());
+                params.put("userId", mUserProfile.getUserId());
+
+                editProfileRequest.setUrlPath("user/update.php");
+                editProfileRequest.setParams(params);
+
+                callBackImplement callBack = new callBackImplement(mContext);
+                callBack.setParams(params);
+                callBack.SetRequestType("updateUserInfo");
+                callBack.setFieldTextView(fieldToEdit);
+                editProfileRequest.startConnection(mContext, callBack, params);
             }
         });
 
@@ -224,19 +273,14 @@ public class UserProfileEditActivity extends AppCompatActivity {
         builder.show();
     }
 
-    /*
-
-=========================================================================================================================================
-
-
     // REQUEST USER PERMISSION TO SELECT AN IMAGE FROM GALLERY
     private void RequestRuntimePermission() {
-        if (ActivityCompat.shouldShowRequestPermissionRationale(UserProfileActivity.this, Manifest.permission.READ_EXTERNAL_STORAGE)) {
+        if (ActivityCompat.shouldShowRequestPermissionRationale(UserProfileEditActivity.this, Manifest.permission.READ_EXTERNAL_STORAGE)) {
             Toast.makeText(mContext, "Let the app use your gallery", Toast.LENGTH_SHORT).show();
-            ActivityCompat.requestPermissions(UserProfileActivity.this, new String[]{Manifest.permission.READ_EXTERNAL_STORAGE},
+            ActivityCompat.requestPermissions(UserProfileEditActivity.this, new String[]{Manifest.permission.READ_EXTERNAL_STORAGE},
                     requestPermissionCode);
         } else {
-            ActivityCompat.requestPermissions(UserProfileActivity.this, new String[]{Manifest.permission.READ_EXTERNAL_STORAGE},
+            ActivityCompat.requestPermissions(UserProfileEditActivity.this, new String[]{Manifest.permission.READ_EXTERNAL_STORAGE},
                     requestPermissionCode);
         }
     }
@@ -254,7 +298,7 @@ public class UserProfileEditActivity extends AppCompatActivity {
             }
         }
     }
-*/
+
     // OPEN GALLERY TO PICK AN IMAGE
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP_MR1)
     private void openGallery() {

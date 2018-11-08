@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<vector
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="24dp"
+    android:height="24dp"
+    android:viewportHeight="24.0"
+    android:viewportWidth="24.0">
+
+    <group android:name="background">
+        <path
+            android:fillColor="#6c65b466"
+            android:pathData="M0,0h108v108h-108z"/>
+    </group>
+
+    <group android:name="check">
+        <path
+            android:name="tick"
+            android:pathData="M8.3, 12.17l2.41, 2.41l0, 0l0,0l0, 0l4.3, -4.2"
+            android:strokeColor="@color/colorWhite"
+            android:strokeLineCap="round"
+            android:strokeLineJoin="round"
+            android:strokeWidth=".75"/>
+    </group>
+
+</vector>
+
+<!--
+<shape
+xmlns:android="http://schemas.android.com/apk/res/android"
+android:shape="rectangle">
+
+<corners android:radius="0dp"/>
+
+<solid android:color="#23000000"/>
+
+</shape>
+-->

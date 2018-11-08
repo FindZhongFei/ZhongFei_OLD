@@ -11,7 +11,7 @@
     <color name="colorLightBlack">#333333</color>
 
     <color name="gray">#909090</color>
-    <color name="almostWhite">#eee</color>
+    <color name="almostWhite">#EEEEEE</color>
     <color name="light_gray">#CDCDCD</color>
     <color name="dark_gray">#6B6B76</color>
 
@@ -20,6 +20,7 @@
     <color name="toolbarColorRight">#FF545FCF</color>
     <color name="bottomNavColor">#7788DD</color>
     <color name="register_background">#E3E8F1</color>
+    <color name="user_signed_in_background">#F4F9FF</color>
 
     // BACKGROUND, ICON, BUTTON...
     <color name="colorRed">#FF3658</color>
@@ -31,6 +32,7 @@
     <color name="colorDarkPurple">#603B97</color>
     <color name="colorPink">#FD61F1</color>
     <color name="colorOrange">#E74C3C</color>
+    <color name="colorLightOrange">#EE605C</color>
     <color name="colorBurgundy">#56132A</color>
     <color name="colorDardRed">#741938</color>
     <color name="colorCyan">#00BCD4</color>
@@ -47,4 +49,7 @@
     <color name="orangeTrans">#D9E74C3C</color>
     <color name="BlueTrans">#D90CB1FC</color>
     <color name="GreenTrans">#F816A463</color>
+
+
+    <color name="GreenTrans10">#1A16A463</color>
 </resources>

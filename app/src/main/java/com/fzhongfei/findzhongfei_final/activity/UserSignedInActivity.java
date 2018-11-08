@@ -133,7 +133,7 @@ public class UserSignedInActivity extends AppCompatActivity {
 
     // SETTING UP THE TOOLBAR
     private void setUpActivityToolbar() {
-        Toolbar mToolbar;
+        final Toolbar mToolbar;
         final CollapsingToolbarLayout collapsingToolbarLayout = findViewById(R.id.user_signed_in_collapsing_toolbar);
         AppBarLayout appBarLayout = findViewById(R.id.user_signed_in_app_bar);
 
@@ -149,9 +149,10 @@ public class UserSignedInActivity extends AppCompatActivity {
         appBarLayout.addOnOffsetChangedListener(new AppBarLayout.OnOffsetChangedListener() {
             @Override
             public void onOffsetChanged(AppBarLayout appBarLayout, int verticalOffset) {
-                if (Math.abs(verticalOffset)-appBarLayout.getTotalScrollRange() == 0)
+                if (Math.abs(verticalOffset) - appBarLayout.getTotalScrollRange() == 0)
                 {
                     // Collapsed
+//                    mToolbar.getNavigationIcon().setColorFilter(getResources().getColor(R.color.colorBlack), PorterDuff.Mode.SRC_ATOP);
                     if(rememberedUser)
                     {
                         collapsingToolbarLayout.setTitle(mUserProfile.getUserLastName());
@@ -295,7 +296,7 @@ public class UserSignedInActivity extends AppCompatActivity {
         registerButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(mContext, CompanyLoginActivity.class));
+                startActivity(new Intent(mContext, CompanyRegistrationActivity1.class));
                 mDialog.dismiss();
             }
         });

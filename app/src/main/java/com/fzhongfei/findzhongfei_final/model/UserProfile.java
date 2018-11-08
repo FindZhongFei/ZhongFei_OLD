@@ -48,6 +48,11 @@ public class UserProfile {
         }
     }
 
+    public void setAbstractField(Context context, String fieldKey, String fieldValue)
+    {
+        this.setSharedPreference(context, fieldKey, fieldValue, 0);
+    }
+
     public void clearSharedPreference(Context context) {
         profilePictureIsDownloaded = false;
         SharedPreferences.Editor editor = this.sharedPreference.edit();
