@@ -10,13 +10,13 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.fzhongfei.findzhongfei_final.activity.UserInterestsActivity;
-import com.fzhongfei.findzhongfei_final.activity.UserInterestsSubTypeActivity;
 import com.fzhongfei.findzhongfei_final.activity.CompanyLoginActivity;
 import com.fzhongfei.findzhongfei_final.activity.CompanyProfileActivity;
 import com.fzhongfei.findzhongfei_final.activity.CompanyRegistrationActivity1;
 import com.fzhongfei.findzhongfei_final.activity.CompanyRegistrationActivity2;
 import com.fzhongfei.findzhongfei_final.activity.CompanyRegistrationActivity3;
 import com.fzhongfei.findzhongfei_final.activity.CompanySuccessfullyRegisteredActivity;
+import com.fzhongfei.findzhongfei_final.activity.UserInterestsSubTypeActivity;
 import com.fzhongfei.findzhongfei_final.activity.UserLoginActivity;
 import com.fzhongfei.findzhongfei_final.activity.UserRegistrationActivity;
 import com.fzhongfei.findzhongfei_final.activity.UserSignedInActivity;
@@ -224,13 +224,6 @@ public class callBackImplement implements serverCallBack {
                 else if(requestType.equals("user_interests"))
                 {
                     Intent intent = new Intent(this.context, UserInterestsSubTypeActivity.class);
-                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                    ((Activity) context).finish();
-                    context.getApplicationContext().startActivity(intent);
-                }
-                else if(requestType.equals("user_subInterests"))
-                {
-                    Intent intent = new Intent(this.context, UserSignedInActivity.class);
                     intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                     ((Activity) context).finish();
                     context.getApplicationContext().startActivity(intent);

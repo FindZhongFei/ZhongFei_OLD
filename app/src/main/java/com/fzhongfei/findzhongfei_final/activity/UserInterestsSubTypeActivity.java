@@ -5,14 +5,20 @@ import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Base64;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.fzhongfei.findzhongfei_final.R;
+import com.fzhongfei.findzhongfei_final.model.UserProfile;
 import com.fzhongfei.findzhongfei_final.server.callBackImplement;
 import com.fzhongfei.findzhongfei_final.server.customStringRequest;
+
+import org.json.JSONArray;
+import org.json.JSONException;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -26,7 +32,10 @@ public class UserInterestsSubTypeActivity extends AppCompatActivity implements V
     // VIEWS
 
     // VARIABLES
+    ArrayList<String> interests = new ArrayList<>();
     ArrayList<String> subInterests = new ArrayList<>();
+
+    UserProfile mUserProfile;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,6 +43,9 @@ public class UserInterestsSubTypeActivity extends AppCompatActivity implements V
         setContentView(R.layout.activity_user_interests_sub_type);
 
         Log.d(TAG, "onCreate: Running...");
+
+        mUserProfile = new UserProfile(mContext);
+        mUserProfile.setPropertiesFromSharePreference(mContext);
 
         TextView mImage1_1, mImage1_2, mImage1_3,
                 mImage2_1, mImage2_2, mImage2_3,
@@ -72,10 +84,13 @@ public class UserInterestsSubTypeActivity extends AppCompatActivity implements V
         mImage3_2.setCompoundDrawablesWithIntrinsicBounds(getResources().getDrawable(R.drawable.img_wall_12), null, null, null);
         mImage3_3.setCompoundDrawablesWithIntrinsicBounds(getResources().getDrawable(R.drawable.img_wall_12), null, null, null);
 
+        // ACTIVITY STUFF
+        interests = getIntent().getStringArrayListExtra("user_interests");
+
         submitButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                submitUserInterests(subInterests);
+                submitUserInterests();
             }
         });
     }
@@ -104,22 +119,49 @@ public class UserInterestsSubTypeActivity extends AppCompatActivity implements V
     }
 
     // SUBMIT SUB INTERESTS
-    private void submitUserInterests(ArrayList<String> interests) {
+    private void submitUserInterests() {
+        JSONArray interestsJsonArray = new JSONArray(interests);
+        JSONArray subInterestsJsonArray = new JSONArray(subInterests);
+
         customStringRequest registerRequest = new customStringRequest("user/interests.php");
 
         HashMap<String, String> Params = new HashMap<>();
 
-        Params.put("action", "user_subInterests");
+        Params.put("action", "user_interests");
+        Params.put("user_token", mUserProfile.getUserToken());
+        String strInterest = "";
+        String strSubString = "";
         for(int i = 0; i < interests.size(); i++)
         {
-            Params.put("user_subInterests", interests.get(i));
-        }
 
+            try {
+//                Params.put("user_interests[]", interestsJsonArray.get(i).toString());
+                if(strInterest.isEmpty())
+                    strInterest.concat(subInterestsJsonArray.get(i).toString());
+                else
+                    strInterest.concat(","+subInterestsJsonArray.get(i).toString());
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+        }
+        for(int i = 0; i < subInterests.size(); i++)
+        {
+            try {
+
+                if(strInterest.isEmpty())
+                    strSubString.concat(interestsJsonArray.get(i).toString());
+                else
+                    strSubString.concat(","+interestsJsonArray.get(i).toString());
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+        }
+        Params.put("user_interests",  strInterest);
         registerRequest.setParams(Params);
 
         callBackImplement callBack = new callBackImplement(mContext);
         callBack.setParams(Params);
-        callBack.SetRequestType("user_subInterests");
+        callBack.SetRequestType("user_interests");
         registerRequest.startConnection(mContext, callBack, Params);
     }
 }

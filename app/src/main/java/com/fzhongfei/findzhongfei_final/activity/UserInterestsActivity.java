@@ -1,6 +1,7 @@
 package com.fzhongfei.findzhongfei_final.activity;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.support.v7.app.AppCompatActivity;
@@ -12,6 +13,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.fzhongfei.findzhongfei_final.R;
+import com.fzhongfei.findzhongfei_final.model.UserProfile;
 import com.fzhongfei.findzhongfei_final.server.callBackImplement;
 import com.fzhongfei.findzhongfei_final.server.customStringRequest;
 
@@ -28,8 +30,10 @@ public class UserInterestsActivity extends AppCompatActivity implements View.OnC
 //    private TextView interest_counter;
     private Button submitButton;
 
+    UserProfile mUserProfile;
+
     // VARIABLES
-    ArrayList<String> interests = new ArrayList<>();
+    public static ArrayList<String> interests = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,6 +41,9 @@ public class UserInterestsActivity extends AppCompatActivity implements View.OnC
         setContentView(R.layout.activity_user_interests);
 
         Log.d(TAG, "onCreate: Running");
+
+        mUserProfile = new UserProfile(mContext);
+        mUserProfile.setPropertiesFromSharePreference(mContext);
 
         TextView    mImage1_1, mImage1_2, mImage1_3,
                     mImage2_1, mImage2_2, mImage2_3,
@@ -138,21 +145,25 @@ public class UserInterestsActivity extends AppCompatActivity implements View.OnC
 
     // SUBMIT INTERESTS
     private void submitUserInterests(ArrayList<String> interests) {
-        customStringRequest registerRequest = new customStringRequest("user/interests.php");
+        Intent intent = new Intent(mContext, UserInterestsSubTypeActivity.class);
+        intent.putStringArrayListExtra("user_interests", interests);
+        startActivity(intent);
 
-        HashMap<String, String> Params = new HashMap<>();
-
-        Params.put("action", "user_interests");
-        for(int i = 0; i < interests.size(); i++)
-        {
-           Params.put("user_interests", interests.get(i));
-        }
-
-        registerRequest.setParams(Params);
-
-        callBackImplement callBack = new callBackImplement(mContext);
-        callBack.setParams(Params);
-        callBack.SetRequestType("user_interests");
-        registerRequest.startConnection(mContext, callBack, Params);
+//        customStringRequest registerRequest = new customStringRequest("user/interests.php");
+//
+//        HashMap<String, String> Params = new HashMap<>();
+//
+//        Params.put("action", "user_interests");
+//        Params.put("user_token", mUserProfile.getUserToken());
+//        for(int i = 0; i < interests.size(); i++)
+//        {
+//            Params.put("user_interests", interests.toString());
+//        }
+//        registerRequest.setParams(Params);
+//
+//        callBackImplement callBack = new callBackImplement(mContext);
+//        callBack.setParams(Params);
+//        callBack.SetRequestType("user_interests");
+//        registerRequest.startConnection(mContext, callBack, Params);
     }
 }
