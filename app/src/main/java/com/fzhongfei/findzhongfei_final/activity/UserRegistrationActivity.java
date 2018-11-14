@@ -206,7 +206,7 @@ public class UserRegistrationActivity extends AppCompatActivity {
             String mFirstName = firstNameEditText.getText().toString().trim();
             String mLastName = lastNameEditText.getText().toString().trim();
             String mEmailAddress = emailAddressEditText.getText().toString().trim();
-            String mPhoneNumber = lastNameEditText.getText().toString().trim();
+            String mPhoneNumber = phoneNumberEditText.getText().toString().trim();
             mPassword = passwordEditText.getText().toString().trim();
             mConfirmPassword = confirmPasswordEditText.getText().toString().trim();
 

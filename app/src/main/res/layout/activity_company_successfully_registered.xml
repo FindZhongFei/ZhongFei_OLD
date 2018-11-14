@@ -79,6 +79,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:fontFamily="@font/roboto_light"
                 android:text="@string/regLongTxt"
                 android:textAllCaps="true"
                 android:textSize="20sp"/>

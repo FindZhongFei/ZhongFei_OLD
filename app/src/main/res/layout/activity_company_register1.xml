@@ -354,7 +354,7 @@
                         android:background="@drawable/rounded_edit_text"
                         android:ems="10"
                         android:hint="@string/password_hint"
-                        android:inputType="textPersonName"
+                        android:inputType="textPassword"
                         android:paddingStart="0sp"
                         android:paddingLeft="0sp"
                         android:paddingEnd="15sp"

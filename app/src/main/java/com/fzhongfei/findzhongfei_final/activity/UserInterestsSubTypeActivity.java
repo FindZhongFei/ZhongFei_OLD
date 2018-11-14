@@ -5,7 +5,6 @@ import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Base64;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -22,6 +21,8 @@ import org.json.JSONException;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Set;
 
 public class UserInterestsSubTypeActivity extends AppCompatActivity implements View.OnClickListener {
 
@@ -118,6 +119,90 @@ public class UserInterestsSubTypeActivity extends AppCompatActivity implements V
         }
     }
 
+    private String belongsTo(String subInterest)
+    {
+        switch (subInterest)
+        {
+            case "Aerospace industry":
+                return "Aerospace industry";
+
+            case "Fishing industry":
+            case "Timber industry":
+            case "Tobacco industry":
+                return "Agriculture";
+
+            case "Pharmaceutical industry":
+                return "Chemical industry";
+
+            case "Software industry":
+                return "Computer industry";
+
+            case "Construction industry":
+                return "Construction industry";
+
+            case "Arms industry":
+                return "Defense industry";
+
+            case "Education industry":
+                return "Education industry";
+
+            case "Electrical power industry":
+            case "Petroleum industry":
+                return "Energy industry";
+
+            case "Entertainment industry":
+                return "Entertainment industry";
+
+            case "Insurance industry":
+                return "Financial services industry";
+
+            case "Fruit production":
+                return "Food industry";
+
+            case "Health care industry":
+                return "Health care industry";
+
+            case "Hospitality industry":
+                return "Hospitality industry";
+
+            case "Information industry":
+                return "Information industry";
+
+            case "Automotive industry":
+            case "Electronics industry":
+            case "Pulp and paper industry":
+            case "Steel industry":
+            case "Shipbuilding industry":
+                return "Manufacturing";
+
+            case "Broadcasting":
+            case "Film industry":
+            case "Music industry":
+            case "News media":
+            case "Publishing":
+            case "World Wide Web":
+                return "Mass media";
+
+            case "Mining":
+                return "Mining";
+
+            case "Internet":
+                return "Telecommunications industry";
+
+            case "Transport industry":
+                return "Transport industry";
+
+            case "Water industry":
+                return "Water industry";
+
+            case "Direct Selling industry":
+                return "Direct Selling industry";
+
+            default:
+                return "Other";
+        }
+    }
+
     // SUBMIT SUB INTERESTS
     private void submitUserInterests() {
         JSONArray interestsJsonArray = new JSONArray(interests);
@@ -130,34 +215,51 @@ public class UserInterestsSubTypeActivity extends AppCompatActivity implements V
         Params.put("action", "user_interests");
         Params.put("user_token", mUserProfile.getUserToken());
         String strInterest = "";
-        String strSubString = "";
+        String strSubInterest = "";
+        ArrayList<String> belongsToInterest = new ArrayList<>();
+
         for(int i = 0; i < interests.size(); i++)
         {
-
-            try {
+            try
+            {
 //                Params.put("user_interests[]", interestsJsonArray.get(i).toString());
                 if(strInterest.isEmpty())
-                    strInterest.concat(subInterestsJsonArray.get(i).toString());
+                    strInterest.concat(interestsJsonArray.get(i).toString());
                 else
-                    strInterest.concat(","+subInterestsJsonArray.get(i).toString());
-            } catch (JSONException e) {
+                    strInterest.concat(", " + interestsJsonArray.get(i).toString());
+            }
+            catch (JSONException e)
+            {
                 e.printStackTrace();
             }
         }
         for(int i = 0; i < subInterests.size(); i++)
         {
-            try {
-
+            try
+            {
                 if(strInterest.isEmpty())
-                    strSubString.concat(interestsJsonArray.get(i).toString());
+                {
+                    strSubInterest.concat(subInterestsJsonArray.get(i).toString());
+                    if(!belongsToInterest.contains(belongsTo(subInterests.get(i))))
+                    {
+                        belongsToInterest.add(belongsTo(subInterests.get(i)));
+                    }
+                }
                 else
-                    strSubString.concat(","+interestsJsonArray.get(i).toString());
-            } catch (JSONException e) {
+                {
+                    strSubInterest.concat(", " + subInterestsJsonArray.get(i).toString());
+                }
+            }
+            catch (JSONException e)
+            {
                 e.printStackTrace();
             }
         }
         Params.put("user_interests",  strInterest);
+        Params.put("user_subInterests", strSubInterest);
         registerRequest.setParams(Params);
+
+        Toast.makeText(mContext, belongsToInterest.toString(), Toast.LENGTH_LONG).show();
 
         callBackImplement callBack = new callBackImplement(mContext);
         callBack.setParams(Params);

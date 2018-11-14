@@ -129,7 +129,7 @@
                     app:srcCompat="@drawable/ic_arrow_right_white"/>
             </LinearLayout>
 
-                    <android.support.v7.widget.Toolbar
+            <android.support.v7.widget.Toolbar
                 android:id="@+id/user_signed_in_toolbar"
                 android:layout_width="match_parent"
                 android:layout_height="75sp"

@@ -47,7 +47,7 @@
                         android:id="@+id/image_1_1_interest"
                         android:layout_width="match_parent"
                         android:layout_height="120sp"
-                        android:text="Aerospace industry"
+                        android:text="Fishing industry"
                         android:textColor="@color/transparent"/>
 
                     <TextView
@@ -56,7 +56,7 @@
                         android:gravity="center_horizontal"
                         android:maxEms="12"
                         android:singleLine="true"
-                        android:text="Aerospace industry"/>
+                        android:text="Fishing industry"/>
 
                 </LinearLayout>
 
@@ -71,7 +71,7 @@
                         android:id="@+id/image_1_2_interest"
                         android:layout_width="match_parent"
                         android:layout_height="120sp"
-                        android:text="Agriculture"
+                        android:text="Timber industry"
                         android:textColor="@color/transparent"/>
 
                     <TextView
@@ -80,7 +80,7 @@
                         android:gravity="center_horizontal"
                         android:maxEms="12"
                         android:singleLine="true"
-                        android:text="Agriculture"/>
+                        android:text="Timber industry"/>
 
                 </LinearLayout>
 
@@ -95,7 +95,7 @@
                         android:id="@+id/image_1_3_interest"
                         android:layout_width="match_parent"
                         android:layout_height="120sp"
-                        android:text="Chemical industry"
+                        android:text="Tobacco industry"
                         android:textColor="@color/transparent"/>
 
                     <TextView
@@ -104,7 +104,7 @@
                         android:gravity="center_horizontal"
                         android:maxEms="12"
                         android:singleLine="true"
-                        android:text="Chemical industry"/>
+                        android:text="Tobacco industry"/>
 
                 </LinearLayout>
             </LinearLayout>
@@ -128,7 +128,7 @@
                         android:id="@+id/image_2_1_interest"
                         android:layout_width="match_parent"
                         android:layout_height="120sp"
-                        android:text="Computer industry"
+                        android:text="Pharmaceutical industry"
                         android:textColor="@color/transparent"/>
 
                     <TextView
@@ -137,7 +137,7 @@
                         android:gravity="center_horizontal"
                         android:maxEms="12"
                         android:singleLine="true"
-                        android:text="Computer industry"/>
+                        android:text="Pharmaceutical industry"/>
 
                 </LinearLayout>
 
@@ -152,7 +152,7 @@
                         android:id="@+id/image_2_2_interest"
                         android:layout_width="match_parent"
                         android:layout_height="120sp"
-                        android:text="Construction industry"
+                        android:text="Software industry"
                         android:textColor="@color/transparent"/>
 
                     <TextView
@@ -161,7 +161,7 @@
                         android:gravity="center_horizontal"
                         android:maxEms="12"
                         android:singleLine="true"
-                        android:text="Construction industry"/>
+                        android:text="Software industry"/>
 
                 </LinearLayout>
 
@@ -176,7 +176,7 @@
                         android:id="@+id/image_2_3_interest"
                         android:layout_width="match_parent"
                         android:layout_height="120sp"
-                        android:text="Defense industry"
+                        android:text="Arms industry"
                         android:textColor="@color/transparent"/>
 
                     <TextView
@@ -185,7 +185,7 @@
                         android:gravity="center_horizontal"
                         android:maxEms="12"
                         android:singleLine="true"
-                        android:text="Defense industry"/>
+                        android:text="Arms industry"/>
 
                 </LinearLayout>
             </LinearLayout>
@@ -210,7 +210,7 @@
                         android:id="@+id/image_3_1_interest"
                         android:layout_width="match_parent"
                         android:layout_height="120sp"
-                        android:text="Education industry"
+                        android:text="Electrical power industry"
                         android:textColor="@color/transparent"/>
 
                     <TextView
@@ -219,7 +219,7 @@
                         android:gravity="center_horizontal"
                         android:maxEms="12"
                         android:singleLine="true"
-                        android:text="Education industry"/>
+                        android:text="Electrical power industry"/>
 
                 </LinearLayout>
 
@@ -234,7 +234,7 @@
                         android:id="@+id/image_3_2_interest"
                         android:layout_width="match_parent"
                         android:layout_height="120sp"
-                        android:text="Energy industry"
+                        android:text="Petroleum industry"
                         android:textColor="@color/transparent"/>
 
                     <TextView
@@ -243,7 +243,7 @@
                         android:gravity="center_horizontal"
                         android:maxEms="12"
                         android:singleLine="true"
-                        android:text="Energy industry"/>
+                        android:text="Petroleum industry"/>
 
                 </LinearLayout>
 
@@ -258,7 +258,7 @@
                         android:id="@+id/image_3_3_interest"
                         android:layout_width="match_parent"
                         android:layout_height="120sp"
-                        android:text="Entertainment industry"
+                        android:text="Insurance industry"
                         android:textColor="@color/transparent"/>
 
                     <TextView
@@ -267,7 +267,7 @@
                         android:gravity="center_horizontal"
                         android:maxEms="12"
                         android:singleLine="true"
-                        android:text="Entertainment industry"/>
+                        android:text="Insurance  industry"/>
 
                 </LinearLayout>
             </LinearLayout>
