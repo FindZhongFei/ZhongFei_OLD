@@ -18,6 +18,7 @@ import com.fzhongfei.findzhongfei_final.server.customStringRequest;
 
 import org.json.JSONArray;
 import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -129,51 +130,51 @@ public class UserInterestsSubTypeActivity extends AppCompatActivity implements V
             case "Fishing industry":
             case "Timber industry":
             case "Tobacco industry":
-                return "Agriculture";
+                return "Agriculture | ";
 
             case "Pharmaceutical industry":
                 return "Chemical industry";
 
             case "Software industry":
-                return "Computer industry";
+                return "Computer industry | ";
 
             case "Construction industry":
-                return "Construction industry";
+                return "Construction industry | ";
 
             case "Arms industry":
-                return "Defense industry";
+                return "Defense industry | ";
 
             case "Education industry":
-                return "Education industry";
+                return "Education industry | ";
 
             case "Electrical power industry":
             case "Petroleum industry":
-                return "Energy industry";
+                return "Energy industry | ";
 
             case "Entertainment industry":
-                return "Entertainment industry";
+                return "Entertainment industry | ";
 
             case "Insurance industry":
-                return "Financial services industry";
+                return "Financial services industry | ";
 
             case "Fruit production":
-                return "Food industry";
+                return "Food industry | ";
 
             case "Health care industry":
-                return "Health care industry";
+                return "Health care industry | ";
 
             case "Hospitality industry":
-                return "Hospitality industry";
+                return "Hospitality industry | ";
 
             case "Information industry":
-                return "Information industry";
+                return "Information industry | ";
 
             case "Automotive industry":
             case "Electronics industry":
             case "Pulp and paper industry":
             case "Steel industry":
             case "Shipbuilding industry":
-                return "Manufacturing";
+                return "Manufacturing | ";
 
             case "Broadcasting":
             case "Film industry":
@@ -181,32 +182,32 @@ public class UserInterestsSubTypeActivity extends AppCompatActivity implements V
             case "News media":
             case "Publishing":
             case "World Wide Web":
-                return "Mass media";
+                return "Mass media | ";
 
             case "Mining":
-                return "Mining";
+                return "Mining | ";
 
             case "Internet":
-                return "Telecommunications industry";
+                return "Telecommunications industry | ";
 
             case "Transport industry":
-                return "Transport industry";
+                return "Transport industry | ";
 
             case "Water industry":
-                return "Water industry";
+                return "Water industry | ";
 
             case "Direct Selling industry":
-                return "Direct Selling industry";
+                return "Direct Selling industry | ";
 
             default:
-                return "Other";
+                return "Other | ";
         }
     }
 
     // SUBMIT SUB INTERESTS
     private void submitUserInterests() {
         JSONArray interestsJsonArray = new JSONArray(interests);
-        JSONArray subInterestsJsonArray = new JSONArray(subInterests);
+        JSONObject subInterestsJsonObject = new JSONObject();
 
         customStringRequest registerRequest = new customStringRequest("user/interests.php");
 
@@ -218,48 +219,68 @@ public class UserInterestsSubTypeActivity extends AppCompatActivity implements V
         String strSubInterest = "";
         ArrayList<String> belongsToInterest = new ArrayList<>();
 
-        for(int i = 0; i < interests.size(); i++)
-        {
-            try
-            {
-//                Params.put("user_interests[]", interestsJsonArray.get(i).toString());
-                if(strInterest.isEmpty())
-                    strInterest.concat(interestsJsonArray.get(i).toString());
-                else
-                    strInterest.concat(", " + interestsJsonArray.get(i).toString());
-            }
-            catch (JSONException e)
-            {
-                e.printStackTrace();
-            }
-        }
+//        for(int i = 0; i < interests.size(); i++)
+//        {
+//            try
+//            {
+////                Params.put("user_interests[]", interestsJsonArray.get(i).toString());
+//                if(strInterest.isEmpty())
+//                    strInterest.concat(interestsJsonArray.get(i).toString());
+//                else
+//                    strInterest.concat(", " + interestsJsonArray.get(i).toString());
+//            }
+//            catch (JSONException e)
+//            {
+//                e.printStackTrace();
+//            }
+//        }
         for(int i = 0; i < subInterests.size(); i++)
         {
-            try
-            {
-                if(strInterest.isEmpty())
-                {
-                    strSubInterest.concat(subInterestsJsonArray.get(i).toString());
-                    if(!belongsToInterest.contains(belongsTo(subInterests.get(i))))
+            String interest = belongsTo(subInterests.get(i));
+
+                try {
+                    if(!belongsToInterest.contains(interest))
                     {
-                        belongsToInterest.add(belongsTo(subInterests.get(i)));
+                        subInterestsJsonObject.put(interest, subInterests.get(i));
+                        belongsToInterest.add(interest);
                     }
+                    else
+                    {
+                        subInterestsJsonObject.put(interest,subInterestsJsonObject.get(interest).toString()+"|"+subInterests.get(i) );
+                        belongsToInterest.add(interest);
+                    }
+
+                } catch (JSONException e) {
+                    e.printStackTrace();
                 }
-                else
-                {
-                    strSubInterest.concat(", " + subInterestsJsonArray.get(i).toString());
-                }
-            }
-            catch (JSONException e)
-            {
-                e.printStackTrace();
-            }
+
         }
-        Params.put("user_interests",  strInterest);
-        Params.put("user_subInterests", strSubInterest);
+        int interestCounter =0;
+        int sizeOfInterest = belongsToInterest.size();
+        String interestKey = "";
+        String interestValue = "";
+        while(interestCounter < sizeOfInterest)
+        {
+            interestKey = belongsToInterest.get(interestCounter);
+            try {
+                if(interestValue.isEmpty())
+                   interestValue = subInterestsJsonObject.getString(interestKey).toString();
+                else
+                    interestValue = interestValue +","+ subInterestsJsonObject.getString(interestKey).toString();
+            } catch (JSONException e) {
+                e.printStackTrace();
+                //TO DO: catching the try and catch in well format for the user to get relevant error
+                //TO DO: logging errors
+            }
+            interestCounter++;
+        }
+
+        Params.put("user_interests",  interestValue);
+        Log.d(TAG, "submitUserInterests: THE INTEREST IS: "+interestValue);
+//        Params.put("user_subInterests", strSubInterest);
         registerRequest.setParams(Params);
 
-        Toast.makeText(mContext, belongsToInterest.toString(), Toast.LENGTH_LONG).show();
+//        Toast.makeText(mContext, belongsToInterest.toString(), Toast.LENGTH_LONG).show();
 
         callBackImplement callBack = new callBackImplement(mContext);
         callBack.setParams(Params);
