@@ -238,35 +238,50 @@ public class UserInterestsSubTypeActivity extends AppCompatActivity implements V
         {
             String interest = belongsTo(subInterests.get(i));
 
-                try {
-                    if(!belongsToInterest.contains(interest))
-                    {
-                        subInterestsJsonObject.put(interest, subInterests.get(i));
-                        belongsToInterest.add(interest);
-                    }
-                    else
-                    {
-                        subInterestsJsonObject.put(interest,subInterestsJsonObject.get(interest).toString()+"|"+subInterests.get(i) );
-                        belongsToInterest.add(interest);
-                    }
-
-                } catch (JSONException e) {
-                    e.printStackTrace();
+            try {
+                if(!belongsToInterest.contains(interest) )
+                {
+                    Log.d(TAG, "submitUserInterests: NEW INTEREST: "+interest);
+                    Log.d(TAG, "submitUserInterests: ADD SUBINTEREST: "+subInterests.get(i));
+                    subInterestsJsonObject.put(interest, subInterests.get(i));
+                    belongsToInterest.add(interest);
+                }
+                else
+                {
+                    String existingInterest = subInterestsJsonObject.get(interest).toString();
+                    Log.d(TAG, "submitUserInterests: EXISTING INTEREST: "+interest+" containing: "+existingInterest);
+                    Log.d(TAG, "submitUserInterests: ADD SUBINTEREST: "+subInterests.get(i));
+                    subInterestsJsonObject.put(interest,existingInterest+"|"+subInterests.get(i) );
+//                    belongsToInterest.add(interest);
                 }
 
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+
         }
+        Log.d(TAG, "submitUserInterests: subinterest:: "+subInterestsJsonObject);
+        Log.d(TAG, "submitUserInterests: belongtointerst:: "+belongsToInterest);
         int interestCounter =0;
         int sizeOfInterest = belongsToInterest.size();
         String interestKey = "";
         String interestValue = "";
+        String tempValue = "";
         while(interestCounter < sizeOfInterest)
         {
             interestKey = belongsToInterest.get(interestCounter);
             try {
                 if(interestValue.isEmpty())
-                   interestValue = subInterestsJsonObject.getString(interestKey).toString();
+                {
+                    interestValue = interestKey + subInterestsJsonObject.getString(interestKey);
+                    Log.d(TAG, "submitUserInterests: Initial value: "+interestKey+" to GET: " +interestValue);
+                }
                 else
-                    interestValue = interestValue +","+ subInterestsJsonObject.getString(interestKey).toString();
+                {
+                    tempValue = interestValue;
+                    interestValue = tempValue+","+interestKey+ subInterestsJsonObject.getString(interestKey);
+                    Log.d(TAG, "submitUserInterests: after init value: "+interestKey+" to GET: " +interestValue);
+                }
             } catch (JSONException e) {
                 e.printStackTrace();
                 //TO DO: catching the try and catch in well format for the user to get relevant error
