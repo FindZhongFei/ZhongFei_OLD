@@ -102,21 +102,18 @@
         xmlns:app="http://schemas.android.com/apk/res-auto"
         android:id="@+id/nestedScrollView"
         android:layout_width="match_parent"
+        android:fillViewport="true"
         android:layout_height="match_parent"
-        android:layout_gravity="fill_vertical"
         android:background="@color/colorWhite"
-        android:focusableInTouchMode="true"
         app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
-        <android.support.v7.widget.RecyclerView
-            android:id="@+id/recycleView"
+        <com.lorentzos.flingswipe.SwipeFlingAdapterView
+            android:id="@+id/frame"
+            android:background="@color/colorWhite"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:clipToPadding="false"
-            android:focusableInTouchMode="true"
-            android:paddingBottom="5dp">
-        </android.support.v7.widget.RecyclerView>
+            android:layout_height="match_parent"
+            app:rotation_degrees="15.5"
+            tools:context=".fragments.MainFragment"/>
 
     </android.support.v4.widget.NestedScrollView>
-
 </android.support.design.widget.CoordinatorLayout>

@@ -1,6 +1,9 @@
 package com.fzhongfei.findzhongfei_final.fragments;
 
 import android.content.Context;
+import android.content.Intent;
+import android.content.SharedPreferences;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -10,8 +13,22 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ListView;
+import android.widget.Toast;
 
 import com.fzhongfei.findzhongfei_final.R;
+import com.fzhongfei.findzhongfei_final.activity.CompanyProfileActivity;
+import com.fzhongfei.findzhongfei_final.adapter.CompanyAdapter;
+import com.fzhongfei.findzhongfei_final.model.Companies;
+import com.fzhongfei.findzhongfei_final.model.CompanyProfile;
+import com.fzhongfei.findzhongfei_final.model.UserProfile;
+import com.fzhongfei.findzhongfei_final.server.callBackImplement;
+import com.fzhongfei.findzhongfei_final.server.customStringRequest;
+import com.lorentzos.flingswipe.SwipeFlingAdapterView;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
 
 public class MainFragment extends Fragment {
 
@@ -21,6 +38,17 @@ public class MainFragment extends Fragment {
 
     // VIEWS
     View view;
+
+    // VARIABLES
+    private Companies mCompanies[]; //card - card_data
+    private CompanyAdapter mCompanyAdapter; //arrayAdapter
+    private int i;
+
+    ListView mListView; //listView
+    List<Companies> mCompaniesList; //List<cards> rowItems
+
+    SharedPreferences companySharedPreferences;
+    SharedPreferences userSharedPreferences;
 
     public MainFragment() {}
 
@@ -34,8 +62,70 @@ public class MainFragment extends Fragment {
         // Inflate the layout for this fragment
         view = inflater.inflate(R.layout.fragment_main, null);
 
+        companySharedPreferences = this.getActivity().getSharedPreferences("companyPreference", 0);
+        userSharedPreferences = this.getActivity().getSharedPreferences("userPreference", 0);
+
         SearchView searchView = view.findViewById(R.id.fragment_main_search_view);
         searchView.clearFocus();
+
+        mCompaniesList = new ArrayList<Companies>();
+        final Companies company = new Companies(1, R.drawable.profile_picture, "", "Nanjing University Of Aeronautics and Astronautics",
+                "University");
+
+        mCompaniesList.add(company);
+
+        mCompanyAdapter = new CompanyAdapter(mContext, R.layout.layout_item, mCompaniesList);
+
+        SwipeFlingAdapterView flingContainer = view.findViewById(R.id.frame);
+
+        flingContainer.setAdapter(mCompanyAdapter);
+        flingContainer.setFlingListener(new SwipeFlingAdapterView.onFlingListener() {
+            @Override
+            public void removeFirstObjectInAdapter() {
+                // this is the simplest way to delete an object from the Adapter (/AdapterView)
+                Log.d("LIST", "removed object!");
+                mCompaniesList.remove(0);
+                mCompanyAdapter.notifyDataSetChanged();
+            }
+
+            @Override
+            public void onLeftCardExit(Object dataObject) {
+                //Do something on the left!
+                //You also have access to the original object.
+                //If you want to use it just cast it (String) dataObject
+                makeToast(mContext, "Left!");
+            }
+
+            @Override
+            public void onRightCardExit(Object dataObject) {
+                makeToast(mContext, "Right!");
+            }
+
+            @Override
+            public void onAdapterAboutToEmpty(int itemsInAdapter) {
+                // Ask for more data here
+                Companies company = new Companies(1, R.drawable.profile_picture, "", "Last Company", "");
+                mCompaniesList.add(company);
+                mCompanyAdapter.notifyDataSetChanged();
+                Log.d("LIST", "notified");
+                i++;
+            }
+
+            @Override
+            public void onScroll(float scrollProgressPercent) {
+
+            }
+        });
+
+        // Optionally add an OnItemClickListener
+        flingContainer.setOnItemClickListener(new SwipeFlingAdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClicked(int itemPosition, Object dataObject) {
+                makeToast(mContext, "Clicked!");
+            }
+        });
+
+        loadCompanies();
 
 //        Toolbar toolbar = view.findViewById(R.id.toolbar);
 //        ((AppCompatActivity)mContext).setSupportActionBar(toolbar);
@@ -68,5 +158,61 @@ public class MainFragment extends Fragment {
 //        recycleViewNews.setNestedScrollingEnabled(false);
 
         return view;
+    }
+
+    static void makeToast(Context ctx, String s){
+        Toast.makeText(ctx, s, Toast.LENGTH_SHORT).show();
+    }
+
+    private void loadCompanies() {
+        customStringRequest companiesRequest = new customStringRequest("comp/getCompanies.php");
+
+        HashMap<String, String> Params = new HashMap<>();
+
+        Params.put("action", "tinView");
+        Params.put("phone_serial_number", Build.SERIAL);
+        Params.put("phone_model_number", Build.MODEL);
+        Params.put("phone_id_number", Build.ID);
+        Params.put("phone_manufacturer", Build.MANUFACTURER);
+        Params.put("phone_brand", Build.BRAND);
+        Params.put("phone_type", Build.TYPE);
+        Params.put("phone_user", Build.USER);
+        Params.put("phone_base", String.valueOf(Build.VERSION_CODES.BASE));
+        Params.put("phone_sdk_version", String.valueOf(Build.VERSION.SDK_INT));
+        Params.put("phone_host", Build.HOST);
+        Params.put("phone_fingerprint", Build.FINGERPRINT);
+        Params.put("phone_release", Build.VERSION.RELEASE);
+
+        if(!companySharedPreferences.contains("companyIsLoggedIn") && !userSharedPreferences.contains("userIsLoggedIn"))
+        {
+            Toast.makeText(mContext, "NOT LOGGED IN", Toast.LENGTH_SHORT).show();
+            Params.put("is_loggedIn", "false");
+        }
+        else if(companySharedPreferences.contains("companyIsLoggedIn"))
+        {
+            Toast.makeText(mContext, "COMPANY", Toast.LENGTH_SHORT).show();
+            CompanyProfile companyProfile = new CompanyProfile(mContext);
+            companyProfile.setPropertiesFromSharePreference(mContext);
+            Params.put("is_loggedIn", "true");
+            Params.put("host", "company");
+            Params.put("company_token", companyProfile.getCompanyToken());
+        }
+        else if(userSharedPreferences.contains("userIsLoggedIn"))
+        {
+            Toast.makeText(mContext, "USER", Toast.LENGTH_SHORT).show();
+            UserProfile userProfile = new UserProfile(mContext);
+            userProfile.setPropertiesFromSharePreference(mContext);
+            Params.put("is_loggedIn", "true");
+            Params.put("host", "user");
+            Params.put("user_token", userProfile.getUserToken());
+        }
+
+        companiesRequest.setParams(Params);
+
+        callBackImplement callBack = new callBackImplement(mContext);
+        callBack.setParams(Params);
+        callBack.SetRequestType("requestCompanies");
+
+        companiesRequest.startConnection(mContext, callBack, Params);
     }
 }

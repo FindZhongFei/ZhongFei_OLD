@@ -1,18 +1,16 @@
 package com.fzhongfei.findzhongfei_final.model;
 
-public class Company {
+public class Companies {
 
     private int id;
     private int image;
-    private String compName, shortDesc, compType;
-    private double rating;
+    private String compId, compName, compType;
 
-    public Company(int id, int logoImage, String compName, String compType, String shortDesc, double rating) {
+    public Companies(int id, int logoImage, String compId, String compName, String compType) {
         this.id = id;
         this.image = logoImage;
+        this.compId = compId;
         this.compName = compName;
-        this.shortDesc = shortDesc;
-        this.rating = rating;
         this.compType = compType;
     }
 
@@ -22,17 +20,13 @@ public class Company {
     public int getImage() {
         return image;
     }
+    public String getCompId() {
+        return compId;
+    }
     public String getCompName() {
         return compName;
     }
     public String getCompType() {
         return compType;
     }
-    public String getShortDesc() {
-        return shortDesc;
-    }
-    public double getRating() {
-        return rating;
-    }
 }
-

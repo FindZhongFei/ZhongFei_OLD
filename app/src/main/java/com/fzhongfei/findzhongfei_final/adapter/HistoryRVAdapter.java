@@ -17,7 +17,6 @@ import java.util.List;
 
 public class HistoryRVAdapter extends RecyclerView.Adapter<HistoryRVAdapter.HistoryViewHolder> {
 
-    private static final String TAG = "HistoryRVAdapter";
     private Context mContext;
     private List<HistoryItem> mHistoryItemList;
 
@@ -37,7 +36,6 @@ public class HistoryRVAdapter extends RecyclerView.Adapter<HistoryRVAdapter.Hist
 
     @Override
     public void onBindViewHolder(@NonNull HistoryViewHolder holder, int position) {
-        Log.d(TAG, "onBindViewHolder: Called...");
         HistoryItem historyitem = mHistoryItemList.get(position);
 
         holder.companyThumbnail.setImageDrawable(mContext.getResources().getDrawable(historyitem.getCompanyThumbnail()));
@@ -52,7 +50,6 @@ public class HistoryRVAdapter extends RecyclerView.Adapter<HistoryRVAdapter.Hist
 
 
     class HistoryViewHolder extends RecyclerView.ViewHolder {
-
         ImageView companyThumbnail;
         TextView txtCompName, txtCompType;
 

@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    android:clickable="true"
+    android:focusable="true"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:card_view="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/sub_interests_card_view_linear"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal">
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_marginTop="10sp"
+        android:layout_marginBottom="20sp"
+        android:layout_marginLeft="10sp"
+        android:layout_marginStart="10sp"
+        android:layout_marginRight="10sp"
+        android:layout_marginEnd="10sp">
+
+        <android.support.v7.widget.CardView
+            xmlns:card_view="http://schemas.android.com/apk/res-auto"
+            android:id="@+id/sub_interests_card_view"
+            android:layout_width="90sp"
+            android:layout_height="90sp"
+            android:elevation="10sp"
+            card_view:cardCornerRadius="45sp"
+            tools:targetApi="lollipop">
+
+            <ImageView
+                android:id="@+id/sub_interests_thumbnail"
+                android:layout_width="90sp"
+                android:layout_height="90sp"
+                android:contentDescription="@string/companyPhoto"
+                android:clickable="true"
+                android:focusable="true"
+                android:scaleType="fitXY"/>
+        </android.support.v7.widget.CardView>
+
+        <TextView
+            android:id="@+id/sub_interests_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ellipsize="end"
+            android:maxEms="12"
+            android:singleLine="true"
+            android:layout_marginTop="5sp"
+            android:textColor="@color/colorBlack"
+            android:gravity="center"
+            android:text="@string/compName"/>
+
+    </LinearLayout>
+
+    <!--<LinearLayout-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:orientation="vertical"-->
+        <!--android:layout_margin="17sp">-->
+
+        <!--<android.support.v7.widget.CardView-->
+            <!--xmlns:card_view="http://schemas.android.com/apk/res-auto"-->
+            <!--android:id="@+id/history_card_view2"-->
+            <!--android:layout_width="90sp"-->
+            <!--android:layout_height="90sp"-->
+            <!--android:elevation="10sp"-->
+            <!--card_view:cardCornerRadius="45sp"-->
+            <!--tools:targetApi="lollipop">-->
+
+            <!--<ImageView-->
+                <!--android:id="@+id/history_company_thumbnail2"-->
+                <!--android:layout_width="190sp"-->
+                <!--android:layout_height="250sp"-->
+                <!--android:contentDescription="@string/companyPhoto"-->
+                <!--android:clickable="true"-->
+                <!--android:focusable="true"-->
+                <!--android:scaleType="fitXY"/>-->
+        <!--</android.support.v7.widget.CardView>-->
+
+        <!--<TextView-->
+            <!--android:id="@+id/history_company_name2"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:ellipsize="end"-->
+            <!--android:maxEms="12"-->
+            <!--android:singleLine="true"-->
+            <!--android:layout_marginTop="5sp"-->
+            <!--android:textColor="@color/colorBlack"-->
+            <!--android:gravity="center"-->
+            <!--android:text="@string/compName"/>-->
+    <!--</LinearLayout>-->
+
+    <!--<LinearLayout-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:orientation="vertical"-->
+        <!--android:layout_margin="17sp">-->
+
+        <!--<android.support.v7.widget.CardView-->
+            <!--xmlns:card_view="http://schemas.android.com/apk/res-auto"-->
+            <!--android:id="@+id/history_card_view3"-->
+            <!--android:layout_width="90sp"-->
+            <!--android:layout_height="90sp"-->
+            <!--android:elevation="10sp"-->
+            <!--card_view:cardCornerRadius="45sp"-->
+            <!--tools:targetApi="lollipop">-->
+
+            <!--<ImageView-->
+                <!--android:id="@+id/history_company_thumbnail3"-->
+                <!--android:layout_width="190sp"-->
+                <!--android:layout_height="250sp"-->
+                <!--android:contentDescription="@string/companyPhoto"-->
+                <!--android:clickable="true"-->
+                <!--android:focusable="true"-->
+                <!--android:scaleType="fitXY"/>-->
+        <!--</android.support.v7.widget.CardView>-->
+
+        <!--<TextView-->
+            <!--android:id="@+id/history_company_name3"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:ellipsize="end"-->
+            <!--android:maxEms="12"-->
+            <!--android:singleLine="true"-->
+            <!--android:layout_marginTop="5sp"-->
+            <!--android:textColor="@color/colorBlack"-->
+            <!--android:gravity="center"-->
+            <!--android:text="@string/compName"/>-->
+    <!--</LinearLayout>-->
+</LinearLayout>

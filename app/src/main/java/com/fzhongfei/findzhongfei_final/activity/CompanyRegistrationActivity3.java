@@ -49,10 +49,8 @@ public class CompanyRegistrationActivity3 extends AppCompatActivity {
     public static ProgressDialog dialog;
     private Button doneRegistrationButton;
     private ScrollView mScrollView;
-    private EditText textScroll;
-    private Spinner compTypeSpinner;
-    private Spinner compSubTypeSpinner;
-    private EditText edtCompType, edtCompSubType, edtWechatId;
+    private Spinner compTypeSpinner, compSubTypeSpinner;
+    private EditText edtCompType, edtCompSubType, edtWechatId, textScroll;
     private LinearLayout hiddenCompTypeLayout, hiddenCompSubTypeLayout;
     private Boolean custom_comp_type = false;
     private Boolean custom_comp_sub_type = false;

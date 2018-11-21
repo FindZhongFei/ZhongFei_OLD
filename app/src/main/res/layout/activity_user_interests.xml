@@ -12,33 +12,33 @@
     <!--layout="@layout/layout_toolbar"/>-->
 
     <!--<LinearLayout-->
-        <!--android:id="@+id/interest_counter_layout"-->
-        <!--android:layout_width="wrap_content"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:orientation="horizontal"-->
-        <!--android:elevation="2sp" -->
-        <!--android:layout_marginEnd="10sp"-->
-        <!--android:layout_marginRight="10sp"-->
-        <!--app:layout_constraintRight_toRightOf="parent"-->
-        <!--app:layout_constraintTop_toTopOf="parent"-->
-        <!--tools:targetApi="lollipop">-->
+    <!--android:id="@+id/interest_counter_layout"-->
+    <!--android:layout_width="wrap_content"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:orientation="horizontal"-->
+    <!--android:elevation="2sp" -->
+    <!--android:layout_marginEnd="10sp"-->
+    <!--android:layout_marginRight="10sp"-->
+    <!--app:layout_constraintRight_toRightOf="parent"-->
+    <!--app:layout_constraintTop_toTopOf="parent"-->
+    <!--tools:targetApi="lollipop">-->
 
-        <!--<TextView-->
-            <!--android:id="@+id/interest_counter"-->
-            <!--android:layout_width="wrap_content"-->
-            <!--android:layout_height="wrap_content"-->
-            <!--android:text="@string/zero"-->
-            <!--android:textSize="20sp"/>-->
+    <!--<TextView-->
+    <!--android:id="@+id/interest_counter"-->
+    <!--android:layout_width="wrap_content"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:text="@string/zero"-->
+    <!--android:textSize="20sp"/>-->
 
-        <!--<TextView-->
-            <!--android:layout_width="wrap_content"-->
-            <!--android:layout_height="wrap_content"-->
-            <!--android:text="/"/>-->
+    <!--<TextView-->
+    <!--android:layout_width="wrap_content"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:text="/"/>-->
 
-        <!--<TextView-->
-            <!--android:layout_width="wrap_content"-->
-            <!--android:layout_height="wrap_content"-->
-            <!--android:text="@string/three"/>-->
+    <!--<TextView-->
+    <!--android:layout_width="wrap_content"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:text="@string/three"/>-->
 
     <!--</LinearLayout>-->
 
@@ -73,15 +73,25 @@
                     android:layout_width="0sp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
+                    android:gravity="center_horizontal"
                     android:orientation="vertical"
                     android:padding="10sp">
 
-                    <TextView
-                        android:id="@+id/image_1_1_interest"
-                        android:layout_width="match_parent"
-                        android:layout_height="120sp"
-                        android:text="Aerospace industry"
-                        android:textColor="@color/transparent"/>
+                    <android.support.v7.widget.CardView
+                        xmlns:card_view="http://schemas.android.com/apk/res-auto"
+                        android:layout_width="90sp"
+                        android:layout_height="90sp"
+                        android:elevation="10sp"
+                        card_view:cardCornerRadius="45sp"
+                        tools:targetApi="lollipop">
+
+                        <TextView
+                            android:id="@+id/image_1_1_interest"
+                            android:layout_width="match_parent"
+                            android:layout_height="90sp"
+                            android:text="Aerospace industry"
+                            android:textColor="@color/transparent"/>
+                    </android.support.v7.widget.CardView>
 
                     <TextView
                         android:layout_width="match_parent"
@@ -97,15 +107,26 @@
                     android:layout_width="0sp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
+                    android:gravity="center_horizontal"
                     android:orientation="vertical"
                     android:padding="10sp">
 
-                    <TextView
-                        android:id="@+id/image_1_2_interest"
-                        android:layout_width="match_parent"
-                        android:layout_height="120sp"
-                        android:text="Agriculture"
-                        android:textColor="@color/transparent"/>
+                    <android.support.v7.widget.CardView
+                        xmlns:card_view="http://schemas.android.com/apk/res-auto"
+                        android:layout_width="90sp"
+                        android:layout_height="90sp"
+                        android:elevation="10sp"
+                        card_view:cardCornerRadius="45sp"
+                        tools:targetApi="lollipop">
+
+                        <TextView
+                            android:id="@+id/image_1_2_interest"
+                            android:layout_width="match_parent"
+                            android:layout_height="90sp"
+                            android:text="Agriculture"
+                            android:textColor="@color/transparent"/>
+
+                    </android.support.v7.widget.CardView>
 
                     <TextView
                         android:layout_width="match_parent"
@@ -121,15 +142,26 @@
                     android:layout_width="0sp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
+                    android:gravity="center_horizontal"
                     android:orientation="vertical"
                     android:padding="10sp">
 
-                    <TextView
-                        android:id="@+id/image_1_3_interest"
-                        android:layout_width="match_parent"
-                        android:layout_height="120sp"
-                        android:text="Chemical industry"
-                        android:textColor="@color/transparent"/>
+                    <android.support.v7.widget.CardView
+                        xmlns:card_view="http://schemas.android.com/apk/res-auto"
+                        android:layout_width="90sp"
+                        android:layout_height="90sp"
+                        android:elevation="10sp"
+                        card_view:cardCornerRadius="45sp"
+                        tools:targetApi="lollipop">
+
+                        <TextView
+                            android:id="@+id/image_1_3_interest"
+                            android:layout_width="match_parent"
+                            android:layout_height="90sp"
+                            android:text="Chemical industry"
+                            android:textColor="@color/transparent"/>
+
+                    </android.support.v7.widget.CardView>
 
                     <TextView
                         android:layout_width="match_parent"
@@ -154,15 +186,26 @@
                     android:layout_width="0sp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
+                    android:gravity="center_horizontal"
                     android:orientation="vertical"
                     android:padding="10sp">
 
-                    <TextView
-                        android:id="@+id/image_2_1_interest"
-                        android:layout_width="match_parent"
-                        android:layout_height="120sp"
-                        android:text="Computer industry"
-                        android:textColor="@color/transparent"/>
+                    <android.support.v7.widget.CardView
+                        xmlns:card_view="http://schemas.android.com/apk/res-auto"
+                        android:layout_width="90sp"
+                        android:layout_height="90sp"
+                        android:elevation="10sp"
+                        card_view:cardCornerRadius="45sp"
+                        tools:targetApi="lollipop">
+
+                        <TextView
+                            android:id="@+id/image_2_1_interest"
+                            android:layout_width="match_parent"
+                            android:layout_height="90sp"
+                            android:text="Computer industry"
+                            android:textColor="@color/transparent"/>
+
+                    </android.support.v7.widget.CardView>
 
                     <TextView
                         android:layout_width="match_parent"
@@ -178,15 +221,26 @@
                     android:layout_width="0sp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
+                    android:gravity="center_horizontal"
                     android:orientation="vertical"
                     android:padding="10sp">
 
-                    <TextView
-                        android:id="@+id/image_2_2_interest"
-                        android:layout_width="match_parent"
-                        android:layout_height="120sp"
-                        android:text="Construction industry"
-                        android:textColor="@color/transparent"/>
+                    <android.support.v7.widget.CardView
+                        xmlns:card_view="http://schemas.android.com/apk/res-auto"
+                        android:layout_width="90sp"
+                        android:layout_height="90sp"
+                        android:elevation="10sp"
+                        card_view:cardCornerRadius="45sp"
+                        tools:targetApi="lollipop">
+
+                        <TextView
+                            android:id="@+id/image_2_2_interest"
+                            android:layout_width="match_parent"
+                            android:layout_height="90sp"
+                            android:text="Construction industry"
+                            android:textColor="@color/transparent"/>
+
+                    </android.support.v7.widget.CardView>
 
                     <TextView
                         android:layout_width="match_parent"
@@ -202,15 +256,26 @@
                     android:layout_width="0sp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
+                    android:gravity="center_horizontal"
                     android:orientation="vertical"
                     android:padding="10sp">
 
-                    <TextView
-                        android:id="@+id/image_2_3_interest"
-                        android:layout_width="match_parent"
-                        android:layout_height="120sp"
-                        android:text="Defense industry"
-                        android:textColor="@color/transparent"/>
+                    <android.support.v7.widget.CardView
+                        xmlns:card_view="http://schemas.android.com/apk/res-auto"
+                        android:layout_width="90sp"
+                        android:layout_height="90sp"
+                        android:elevation="10sp"
+                        card_view:cardCornerRadius="45sp"
+                        tools:targetApi="lollipop">
+
+                        <TextView
+                            android:id="@+id/image_2_3_interest"
+                            android:layout_width="match_parent"
+                            android:layout_height="90sp"
+                            android:text="Defense industry"
+                            android:textColor="@color/transparent"/>
+
+                    </android.support.v7.widget.CardView>
 
                     <TextView
                         android:layout_width="match_parent"
@@ -236,15 +301,26 @@
                     android:layout_width="0sp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
+                    android:gravity="center_horizontal"
                     android:orientation="vertical"
                     android:padding="10sp">
 
-                    <TextView
-                        android:id="@+id/image_3_1_interest"
-                        android:layout_width="match_parent"
-                        android:layout_height="120sp"
-                        android:text="Education industry"
-                        android:textColor="@color/transparent"/>
+                    <android.support.v7.widget.CardView
+                        xmlns:card_view="http://schemas.android.com/apk/res-auto"
+                        android:layout_width="90sp"
+                        android:layout_height="90sp"
+                        android:elevation="10sp"
+                        card_view:cardCornerRadius="45sp"
+                        tools:targetApi="lollipop">
+
+                        <TextView
+                            android:id="@+id/image_3_1_interest"
+                            android:layout_width="match_parent"
+                            android:layout_height="90sp"
+                            android:text="Education industry"
+                            android:textColor="@color/transparent"/>
+
+                    </android.support.v7.widget.CardView>
 
                     <TextView
                         android:layout_width="match_parent"
@@ -260,15 +336,26 @@
                     android:layout_width="0sp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
+                    android:gravity="center_horizontal"
                     android:orientation="vertical"
                     android:padding="10sp">
 
-                    <TextView
-                        android:id="@+id/image_3_2_interest"
-                        android:layout_width="match_parent"
-                        android:layout_height="120sp"
-                        android:text="Energy industry"
-                        android:textColor="@color/transparent"/>
+                    <android.support.v7.widget.CardView
+                        xmlns:card_view="http://schemas.android.com/apk/res-auto"
+                        android:layout_width="90sp"
+                        android:layout_height="90sp"
+                        android:elevation="10sp"
+                        card_view:cardCornerRadius="45sp"
+                        tools:targetApi="lollipop">
+
+                        <TextView
+                            android:id="@+id/image_3_2_interest"
+                            android:layout_width="match_parent"
+                            android:layout_height="90sp"
+                            android:text="Energy industry"
+                            android:textColor="@color/transparent"/>
+
+                    </android.support.v7.widget.CardView>
 
                     <TextView
                         android:layout_width="match_parent"
@@ -284,15 +371,26 @@
                     android:layout_width="0sp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
+                    android:gravity="center_horizontal"
                     android:orientation="vertical"
                     android:padding="10sp">
 
-                    <TextView
-                        android:id="@+id/image_3_3_interest"
-                        android:layout_width="match_parent"
-                        android:layout_height="120sp"
-                        android:text="Entertainment industry"
-                        android:textColor="@color/transparent"/>
+                    <android.support.v7.widget.CardView
+                        xmlns:card_view="http://schemas.android.com/apk/res-auto"
+                        android:layout_width="90sp"
+                        android:layout_height="90sp"
+                        android:elevation="10sp"
+                        card_view:cardCornerRadius="45sp"
+                        tools:targetApi="lollipop">
+
+                        <TextView
+                            android:id="@+id/image_3_3_interest"
+                            android:layout_width="match_parent"
+                            android:layout_height="90sp"
+                            android:text="Entertainment industry"
+                            android:textColor="@color/transparent"/>
+
+                    </android.support.v7.widget.CardView>
 
                     <TextView
                         android:layout_width="match_parent"
@@ -304,6 +402,464 @@
 
                 </LinearLayout>
             </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="20sp"
+                android:baselineAligned="false"
+                android:orientation="horizontal"
+                android:weightSum="3">
+
+                <LinearLayout
+                    android:layout_width="0sp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center_horizontal"
+                    android:orientation="vertical"
+                    android:padding="10sp">
+
+                    <android.support.v7.widget.CardView
+                        xmlns:card_view="http://schemas.android.com/apk/res-auto"
+                        android:layout_width="90sp"
+                        android:layout_height="90sp"
+                        android:elevation="10sp"
+                        card_view:cardCornerRadius="45sp"
+                        tools:targetApi="lollipop">
+
+                        <TextView
+                            android:id="@+id/image_4_1_interest"
+                            android:layout_width="match_parent"
+                            android:layout_height="90sp"
+                            android:text="Financial services industry"
+                            android:textColor="@color/transparent"/>
+
+                    </android.support.v7.widget.CardView>
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center_horizontal"
+                        android:maxEms="12"
+                        android:singleLine="true"
+                        android:text="Financial services industry"/>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="0sp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center_horizontal"
+                    android:orientation="vertical"
+                    android:padding="10sp">
+
+                    <android.support.v7.widget.CardView
+                        xmlns:card_view="http://schemas.android.com/apk/res-auto"
+                        android:layout_width="90sp"
+                        android:layout_height="90sp"
+                        android:elevation="10sp"
+                        card_view:cardCornerRadius="45sp"
+                        tools:targetApi="lollipop">
+
+                        <TextView
+                            android:id="@+id/image_4_2_interest"
+                            android:layout_width="match_parent"
+                            android:layout_height="90sp"
+                            android:text="Food production"
+                            android:textColor="@color/transparent"/>
+
+                    </android.support.v7.widget.CardView>
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center_horizontal"
+                        android:maxEms="12"
+                        android:singleLine="true"
+                        android:text="Food production"/>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="0sp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center_horizontal"
+                    android:orientation="vertical"
+                    android:padding="10sp">
+
+                    <android.support.v7.widget.CardView
+                        xmlns:card_view="http://schemas.android.com/apk/res-auto"
+                        android:layout_width="90sp"
+                        android:layout_height="90sp"
+                        android:elevation="10sp"
+                        card_view:cardCornerRadius="45sp"
+                        tools:targetApi="lollipop">
+
+                        <TextView
+                            android:id="@+id/image_4_3_interest"
+                            android:layout_width="match_parent"
+                            android:layout_height="90sp"
+                            android:text="Health care industry"
+                            android:textColor="@color/transparent"/>
+
+                    </android.support.v7.widget.CardView>
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center_horizontal"
+                        android:maxEms="12"
+                        android:singleLine="true"
+                        android:text="Health care industry"/>
+
+                </LinearLayout>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="20sp"
+                android:baselineAligned="false"
+                android:orientation="horizontal"
+                android:weightSum="3">
+
+                <LinearLayout
+                    android:layout_width="0sp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center_horizontal"
+                    android:orientation="vertical"
+                    android:padding="10sp">
+
+                    <android.support.v7.widget.CardView
+                        xmlns:card_view="http://schemas.android.com/apk/res-auto"
+                        android:layout_width="90sp"
+                        android:layout_height="90sp"
+                        android:elevation="10sp"
+                        card_view:cardCornerRadius="45sp"
+                        tools:targetApi="lollipop">
+
+                        <TextView
+                            android:id="@+id/image_5_1_interest"
+                            android:layout_width="match_parent"
+                            android:layout_height="90sp"
+                            android:text="Hospitality industry"
+                            android:textColor="@color/transparent"/>
+
+                    </android.support.v7.widget.CardView>
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center_horizontal"
+                        android:maxEms="12"
+                        android:singleLine="true"
+                        android:text="Hospitality industry"/>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="0sp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center_horizontal"
+                    android:orientation="vertical"
+                    android:padding="10sp">
+
+                    <android.support.v7.widget.CardView
+                        xmlns:card_view="http://schemas.android.com/apk/res-auto"
+                        android:layout_width="90sp"
+                        android:layout_height="90sp"
+                        android:elevation="10sp"
+                        card_view:cardCornerRadius="45sp"
+                        tools:targetApi="lollipop">
+
+                        <TextView
+                            android:id="@+id/image_5_2_interest"
+                            android:layout_width="match_parent"
+                            android:layout_height="90sp"
+                            android:text="Information industry"
+                            android:textColor="@color/transparent"/>
+
+                    </android.support.v7.widget.CardView>
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center_horizontal"
+                        android:maxEms="12"
+                        android:singleLine="true"
+                        android:text="Information industry"/>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="0sp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center_horizontal"
+                    android:orientation="vertical"
+                    android:padding="10sp">
+
+                    <android.support.v7.widget.CardView
+                        xmlns:card_view="http://schemas.android.com/apk/res-auto"
+                        android:layout_width="90sp"
+                        android:layout_height="90sp"
+                        android:elevation="10sp"
+                        card_view:cardCornerRadius="45sp"
+                        tools:targetApi="lollipop">
+
+                        <TextView
+                            android:id="@+id/image_5_3_interest"
+                            android:layout_width="match_parent"
+                            android:layout_height="90sp"
+                            android:text="Manufacturing"
+                            android:textColor="@color/transparent"/>
+
+                    </android.support.v7.widget.CardView>
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center_horizontal"
+                        android:maxEms="12"
+                        android:singleLine="true"
+                        android:text="Manufacturing"/>
+
+                </LinearLayout>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="20sp"
+                android:baselineAligned="false"
+                android:orientation="horizontal"
+                android:weightSum="3">
+
+                <LinearLayout
+                    android:layout_width="0sp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center_horizontal"
+                    android:orientation="vertical"
+                    android:padding="10sp">
+
+                    <android.support.v7.widget.CardView
+                        xmlns:card_view="http://schemas.android.com/apk/res-auto"
+                        android:layout_width="90sp"
+                        android:layout_height="90sp"
+                        android:elevation="10sp"
+                        card_view:cardCornerRadius="45sp"
+                        tools:targetApi="lollipop">
+
+                        <TextView
+                            android:id="@+id/image_6_1_interest"
+                            android:layout_width="match_parent"
+                            android:layout_height="90sp"
+                            android:text="Mass media"
+                            android:textColor="@color/transparent"/>
+
+                    </android.support.v7.widget.CardView>
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center_horizontal"
+                        android:maxEms="12"
+                        android:singleLine="true"
+                        android:text="Mass media"/>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="0sp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center_horizontal"
+                    android:orientation="vertical"
+                    android:padding="10sp">
+
+                    <android.support.v7.widget.CardView
+                        xmlns:card_view="http://schemas.android.com/apk/res-auto"
+                        android:layout_width="90sp"
+                        android:layout_height="90sp"
+                        android:elevation="10sp"
+                        card_view:cardCornerRadius="45sp"
+                        tools:targetApi="lollipop">
+
+                        <TextView
+                            android:id="@+id/image_6_2_interest"
+                            android:layout_width="match_parent"
+                            android:layout_height="90sp"
+                            android:text="Mining"
+                            android:textColor="@color/transparent"/>
+
+                    </android.support.v7.widget.CardView>
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center_horizontal"
+                        android:maxEms="12"
+                        android:singleLine="true"
+                        android:text="Mining"/>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="0sp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center_horizontal"
+                    android:orientation="vertical"
+                    android:padding="10sp">
+
+                    <android.support.v7.widget.CardView
+                        xmlns:card_view="http://schemas.android.com/apk/res-auto"
+                        android:layout_width="90sp"
+                        android:layout_height="90sp"
+                        android:elevation="10sp"
+                        card_view:cardCornerRadius="45sp"
+                        tools:targetApi="lollipop">
+
+                        <TextView
+                            android:id="@+id/image_6_3_interest"
+                            android:layout_width="match_parent"
+                            android:layout_height="90sp"
+                            android:text="Telecommunications industry"
+                            android:textColor="@color/transparent"/>
+
+                    </android.support.v7.widget.CardView>
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center_horizontal"
+                        android:maxEms="12"
+                        android:singleLine="true"
+                        android:text="Telecommunications industry"/>
+
+                </LinearLayout>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="20sp"
+                android:baselineAligned="false"
+                android:orientation="horizontal"
+                android:weightSum="3">
+
+                <LinearLayout
+                    android:layout_width="0sp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center_horizontal"
+                    android:orientation="vertical"
+                    android:padding="10sp">
+
+                    <android.support.v7.widget.CardView
+                        xmlns:card_view="http://schemas.android.com/apk/res-auto"
+                        android:layout_width="90sp"
+                        android:layout_height="90sp"
+                        android:elevation="10sp"
+                        card_view:cardCornerRadius="45sp"
+                        tools:targetApi="lollipop">
+
+                        <TextView
+                            android:id="@+id/image_7_1_interest"
+                            android:layout_width="match_parent"
+                            android:layout_height="90sp"
+                            android:text="Transport industry"
+                            android:textColor="@color/transparent"/>
+
+                    </android.support.v7.widget.CardView>
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center_horizontal"
+                        android:maxEms="12"
+                        android:singleLine="true"
+                        android:text="Transport industry"/>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="0sp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center_horizontal"
+                    android:orientation="vertical"
+                    android:padding="10sp">
+
+                    <android.support.v7.widget.CardView
+                        xmlns:card_view="http://schemas.android.com/apk/res-auto"
+                        android:layout_width="90sp"
+                        android:layout_height="90sp"
+                        android:elevation="10sp"
+                        card_view:cardCornerRadius="45sp"
+                        tools:targetApi="lollipop">
+
+                        <TextView
+                            android:id="@+id/image_7_2_interest"
+                            android:layout_width="match_parent"
+                            android:layout_height="90sp"
+                            android:text="Water industry"
+                            android:textColor="@color/transparent"/>
+
+                    </android.support.v7.widget.CardView>
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center_horizontal"
+                        android:maxEms="12"
+                        android:singleLine="true"
+                        android:text="Water industry"/>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="0sp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center_horizontal"
+                    android:orientation="vertical"
+                    android:padding="10sp">
+
+                    <android.support.v7.widget.CardView
+                        xmlns:card_view="http://schemas.android.com/apk/res-auto"
+                        android:layout_width="90sp"
+                        android:layout_height="90sp"
+                        android:elevation="10sp"
+                        card_view:cardCornerRadius="45sp"
+                        tools:targetApi="lollipop">
+
+                        <TextView
+                            android:id="@+id/image_7_3_interest"
+                            android:layout_width="match_parent"
+                            android:layout_height="90sp"
+                            android:text="Direct Selling industry"
+                            android:textColor="@color/transparent"/>
+
+                    </android.support.v7.widget.CardView>
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center_horizontal"
+                        android:maxEms="12"
+                        android:singleLine="true"
+                        android:text="Direct Selling industry"/>
+
+                </LinearLayout>
+            </LinearLayout>
+
+
         </LinearLayout>
     </ScrollView>
 

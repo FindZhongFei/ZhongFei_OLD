@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_gravity="center"
+    android:clipToPadding="false"
+    android:outlineProvider="bounds"
+    android:padding="40sp">
+
+    <android.support.v7.widget.CardView
+        android:id="@+id/companies_main_card_view"
+        android:layout_width="350sp"
+        android:layout_height="420sp"
+        android:layout_marginTop="-30sp"
+        android:layout_gravity="center_horizontal"
+        android:elevation="3sp"
+        app:cardCornerRadius="10sp">
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:paddingLeft="5sp"
+            android:paddingStart="5sp"
+            android:paddingRight="5sp"
+            android:paddingEnd="5sp"
+            android:paddingTop="5sp"
+            android:layout_height="match_parent">
+
+            <ImageView
+                android:layout_gravity="center|top"
+                android:id="@+id/company_images"
+                android:layout_width="match_parent"
+                android:layout_height="360sp"
+                android:src="@drawable/image_placeholder"
+                android:contentDescription="@string/companyPhoto"/>
+
+            <TextView
+                android:id="@+id/company_names"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom"
+                android:textColor="@android:color/black"
+                android:textSize="20sp"
+                android:layout_marginBottom="30sp"
+                android:singleLine="true"
+                tools:text="@string/next"/>
+
+            <TextView
+                android:id="@+id/company_types"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom"
+                android:textColor="@color/colorLightBlack"
+                android:textSize="17sp"
+                android:layout_marginBottom="10sp"
+                tools:text="@string/next"/>
+
+            <!--<View-->
+                <!--android:id="@+id/item_swipe_left_indicator"-->
+                <!--android:layout_width="20dp"-->
+                <!--android:layout_height="20dp"-->
+                <!--android:layout_margin="10dp"-->
+                <!--android:alpha="0"-->
+                <!--android:background="#A5F"/>-->
+
+            <!--<View-->
+                <!--android:id="@+id/item_swipe_right_indicator"-->
+                <!--android:layout_width="20dp"-->
+                <!--android:layout_height="20dp"-->
+                <!--android:layout_gravity="right"-->
+                <!--android:layout_margin="10dp"-->
+                <!--android:alpha="0"-->
+                <!--android:background="#5AF"/>-->
+
+        </FrameLayout>
+    </android.support.v7.widget.CardView>
+</FrameLayout>

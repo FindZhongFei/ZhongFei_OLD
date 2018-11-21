@@ -1,41 +1,40 @@
 package com.fzhongfei.findzhongfei_final.activity;
 
 import android.content.Context;
-import android.graphics.drawable.Drawable;
-import android.os.Build;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
-import android.widget.TextView;
-import android.widget.Toast;
 
 import com.fzhongfei.findzhongfei_final.R;
+import com.fzhongfei.findzhongfei_final.adapter.SubInterestsAdapter;
+import com.fzhongfei.findzhongfei_final.model.SubInterestItem;
 import com.fzhongfei.findzhongfei_final.model.UserProfile;
 import com.fzhongfei.findzhongfei_final.server.callBackImplement;
 import com.fzhongfei.findzhongfei_final.server.customStringRequest;
 
-import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.List;
 
-public class UserInterestsSubTypeActivity extends AppCompatActivity implements View.OnClickListener {
+public class UserInterestsSubTypeActivity extends AppCompatActivity {
 
     // EVERY ACTIVITY SETUP
     private static final String TAG = "UserInterestsSubTypeAct";
     Context mContext = UserInterestsSubTypeActivity.this;
 
     // VIEWS
+    List<SubInterestItem> mSubInterestsList;
 
     // VARIABLES
     ArrayList<String> interests = new ArrayList<>();
-    ArrayList<String> subInterests = new ArrayList<>();
+    public static ArrayList<String> subInterests = new ArrayList<>();
 
     UserProfile mUserProfile;
 
@@ -49,45 +48,27 @@ public class UserInterestsSubTypeActivity extends AppCompatActivity implements V
         mUserProfile = new UserProfile(mContext);
         mUserProfile.setPropertiesFromSharePreference(mContext);
 
-        TextView mImage1_1, mImage1_2, mImage1_3,
-                mImage2_1, mImage2_2, mImage2_3,
-                mImage3_1, mImage3_2, mImage3_3;
         Button submitButton;
 
         // INITIALIZING VIEWS
-        mImage1_1 = findViewById(R.id.image_1_1_interest);
-        mImage1_2 = findViewById(R.id.image_1_2_interest);
-        mImage1_3 = findViewById(R.id.image_1_3_interest);
-        mImage2_1 = findViewById(R.id.image_2_1_interest);
-        mImage2_2 = findViewById(R.id.image_2_2_interest);
-        mImage2_3 = findViewById(R.id.image_2_3_interest);
-        mImage3_1 = findViewById(R.id.image_3_1_interest);
-        mImage3_2 = findViewById(R.id.image_3_2_interest);
-        mImage3_3 = findViewById(R.id.image_3_3_interest);
-        submitButton = findViewById(R.id.user_interests_submit_button);
+        mSubInterestsList = new ArrayList<>();
 
-        mImage1_1.setOnClickListener(this);
-        mImage1_2.setOnClickListener(this);
-        mImage1_3.setOnClickListener(this);
-        mImage2_1.setOnClickListener(this);
-        mImage2_2.setOnClickListener(this);
-        mImage2_3.setOnClickListener(this);
-        mImage3_1.setOnClickListener(this);
-        mImage3_2.setOnClickListener(this);
-        mImage3_3.setOnClickListener(this);
-
-        mImage1_1.setCompoundDrawablesWithIntrinsicBounds(getResources().getDrawable(R.drawable.img_wall_12), null, null, null);
-        mImage1_2.setCompoundDrawablesWithIntrinsicBounds(getResources().getDrawable(R.drawable.img_wall_12), null, null, null);
-        mImage1_3.setCompoundDrawablesWithIntrinsicBounds(getResources().getDrawable(R.drawable.img_wall_12), null, null, null);
-        mImage2_1.setCompoundDrawablesWithIntrinsicBounds(getResources().getDrawable(R.drawable.img_wall_12), null, null, null);
-        mImage2_2.setCompoundDrawablesWithIntrinsicBounds(getResources().getDrawable(R.drawable.img_wall_12), null, null, null);
-        mImage2_3.setCompoundDrawablesWithIntrinsicBounds(getResources().getDrawable(R.drawable.img_wall_12), null, null, null);
-        mImage3_1.setCompoundDrawablesWithIntrinsicBounds(getResources().getDrawable(R.drawable.img_wall_12), null, null, null);
-        mImage3_2.setCompoundDrawablesWithIntrinsicBounds(getResources().getDrawable(R.drawable.img_wall_12), null, null, null);
-        mImage3_3.setCompoundDrawablesWithIntrinsicBounds(getResources().getDrawable(R.drawable.img_wall_12), null, null, null);
+        submitButton = findViewById(R.id.user_sub_interests_submit_button);
 
         // ACTIVITY STUFF
         interests = getIntent().getStringArrayListExtra("user_interests");
+
+        for(int i = 0; i < interests.size(); i++)
+        {
+            for(int j = 0; j < interestsHas(interests.get(i)).length; j++)
+            {
+                mSubInterestsList.add(new SubInterestItem(interestsHas(interests.get(i))[j].toString(), R.drawable.img_wall_1));
+            }
+        }
+        RecyclerView mRecyclerView = findViewById(R.id.recycler_view_sub_interests);
+        SubInterestsAdapter mAdapter = new SubInterestsAdapter(this, mSubInterestsList);
+        mRecyclerView.setLayoutManager(new GridLayoutManager(this, 3));
+        mRecyclerView.setAdapter(mAdapter);
 
         submitButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -97,26 +78,75 @@ public class UserInterestsSubTypeActivity extends AppCompatActivity implements V
         });
     }
 
-    @Override
-    public void onClick(View v) {
-        Drawable clickedImage = getResources().getDrawable(R.drawable.background_highlight_image);
-        TextView textViewValue = (TextView) v;
+    private String[] interestsHas(String subInterest)
+    {
+        switch (subInterest)
+        {
+            case "Aerospace industry":
+                return new String[] {"Aerospace industry"};
 
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            if(textViewValue.getForeground() == null)
-            {
-//                textViewValue.setBackground(new ColorDrawable(mContext.getColor(R.color.colorGreen)));
-                textViewValue.setHighlightColor(getColor(R.color.colorGreen));
-                textViewValue.setForeground(clickedImage);
+            case "Agriculture":
+                return new String[]{"Fishing industry", "Timber industry", "Tobacco industry"};
 
-                String imageText = textViewValue.getText().toString();
-                subInterests.add(imageText);
-            }
-            else if(textViewValue.getForeground() != null)
-            {
-                subInterests.remove(textViewValue.getText().toString());
-                textViewValue.setForeground(null);
-            }
+            case "Chemical industry":
+                return new String[] {"Pharmaceutical industry"};
+
+            case "Computer industry":
+                return new String[]{"Software industry"};
+
+            case "Construction industry":
+                return new String[]{"Construction industry"};
+
+            case "Defense industry":
+                return new String[]{"Arms industry"};
+
+            case "Education industry":
+                return new String[]{"Education industry"};
+
+            case "Energy industry":
+                return new String[] {"Petroleum industry", "Electrical power industry"};
+
+            case "Entertainment industry":
+                return new String[]{"Entertainment industry"};
+
+            case "Financial services industry":
+                return new String[]{"Insurance industry"};
+
+            case "Food production":
+                return new String[]{"Fruit industry"};
+
+            case "Health care industry":
+                return new String[]{"Health care industry"};
+
+            case "Hospitality industry":
+                return new String[]{"Hospitality industry"};
+
+            case "Information industry":
+                return new String[]{"Information industry"};
+
+            case "Manufacturing":
+                return new String[]{"Automotive industry", "Electronics industry", "Pulp and paper industry", "Steel industry", "Shipbuilding industry"};
+
+            case "Mass media":
+                return new String[]{"Broadcasting", "Film industry", "Music industry", "News media", "Publishing", "World Wide Web"};
+
+            case "Mining":
+                return new String[]{"Mining"};
+
+            case "Telecommunications industry":
+                return new String[]{"Internet"};
+
+            case "Transport industry":
+                return new String[]{"Transport industry"};
+
+            case "Water industry":
+                return new String[]{"Water industry"};
+
+            case "Direct Selling industry":
+                return new String[]{"Direct Selling industry"};
+
+            default:
+                return new String[]{"Other"};
         }
     }
 
@@ -125,7 +155,7 @@ public class UserInterestsSubTypeActivity extends AppCompatActivity implements V
         switch (subInterest)
         {
             case "Aerospace industry":
-                return "Aerospace industry";
+                return "Aerospace industry | ";
 
             case "Fishing industry":
             case "Timber industry":
@@ -205,8 +235,8 @@ public class UserInterestsSubTypeActivity extends AppCompatActivity implements V
     }
 
     // SUBMIT SUB INTERESTS
-    private void submitUserInterests() {
-        JSONArray interestsJsonArray = new JSONArray(interests);
+    private void submitUserInterests()
+    {
         JSONObject subInterestsJsonObject = new JSONObject();
 
         customStringRequest registerRequest = new customStringRequest("user/interests.php");
@@ -215,74 +245,64 @@ public class UserInterestsSubTypeActivity extends AppCompatActivity implements V
 
         Params.put("action", "user_interests");
         Params.put("user_token", mUserProfile.getUserToken());
-        String strInterest = "";
-        String strSubInterest = "";
-        ArrayList<String> belongsToInterest = new ArrayList<>();
 
-//        for(int i = 0; i < interests.size(); i++)
-//        {
-//            try
-//            {
-////                Params.put("user_interests[]", interestsJsonArray.get(i).toString());
-//                if(strInterest.isEmpty())
-//                    strInterest.concat(interestsJsonArray.get(i).toString());
-//                else
-//                    strInterest.concat(", " + interestsJsonArray.get(i).toString());
-//            }
-//            catch (JSONException e)
-//            {
-//                e.printStackTrace();
-//            }
-//        }
+        ArrayList<String> belongsToInterest = new ArrayList<>();
         for(int i = 0; i < subInterests.size(); i++)
         {
             String interest = belongsTo(subInterests.get(i));
 
-            try {
+            try
+            {
                 if(!belongsToInterest.contains(interest) )
                 {
-                    Log.d(TAG, "submitUserInterests: NEW INTEREST: "+interest);
-                    Log.d(TAG, "submitUserInterests: ADD SUBINTEREST: "+subInterests.get(i));
+                    Log.d(TAG, "submitUserInterests: NEW INTEREST: " + interest);
+                    Log.d(TAG, "submitUserInterests: ADD SUBINTEREST: " + subInterests.get(i));
                     subInterestsJsonObject.put(interest, subInterests.get(i));
                     belongsToInterest.add(interest);
                 }
                 else
                 {
                     String existingInterest = subInterestsJsonObject.get(interest).toString();
-                    Log.d(TAG, "submitUserInterests: EXISTING INTEREST: "+interest+" containing: "+existingInterest);
-                    Log.d(TAG, "submitUserInterests: ADD SUBINTEREST: "+subInterests.get(i));
-                    subInterestsJsonObject.put(interest,existingInterest+"|"+subInterests.get(i) );
-//                    belongsToInterest.add(interest);
+                    Log.d(TAG, "submitUserInterests: EXISTING INTEREST: " + interest + " containing: " + existingInterest);
+                    Log.d(TAG, "submitUserInterests: ADD SUBINTEREST: " + subInterests.get(i));
+                    subInterestsJsonObject.put(interest,existingInterest + " | " + subInterests.get(i) );
                 }
 
-            } catch (JSONException e) {
+            }
+            catch (JSONException e)
+            {
                 e.printStackTrace();
             }
 
         }
-        Log.d(TAG, "submitUserInterests: subinterest:: "+subInterestsJsonObject);
-        Log.d(TAG, "submitUserInterests: belongtointerst:: "+belongsToInterest);
-        int interestCounter =0;
+        Log.d(TAG, "submitUserInterests: subInterest:: " + subInterestsJsonObject);
+        Log.d(TAG, "submitUserInterests: belongToInterest:: " + belongsToInterest);
+
+        int interestCounter = 0;
         int sizeOfInterest = belongsToInterest.size();
         String interestKey = "";
         String interestValue = "";
         String tempValue = "";
+
         while(interestCounter < sizeOfInterest)
         {
             interestKey = belongsToInterest.get(interestCounter);
-            try {
+            try
+            {
                 if(interestValue.isEmpty())
                 {
                     interestValue = interestKey + subInterestsJsonObject.getString(interestKey);
-                    Log.d(TAG, "submitUserInterests: Initial value: "+interestKey+" to GET: " +interestValue);
+                    Log.d(TAG, "submitUserInterests: Initial value: " + interestKey + " to GET: " + interestValue);
                 }
                 else
                 {
                     tempValue = interestValue;
-                    interestValue = tempValue+","+interestKey+ subInterestsJsonObject.getString(interestKey);
-                    Log.d(TAG, "submitUserInterests: after init value: "+interestKey+" to GET: " +interestValue);
+                    interestValue = tempValue + ", " + interestKey + subInterestsJsonObject.getString(interestKey);
+                    Log.d(TAG, "submitUserInterests: after init value: " + interestKey + " to GET: " + interestValue);
                 }
-            } catch (JSONException e) {
+            }
+            catch (JSONException e)
+            {
                 e.printStackTrace();
                 //TO DO: catching the try and catch in well format for the user to get relevant error
                 //TO DO: logging errors
@@ -291,11 +311,8 @@ public class UserInterestsSubTypeActivity extends AppCompatActivity implements V
         }
 
         Params.put("user_interests",  interestValue);
-        Log.d(TAG, "submitUserInterests: THE INTEREST IS: "+interestValue);
-//        Params.put("user_subInterests", strSubInterest);
+        Log.d(TAG, "submitUserInterests: THE INTEREST IS: " + interestValue);
         registerRequest.setParams(Params);
-
-//        Toast.makeText(mContext, belongsToInterest.toString(), Toast.LENGTH_LONG).show();
 
         callBackImplement callBack = new callBackImplement(mContext);
         callBack.setParams(Params);

@@ -16,8 +16,9 @@ import android.view.Window;
 import android.view.WindowManager;
 
 import com.fzhongfei.findzhongfei_final.R;
-import com.fzhongfei.findzhongfei_final.adapter.CompanyAdapter;
-import com.fzhongfei.findzhongfei_final.model.Company;
+import com.fzhongfei.findzhongfei_final.adapter.FavoriteCompanyAdapter;
+import com.fzhongfei.findzhongfei_final.model.FavoriteCompany;
+import com.fzhongfei.findzhongfei_final.model.CompanyProfile;
 import com.fzhongfei.findzhongfei_final.utils.BottomNavigationViewHelper;
 
 import java.util.ArrayList;
@@ -34,8 +35,8 @@ public class FavoritesActivity extends AppCompatActivity {
     // VIEWS
     RecyclerView mRecyclerView;
 
-    CompanyAdapter mAdapter;
-    List<Company> mCompanyList;
+    FavoriteCompanyAdapter mAdapter;
+    List<FavoriteCompany> mFavoriteCompanyList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -81,61 +82,19 @@ public class FavoritesActivity extends AppCompatActivity {
 
     // UI - SETTING UP FAVORITES
     private void setupRecyclerView() {
-        mCompanyList = new ArrayList<>();
+        mFavoriteCompanyList = new ArrayList<>();
         mRecyclerView = findViewById(R.id.favRV);
         mRecyclerView.setHasFixedSize(true);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(mContext));
 
-        mCompanyList.add(new Company(1,
-                R.drawable.img_wall_10,
+        mFavoriteCompanyList.add(new FavoriteCompany(1,
+                R.drawable.img_wall_10, new CompanyProfile(mContext).getCompanyId(),
                 getString(R.string.universityNameValue),
                 getString(R.string.university),
                 getString(R.string.universityDescValue),
                 Integer.parseInt(getString(R.string.three))));
 
-        mCompanyList.add(new Company(1,
-                R.drawable.img_wall_14,
-                getString(R.string.universityNameValue),
-                getString(R.string.university),
-                getString(R.string.universityDescValue),
-                Integer.parseInt(getString(R.string.three))));
-
-        mCompanyList.add(new Company(1,
-                R.drawable.img_wall_9,
-                getString(R.string.universityNameValue),
-                getString(R.string.university),
-                getString(R.string.universityDescValue),
-                Integer.parseInt(getString(R.string.three))));
-
-        mCompanyList.add(new Company(1,
-                R.drawable.img_wall_15,
-                getString(R.string.universityNameValue),
-                getString(R.string.university),
-                getString(R.string.universityDescValue),
-                Integer.parseInt(getString(R.string.three))));
-
-        mCompanyList.add(new Company(1,
-                R.drawable.img_wall_2,
-                getString(R.string.universityNameValue),
-                getString(R.string.university),
-                getString(R.string.universityDescValue),
-                Integer.parseInt(getString(R.string.three))));
-
-        mCompanyList.add(new Company(1,
-                R.drawable.img_wall_3,
-                getString(R.string.universityNameValue),
-                getString(R.string.university),
-                getString(R.string.universityDescValue),
-                Integer.parseInt(getString(R.string.three))));
-
-        mCompanyList.add(new Company(1,
-                R.drawable.img_wall_12,
-                getString(R.string.universityNameValue),
-                getString(R.string.university),
-                getString(R.string.universityDescValue),
-                Integer.parseInt(getString(R.string.three))));
-
-        mAdapter = new CompanyAdapter(mContext, mCompanyList);
+        mAdapter = new FavoriteCompanyAdapter(mContext, mFavoriteCompanyList);
         mRecyclerView.setAdapter(mAdapter);
     }
 

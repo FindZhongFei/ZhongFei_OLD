@@ -64,6 +64,10 @@ public class callBackImplement implements serverCallBack {
                     Toast.makeText(this.context, "Request type null", Toast.LENGTH_LONG).show();
                     //TO DO: SHOW ERROR DIVISION NOT TOAST
                 }
+                else if(requestType.equals("requestCompanies"))
+                {
+
+                }
                 else if(requestType.equals("comp_registration"))
                 {
                     String companyToken = result.get("comp_token").toString();
@@ -142,7 +146,7 @@ public class callBackImplement implements serverCallBack {
                 {
                     CompanyProfile companyProfile = new CompanyProfile(this.context);
                     companyProfile.setCompanyLogo(this.context, result.get("imageFile").toString());
-                    Log.d(TAG, "onSuccess: Company Logo from result " + companyProfile.getCompanyLogo());
+                    Log.d(TAG, "onSuccess: FavoriteCompany Logo from result " + companyProfile.getCompanyLogo());
                     byte[] decodedLogo = Base64.decode(result.get("imageFile").toString(), Base64.DEFAULT);
 
 //                    CompanyProfileActivity.setCompanyLogo(BitmapFactory.decodeByteArray(decodedLogo, 0, decodedLogo.length));
@@ -204,8 +208,6 @@ public class callBackImplement implements serverCallBack {
 //                    UserProfileActivity.profilePicture.setImageBitmap(BitmapFactory.decodeByteArray(decodedLogo, 0, decodedLogo.length));
                     //TO DO: LOGO HASH AND VERIFYING LOGO
                 }
-
-
 //                UPDATING FIELDS
                 else if(requestType.equals("updateCompanyInfo"))
                 {
@@ -219,7 +221,6 @@ public class callBackImplement implements serverCallBack {
                     userProfile.setAbstractField(this.context, result.getString("fieldName"), result.getString("fieldValue"));
                     fieldTextView.setText(result.getString("fieldValue"));
                 }
-
 //                USER INTERESTS
                 else if(requestType.equals("user_interests"))
                 {

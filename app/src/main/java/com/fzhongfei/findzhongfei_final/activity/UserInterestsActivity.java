@@ -14,11 +14,8 @@ import android.widget.Toast;
 
 import com.fzhongfei.findzhongfei_final.R;
 import com.fzhongfei.findzhongfei_final.model.UserProfile;
-import com.fzhongfei.findzhongfei_final.server.callBackImplement;
-import com.fzhongfei.findzhongfei_final.server.customStringRequest;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 
 public class UserInterestsActivity extends AppCompatActivity implements View.OnClickListener {
 
@@ -47,7 +44,11 @@ public class UserInterestsActivity extends AppCompatActivity implements View.OnC
 
         TextView    mImage1_1, mImage1_2, mImage1_3,
                     mImage2_1, mImage2_2, mImage2_3,
-                    mImage3_1, mImage3_2, mImage3_3;
+                    mImage3_1, mImage3_2, mImage3_3,
+                    mImage4_1, mImage4_2, mImage4_3,
+                    mImage5_1, mImage5_2, mImage5_3,
+                    mImage6_1, mImage6_2, mImage6_3,
+                    mImage7_1, mImage7_2, mImage7_3;
 
         // INITIALIZING VIEWS
 //        interest_counter = findViewById(R.id.interest_counter);
@@ -60,6 +61,21 @@ public class UserInterestsActivity extends AppCompatActivity implements View.OnC
         mImage3_1 = findViewById(R.id.image_3_1_interest);
         mImage3_2 = findViewById(R.id.image_3_2_interest);
         mImage3_3 = findViewById(R.id.image_3_3_interest);
+        mImage4_1 = findViewById(R.id.image_4_1_interest);
+        mImage4_2 = findViewById(R.id.image_4_2_interest);
+        mImage4_3 = findViewById(R.id.image_4_3_interest);
+        mImage5_1 = findViewById(R.id.image_5_1_interest);
+        mImage5_2 = findViewById(R.id.image_5_2_interest);
+        mImage5_3 = findViewById(R.id.image_5_3_interest);
+        mImage5_1 = findViewById(R.id.image_5_1_interest);
+        mImage5_2 = findViewById(R.id.image_5_2_interest);
+        mImage5_3 = findViewById(R.id.image_5_3_interest);
+        mImage6_1 = findViewById(R.id.image_6_1_interest);
+        mImage6_2 = findViewById(R.id.image_6_2_interest);
+        mImage6_3 = findViewById(R.id.image_6_3_interest);
+        mImage7_1 = findViewById(R.id.image_7_1_interest);
+        mImage7_2 = findViewById(R.id.image_7_2_interest);
+        mImage7_3 = findViewById(R.id.image_7_3_interest);
         submitButton = findViewById(R.id.user_interests_submit_button);
 
         mImage1_1.setOnClickListener(this);
@@ -71,6 +87,18 @@ public class UserInterestsActivity extends AppCompatActivity implements View.OnC
         mImage3_1.setOnClickListener(this);
         mImage3_2.setOnClickListener(this);
         mImage3_3.setOnClickListener(this);
+        mImage4_1.setOnClickListener(this);
+        mImage4_2.setOnClickListener(this);
+        mImage4_3.setOnClickListener(this);
+        mImage5_1.setOnClickListener(this);
+        mImage5_2.setOnClickListener(this);
+        mImage5_3.setOnClickListener(this);
+        mImage6_1.setOnClickListener(this);
+        mImage6_2.setOnClickListener(this);
+        mImage6_3.setOnClickListener(this);
+        mImage7_1.setOnClickListener(this);
+        mImage7_2.setOnClickListener(this);
+        mImage7_3.setOnClickListener(this);
 
         mImage1_1.setCompoundDrawablesWithIntrinsicBounds(getResources().getDrawable(R.drawable.img_wall_12), null, null, null);
         mImage1_2.setCompoundDrawablesWithIntrinsicBounds(getResources().getDrawable(R.drawable.img_wall_12), null, null, null);
@@ -81,6 +109,18 @@ public class UserInterestsActivity extends AppCompatActivity implements View.OnC
         mImage3_1.setCompoundDrawablesWithIntrinsicBounds(getResources().getDrawable(R.drawable.img_wall_12), null, null, null);
         mImage3_2.setCompoundDrawablesWithIntrinsicBounds(getResources().getDrawable(R.drawable.img_wall_12), null, null, null);
         mImage3_3.setCompoundDrawablesWithIntrinsicBounds(getResources().getDrawable(R.drawable.img_wall_12), null, null, null);
+        mImage4_1.setCompoundDrawablesWithIntrinsicBounds(getResources().getDrawable(R.drawable.img_wall_12), null, null, null);
+        mImage4_2.setCompoundDrawablesWithIntrinsicBounds(getResources().getDrawable(R.drawable.img_wall_12), null, null, null);
+        mImage4_3.setCompoundDrawablesWithIntrinsicBounds(getResources().getDrawable(R.drawable.img_wall_12), null, null, null);
+        mImage5_1.setCompoundDrawablesWithIntrinsicBounds(getResources().getDrawable(R.drawable.img_wall_12), null, null, null);
+        mImage5_2.setCompoundDrawablesWithIntrinsicBounds(getResources().getDrawable(R.drawable.img_wall_12), null, null, null);
+        mImage5_3.setCompoundDrawablesWithIntrinsicBounds(getResources().getDrawable(R.drawable.img_wall_12), null, null, null);
+        mImage6_1.setCompoundDrawablesWithIntrinsicBounds(getResources().getDrawable(R.drawable.img_wall_12), null, null, null);
+        mImage6_2.setCompoundDrawablesWithIntrinsicBounds(getResources().getDrawable(R.drawable.img_wall_12), null, null, null);
+        mImage6_3.setCompoundDrawablesWithIntrinsicBounds(getResources().getDrawable(R.drawable.img_wall_12), null, null, null);
+        mImage7_1.setCompoundDrawablesWithIntrinsicBounds(getResources().getDrawable(R.drawable.img_wall_12), null, null, null);
+        mImage7_2.setCompoundDrawablesWithIntrinsicBounds(getResources().getDrawable(R.drawable.img_wall_12), null, null, null);
+        mImage7_3.setCompoundDrawablesWithIntrinsicBounds(getResources().getDrawable(R.drawable.img_wall_12), null, null, null);
 
         submitButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -145,25 +185,6 @@ public class UserInterestsActivity extends AppCompatActivity implements View.OnC
 
     // SUBMIT INTERESTS
     private void submitUserInterests(ArrayList<String> interests) {
-        Intent intent = new Intent(mContext, UserInterestsSubTypeActivity.class);
-        intent.putStringArrayListExtra("user_interests", interests);
-        startActivity(intent);
-
-//        customStringRequest registerRequest = new customStringRequest("user/interests.php");
-//
-//        HashMap<String, String> Params = new HashMap<>();
-//
-//        Params.put("action", "user_interests");
-//        Params.put("user_token", mUserProfile.getUserToken());
-//        for(int i = 0; i < interests.size(); i++)
-//        {
-//            Params.put("user_interests", interests.toString());
-//        }
-//        registerRequest.setParams(Params);
-//
-//        callBackImplement callBack = new callBackImplement(mContext);
-//        callBack.setParams(Params);
-//        callBack.SetRequestType("user_interests");
-//        registerRequest.startConnection(mContext, callBack, Params);
+        startActivity(new Intent(mContext, UserInterestsSubTypeActivity.class).putStringArrayListExtra("user_interests", interests));
     }
 }
