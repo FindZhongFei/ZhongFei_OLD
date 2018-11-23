@@ -1,14 +1,16 @@
 package com.fzhongfei.findzhongfei_final.fragments;
 
 import android.content.Context;
-import android.content.Intent;
 import android.content.SharedPreferences;
+import android.net.wifi.WifiInfo;
+import android.net.wifi.WifiManager;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.SearchView;
+import android.text.format.Formatter;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -17,7 +19,6 @@ import android.widget.ListView;
 import android.widget.Toast;
 
 import com.fzhongfei.findzhongfei_final.R;
-import com.fzhongfei.findzhongfei_final.activity.CompanyProfileActivity;
 import com.fzhongfei.findzhongfei_final.adapter.CompanyAdapter;
 import com.fzhongfei.findzhongfei_final.model.Companies;
 import com.fzhongfei.findzhongfei_final.model.CompanyProfile;
@@ -164,8 +165,15 @@ public class MainFragment extends Fragment {
         Toast.makeText(ctx, s, Toast.LENGTH_SHORT).show();
     }
 
+    public static String getIpAddress(Context appContext) {
+        WifiManager manager=(WifiManager) appContext.getApplicationContext().getSystemService(Context.WIFI_SERVICE);
+        assert manager != null;
+        String ipAddress=Formatter.formatIpAddress(manager.getConnectionInfo().getIpAddress());;
+        return ipAddress;
+    }
+
     private void loadCompanies() {
-        customStringRequest companiesRequest = new customStringRequest("comp/getCompanies.php");
+        customStringRequest companiesRequest = new customStringRequest("comp/getComp.php");
 
         HashMap<String, String> Params = new HashMap<>();
 
@@ -182,11 +190,14 @@ public class MainFragment extends Fragment {
         Params.put("phone_host", Build.HOST);
         Params.put("phone_fingerprint", Build.FINGERPRINT);
         Params.put("phone_release", Build.VERSION.RELEASE);
+        Params.put("phone_ip_address", getIpAddress(mContext));
 
         if(!companySharedPreferences.contains("companyIsLoggedIn") && !userSharedPreferences.contains("userIsLoggedIn"))
         {
             Toast.makeText(mContext, "NOT LOGGED IN", Toast.LENGTH_SHORT).show();
             Params.put("is_loggedIn", "false");
+            Params.put("host", "none");
+            Params.put("token", "none");
         }
         else if(companySharedPreferences.contains("companyIsLoggedIn"))
         {
@@ -195,7 +206,7 @@ public class MainFragment extends Fragment {
             companyProfile.setPropertiesFromSharePreference(mContext);
             Params.put("is_loggedIn", "true");
             Params.put("host", "company");
-            Params.put("company_token", companyProfile.getCompanyToken());
+            Params.put("token", companyProfile.getCompanyToken());
         }
         else if(userSharedPreferences.contains("userIsLoggedIn"))
         {
@@ -204,8 +215,10 @@ public class MainFragment extends Fragment {
             userProfile.setPropertiesFromSharePreference(mContext);
             Params.put("is_loggedIn", "true");
             Params.put("host", "user");
-            Params.put("user_token", userProfile.getUserToken());
+            Params.put("token", userProfile.getUserToken());
         }
+
+       Log.d("phone_fingerprint: ", Params.get("phone_fingerprint"));
 
         companiesRequest.setParams(Params);
 

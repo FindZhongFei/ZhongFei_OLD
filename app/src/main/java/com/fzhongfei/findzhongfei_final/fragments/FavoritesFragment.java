@@ -60,54 +60,54 @@ public class FavoritesFragment extends Fragment {
         mRecyclerView.setLayoutManager(new LinearLayoutManager(mContext));
         mRecyclerView.setItemAnimator(new DefaultItemAnimator());
 
-        mFavoriteCompanyList.add(new FavoriteCompany(1,
-                R.drawable.img_wall_10, compId,
-                getString(R.string.universityNameValue),
-                getString(R.string.university),
-                getString(R.string.universityDescValue),
-                Integer.parseInt(getString(R.string.three))));
-
-        mFavoriteCompanyList.add(new FavoriteCompany(1,
-                R.drawable.img_wall_14, compId,
-                getString(R.string.universityNameValue),
-                getString(R.string.university),
-                getString(R.string.universityDescValue),
-                Integer.parseInt(getString(R.string.three))));
-
-        mFavoriteCompanyList.add(new FavoriteCompany(1,
-                R.drawable.img_wall_9, compId,
-                getString(R.string.universityNameValue),
-                getString(R.string.university),
-                getString(R.string.universityDescValue),
-                Integer.parseInt(getString(R.string.three))));
-
-        mFavoriteCompanyList.add(new FavoriteCompany(1,
-                R.drawable.img_wall_15, compId,
-                getString(R.string.universityNameValue),
-                getString(R.string.university),
-                getString(R.string.universityDescValue),
-                Integer.parseInt(getString(R.string.three))));
-
-        mFavoriteCompanyList.add(new FavoriteCompany(1,
-                R.drawable.img_wall_2, compId,
-                getString(R.string.universityNameValue),
-                getString(R.string.university),
-                getString(R.string.universityDescValue),
-                Integer.parseInt(getString(R.string.three))));
-
-        mFavoriteCompanyList.add(new FavoriteCompany(1,
-                R.drawable.img_wall_3, compId,
-                getString(R.string.universityNameValue),
-                getString(R.string.university),
-                getString(R.string.universityDescValue),
-                Integer.parseInt(getString(R.string.three))));
-
-        mFavoriteCompanyList.add(new FavoriteCompany(1,
-                R.drawable.img_wall_12, compId,
-                getString(R.string.universityNameValue),
-                getString(R.string.university),
-                getString(R.string.universityDescValue),
-                Integer.parseInt(getString(R.string.three))));
+//        mFavoriteCompanyList.add(new FavoriteCompany(1,
+//                R.drawable.img_wall_10, compId,
+//                getString(R.string.universityNameValue),
+//                getString(R.string.university),
+//                getString(R.string.universityDescValue),
+//                Integer.parseInt(getString(R.string.three))));
+//
+//        mFavoriteCompanyList.add(new FavoriteCompany(1,
+//                R.drawable.img_wall_14, compId,
+//                getString(R.string.universityNameValue),
+//                getString(R.string.university),
+//                getString(R.string.universityDescValue),
+//                Integer.parseInt(getString(R.string.three))));
+//
+//        mFavoriteCompanyList.add(new FavoriteCompany(1,
+//                R.drawable.img_wall_9, compId,
+//                getString(R.string.universityNameValue),
+//                getString(R.string.university),
+//                getString(R.string.universityDescValue),
+//                Integer.parseInt(getString(R.string.three))));
+//
+//        mFavoriteCompanyList.add(new FavoriteCompany(1,
+//                R.drawable.img_wall_15, compId,
+//                getString(R.string.universityNameValue),
+//                getString(R.string.university),
+//                getString(R.string.universityDescValue),
+//                Integer.parseInt(getString(R.string.three))));
+//
+//        mFavoriteCompanyList.add(new FavoriteCompany(1,
+//                R.drawable.img_wall_2, compId,
+//                getString(R.string.universityNameValue),
+//                getString(R.string.university),
+//                getString(R.string.universityDescValue),
+//                Integer.parseInt(getString(R.string.three))));
+//
+//        mFavoriteCompanyList.add(new FavoriteCompany(1,
+//                R.drawable.img_wall_3, compId,
+//                getString(R.string.universityNameValue),
+//                getString(R.string.university),
+//                getString(R.string.universityDescValue),
+//                Integer.parseInt(getString(R.string.three))));
+//
+//        mFavoriteCompanyList.add(new FavoriteCompany(1,
+//                R.drawable.img_wall_12, compId,
+//                getString(R.string.universityNameValue),
+//                getString(R.string.university),
+//                getString(R.string.universityDescValue),
+//                Integer.parseInt(getString(R.string.three))));
 
         mAdapter = new FavoriteCompanyAdapter(mContext, mFavoriteCompanyList);
         mRecyclerView.setAdapter(mAdapter);
