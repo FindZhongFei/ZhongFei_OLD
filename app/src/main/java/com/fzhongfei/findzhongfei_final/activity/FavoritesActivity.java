@@ -94,7 +94,7 @@ public class FavoritesActivity extends AppCompatActivity {
                 getString(R.string.universityDescValue),
                 Integer.parseInt(getString(R.string.three))));
 
-        mAdapter = new FavoriteCompanyAdapter(mContext, mFavoriteCompanyList);
+        mAdapter = new FavoriteCompanyAdapter(mRecyclerView, mContext, mFavoriteCompanyList);
         mRecyclerView.setAdapter(mAdapter);
     }
 

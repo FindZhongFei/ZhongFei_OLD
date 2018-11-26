@@ -229,19 +229,6 @@ public class UserLoginActivity extends AppCompatActivity {
         Params.put("user_usernameType", usernameTypeValue);
         Params.put("user_password", mPasswordValue);
 
-//        Params.put("phone_serial_number", Build.SERIAL);
-//        Params.put("phone_model_number", Build.MODEL);
-//        Params.put("phone_id_number", Build.ID);
-//        Params.put("phone_manufacturer", Build.MANUFACTURER);
-//        Params.put("phone_brand", Build.BRAND);
-//        Params.put("phone_type", Build.TYPE);
-//        Params.put("phone_user", Build.USER);
-//        Params.put("phone_base", String.valueOf(Build.VERSION_CODES.BASE));
-//        Params.put("phone_sdk_version", String.valueOf(Build.VERSION.SDK_INT));
-//        Params.put("phone_host", Build.HOST);
-//        Params.put("phone_fingerprint", Build.FINGERPRINT);
-//        Params.put("phone_release", Build.VERSION.RELEASE);
-
         registerRequest.setParams(Params);
 
         callBackImplement callBack = new callBackImplement(mContext);

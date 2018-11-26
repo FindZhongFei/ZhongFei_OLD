@@ -191,17 +191,16 @@ public class MainFragment extends Fragment {
         Params.put("phone_fingerprint", Build.FINGERPRINT);
         Params.put("phone_release", Build.VERSION.RELEASE);
         Params.put("phone_ip_address", getIpAddress(mContext));
+        Params.put("phone_mac_address", getIpAddress(mContext));
 
         if(!companySharedPreferences.contains("companyIsLoggedIn") && !userSharedPreferences.contains("userIsLoggedIn"))
         {
-            Toast.makeText(mContext, "NOT LOGGED IN", Toast.LENGTH_SHORT).show();
             Params.put("is_loggedIn", "false");
             Params.put("host", "none");
             Params.put("token", "none");
         }
         else if(companySharedPreferences.contains("companyIsLoggedIn"))
         {
-            Toast.makeText(mContext, "COMPANY", Toast.LENGTH_SHORT).show();
             CompanyProfile companyProfile = new CompanyProfile(mContext);
             companyProfile.setPropertiesFromSharePreference(mContext);
             Params.put("is_loggedIn", "true");
@@ -210,7 +209,6 @@ public class MainFragment extends Fragment {
         }
         else if(userSharedPreferences.contains("userIsLoggedIn"))
         {
-            Toast.makeText(mContext, "USER", Toast.LENGTH_SHORT).show();
             UserProfile userProfile = new UserProfile(mContext);
             userProfile.setPropertiesFromSharePreference(mContext);
             Params.put("is_loggedIn", "true");

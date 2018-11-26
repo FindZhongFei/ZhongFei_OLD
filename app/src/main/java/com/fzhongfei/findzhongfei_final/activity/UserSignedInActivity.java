@@ -24,6 +24,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.fzhongfei.findzhongfei_final.R;
 import com.fzhongfei.findzhongfei_final.model.UserProfile;
@@ -238,13 +239,12 @@ public class UserSignedInActivity extends AppCompatActivity {
         String userPhoneValue = mUserProfile.getUserPhone();
 
         String userName = firstNameValue + " " + lastNameValue;
-        String phoneNumber = "+" + userPhoneValue;
 
         hideIfNotLoggedIn.setVisibility(View.VISIBLE);
 
         userNameText.setText(userName);
         userEmailText.setText(userEmailValue);
-        userPhoneText.setText(phoneNumber);
+        userPhoneText.setText(userPhoneValue);
     }
 
     // UI - USER DIDN'T LOGIN

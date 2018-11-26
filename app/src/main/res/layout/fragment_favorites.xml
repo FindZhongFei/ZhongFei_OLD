@@ -20,23 +20,23 @@
         <android.support.v7.widget.RecyclerView
             android:id="@+id/favRV"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
+            android:layout_height="match_parent"/>
 
         <!-- EMPTY FAVORITES -->
-        <LinearLayout
-            android:id="@+id/empty_favorites_linear_layout"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical"
-            android:gravity="center"
-            android:textAlignment="center">
+        <!--<LinearLayout-->
+            <!--android:id="@+id/empty_favorites_linear_layout"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="match_parent"-->
+            <!--android:orientation="vertical"-->
+            <!--android:gravity="center"-->
+            <!--android:textAlignment="center">-->
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:padding="16dp"
-                android:text="There is Nothing here"/>
+            <!--<TextView-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:padding="16dp"-->
+                <!--android:text="There is Nothing here"/>-->
 
-        </LinearLayout>
+        <!--</LinearLayout>-->
     </LinearLayout>
 </android.support.constraint.ConstraintLayout>

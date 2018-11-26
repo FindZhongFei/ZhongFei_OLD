@@ -151,15 +151,26 @@ public class callBackImplement implements serverCallBack {
 
 //                    CompanyProfileActivity.setCompanyLogo(BitmapFactory.decodeByteArray(decodedLogo, 0, decodedLogo.length));
                     CompanyProfileActivity.companyLogo.setImageBitmap(BitmapFactory.decodeByteArray(decodedLogo, 0, decodedLogo.length));
-                    //TO DO: LOGO HASH AND VERIFYING LOGO
+                    // TO DO: LOGO HASH AND VERIFYING LOGO
                 }
 
 //                USER REQUESTS
                 else if(requestType.equals("user_registration"))
                 {
+                    JSONObject userData = new JSONObject(String.valueOf(result.get("user_data")));
+
+                    HashMap<String, String> hashUserData = new HashMap<>();
+                    hashUserData.put("userId", userData.getString("userId"));
+                    hashUserData.put("userToken", userData.getString("userToken"));
+                    hashUserData.put("userFirstName", userData.getString("userFirstName"));
+                    hashUserData.put("userLastName", userData.getString("userLastName"));
+                    hashUserData.put("userEmail", userData.getString("userEmail"));
+                    hashUserData.put("userPhone", userData.getString("userPhone"));
+                    hashUserData.put("userProfileUrl", userData.getString("userProfileUrl"));
+
                     UserProfile userProfile = new UserProfile(this.context);
                     userProfile.initiateLogin(this.context);
-
+                    userProfile.SetUserData(this.context, hashUserData);
 
                     Intent intent = new Intent(this.context, UserInterestsActivity.class);
                     intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
@@ -224,7 +235,7 @@ public class callBackImplement implements serverCallBack {
 //                USER INTERESTS
                 else if(requestType.equals("user_interests"))
                 {
-                    Intent intent = new Intent(this.context, UserInterestsSubTypeActivity.class);
+                    Intent intent = new Intent(this.context, UserSignedInActivity.class);
                     intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                     ((Activity) context).finish();
                     context.getApplicationContext().startActivity(intent);

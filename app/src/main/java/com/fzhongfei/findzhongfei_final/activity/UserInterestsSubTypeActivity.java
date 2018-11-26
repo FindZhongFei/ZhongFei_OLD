@@ -58,11 +58,14 @@ public class UserInterestsSubTypeActivity extends AppCompatActivity {
         // ACTIVITY STUFF
         interests = getIntent().getStringArrayListExtra("user_interests");
 
-        for(int i = 0; i < interests.size(); i++)
+        if(interests != null)
         {
-            for(int j = 0; j < interestsHas(interests.get(i)).length; j++)
+            for(int i = 0; i < interests.size(); i++)
             {
-                mSubInterestsList.add(new SubInterestItem(interestsHas(interests.get(i))[j].toString(), R.drawable.img_wall_1));
+                for(int j = 0; j < interestsHas(interests.get(i)).length; j++)
+                {
+                    mSubInterestsList.add(new SubInterestItem(interestsHas(interests.get(i))[j].toString(), R.drawable.img_wall_1));
+                }
             }
         }
         RecyclerView mRecyclerView = findViewById(R.id.recycler_view_sub_interests);

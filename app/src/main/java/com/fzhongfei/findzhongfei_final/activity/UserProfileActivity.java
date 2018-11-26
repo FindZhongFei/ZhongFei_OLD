@@ -47,6 +47,12 @@ public class UserProfileActivity extends AppCompatActivity {
 
     private String userProfilePictureValue;
 
+    // RECYCLER VIEW DATA
+    TextView historyTextView;
+    RecyclerView mRecyclerView;
+    HistoryRVAdapter mHistoryRVAdapter;
+    List<HistoryItem> mHistoryItemList;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -61,6 +67,18 @@ public class UserProfileActivity extends AppCompatActivity {
         mUserProfile.setPropertiesFromSharePreference(mContext);
 
         // UI - HISTORY
+        historyTextView = findViewById(R.id.text_view_history);
+        historyTextView.setText(getString(R.string.history, "12"));
+
+        mHistoryItemList = new ArrayList<>();
+        mRecyclerView = findViewById(R.id.recycler_view_history);
+        mRecyclerView.setHasFixedSize(true);
+        final LinearLayoutManager mLayoutManager = new LinearLayoutManager(this);
+        mLayoutManager.setOrientation(LinearLayoutManager.HORIZONTAL);
+        mRecyclerView.setLayoutManager(mLayoutManager);
+        mHistoryRVAdapter = new HistoryRVAdapter(mContext, mHistoryItemList);
+        mRecyclerView.setAdapter(mHistoryRVAdapter);
+
         setupRecyclerView();
 
         if(mUserProfile.getUserIsLoggedIn())
@@ -189,25 +207,6 @@ public class UserProfileActivity extends AppCompatActivity {
 
     // UI - SETTING UP THE CARDS
     private void setupRecyclerView() {
-        TextView historyTextView;
-        RecyclerView mRecyclerView;
-        HistoryRVAdapter mHistoryRVAdapter;
-        List<HistoryItem> mHistoryItemList;
-
-        historyTextView = findViewById(R.id.text_view_history);
-//        int historyNumber = (Integer)mHistoryItemList.size();
-//        Log.d(TAG, "setupRecyclerView: " + historyNumber);
-        historyTextView.setText(getString(R.string.history, "12"));
-
-        mHistoryItemList = new ArrayList<>();
-        mRecyclerView = findViewById(R.id.recycler_view_history);
-        mRecyclerView.setHasFixedSize(true);
-//        mRecyclerView.setNestedScrollingEnabled(false);
-        final LinearLayoutManager mLayoutManager = new LinearLayoutManager(
-                this);
-        mLayoutManager.setOrientation(LinearLayoutManager.HORIZONTAL);
-        mRecyclerView.setLayoutManager(mLayoutManager);
-
         mHistoryItemList.add(new HistoryItem(R.drawable.img_wall_11, "Nanjing University Of Aeronautics and Astronautics", "University"));
         mHistoryItemList.add(new HistoryItem(R.drawable.img_wall_12, "BMW", "Car Maker"));
         mHistoryItemList.add(new HistoryItem(R.drawable.img_wall_9, "Zemay", "Agency"));
@@ -220,9 +219,6 @@ public class UserProfileActivity extends AppCompatActivity {
         mHistoryItemList.add(new HistoryItem(R.drawable.img_wall_12, "BMW", "Car Maker"));
         mHistoryItemList.add(new HistoryItem(R.drawable.img_wall_11, "Zemay", "Agency"));
         mHistoryItemList.add(new HistoryItem(R.drawable.img_wall_15, "Dangote", "Cement Factory"));
-
-        mHistoryRVAdapter = new HistoryRVAdapter(mContext, mHistoryItemList);
-        mRecyclerView.setAdapter(mHistoryRVAdapter);
     }
 
     // ALL COMPANY PROFILE FIELDS
