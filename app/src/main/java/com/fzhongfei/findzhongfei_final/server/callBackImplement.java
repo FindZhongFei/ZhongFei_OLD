@@ -16,10 +16,11 @@ import com.fzhongfei.findzhongfei_final.activity.CompanyRegistrationActivity1;
 import com.fzhongfei.findzhongfei_final.activity.CompanyRegistrationActivity2;
 import com.fzhongfei.findzhongfei_final.activity.CompanyRegistrationActivity3;
 import com.fzhongfei.findzhongfei_final.activity.CompanySuccessfullyRegisteredActivity;
-import com.fzhongfei.findzhongfei_final.activity.UserInterestsSubTypeActivity;
 import com.fzhongfei.findzhongfei_final.activity.UserLoginActivity;
 import com.fzhongfei.findzhongfei_final.activity.UserRegistrationActivity;
 import com.fzhongfei.findzhongfei_final.activity.UserSignedInActivity;
+import com.fzhongfei.findzhongfei_final.adapter.CompanyAdapter;
+import com.fzhongfei.findzhongfei_final.fragments.MainFragment;
 import com.fzhongfei.findzhongfei_final.model.CompanyProfile;
 import com.fzhongfei.findzhongfei_final.model.UserProfile;
 
@@ -66,7 +67,19 @@ public class callBackImplement implements serverCallBack {
                 }
                 else if(requestType.equals("requestCompanies"))
                 {
+                    JSONObject companyData = new JSONObject(String.valueOf(result.get("compData")));
 
+                    HashMap<String, String> hashCompData = new HashMap<>();
+                    hashCompData.put("comp_id", companyData.getString("comp_id"));
+                    hashCompData.put("comp_name", companyData.getString("comp_name"));
+                    hashCompData.put("comp_logo", companyData.getString("comp_logo"));
+                    hashCompData.put("comp_type", companyData.getString("comp_type"));
+                    hashCompData.put("comp_subtype", companyData.getString("comp_subtype"));
+
+                    Toast.makeText(context, companyData.getString("comp_name"), Toast.LENGTH_SHORT).show();
+
+                    MainFragment.hashCompData = hashCompData;
+                    CompanyAdapter.favoriteCompanyItem.setCompData(this.context, hashCompData);
                 }
                 else if(requestType.equals("comp_registration"))
                 {
@@ -76,6 +89,10 @@ public class callBackImplement implements serverCallBack {
                     {
                         case "page2":
                         {
+                            String compLogoUrl = result.get("comp_url").toString();
+                            CompanyRegistrationActivity1.sCompanyProfile.setCompanyToken(context, companyToken);
+                            CompanyRegistrationActivity1.sCompanyProfile.setCompanyLogoUrl(context, compLogoUrl);
+
                             Intent intent = new Intent(this.context, CompanyRegistrationActivity2.class);
                             intent.putExtra("comp_token", companyToken);
                             CompanyRegistrationActivity1.dialog.dismiss();
@@ -151,6 +168,12 @@ public class callBackImplement implements serverCallBack {
 
 //                    CompanyProfileActivity.setCompanyLogo(BitmapFactory.decodeByteArray(decodedLogo, 0, decodedLogo.length));
                     CompanyProfileActivity.companyLogo.setImageBitmap(BitmapFactory.decodeByteArray(decodedLogo, 0, decodedLogo.length));
+                    // TO DO: LOGO HASH AND VERIFYING LOGO
+                }
+                else if(requestType.equals("requestExternalCompLogo"))
+                {
+                    byte[] decodedLogo = Base64.decode(result.get("imageFile").toString(), Base64.DEFAULT);
+                    CompanyAdapter.favoriteCompanyItem.setCompanyImageBitmap(BitmapFactory.decodeByteArray(decodedLogo, 0, decodedLogo.length));
                     // TO DO: LOGO HASH AND VERIFYING LOGO
                 }
 
@@ -247,32 +270,35 @@ public class callBackImplement implements serverCallBack {
             }
             else
             {
-                if(context.toString().contains("CompanyRegistrationActivity1"))
+                if(context != null)
                 {
-                    ((CompanyRegistrationActivity1) context).stopCompanyRegistrationConnection1();
+                    if(context.toString().contains("CompanyRegistrationActivity1"))
+                    {
+                        ((CompanyRegistrationActivity1) context).stopCompanyRegistrationConnection1();
+                    }
+                    else if(context.toString().contains("CompanyRegistrationActivity2"))
+                    {
+                        ((CompanyRegistrationActivity2) context).stopCompanyRegistrationConnection2();
+                    }
+                    else if(context.toString().contains("CompanyRegistrationActivity3"))
+                    {
+                        ((CompanyRegistrationActivity3) context).stopCompanyRegistrationConnection3();
+                    }
+                    else if(context.toString().contains("CompanyLoginActivity"))
+                    {
+                        ((CompanyLoginActivity) context).stopCompanyLoginConnection();
+                    }
+                    else if(context.toString().contains("UserLoginActivity"))
+                    {
+                        ((UserLoginActivity) context).stopUserLoginConnection();
+                    }
+                    else if(context.toString().contains("UserRegistrationActivity"))
+                    {
+                        ((UserRegistrationActivity) context).stopUserRegisterConnection();
+                    }
+
+                    Toast.makeText(this.context, this.errorMessage, Toast.LENGTH_LONG).show();
                 }
-                else if(context.toString().contains("CompanyRegistrationActivity2"))
-                {
-                    ((CompanyRegistrationActivity2) context).stopCompanyRegistrationConnection2();
-                }
-                else if(context.toString().contains("CompanyRegistrationActivity3"))
-                {
-                    ((CompanyRegistrationActivity3) context).stopCompanyRegistrationConnection3();
-                }
-                else if(context.toString().contains("CompanyLoginActivity"))
-                {
-                    ((CompanyLoginActivity) context).stopCompanyLoginConnection();
-                }
-                else if(context.toString().contains("UserLoginActivity"))
-                {
-                    ((UserLoginActivity) context).stopUserLoginConnection();
-                }
-                else if(context.toString().contains("UserRegistrationActivity"))
-                {
-                    ((UserRegistrationActivity) context).stopUserRegisterConnection();
-                }
-                
-                Toast.makeText(this.context, this.errorMessage, Toast.LENGTH_LONG).show();
 
                 Log.d(TAG, "onSuccess: errorMessage: " + this.errorMessage);
                 Log.d(TAG, "onSuccess: successMessage: " + this.successMessage);

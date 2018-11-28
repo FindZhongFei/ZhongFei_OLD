@@ -80,12 +80,7 @@ public class FavoritesFragment extends Fragment {
 
                             for(int i = index; i < end; i++)
                             {
-                                mFavoriteCompanyList.add(new FavoriteCompany(1,
-                                        R.drawable.img_wall_10, compId,
-                                        "HELLOOOOOOOOOOOOOOOOOOOOo",
-                                        getString(R.string.university),
-                                        getString(R.string.universityDescValue),
-                                        Integer.parseInt(getString(R.string.three))));
+                                Toast.makeText(mContext, "Added", Toast.LENGTH_SHORT).show();
                             }
 
                             mAdapter.notifyDataSetChanged();

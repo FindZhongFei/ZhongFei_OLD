@@ -9,6 +9,9 @@
         android:id="@+id/main_progress_bar"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:drawingCacheQuality="high"
+        android:indeterminateDuration="2000"
+        android:indeterminateDrawable="@drawable/ic_favorite"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"/>
 

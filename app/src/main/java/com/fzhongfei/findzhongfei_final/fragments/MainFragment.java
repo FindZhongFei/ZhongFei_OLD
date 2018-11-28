@@ -2,7 +2,6 @@ package com.fzhongfei.findzhongfei_final.fragments;
 
 import android.content.Context;
 import android.content.SharedPreferences;
-import android.net.wifi.WifiInfo;
 import android.net.wifi.WifiManager;
 import android.os.Build;
 import android.os.Bundle;
@@ -44,6 +43,7 @@ public class MainFragment extends Fragment {
     private Companies mCompanies[]; //card - card_data
     private CompanyAdapter mCompanyAdapter; //arrayAdapter
     private int i;
+    public static HashMap<String, String> hashCompData = new HashMap<>();
 
     ListView mListView; //listView
     List<Companies> mCompaniesList; //List<cards> rowItems
@@ -70,12 +70,38 @@ public class MainFragment extends Fragment {
         searchView.clearFocus();
 
         mCompaniesList = new ArrayList<Companies>();
-        final Companies company = new Companies(1, R.drawable.profile_picture, "", "Nanjing University Of Aeronautics and Astronautics",
-                "University");
+        Companies company = new Companies(1, "",
+                "", "1111111111111",
+                "1111111", "11111111");
 
         mCompaniesList.add(company);
 
+        Companies company2 = new Companies(2, "",
+                "", "22222222222222222222",
+                "22222222", "2222222222");
+
+        mCompaniesList.add(company2);
+//
+//        if(hashCompData != null)
+//        {
+//            company.setCompName(hashCompData.get("comp_name"));
+//            company.setCompType(hashCompData.get("comp_type"));
+//            company.setCompSubType(hashCompData.get("comp_subtype"));
+//            company.setImageUrl(hashCompData.get("comp_logo"));
+//        }
+
+//        final Companies company2 = new Companies(1, "http:\\/\\/feizhong.ganacsigroup.com\\/uploads\\/comp\\/360f836907b5c995941a6d8118452d31\\/comp_logo_1543406542.jpg",
+//                "", "2Nanjing University Of Aeronautics and Astronautics",
+//                "University", "2College");
+//        mCompaniesList.add(company2);
+//
+//        final Companies company3 = new Companies(1, "http:\\/\\/feizhong.ganacsigroup.com\\/uploads\\/comp\\/360f836907b5c995941a6d8118452d31\\/comp_logo_1543406542.jpg",
+//                "", "3Nanjing University Of Aeronautics and Astronautics",
+//                "University", "3College");
+//        mCompaniesList.add(company3);
+
         mCompanyAdapter = new CompanyAdapter(mContext, R.layout.layout_item, mCompaniesList);
+        mCompanyAdapter.notifyDataSetChanged();
 
         SwipeFlingAdapterView flingContainer = view.findViewById(R.id.frame);
 
@@ -105,7 +131,9 @@ public class MainFragment extends Fragment {
             @Override
             public void onAdapterAboutToEmpty(int itemsInAdapter) {
                 // Ask for more data here
-                Companies company = new Companies(1, R.drawable.profile_picture, "", "Last Company", "");
+                Companies company = new Companies(1, "http:\\/\\/feizhong.ganacsigroup.com\\/uploads\\/comp_logo_1539179466.jpg",
+                        "", "Last Company", "Last Type",
+                        "Last SubType");
                 mCompaniesList.add(company);
                 mCompanyAdapter.notifyDataSetChanged();
                 Log.d("LIST", "notified");
@@ -165,11 +193,18 @@ public class MainFragment extends Fragment {
         Toast.makeText(ctx, s, Toast.LENGTH_SHORT).show();
     }
 
-    public static String getIpAddress(Context appContext) {
-        WifiManager manager=(WifiManager) appContext.getApplicationContext().getSystemService(Context.WIFI_SERVICE);
+    public static String getIpAddress(Context context) {
+        WifiManager manager = (WifiManager) context.getApplicationContext().getSystemService(Context.WIFI_SERVICE);
         assert manager != null;
-        String ipAddress=Formatter.formatIpAddress(manager.getConnectionInfo().getIpAddress());;
+        String ipAddress = Formatter.formatIpAddress(manager.getConnectionInfo().getIpAddress());;
         return ipAddress;
+    }
+
+    public static String getMacAddress(Context context) {
+        WifiManager manager = (WifiManager) context.getApplicationContext().getSystemService(Context.WIFI_SERVICE);
+        assert manager != null;
+        String macAddress = Formatter.formatIpAddress(manager.getConnectionInfo().getIpAddress());;;
+        return macAddress;
     }
 
     private void loadCompanies() {
@@ -215,8 +250,6 @@ public class MainFragment extends Fragment {
             Params.put("host", "user");
             Params.put("token", userProfile.getUserToken());
         }
-
-       Log.d("phone_fingerprint: ", Params.get("phone_fingerprint"));
 
         companiesRequest.setParams(Params);
 

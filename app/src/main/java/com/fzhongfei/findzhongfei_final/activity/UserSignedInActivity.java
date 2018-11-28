@@ -24,7 +24,6 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.fzhongfei.findzhongfei_final.R;
 import com.fzhongfei.findzhongfei_final.model.UserProfile;

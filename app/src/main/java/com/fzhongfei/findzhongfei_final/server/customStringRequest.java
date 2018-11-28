@@ -65,16 +65,20 @@ public class customStringRequest {
                     }, new Response.ErrorListener() {
                 @Override
                 public void onErrorResponse(VolleyError error) {
-                    if(context.toString().contains("CompanyRegistrationActivity1")) {
-                        ((CompanyRegistrationActivity1) context).stopCompanyRegistrationConnection1();
-                    } else if(context.toString().contains("CompanyRegistrationActivity2")) {
-                        ((CompanyRegistrationActivity2) context).stopCompanyRegistrationConnection2();
-                    } else if(context.toString().contains("CompanyRegistrationActivity3")) {
-                        ((CompanyRegistrationActivity3) context).stopCompanyRegistrationConnection3();
+                    if(context != null)
+                    {
+                        if(context.toString().contains("CompanyRegistrationActivity1")) {
+                            ((CompanyRegistrationActivity1) context).stopCompanyRegistrationConnection1();
+                        } else if(context.toString().contains("CompanyRegistrationActivity2")) {
+                            ((CompanyRegistrationActivity2) context).stopCompanyRegistrationConnection2();
+                        } else if(context.toString().contains("CompanyRegistrationActivity3")) {
+                            ((CompanyRegistrationActivity3) context).stopCompanyRegistrationConnection3();
+                        }
+
+                        Toast.makeText(context,"Server error...contact support", Toast.LENGTH_LONG).show();
                     }
                     Log.d(TAG, "onErrorResponse: " + error.toString());
 
-                    Toast.makeText(context,"Server error...contact support", Toast.LENGTH_LONG).show();
                     error.printStackTrace();
                 }
             }){
