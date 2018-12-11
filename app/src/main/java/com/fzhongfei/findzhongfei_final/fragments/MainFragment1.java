@@ -17,10 +17,8 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.Toast;
 
 import com.fzhongfei.findzhongfei_final.R;
 import com.fzhongfei.findzhongfei_final.adapter.CompanyAdapter;
@@ -29,6 +27,7 @@ import com.fzhongfei.findzhongfei_final.adapter.SlideshowAdapter;
 import com.fzhongfei.findzhongfei_final.model.Companies;
 import com.fzhongfei.findzhongfei_final.model.CompanyProfile;
 import com.fzhongfei.findzhongfei_final.model.UserProfile;
+import com.fzhongfei.findzhongfei_final.model.trackRequestPosition;
 import com.fzhongfei.findzhongfei_final.server.callBackImplement;
 import com.fzhongfei.findzhongfei_final.server.customStringRequest;
 
@@ -67,6 +66,7 @@ public class MainFragment1 extends Fragment {
     SharedPreferences companySharedPreferences;
     SharedPreferences userSharedPreferences;
 
+    trackRequestPosition requestPosition ;
     public MainFragment1() {}
 
     @Nullable
@@ -75,7 +75,7 @@ public class MainFragment1 extends Fragment {
         Log.d(TAG, "onCreateView: Running...");
 
         mContext = getActivity();
-
+        requestPosition = new trackRequestPosition(mContext);
         // Inflate the layout for this fragment
         view = inflater.inflate(R.layout.fragment_main1, null);
 
@@ -210,7 +210,7 @@ public class MainFragment1 extends Fragment {
         Params.put("phone_release", Build.VERSION.RELEASE);
         Params.put("phone_ip_address", getIpAddress(mContext));
         Params.put("phone_mac_address", getIpAddress(mContext));
-
+        Params.put("startPosition",  Integer.toString(requestPosition.getCurrentPosition()));
         if(!companySharedPreferences.contains("companyIsLoggedIn") && !userSharedPreferences.contains("userIsLoggedIn"))
         {
             Params.put("is_loggedIn", "false");

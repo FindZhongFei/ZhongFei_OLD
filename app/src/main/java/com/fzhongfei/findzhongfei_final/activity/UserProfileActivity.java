@@ -40,7 +40,7 @@ public class UserProfileActivity extends AppCompatActivity {
 
     // VIEWS
     public static ImageView profilePicture, fullScreenProfilePicture;
-//    private ImageView fullScreenProfilePicture;
+    private ImageView closeButton;
     private TextView userNameText;
     private Dialog imageDialog;
     private UserProfile mUserProfile;
@@ -66,6 +66,12 @@ public class UserProfileActivity extends AppCompatActivity {
         mUserProfile = new UserProfile(mContext);
         mUserProfile.setPropertiesFromSharePreference(mContext);
 
+        imageDialog = new Dialog(mContext, android.R.style.Theme_Black_NoTitleBar_Fullscreen);
+
+        imageDialog.setContentView(R.layout.layout_popup_full_image_view);
+        closeButton = imageDialog.findViewById(R.id.close_popup_button);
+        fullScreenProfilePicture = imageDialog.findViewById(R.id.profile_picture_full_screen);
+
         // UI - HISTORY
         historyTextView = findViewById(R.id.text_view_history);
         historyTextView.setText(getString(R.string.history, "12"));
@@ -85,7 +91,6 @@ public class UserProfileActivity extends AppCompatActivity {
         {
             profilePicture = findViewById(R.id.user_big_profile_picture);
             userNameText = findViewById(R.id.user_name);
-            imageDialog = new Dialog(mContext, android.R.style.Theme_Black_NoTitleBar_Fullscreen);
 
             showUserProfile();
 
@@ -159,25 +164,9 @@ public class UserProfileActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
-//    // UI - EDIT PROFILE
-//    public void editUserProfile(View view) {
-//        startActivity(new Intent(mContext, UserProfileEditActivity.class));
-//    }
-
     // UI - SETUP POPUP
     @SuppressLint("ClickableViewAccessibility")
     public void showPopup(View view) {
-        imageDialog.setContentView(R.layout.layout_popup_full_image_view);
-        ImageView closeButton = imageDialog.findViewById(R.id.close_popup_button);
-        fullScreenProfilePicture = imageDialog.findViewById(R.id.profile_picture_full_screen);
-
-        if(userProfilePictureValue != null) {
-            byte[] decodedLogo = Base64.decode(userProfilePictureValue, Base64.DEFAULT);
-            fullScreenProfilePicture.setImageBitmap(BitmapFactory.decodeByteArray(decodedLogo, 0, decodedLogo.length));
-        }
-
-//        imageDialog.getWindow().setBackgroundDrawableResource(R.color.transparentBackground);
-
         // DISMISS DIALOG
         closeButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -235,6 +224,7 @@ public class UserProfileActivity extends AppCompatActivity {
             if(userProfilePictureValue != null) {
                 byte[] decodedLogo = Base64.decode(userProfilePictureValue, Base64.DEFAULT);
                 profilePicture.setImageBitmap(BitmapFactory.decodeByteArray(decodedLogo, 0, decodedLogo.length));
+                fullScreenProfilePicture.setImageBitmap(BitmapFactory.decodeByteArray(decodedLogo, 0, decodedLogo.length));
             }
             String username = firstNameValue + " " + lastNameValue;
 
