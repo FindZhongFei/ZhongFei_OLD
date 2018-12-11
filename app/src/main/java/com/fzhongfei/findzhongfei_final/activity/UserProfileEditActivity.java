@@ -2,6 +2,7 @@ package com.fzhongfei.findzhongfei_final.activity;
 
 import android.Manifest;
 import android.annotation.TargetApi;
+import android.app.ProgressDialog;
 import android.content.ActivityNotFoundException;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -56,6 +57,9 @@ public class UserProfileEditActivity extends AppCompatActivity {
     private TextView userFirstName, userLastName, userPhoneNumber, userEmail, signOutText;
     private TextView firstNameTitle, lastNameTitle, phoneNumberTitle, emailTitle;
     public static ImageView editProfilePicture;
+    public static ProgressDialog mProgressDialog;
+
+    public static Context sContext;
 
     // IMAGE FROM GALLERY
     private Uri uriSelectedImage;
@@ -70,6 +74,8 @@ public class UserProfileEditActivity extends AppCompatActivity {
         setContentView(R.layout.activity_user_profile_edit);
 
         Log.d(TAG, "onCreate: Running...");
+
+        sContext = getApplicationContext();
 
         mUserProfile = new UserProfile(mContext);
         mUserProfile.setPropertiesFromSharePreference(mContext);
@@ -379,18 +385,33 @@ public class UserProfileEditActivity extends AppCompatActivity {
                 String profilePicPath = Environment.getExternalStorageDirectory() + "/temporary_profile.jpg";
                 profilePictureBitmap = BitmapFactory.decodeFile(profilePicPath);
 
+                mProgressDialog = new ProgressDialog(mContext);
+                mProgressDialog.setTitle("Uploading image");
+                mProgressDialog.setMessage("Loading...");
+                mProgressDialog.setCanceledOnTouchOutside(false);
+                mProgressDialog.show();
+
 //                ByteArrayOutputStream stream = new ByteArrayOutputStream();
                 try {
-                    profilePictureBitmap.compress(Bitmap.CompressFormat.JPEG, 100, new ByteArrayOutputStream());
-                    editProfilePicture.setImageBitmap(profilePictureBitmap);
-                    UserProfileActivity.profilePicture.setImageBitmap(profilePictureBitmap);
-                    UserProfileActivity.fullScreenProfilePicture.setImageBitmap(profilePictureBitmap);
-                    UserSignedInActivity.userProfilePicture.setImageBitmap(profilePictureBitmap);
+                    setProfilePicture();
+
+//                    if(canSetImage)
+//                    {
+//                        Toast.makeText(mContext, "CALLED", Toast.LENGTH_SHORT).show();
+//                        displayUserPicture();
+//                        canSetImage = false;
+//                    }
+//
+//                    profilePictureBitmap = BitmapFactory.decodeFile(mUserProfile.getUserProfileUrl());
+//                    profilePictureBitmap.compress(Bitmap.CompressFormat.JPEG, 100, new ByteArrayOutputStream());
+//                    editProfilePicture.setImageBitmap(profilePictureBitmap);
+//                    UserProfileActivity.profilePicture.setImageBitmap(profilePictureBitmap);
+//                    UserProfileActivity.fullScreenProfilePicture.setImageBitmap(profilePictureBitmap);
+//                    UserSignedInActivity.userProfilePicture.setImageBitmap(profilePictureBitmap);
                 } catch (Exception e) {
                     Toast.makeText(mContext, e.toString(), Toast.LENGTH_SHORT).show();
                     e.printStackTrace();
                 }
-                setProfilePicture();
             }
         }
     }
@@ -429,12 +450,17 @@ public class UserProfileEditActivity extends AppCompatActivity {
         callBack.SetRequestType("user_setProfilePicture");
         profilePictureRequest.startConnection(mContext, callBack, Params);
     }
-/*
 
-=========================================================================================================================================
+    public static void displayUserPicture() {
+        UserProfile sUserProfile = new UserProfile(sContext);
+        sUserProfile.setPropertiesFromSharePreference(sContext);
 
-*/
-
+        byte[] decodedLogo = Base64.decode(sUserProfile.getUserProfilePicture(), Base64.DEFAULT);;
+        editProfilePicture.setImageBitmap(BitmapFactory.decodeByteArray(decodedLogo, 0, decodedLogo.length));
+        UserProfileActivity.profilePicture.setImageBitmap(BitmapFactory.decodeByteArray(decodedLogo, 0, decodedLogo.length));
+        UserProfileActivity.fullScreenProfilePicture.setImageBitmap(BitmapFactory.decodeByteArray(decodedLogo, 0, decodedLogo.length));
+        UserSignedInActivity.userProfilePicture.setImageBitmap(BitmapFactory.decodeByteArray(decodedLogo, 0, decodedLogo.length));
+    }
 }
 
 //    new Thread(new Runnable() {

@@ -17,6 +17,7 @@ import com.fzhongfei.findzhongfei_final.activity.CompanyRegistrationActivity2;
 import com.fzhongfei.findzhongfei_final.activity.CompanyRegistrationActivity3;
 import com.fzhongfei.findzhongfei_final.activity.CompanySuccessfullyRegisteredActivity;
 import com.fzhongfei.findzhongfei_final.activity.UserLoginActivity;
+import com.fzhongfei.findzhongfei_final.activity.UserProfileEditActivity;
 import com.fzhongfei.findzhongfei_final.activity.UserRegistrationActivity;
 import com.fzhongfei.findzhongfei_final.activity.UserSignedInActivity;
 import com.fzhongfei.findzhongfei_final.adapter.CompanyAdapter;
@@ -240,12 +241,15 @@ public class callBackImplement implements serverCallBack {
                     UserProfile userProfile = new UserProfile(context);
                     userProfile.setUserProfileUrl(context, profileUrl);
                     userProfile.setUserProfilePicture(context, Params.get("user_profile"));
+
+                    UserProfileEditActivity.mProgressDialog.dismiss();
+                    UserProfileEditActivity.displayUserPicture();
                 }
                 else if(requestType.equals("requestUserProfilePicture"))
                 {
                     UserProfile userProfile = new UserProfile(this.context);
                     userProfile.setUserProfilePicture(this.context, result.get("imageFile").toString());
-                    Log.d(TAG, "onSuccess: User Logo from result " + userProfile.getUserProfilePicture());
+                    Log.d(TAG, "onSuccess: UserChat Logo from result " + userProfile.getUserProfilePicture());
                     byte[] decodedLogo = Base64.decode(result.get("imageFile").toString(), Base64.DEFAULT);
 
 //                    UserProfileEditActivity.editProfilePicture.setImageBitmap(BitmapFactory.decodeByteArray(decodedLogo, 0, decodedLogo.length));
