@@ -8,6 +8,7 @@ import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -19,6 +20,8 @@ import android.widget.Toast;
 import com.fzhongfei.findzhongfei_final.R;
 import com.fzhongfei.findzhongfei_final.fragments.FavoritesFragment;
 import com.fzhongfei.findzhongfei_final.fragments.MainFragment;
+import com.fzhongfei.findzhongfei_final.fragments.MainFragment1;
+import com.fzhongfei.findzhongfei_final.utils.BottomNavigationViewHelper;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -27,7 +30,10 @@ public class MainActivity extends AppCompatActivity {
     private Context mContext = MainActivity.this;
 
     // VIEWS
-
+    final FragmentManager mFragmentManager = getSupportFragmentManager();
+    final Fragment mainFragment = new MainFragment1();
+    final Fragment favoriteFragment = new FavoritesFragment();
+    Fragment currentFragment = mainFragment;
     private boolean backButtonPressedOnce = false;
 
     @Override
@@ -40,31 +46,20 @@ public class MainActivity extends AppCompatActivity {
 //        CompanyProfile companyProfile = new CompanyProfile(mContext);
 //        companyProfile.clearSharedPreference(mContext);
 
-//        for(int i = 0; i<10; i++) {
-//            Toast.makeText(mContext, "phone_serial_number: " + Build.SERIAL + "\n" +
-//                            "phone_model_number: "+ Build.MODEL + "\n" +
-//                            "phone_id_number: "+ Build.ID + "\n" +
-//                            "phone_manufacturer: "+ Build.MANUFACTURER + "\n" +
-//                            "phone_brand: "+ Build.BRAND + "\n" +
-//                            "phone_type: "+ Build.TYPE + "\n" +
-//                            "phone_user: "+ Build.USER + "\n" +
-//                            "phone_base: "+ String.valueOf(Build.VERSION_CODES.BASE) + "\n" +
-//                            "phone_sdk_version: "+ String.valueOf(Build.VERSION.SDK_INT) + "\n" +
-//                            "phone_host: "+ Build.HOST + "\n" +
-//                            "phone_fingerprint: "+ Build.FINGERPRINT + "\n" +
-//                            "phone_release: "+ Build.VERSION.RELEASE + "\n"
-//                    ,Toast.LENGTH_LONG).show();
-//        }
-
         // TOOLBAR
         setUpActivityToolbar();
 
         // BOTTOM NAVIGATION
         BottomNavigationView navigation = findViewById(R.id.bottomNavigation);
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
+        BottomNavigationViewHelper.disableShiftMode(navigation);
 
-        // LOAD FRAGMENTS INTO VIEW
-        loadFragment(new MainFragment());
+        if(savedInstanceState == null)
+        {
+            // LOAD MAIN FRAGMENTS INTO VIEW
+            loadFragment(mainFragment);
+            currentFragment = mainFragment;
+        }
     }
 
     @Override
@@ -109,12 +104,12 @@ public class MainActivity extends AppCompatActivity {
             Fragment fragment;
             switch (item.getItemId()) {
                 case R.id.ic_home:
-                    fragment = new MainFragment();
-                    loadFragment(fragment);
+                    mFragmentManager.beginTransaction().replace(R.id.fragment_container, mainFragment).commit();
+                    currentFragment = mainFragment;
                     return true;
                 case R.id.ic_fav:
-                    fragment = new FavoritesFragment();
-                    loadFragment(fragment);
+                    mFragmentManager.beginTransaction().replace(R.id.fragment_container, favoriteFragment).commit();
+                    currentFragment = favoriteFragment;
                     return true;
                 case R.id.ic_profile:
                     mContext.startActivity(new Intent(mContext, UserSignedInActivity.class));   // ACTIVITY_NUMBER = 2

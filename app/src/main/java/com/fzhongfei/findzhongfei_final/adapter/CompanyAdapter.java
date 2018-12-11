@@ -44,10 +44,10 @@ public class CompanyAdapter extends ArrayAdapter<Companies> {
         companyImage = convertView.findViewById(R.id.company_images);
 
         if(favoriteCompanyItem != null) {
+            companyImage.setImageBitmap(favoriteCompanyItem.getCompanyImageBitmap());
             companyName.setText(favoriteCompanyItem.getCompName());
             companyType.setText(favoriteCompanyItem.getCompType());
             companySubType.setText(favoriteCompanyItem.getCompSubType());
-            companyImage.setImageBitmap(favoriteCompanyItem.getImageBitmap());
 
 //            String compLogo = favoriteCompanyItem.getImageLogo();
 //            if(compLogo != null) {

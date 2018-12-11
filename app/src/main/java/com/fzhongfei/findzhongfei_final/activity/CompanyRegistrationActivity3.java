@@ -310,7 +310,6 @@ public class CompanyRegistrationActivity3 extends AppCompatActivity {
         callBack.setParams(Params);
         callBack.SetRequestType("comp_registration");
         registerRequest.startConnection(mContext, callBack, Params);
-
     }
 
     // SETTER FOR COMPANY PROFILE

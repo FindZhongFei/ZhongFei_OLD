@@ -14,7 +14,6 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ListView;
 import android.widget.Toast;
 
 import com.fzhongfei.findzhongfei_final.R;
@@ -26,9 +25,13 @@ import com.fzhongfei.findzhongfei_final.server.callBackImplement;
 import com.fzhongfei.findzhongfei_final.server.customStringRequest;
 import com.lorentzos.flingswipe.SwipeFlingAdapterView;
 
+import org.json.JSONObject;
+
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.LinkedHashSet;
 import java.util.List;
+import java.util.Set;
 
 public class MainFragment extends Fragment {
 
@@ -40,12 +43,12 @@ public class MainFragment extends Fragment {
     View view;
 
     // VARIABLES
-    private Companies mCompanies[]; //card - card_data
+//    private Companies mCompanies[]; //card - card_data
+//    private int i;
+//    ListView mListView; //listView
+//    public static HashMap<String, String> hashCompData = new HashMap<>();
     private CompanyAdapter mCompanyAdapter; //arrayAdapter
-    private int i;
-    public static HashMap<String, String> hashCompData = new HashMap<>();
-
-    ListView mListView; //listView
+    public static ArrayList<JSONObject> hashMapArrayList = new ArrayList<>();
     List<Companies> mCompaniesList; //List<cards> rowItems
 
     SharedPreferences companySharedPreferences;
@@ -63,42 +66,43 @@ public class MainFragment extends Fragment {
         // Inflate the layout for this fragment
         view = inflater.inflate(R.layout.fragment_main, null);
 
-        companySharedPreferences = this.getActivity().getSharedPreferences("companyPreference", 0);
-        userSharedPreferences = this.getActivity().getSharedPreferences("userPreference", 0);
-
         SearchView searchView = view.findViewById(R.id.fragment_main_search_view);
         searchView.clearFocus();
 
-        mCompaniesList = new ArrayList<Companies>();
-        Companies company = new Companies(1, "",
-                "", "1111111111111",
-                "1111111", "11111111");
+        companySharedPreferences = this.getActivity().getSharedPreferences("companyPreference", 0);
+        userSharedPreferences = this.getActivity().getSharedPreferences("userPreference", 0);
 
-        mCompaniesList.add(company);
+        mCompaniesList = new ArrayList<>();
 
-        Companies company2 = new Companies(2, "",
-                "", "22222222222222222222",
-                "22222222", "2222222222");
+        ArrayList<Companies> companiesArrayList = new ArrayList<>();
 
-        mCompaniesList.add(company2);
-//
-//        if(hashCompData != null)
-//        {
-//            company.setCompName(hashCompData.get("comp_name"));
-//            company.setCompType(hashCompData.get("comp_type"));
-//            company.setCompSubType(hashCompData.get("comp_subtype"));
-//            company.setImageUrl(hashCompData.get("comp_logo"));
-//        }
+        Companies company;
+        JSONObject jsonObject;
 
-//        final Companies company2 = new Companies(1, "http:\\/\\/feizhong.ganacsigroup.com\\/uploads\\/comp\\/360f836907b5c995941a6d8118452d31\\/comp_logo_1543406542.jpg",
-//                "", "2Nanjing University Of Aeronautics and Astronautics",
-//                "University", "2College");
-//        mCompaniesList.add(company2);
-//
-//        final Companies company3 = new Companies(1, "http:\\/\\/feizhong.ganacsigroup.com\\/uploads\\/comp\\/360f836907b5c995941a6d8118452d31\\/comp_logo_1543406542.jpg",
-//                "", "3Nanjing University Of Aeronautics and Astronautics",
-//                "University", "3College");
-//        mCompaniesList.add(company3);
+        for(int i = 0; i < hashMapArrayList.size(); i++)
+        {
+            jsonObject = hashMapArrayList.get(i);
+
+//            company.setCompId(mContext, jsonObject.optString("comp_id"));
+//            company.setCompName(mContext, jsonObject.optString("comp_name"));
+//            company.setImageLogo(mContext, jsonObject.optString("comp_logo"));
+//            company.setCompType(mContext, jsonObject.optString("comp_type"));
+//            company.setCompSubType(mContext, jsonObject.optString("comp_subtype"));
+
+            company = new Companies(jsonObject.optInt("comp_id"),
+                    jsonObject.optString("comp_logo"),
+                    jsonObject.optString("comp_id"),
+                    jsonObject.optString("comp_name"),
+                    jsonObject.optString("comp_type"),
+                    jsonObject.optString("comp_subtype"));
+            companiesArrayList.add(i, company);
+        }
+
+        // REMOVE ANY DUPLICATE COMPANIES FROM LIST - 'LinkedHashSet' PRESERVES INSERTION ORDER AS WELL
+        Set<Companies> nonDuplicatedCompanies = new LinkedHashSet<>(companiesArrayList);
+        companiesArrayList.clear();
+        companiesArrayList.addAll(nonDuplicatedCompanies);
+        mCompaniesList.addAll(companiesArrayList);
 
         mCompanyAdapter = new CompanyAdapter(mContext, R.layout.layout_item, mCompaniesList);
         mCompanyAdapter.notifyDataSetChanged();
@@ -131,13 +135,13 @@ public class MainFragment extends Fragment {
             @Override
             public void onAdapterAboutToEmpty(int itemsInAdapter) {
                 // Ask for more data here
-                Companies company = new Companies(1, "http:\\/\\/feizhong.ganacsigroup.com\\/uploads\\/comp_logo_1539179466.jpg",
-                        "", "Last Company", "Last Type",
-                        "Last SubType");
-                mCompaniesList.add(company);
-                mCompanyAdapter.notifyDataSetChanged();
-                Log.d("LIST", "notified");
-                i++;
+//                Companies company = new Companies(1, "",
+//                        "", "Last Company", "Last Type",
+//                        "Last SubType");
+//                mCompaniesList.add(company);
+//                mCompanyAdapter.notifyDataSetChanged();
+//                Log.d("LIST", "notified");
+//                i++;
             }
 
             @Override
@@ -193,6 +197,8 @@ public class MainFragment extends Fragment {
         Toast.makeText(ctx, s, Toast.LENGTH_SHORT).show();
     }
 
+
+
     public static String getIpAddress(Context context) {
         WifiManager manager = (WifiManager) context.getApplicationContext().getSystemService(Context.WIFI_SERVICE);
         assert manager != null;
@@ -231,7 +237,7 @@ public class MainFragment extends Fragment {
         if(!companySharedPreferences.contains("companyIsLoggedIn") && !userSharedPreferences.contains("userIsLoggedIn"))
         {
             Params.put("is_loggedIn", "false");
-            Params.put("host", "none");
+            Params.put("host", "guest");
             Params.put("token", "none");
         }
         else if(companySharedPreferences.contains("companyIsLoggedIn"))

@@ -103,8 +103,8 @@ public class FavoritesActivity extends AppCompatActivity {
         Log.d(TAG, "setUpBottomNavigation: setting up the BottomNavigationView");
 
         BottomNavigationView bottomNavigationView = findViewById(R.id.bottomNavigation);
-        BottomNavigationViewHelper.setUpBottomNavView(bottomNavigationView);
-        BottomNavigationViewHelper.enableNavigation(mContext, bottomNavigationView);
+//        BottomNavigationViewHelper.setUpBottomNavView(bottomNavigationView);
+//        BottomNavigationViewHelper.enableNavigation(mContext, bottomNavigationView);
 
         // HIGHLIGHTING THE RIGHT MENU ITEMS
         Menu menu = bottomNavigationView.getMenu();

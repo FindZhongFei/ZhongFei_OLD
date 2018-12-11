@@ -27,10 +27,10 @@ public class Companies {
     public void setCompData(Context context, HashMap<String, String> compData)
     {
         setCompId(context, compData.get("comp_id"));
-        setCompName(compData.get("comp_name"));
-        setImageUrl(compData.get("comp_logo"));
-        setCompType(compData.get("comp_type"));
-        setCompSubType(compData.get("comp_subtype"));
+        setCompName(context, compData.get("comp_name"));
+        setImageUrl(context, compData.get("comp_logo"));
+        setCompType(context, compData.get("comp_type"));
+        setCompSubType(context, compData.get("comp_subtype"));
     }
 
     public void setId(int id) {
@@ -40,14 +40,14 @@ public class Companies {
         return id;
     }
 
-    public void setImageUrl(String compLogoUrl) {
+    public void setImageUrl(Context context, String compLogoUrl) {
         this.compLogoUrl = compLogoUrl;
     }
     public String getImageUrl() {
         return compLogoUrl;
     }
 
-    public void setImageLogo(String compLogo) {
+    public void setImageLogo(Context context, String compLogo) {
         this.compLogo = compLogo;
     }
     public String getImageLogo() {
@@ -57,7 +57,7 @@ public class Companies {
     public void setCompanyImageBitmap(Bitmap imageBitmap) {
         this.imageBitmap = imageBitmap;
     }
-    public Bitmap getImageBitmap() {
+    public Bitmap getCompanyImageBitmap() {
         return imageBitmap;
     }
 
@@ -68,21 +68,21 @@ public class Companies {
         return compId;
     }
 
-    public void setCompName(String compName) {
+    public void setCompName(Context context, String compName) {
         this.compName = compName;
     }
     public String getCompName() {
         return compName;
     }
 
-    public void setCompType(String compType) {
+    public void setCompType(Context context, String compType) {
         this.compType = compType;
     }
     public String getCompType() {
         return compType;
     }
 
-    public void setCompSubType(String compSubType) {
+    public void setCompSubType(Context context, String compSubType) {
         this.compSubType = compSubType;
     }
     public String getCompSubType() {

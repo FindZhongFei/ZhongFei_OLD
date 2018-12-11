@@ -20,10 +20,14 @@ import com.fzhongfei.findzhongfei_final.activity.UserLoginActivity;
 import com.fzhongfei.findzhongfei_final.activity.UserRegistrationActivity;
 import com.fzhongfei.findzhongfei_final.activity.UserSignedInActivity;
 import com.fzhongfei.findzhongfei_final.adapter.CompanyAdapter;
+import com.fzhongfei.findzhongfei_final.adapter.MainFragmentCompaniesRecyclerView;
 import com.fzhongfei.findzhongfei_final.fragments.MainFragment;
+import com.fzhongfei.findzhongfei_final.fragments.MainFragment1;
+import com.fzhongfei.findzhongfei_final.model.Companies;
 import com.fzhongfei.findzhongfei_final.model.CompanyProfile;
 import com.fzhongfei.findzhongfei_final.model.UserProfile;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -67,19 +71,24 @@ public class callBackImplement implements serverCallBack {
                 }
                 else if(requestType.equals("requestCompanies"))
                 {
-                    JSONObject companyData = new JSONObject(String.valueOf(result.get("compData")));
+                    JSONArray companyData = new JSONArray(String.valueOf(result.get("compData")));
 
-                    HashMap<String, String> hashCompData = new HashMap<>();
-                    hashCompData.put("comp_id", companyData.getString("comp_id"));
-                    hashCompData.put("comp_name", companyData.getString("comp_name"));
-                    hashCompData.put("comp_logo", companyData.getString("comp_logo"));
-                    hashCompData.put("comp_type", companyData.getString("comp_type"));
-                    hashCompData.put("comp_subtype", companyData.getString("comp_subtype"));
+//                    HashMap<String, String> hashCompData = new HashMap<>();
 
-                    Toast.makeText(context, companyData.getString("comp_name"), Toast.LENGTH_SHORT).show();
+                    for(int i = 0; i < companyData.length(); i++)
+                    {
+                        JSONObject retrievedData = companyData.getJSONObject(i);
+                        MainFragment1.hashMapArrayList.add(retrievedData);
 
-                    MainFragment.hashCompData = hashCompData;
-                    CompanyAdapter.favoriteCompanyItem.setCompData(this.context, hashCompData);
+//                        hashCompData.put("comp_id", retrievedData.optString("comp_id"));
+//                        hashCompData.put("comp_name", retrievedData.getString("comp_name"));
+//                        hashCompData.put("comp_logo", retrievedData.getString("comp_logo"));
+//                        hashCompData.put("comp_type", retrievedData.getString("comp_type"));
+//                        hashCompData.put("comp_subtype", retrievedData.getString("comp_subtype"));
+
+//                        CompanyAdapter.favoriteCompanyItem.setCompData(this.context, hashCompData);
+                    }
+
                 }
                 else if(requestType.equals("comp_registration"))
                 {
@@ -173,7 +182,9 @@ public class callBackImplement implements serverCallBack {
                 else if(requestType.equals("requestExternalCompLogo"))
                 {
                     byte[] decodedLogo = Base64.decode(result.get("imageFile").toString(), Base64.DEFAULT);
-                    CompanyAdapter.favoriteCompanyItem.setCompanyImageBitmap(BitmapFactory.decodeByteArray(decodedLogo, 0, decodedLogo.length));
+//                    CompanyAdapter.favoriteCompanyItem.setCompanyImageBitmap(BitmapFactory.decodeByteArray(decodedLogo, 0, decodedLogo.length));
+//                    MainFragment1.company.setCompanyImageBitmap(BitmapFactory.decodeByteArray(decodedLogo, 0, decodedLogo.length));
+                    Toast.makeText(context, "Image set", Toast.LENGTH_SHORT).show();
                     // TO DO: LOGO HASH AND VERIFYING LOGO
                 }
 

@@ -10,6 +10,7 @@ import android.os.Bundle;
 import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.v4.app.ActivityOptionsCompat;
+import android.support.v4.widget.NestedScrollView;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Base64;
@@ -17,6 +18,7 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewTreeObserver;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
@@ -24,6 +26,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.fzhongfei.findzhongfei_final.R;
 import com.fzhongfei.findzhongfei_final.model.UserProfile;
@@ -47,6 +50,7 @@ public class UserSignedInActivity extends AppCompatActivity {
     private Dialog mDialog;
     private LinearLayout hideIfNotLoggedIn;
     private TextView userNameText, userPhoneText, userEmailText;
+    private NestedScrollView mNestedScrollView;
 
     private Boolean rememberedUser, rememberedCompany;
 
@@ -68,6 +72,7 @@ public class UserSignedInActivity extends AppCompatActivity {
         userProfilePicture = findViewById(R.id.user_signed_in_profile_picture);
         RelativeLayout adLayout = findViewById(R.id.signed_in_ad_view);
         mDialog = new Dialog(mContext, android.R.style.Theme_Black_NoTitleBar_Fullscreen);
+        mNestedScrollView = findViewById(R.id.user_signed_in_nested_scroll_view);
 
         hideIfNotLoggedIn = findViewById(R.id.user_signed_in_hidden);
         userNameText = findViewById(R.id.user_signed_in_username);
@@ -82,6 +87,30 @@ public class UserSignedInActivity extends AppCompatActivity {
         makeFullScreen();
         setUpActivityToolbar();
         new DisplayAds(mAdView, adLayout);
+
+//        mNestedScrollView.getViewTreeObserver().addOnScrollChangedListener(new ViewTreeObserver.OnScrollChangedListener() {
+//            @Override
+//            public void onScrollChanged() {
+//                if (mNestedScrollView != null) {
+//                    //scroll view is at bottom
+//                    View view = mNestedScrollView.getChildAt(mNestedScrollView.getChildCount()-1);
+//                    int diff = (view.getBottom()+mNestedScrollView.getPaddingBottom()-(mNestedScrollView.getHeight()+mNestedScrollView.getScrollY()));
+//                    if(diff == 0)
+//                    {
+//                        Toast.makeText(mContext, "scroll view is at bottom", Toast.LENGTH_SHORT).show();
+//                    }
+//                }
+//            }
+//        });
+
+        mNestedScrollView.setOnScrollChangeListener(new NestedScrollView.OnScrollChangeListener() {
+            @Override
+            public void onScrollChange(NestedScrollView v, int scrollX, int scrollY, int oldScrollX, int oldScrollY) {
+                Log.d("ScrollView","scrollX_" + scrollX + "_scrollY_" + scrollY + "_oldScrollX_"+oldScrollX+"_oldScrollY_"+oldScrollY);
+                //Do something
+                finish();
+            }
+        });
 
         if(!companySharedPreferences.contains("companyIsLoggedIn") && !userSharedPreferences.contains("userIsLoggedIn"))
         {
