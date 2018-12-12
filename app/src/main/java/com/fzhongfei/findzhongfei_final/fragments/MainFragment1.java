@@ -108,13 +108,9 @@ public class MainFragment1 extends Fragment {
                     jsonObject.optString("comp_subtype"),
                     jsonObject.optString("logo_val"));
             companiesArrayList.add(i, company);
-
-
-
-//            requestImage(company);
         }
-//
-//        // REMOVE ANY DUPLICATE COMPANIES FROM LIST - 'LinkedHashSet' PRESERVES INSERTION ORDER AS WELL
+
+        // REMOVE ANY DUPLICATE COMPANIES FROM LIST - 'LinkedHashSet' PRESERVES INSERTION ORDER AS WELL
         Set<Companies> nonDuplicatedCompanies = new LinkedHashSet<>(companiesArrayList);
         companiesArrayList.clear();
         companiesArrayList.addAll(nonDuplicatedCompanies);
@@ -245,26 +241,6 @@ public class MainFragment1 extends Fragment {
         callBack.SetRequestType("requestCompanies");
 
         companiesRequest.startConnection(mContext, callBack, Params);
-    }
-
-    private void requestImage(Companies companyItem) {
-        mContext = getContext();
-        customStringRequest imageRequest = new customStringRequest();
-        HashMap<String, String> params = new HashMap<>();
-
-        params.put("requestType", "requestCompLogo");
-        params.put("logoUrl", companyItem.getImageUrl());
-        params.put("compToken", null);
-        params.put("host", "external");
-
-        imageRequest.setUrlPath("comp/fetchImage.php");
-        imageRequest.setParams(params);
-
-        callBackImplement callBack = new callBackImplement(mContext);
-        callBack.setParams(params);
-        callBack.SetRequestType("requestExternalCompLogo");
-
-        imageRequest.startConnection(mContext, callBack, params);
     }
 
     public class MyTimerTask extends TimerTask {
