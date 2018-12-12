@@ -2,9 +2,11 @@ package com.fzhongfei.findzhongfei_final.adapter;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.BitmapFactory;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
+import android.util.Base64;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -37,9 +39,13 @@ public class MainFragmentCompaniesRecyclerView extends RecyclerView.Adapter<Main
 
     @Override
     public void onBindViewHolder(@NonNull final MyCompanyViewHolder holder, final int position) {
-        holder.companyName.setText(mCompaniesList.get(position).getCompName());
-        holder.companyType.setText(mCompaniesList.get(position).getCompType());
-        holder.companyThumbnail.setImageBitmap(mCompaniesList.get(position).getCompanyImageBitmap());
+        Companies company = mCompaniesList.get(position);
+
+        holder.companyName.setText(company.getCompName());
+        holder.companyType.setText(company.getCompType());
+
+        byte[] decodedLogo = Base64.decode(company.getImageLogo(), Base64.DEFAULT);
+        holder.companyThumbnail.setImageBitmap(BitmapFactory.decodeByteArray(decodedLogo, 0, decodedLogo.length));
 
         holder.companyCard.setOnClickListener(new View.OnClickListener() {
             @Override

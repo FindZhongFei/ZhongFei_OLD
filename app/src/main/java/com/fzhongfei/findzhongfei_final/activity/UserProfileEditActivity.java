@@ -222,7 +222,6 @@ public class UserProfileEditActivity extends AppCompatActivity {
     // UI - SIGN OUT
     public void signOutUser() {
         signOutText.setVisibility(View.GONE);
-//        signOutProgressBar.setVisibility(View.VISIBLE);
 
         Intent i = new Intent(mContext, MainActivity.class);
         new UserProfile(mContext).clearSharedPreference(mContext);
@@ -297,7 +296,6 @@ public class UserProfileEditActivity extends AppCompatActivity {
         switch (requestCode) {
             case requestPermissionCode: {
                 if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-//                    Toast.makeText(mContext, "Permission Granted", Toast.LENGTH_SHORT).show();
                     openGallery();
                 }
                 break;
@@ -394,20 +392,6 @@ public class UserProfileEditActivity extends AppCompatActivity {
 //                ByteArrayOutputStream stream = new ByteArrayOutputStream();
                 try {
                     setProfilePicture();
-
-//                    if(canSetImage)
-//                    {
-//                        Toast.makeText(mContext, "CALLED", Toast.LENGTH_SHORT).show();
-//                        displayUserPicture();
-//                        canSetImage = false;
-//                    }
-//
-//                    profilePictureBitmap = BitmapFactory.decodeFile(mUserProfile.getUserProfileUrl());
-//                    profilePictureBitmap.compress(Bitmap.CompressFormat.JPEG, 100, new ByteArrayOutputStream());
-//                    editProfilePicture.setImageBitmap(profilePictureBitmap);
-//                    UserProfileActivity.profilePicture.setImageBitmap(profilePictureBitmap);
-//                    UserProfileActivity.fullScreenProfilePicture.setImageBitmap(profilePictureBitmap);
-//                    UserSignedInActivity.userProfilePicture.setImageBitmap(profilePictureBitmap);
                 } catch (Exception e) {
                     Toast.makeText(mContext, e.toString(), Toast.LENGTH_SHORT).show();
                     e.printStackTrace();
@@ -455,7 +439,7 @@ public class UserProfileEditActivity extends AppCompatActivity {
         UserProfile sUserProfile = new UserProfile(sContext);
         sUserProfile.setPropertiesFromSharePreference(sContext);
 
-        byte[] decodedLogo = Base64.decode(sUserProfile.getUserProfilePicture(), Base64.DEFAULT);;
+        byte[] decodedLogo = Base64.decode(sUserProfile.getUserProfilePicture(), Base64.DEFAULT);
         editProfilePicture.setImageBitmap(BitmapFactory.decodeByteArray(decodedLogo, 0, decodedLogo.length));
         UserProfileActivity.profilePicture.setImageBitmap(BitmapFactory.decodeByteArray(decodedLogo, 0, decodedLogo.length));
         UserProfileActivity.fullScreenProfilePicture.setImageBitmap(BitmapFactory.decodeByteArray(decodedLogo, 0, decodedLogo.length));

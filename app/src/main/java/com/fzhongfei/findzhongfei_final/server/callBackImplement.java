@@ -20,11 +20,7 @@ import com.fzhongfei.findzhongfei_final.activity.UserLoginActivity;
 import com.fzhongfei.findzhongfei_final.activity.UserProfileEditActivity;
 import com.fzhongfei.findzhongfei_final.activity.UserRegistrationActivity;
 import com.fzhongfei.findzhongfei_final.activity.UserSignedInActivity;
-import com.fzhongfei.findzhongfei_final.adapter.CompanyAdapter;
-import com.fzhongfei.findzhongfei_final.adapter.MainFragmentCompaniesRecyclerView;
-import com.fzhongfei.findzhongfei_final.fragments.MainFragment;
 import com.fzhongfei.findzhongfei_final.fragments.MainFragment1;
-import com.fzhongfei.findzhongfei_final.model.Companies;
 import com.fzhongfei.findzhongfei_final.model.CompanyProfile;
 import com.fzhongfei.findzhongfei_final.model.UserProfile;
 
@@ -178,14 +174,6 @@ public class callBackImplement implements serverCallBack {
 
 //                    CompanyProfileActivity.setCompanyLogo(BitmapFactory.decodeByteArray(decodedLogo, 0, decodedLogo.length));
                     CompanyProfileActivity.companyLogo.setImageBitmap(BitmapFactory.decodeByteArray(decodedLogo, 0, decodedLogo.length));
-                    // TO DO: LOGO HASH AND VERIFYING LOGO
-                }
-                else if(requestType.equals("requestExternalCompLogo"))
-                {
-                    byte[] decodedLogo = Base64.decode(result.get("imageFile").toString(), Base64.DEFAULT);
-//                    CompanyAdapter.favoriteCompanyItem.setCompanyImageBitmap(BitmapFactory.decodeByteArray(decodedLogo, 0, decodedLogo.length));
-//                    MainFragment1.company.setCompanyImageBitmap(BitmapFactory.decodeByteArray(decodedLogo, 0, decodedLogo.length));
-                    Toast.makeText(context, "Image set", Toast.LENGTH_SHORT).show();
                     // TO DO: LOGO HASH AND VERIFYING LOGO
                 }
 

@@ -23,6 +23,7 @@
             <ImageView
                 android:id="@+id/main_fragment_comp_image"
                 android:layout_width="match_parent"
+                android:src="@drawable/image_placeholder"
                 android:layout_height="220sp"
                 android:contentDescription="@string/compName"
                 android:scaleType="centerCrop"/>

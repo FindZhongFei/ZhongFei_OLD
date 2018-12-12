@@ -9,19 +9,20 @@ public class Companies {
 
     private int id;
     private Bitmap imageBitmap;
-    private String compId, compLogoUrl, compLogo, compName, compType, compSubType;
+    private String compId, compLogoUrl, compName, compType, compSubType, compLogo;
 
     public Companies() {
 
     }
 
-    public Companies(int id, String compLogoUrl, String compId, String compName, String compType, String compSubType) {
+    public Companies(int id, String compLogoUrl, String compId, String compName, String compType, String compSubType, String compLogo) {
         this.id = id;
         this.compLogoUrl = compLogoUrl;
         this.compId = compId;
         this.compName = compName;
         this.compType = compType;
         this.compSubType = compSubType;
+        this.compLogo = compLogo;
     }
 
     public void setCompData(Context context, HashMap<String, String> compData)
@@ -31,6 +32,7 @@ public class Companies {
         setImageUrl(context, compData.get("comp_logo"));
         setCompType(context, compData.get("comp_type"));
         setCompSubType(context, compData.get("comp_subtype"));
+        setImageLogo(context, compData.get("logo_val"));
     }
 
     public void setId(int id) {

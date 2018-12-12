@@ -94,7 +94,8 @@ public class MainFragment extends Fragment {
                     jsonObject.optString("comp_id"),
                     jsonObject.optString("comp_name"),
                     jsonObject.optString("comp_type"),
-                    jsonObject.optString("comp_subtype"));
+                    jsonObject.optString("comp_subtype"),
+                    jsonObject.optString("logo_val"));
             companiesArrayList.add(i, company);
         }
 

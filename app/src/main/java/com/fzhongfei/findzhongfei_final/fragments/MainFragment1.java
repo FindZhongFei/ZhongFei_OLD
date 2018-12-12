@@ -57,6 +57,7 @@ public class MainFragment1 extends Fragment {
     private CompanyAdapter mCompanyAdapter; //arrayAdapter
     public static ArrayList<JSONObject> hashMapArrayList = new ArrayList<>();
     List<Companies> mCompaniesList; //List<cards> rowItems
+    public static ArrayList<Companies> companiesArrayList;
     public static Companies company;
 
     // IMAGE SLIDER
@@ -91,7 +92,7 @@ public class MainFragment1 extends Fragment {
 
         mCompaniesList = new ArrayList<>();
 
-        ArrayList<Companies> companiesArrayList = new ArrayList<>();
+        companiesArrayList = new ArrayList<>();
 
         JSONObject jsonObject;
 
@@ -104,10 +105,13 @@ public class MainFragment1 extends Fragment {
                     jsonObject.optString("comp_id"),
                     jsonObject.optString("comp_name"),
                     jsonObject.optString("comp_type"),
-                    jsonObject.optString("comp_subtype"));
+                    jsonObject.optString("comp_subtype"),
+                    jsonObject.optString("logo_val"));
             companiesArrayList.add(i, company);
 
-            requestImage(company);
+
+
+//            requestImage(company);
         }
 //
 //        // REMOVE ANY DUPLICATE COMPANIES FROM LIST - 'LinkedHashSet' PRESERVES INSERTION ORDER AS WELL
