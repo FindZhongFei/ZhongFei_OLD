@@ -44,8 +44,8 @@ public class MainFragmentCompaniesRecyclerView extends RecyclerView.Adapter<Main
         holder.companyName.setText(company.getCompName());
         holder.companyType.setText(company.getCompType());
 
-        byte[] decodedLogo = Base64.decode(company.getImageLogo(), Base64.DEFAULT);
-        holder.companyThumbnail.setImageBitmap(BitmapFactory.decodeByteArray(decodedLogo, 0, decodedLogo.length));
+//        byte[] decodedLogo = Base64.decode(company.getImageLogo(), Base64.DEFAULT);
+//        holder.companyThumbnail.setImageBitmap(BitmapFactory.decodeByteArray(decodedLogo, 0, decodedLogo.length));
 
         holder.companyCard.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -53,7 +53,9 @@ public class MainFragmentCompaniesRecyclerView extends RecyclerView.Adapter<Main
                 Intent intent = new Intent(mContext, ClickedCompany.class);
                 intent.putExtra("CompanyName", mCompaniesList.get(position).getCompName());
                 intent.putExtra("CompanyType", mCompaniesList.get(position).getCompType());
-                intent.putExtra("CompanyImage", mCompaniesList.get(position).getCompanyImageBitmap());
+                intent.putExtra("CompanyImage", mCompaniesList.get(position).getImageLogo());
+                intent.putExtra("CompanySubtype", mCompaniesList.get(position).getCompSubType());
+                intent.putExtra("CompanyId", mCompaniesList.get(position).getCompId());
                 mContext.startActivity(intent);
             }
         });

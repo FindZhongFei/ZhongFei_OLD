@@ -71,7 +71,6 @@ public class callBackImplement implements serverCallBack {
                     JSONArray companyData = new JSONArray(String.valueOf(result.get("compData")));
 
 //                    HashMap<String, String> hashCompData = new HashMap<>();
-
                     for(int i = 0; i < companyData.length(); i++)
                     {
                         JSONObject retrievedData = companyData.getJSONObject(i);

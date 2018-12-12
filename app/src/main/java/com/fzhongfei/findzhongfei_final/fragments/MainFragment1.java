@@ -19,6 +19,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.Toast;
 
 import com.fzhongfei.findzhongfei_final.R;
 import com.fzhongfei.findzhongfei_final.adapter.CompanyAdapter;
@@ -57,8 +58,9 @@ public class MainFragment1 extends Fragment {
     private CompanyAdapter mCompanyAdapter; //arrayAdapter
     public static ArrayList<JSONObject> hashMapArrayList = new ArrayList<>();
     List<Companies> mCompaniesList; //List<cards> rowItems
-    public static ArrayList<Companies> companiesArrayList;
-    public static Companies company;
+    public ArrayList<Companies> companiesArrayList;
+    public Companies company;
+    RecyclerView mainRecyclerView;
 
     // IMAGE SLIDER
     private int dotsCount;
@@ -83,6 +85,7 @@ public class MainFragment1 extends Fragment {
         slideshowDotsLayout = view.findViewById(R.id.slide_show_dots);
         mViewPager = view.findViewById(R.id.main_fragment_view_pager);
         mSlideshowAdapter = new SlideshowAdapter(mContext);
+        mainRecyclerView = view.findViewById(R.id.fragment_main_recycler_view);
 
         companySharedPreferences = this.getActivity().getSharedPreferences("companyPreference", 0);
         userSharedPreferences = this.getActivity().getSharedPreferences("userPreference", 0);
@@ -96,34 +99,44 @@ public class MainFragment1 extends Fragment {
 
         JSONObject jsonObject;
 
-        for(int i = 0; i < hashMapArrayList.size(); i++)
+        if(!hashMapArrayList.isEmpty())
         {
-            jsonObject = hashMapArrayList.get(i);
+            for(int i = 0; i < hashMapArrayList.size(); i++)
+            {
+                jsonObject = hashMapArrayList.get(i);
 
-            company = new Companies(jsonObject.optInt("comp_id"),
-                    jsonObject.optString("comp_logo"),
-                    jsonObject.optString("comp_id"),
-                    jsonObject.optString("comp_name"),
-                    jsonObject.optString("comp_type"),
-                    jsonObject.optString("comp_subtype"),
-                    jsonObject.optString("logo_val"));
-            companiesArrayList.add(i, company);
+                company = new Companies(jsonObject.optInt("comp_id"),
+                        jsonObject.optString("comp_logo"),
+                        jsonObject.optString("comp_id"),
+                        jsonObject.optString("comp_name"),
+                        jsonObject.optString("comp_type"),
+                        jsonObject.optString("comp_subtype"),
+                        jsonObject.optString("logo_val"));
+                companiesArrayList.add(i, company);
+            }
+
+            // REMOVE ANY DUPLICATE COMPANIES FROM LIST - 'LinkedHashSet' PRESERVES INSERTION ORDER AS WELL
+            Set<Companies> nonDuplicatedCompanies = new LinkedHashSet<>(companiesArrayList);
+            companiesArrayList.clear();
+            companiesArrayList.addAll(nonDuplicatedCompanies);
+            mCompaniesList.addAll(companiesArrayList);
+
+            setupCards(mCompaniesList);
         }
+        else
+        {
+            List<Companies> loadingCompaniesList = new ArrayList<>();
+            Companies loadingCompany = new Companies();
 
-        // REMOVE ANY DUPLICATE COMPANIES FROM LIST - 'LinkedHashSet' PRESERVES INSERTION ORDER AS WELL
-        Set<Companies> nonDuplicatedCompanies = new LinkedHashSet<>(companiesArrayList);
-        companiesArrayList.clear();
-        companiesArrayList.addAll(nonDuplicatedCompanies);
-        mCompaniesList.addAll(companiesArrayList);
+            for(int i = 0; i < 4; i++)
+            {
+                loadingCompany = new Companies(0, "Loading", "Loading", "Loading", "Loading", "Loading", "Loading");
 
-        RecyclerView mainRecyclerView = view.findViewById(R.id.fragment_main_recycler_view);
-        MainFragmentCompaniesRecyclerView mainFragmentCompaniesRecyclerView = new MainFragmentCompaniesRecyclerView(mContext, mCompaniesList);
-        mainRecyclerView.setLayoutManager(new GridLayoutManager(mContext, 2));
-        mainRecyclerView.setAdapter(mainFragmentCompaniesRecyclerView);
-        mainRecyclerView.setNestedScrollingEnabled(false);
+                loadingCompaniesList.add(i, loadingCompany);
+            }
 
-        mCompanyAdapter = new CompanyAdapter(mContext, R.layout.layout_item, mCompaniesList);
-        mCompanyAdapter.notifyDataSetChanged();
+            setupCards(loadingCompaniesList);
+        }
 
         return view;
     }
@@ -174,6 +187,13 @@ public class MainFragment1 extends Fragment {
 
             }
         });
+    }
+
+    public void setupCards(List<Companies> companiesList) {
+        MainFragmentCompaniesRecyclerView mainFragmentCompaniesRecyclerView = new MainFragmentCompaniesRecyclerView(mContext, companiesList);
+        mainRecyclerView.setLayoutManager(new GridLayoutManager(mContext, 2));
+        mainRecyclerView.setAdapter(mainFragmentCompaniesRecyclerView);
+        mainRecyclerView.setNestedScrollingEnabled(false);
     }
 
     public static String getIpAddress(Context context) {

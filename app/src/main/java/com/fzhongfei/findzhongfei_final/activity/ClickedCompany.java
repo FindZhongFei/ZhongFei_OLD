@@ -2,8 +2,10 @@ package com.fzhongfei.findzhongfei_final.activity;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.BitmapFactory;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Base64;
 import android.util.Log;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
@@ -35,6 +37,8 @@ public class ClickedCompany extends AppCompatActivity {
         String compNameIntent = intent.getStringExtra("CompanyName");
         String companyTypeIntent = intent.getStringExtra("CompanyType");
         String compImageIntent = intent.getStringExtra("CompanyImage");
+        String compSubtypeIntent = intent.getStringExtra("CompanySubtype");
+        String compIdIntent = intent.getStringExtra("CompanyId");
 
         companyLogo = findViewById(R.id.clicked_company_image_view);
         companyName = findViewById(R.id.clicked_company_name);
@@ -52,9 +56,12 @@ public class ClickedCompany extends AppCompatActivity {
         companyWechatId = findViewById(R.id.clicked_company_wechat_id);
         companyDescription = findViewById(R.id.clicked_company_description);
 
-        companyLogo.setImageDrawable(getResources().getDrawable(R.drawable.img_wall_9));
+        byte[] decodedLogo = Base64.decode(compImageIntent, Base64.DEFAULT);
+        companyLogo.setImageBitmap(BitmapFactory.decodeByteArray(decodedLogo, 0, decodedLogo.length));
+
         companyName.setText(compNameIntent);
         companyType.setText(companyTypeIntent);
+        companySubType.setText(compSubtypeIntent);
 
         ScrollView scrollView = findViewById(R.id.clicked_company_scroll_view);
         final RelativeLayout relativeLayout = findViewById(R.id.clicked_company_image_view_layout);
