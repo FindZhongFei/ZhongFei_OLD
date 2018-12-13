@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.BitmapFactory;
+import android.support.v7.widget.GridLayoutManager;
 import android.util.Base64;
 import android.util.Log;
 import android.widget.TextView;
@@ -20,7 +21,9 @@ import com.fzhongfei.findzhongfei_final.activity.UserLoginActivity;
 import com.fzhongfei.findzhongfei_final.activity.UserProfileEditActivity;
 import com.fzhongfei.findzhongfei_final.activity.UserRegistrationActivity;
 import com.fzhongfei.findzhongfei_final.activity.UserSignedInActivity;
+import com.fzhongfei.findzhongfei_final.adapter.MainFragmentCompaniesRecyclerView;
 import com.fzhongfei.findzhongfei_final.fragments.MainFragment1;
+import com.fzhongfei.findzhongfei_final.model.Companies;
 import com.fzhongfei.findzhongfei_final.model.CompanyProfile;
 import com.fzhongfei.findzhongfei_final.model.UserProfile;
 
@@ -28,7 +31,11 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.LinkedHashSet;
+import java.util.List;
+import java.util.Set;
 
 public class callBackImplement implements serverCallBack {
 
@@ -70,11 +77,44 @@ public class callBackImplement implements serverCallBack {
                 {
                     JSONArray companyData = new JSONArray(String.valueOf(result.get("compData")));
 
+                    ArrayList<JSONObject> hashMapArrayList = new ArrayList<>();
+                    JSONObject jsonObject;
+                    Companies company;
+                    ArrayList<Companies> companiesArrayList = new ArrayList<>();
+                    List<Companies> mCompaniesList = new ArrayList<>();
+
 //                    HashMap<String, String> hashCompData = new HashMap<>();
                     for(int i = 0; i < companyData.length(); i++)
                     {
                         JSONObject retrievedData = companyData.getJSONObject(i);
-                        MainFragment1.hashMapArrayList.add(retrievedData);
+//                        MainFragment1.hashMapArrayList.add(retrievedData);
+                        hashMapArrayList.add(retrievedData);
+
+                        for(int j = 0; j < hashMapArrayList.size(); j++)
+                        {
+                            jsonObject = hashMapArrayList.get(i);
+
+                            company = new Companies(jsonObject.optInt("comp_id"),
+                                    jsonObject.optString("comp_logo"),
+                                    jsonObject.optString("comp_id"),
+                                    jsonObject.optString("comp_name"),
+                                    jsonObject.optString("comp_type"),
+                                    jsonObject.optString("comp_subtype"),
+                                    jsonObject.optString("logo_val"));
+                            companiesArrayList.add(i, company);
+                        }
+
+                        // REMOVE ANY DUPLICATE COMPANIES FROM LIST - 'LinkedHashSet' PRESERVES INSERTION ORDER AS WELL
+                        Set<Companies> nonDuplicatedCompanies = new LinkedHashSet<>(companiesArrayList);
+                        companiesArrayList.clear();
+                        companiesArrayList.addAll(nonDuplicatedCompanies);
+                        mCompaniesList.addAll(companiesArrayList);
+
+                        MainFragmentCompaniesRecyclerView mainFragmentCompaniesRecyclerView = new MainFragmentCompaniesRecyclerView(context, mCompaniesList);
+                        MainFragment1.mainRecyclerView.setLayoutManager(new GridLayoutManager(context, 2));
+                        MainFragment1.mainRecyclerView.setAdapter(mainFragmentCompaniesRecyclerView);
+                        MainFragment1.mainRecyclerView.setNestedScrollingEnabled(false);
+
 
 //                        hashCompData.put("comp_id", retrievedData.optString("comp_id"));
 //                        hashCompData.put("comp_name", retrievedData.getString("comp_name"));
@@ -84,7 +124,6 @@ public class callBackImplement implements serverCallBack {
 
 //                        CompanyAdapter.favoriteCompanyItem.setCompData(this.context, hashCompData);
                     }
-
                 }
                 else if(requestType.equals("comp_registration"))
                 {

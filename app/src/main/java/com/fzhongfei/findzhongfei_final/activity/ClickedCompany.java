@@ -2,6 +2,7 @@ package com.fzhongfei.findzhongfei_final.activity;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -36,7 +37,7 @@ public class ClickedCompany extends AppCompatActivity {
         Intent intent = getIntent();
         String compNameIntent = intent.getStringExtra("CompanyName");
         String companyTypeIntent = intent.getStringExtra("CompanyType");
-        String compImageIntent = intent.getStringExtra("CompanyImage");
+//        String compImageIntent = intent.getStringExtra("CompanyImage");
         String compSubtypeIntent = intent.getStringExtra("CompanySubtype");
         String compIdIntent = intent.getStringExtra("CompanyId");
 
@@ -56,8 +57,12 @@ public class ClickedCompany extends AppCompatActivity {
         companyWechatId = findViewById(R.id.clicked_company_wechat_id);
         companyDescription = findViewById(R.id.clicked_company_description);
 
-        byte[] decodedLogo = Base64.decode(compImageIntent, Base64.DEFAULT);
-        companyLogo.setImageBitmap(BitmapFactory.decodeByteArray(decodedLogo, 0, decodedLogo.length));
+//        byte[] decodedLogo = Base64.decode(compImageIntent, Base64.DEFAULT);
+//        companyLogo.setImageBitmap(BitmapFactory.decodeByteArray(decodedLogo, 0, decodedLogo.length));
+
+        Bitmap bitmap = BitmapFactory.decodeByteArray(
+                getIntent().getByteArrayExtra("CompanyImage"),0,getIntent().getByteArrayExtra("CompanyImage").length);
+        companyLogo.setImageBitmap(bitmap);
 
         companyName.setText(compNameIntent);
         companyType.setText(companyTypeIntent);

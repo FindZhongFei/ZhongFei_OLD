@@ -56,11 +56,11 @@ public class MainFragment1 extends Fragment {
 
     // VARIABLES
     private CompanyAdapter mCompanyAdapter; //arrayAdapter
-    public static ArrayList<JSONObject> hashMapArrayList = new ArrayList<>();
+    public ArrayList<JSONObject> hashMapArrayList = new ArrayList<>();
     List<Companies> mCompaniesList; //List<cards> rowItems
     public ArrayList<Companies> companiesArrayList;
     public Companies company;
-    RecyclerView mainRecyclerView;
+    public static RecyclerView mainRecyclerView;
 
     // IMAGE SLIDER
     private int dotsCount;
@@ -99,44 +99,43 @@ public class MainFragment1 extends Fragment {
 
         JSONObject jsonObject;
 
-        if(!hashMapArrayList.isEmpty())
-        {
-            for(int i = 0; i < hashMapArrayList.size(); i++)
-            {
-                jsonObject = hashMapArrayList.get(i);
-
-                company = new Companies(jsonObject.optInt("comp_id"),
-                        jsonObject.optString("comp_logo"),
-                        jsonObject.optString("comp_id"),
-                        jsonObject.optString("comp_name"),
-                        jsonObject.optString("comp_type"),
-                        jsonObject.optString("comp_subtype"),
-                        jsonObject.optString("logo_val"));
-                companiesArrayList.add(i, company);
-            }
-
-            // REMOVE ANY DUPLICATE COMPANIES FROM LIST - 'LinkedHashSet' PRESERVES INSERTION ORDER AS WELL
-            Set<Companies> nonDuplicatedCompanies = new LinkedHashSet<>(companiesArrayList);
-            companiesArrayList.clear();
-            companiesArrayList.addAll(nonDuplicatedCompanies);
-            mCompaniesList.addAll(companiesArrayList);
-
-            setupCards(mCompaniesList);
-        }
-        else
-        {
+//        if(!hashMapArrayList.isEmpty())
+//        {
+//            for(int i = 0; i < hashMapArrayList.size(); i++)
+//            {
+//                jsonObject = hashMapArrayList.get(i);
+//
+//                company = new Companies(jsonObject.optInt("comp_id"),
+//                        jsonObject.optString("comp_logo"),
+//                        jsonObject.optString("comp_id"),
+//                        jsonObject.optString("comp_name"),
+//                        jsonObject.optString("comp_type"),
+//                        jsonObject.optString("comp_subtype"),
+//                        jsonObject.optString("logo_val"));
+//                companiesArrayList.add(i, company);
+//            }
+//
+//            // REMOVE ANY DUPLICATE COMPANIES FROM LIST - 'LinkedHashSet' PRESERVES INSERTION ORDER AS WELL
+//            Set<Companies> nonDuplicatedCompanies = new LinkedHashSet<>(companiesArrayList);
+//            companiesArrayList.clear();
+//            companiesArrayList.addAll(nonDuplicatedCompanies);
+//            mCompaniesList.addAll(companiesArrayList);
+//
+//            setupCards(mCompaniesList);
+//        }
+//        else
+//        {
             List<Companies> loadingCompaniesList = new ArrayList<>();
             Companies loadingCompany = new Companies();
 
             for(int i = 0; i < 4; i++)
             {
-                loadingCompany = new Companies(0, "Loading", "Loading", "Loading", "Loading", "Loading", "Loading");
-
+                loadingCompany = new Companies();
                 loadingCompaniesList.add(i, loadingCompany);
             }
 
             setupCards(loadingCompaniesList);
-        }
+//        }
 
         return view;
     }
