@@ -103,12 +103,13 @@ public class callBackImplement implements serverCallBack {
 
                         // REMOVE ANY DUPLICATE COMPANIES FROM LIST - 'LinkedHashSet' PRESERVES INSERTION ORDER AS WELL
 //                        Set<Companies> nonDuplicatedCompanies = new LinkedHashSet<>(companiesArrayList);
-//                        companiesArrayList.clear();
 //                        companiesArrayList.addAll(nonDuplicatedCompanies);
+                        MainFragment1.mCompaniesList.clear();
                         MainFragment1.mCompaniesList.addAll(companiesArrayList);
 
                         MainFragment1.mainCompaniesAdapter = new MainFragmentCompaniesRecyclerViewAdapter(context, MainFragment1.mCompaniesList);
                         MainFragment1.mainRecyclerView.setAdapter(MainFragment1.mainCompaniesAdapter);
+
 
                         // Stopping swipe refresh
                         MainFragment1.mSwipeRefreshLayout.setRefreshing(false);
