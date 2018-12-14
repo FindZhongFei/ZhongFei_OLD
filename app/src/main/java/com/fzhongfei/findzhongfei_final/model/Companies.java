@@ -7,7 +7,7 @@ import java.util.HashMap;
 
 public class Companies {
 
-    private int id, compImage;
+    private int id;
     private Bitmap imageBitmap;
     private String compId, compLogoUrl, compName, compType, compSubType, compLogo;
 
@@ -23,10 +23,6 @@ public class Companies {
         this.compType = compType;
         this.compSubType = compSubType;
         this.compLogo = compLogo;
-    }
-
-    public Companies(int compImage) {
-        this.compImage = compImage;
     }
 
     public void setCompData(Context context, HashMap<String, String> compData)

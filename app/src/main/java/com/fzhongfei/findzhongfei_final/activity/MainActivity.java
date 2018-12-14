@@ -35,7 +35,7 @@ public class MainActivity extends AppCompatActivity {
     final Fragment mainFragment = new MainFragment1();
     final Fragment favoriteFragment = new FavoritesFragment();
     final Fragment chatFragment = new ChatFragment();
-    Fragment currentFragment = mainFragment;
+    Fragment currentFragment;
     private boolean backButtonPressedOnce = false;
 
     @Override

@@ -10,6 +10,7 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewPager;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.format.Formatter;
@@ -19,11 +20,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.Toast;
 
 import com.fzhongfei.findzhongfei_final.R;
-import com.fzhongfei.findzhongfei_final.adapter.CompanyAdapter;
-import com.fzhongfei.findzhongfei_final.adapter.MainFragmentCompaniesRecyclerView;
+import com.fzhongfei.findzhongfei_final.adapter.MainFragmentCompaniesRecyclerViewAdapter;
 import com.fzhongfei.findzhongfei_final.adapter.SlideshowAdapter;
 import com.fzhongfei.findzhongfei_final.model.Companies;
 import com.fzhongfei.findzhongfei_final.model.CompanyProfile;
@@ -32,17 +31,13 @@ import com.fzhongfei.findzhongfei_final.model.trackRequestPosition;
 import com.fzhongfei.findzhongfei_final.server.callBackImplement;
 import com.fzhongfei.findzhongfei_final.server.customStringRequest;
 
-import org.json.JSONObject;
-
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.LinkedHashSet;
 import java.util.List;
-import java.util.Set;
 import java.util.Timer;
 import java.util.TimerTask;
 
-public class MainFragment1 extends Fragment {
+public class MainFragment1 extends Fragment implements SwipeRefreshLayout.OnRefreshListener {
 
     // EVERY ACTIVITY SETUP
     private static final String TAG = "MainFragment";
@@ -50,17 +45,17 @@ public class MainFragment1 extends Fragment {
 
     // VIEWS
     View view;
-    ViewPager mViewPager;
-    SlideshowAdapter mSlideshowAdapter;
-    LinearLayout slideshowDotsLayout;
+    public static SwipeRefreshLayout mSwipeRefreshLayout;
+    private ViewPager mViewPager;
+    private LinearLayout slideshowDotsLayout;
+    private SlideshowAdapter mSlideshowAdapter;
+    public static RecyclerView mainRecyclerView;
+    public static MainFragmentCompaniesRecyclerViewAdapter mainCompaniesAdapter;
+    public static List<Companies> mCompaniesList = new ArrayList<>();
 
     // VARIABLES
-    private CompanyAdapter mCompanyAdapter; //arrayAdapter
-    public ArrayList<JSONObject> hashMapArrayList = new ArrayList<>();
-    List<Companies> mCompaniesList; //List<cards> rowItems
-    public ArrayList<Companies> companiesArrayList;
     public Companies company;
-    public static RecyclerView mainRecyclerView;
+    public static boolean companiesLoaded;
 
     // IMAGE SLIDER
     private int dotsCount;
@@ -80,62 +75,67 @@ public class MainFragment1 extends Fragment {
         mContext = getActivity();
         requestPosition = new trackRequestPosition(mContext);
         // Inflate the layout for this fragment
-        view = inflater.inflate(R.layout.fragment_main1, null);
+        final ViewGroup nullParent = null;
+        view = inflater.inflate(R.layout.fragment_main1, nullParent);
 
         slideshowDotsLayout = view.findViewById(R.id.slide_show_dots);
         mViewPager = view.findViewById(R.id.main_fragment_view_pager);
         mSlideshowAdapter = new SlideshowAdapter(mContext);
         mainRecyclerView = view.findViewById(R.id.fragment_main_recycler_view);
 
+        // SwipeRefreshLayout
+        mSwipeRefreshLayout = view.findViewById(R.id.activity_main_swipe_refresh_layout);
+        mSwipeRefreshLayout.setOnRefreshListener(this);
+        mSwipeRefreshLayout.setColorSchemeResources(R.color.colorPrimary,
+                android.R.color.holo_green_dark,
+                android.R.color.holo_orange_dark,
+                android.R.color.holo_blue_dark);
+
+        /*
+         * Showing Swipe Refresh animation on activity create
+         * As animation won't start on onCreate, post runnable is used
+         */
+        mSwipeRefreshLayout.post(new Runnable() {
+
+            @Override
+            public void run() {
+
+                if(!companiesLoaded)
+                {
+                    mSwipeRefreshLayout.setRefreshing(true);
+
+                    // Fetching data from server
+                    loadCompanies();
+                }
+            }
+        });
+
+        mainRecyclerView.setLayoutManager(new GridLayoutManager(mContext, 2));
+        mainRecyclerView.setNestedScrollingEnabled(false);
+
         companySharedPreferences = this.getActivity().getSharedPreferences("companyPreference", 0);
         userSharedPreferences = this.getActivity().getSharedPreferences("userPreference", 0);
 
         setUpSlideshow();
-        loadCompanies();
 
-        mCompaniesList = new ArrayList<>();
-
-        companiesArrayList = new ArrayList<>();
-
-        JSONObject jsonObject;
-
-//        if(!hashMapArrayList.isEmpty())
+//        if(mSwipeRefreshLayout.isRefreshing())
 //        {
-//            for(int i = 0; i < hashMapArrayList.size(); i++)
-//            {
-//                jsonObject = hashMapArrayList.get(i);
-//
-//                company = new Companies(jsonObject.optInt("comp_id"),
-//                        jsonObject.optString("comp_logo"),
-//                        jsonObject.optString("comp_id"),
-//                        jsonObject.optString("comp_name"),
-//                        jsonObject.optString("comp_type"),
-//                        jsonObject.optString("comp_subtype"),
-//                        jsonObject.optString("logo_val"));
-//                companiesArrayList.add(i, company);
-//            }
-//
-//            // REMOVE ANY DUPLICATE COMPANIES FROM LIST - 'LinkedHashSet' PRESERVES INSERTION ORDER AS WELL
-//            Set<Companies> nonDuplicatedCompanies = new LinkedHashSet<>(companiesArrayList);
-//            companiesArrayList.clear();
-//            companiesArrayList.addAll(nonDuplicatedCompanies);
-//            mCompaniesList.addAll(companiesArrayList);
-//
-//            setupCards(mCompaniesList);
+//            loadCompanies();
 //        }
-//        else
-//        {
-            List<Companies> loadingCompaniesList = new ArrayList<>();
-            Companies loadingCompany = new Companies();
 
+        Companies loadingCompany = new Companies();
+
+        if(!companiesLoaded)
+        {
             for(int i = 0; i < 4; i++)
             {
-                loadingCompany = new Companies();
-                loadingCompaniesList.add(i, loadingCompany);
+                mCompaniesList.add(i, loadingCompany);
             }
+        }
 
-            setupCards(loadingCompaniesList);
-//        }
+        mainCompaniesAdapter = new MainFragmentCompaniesRecyclerViewAdapter(mContext, mCompaniesList);
+//        mainCompaniesAdapter.swap(mCompaniesList);
+        mainRecyclerView.setAdapter(mainCompaniesAdapter);
 
         return view;
     }
@@ -188,11 +188,9 @@ public class MainFragment1 extends Fragment {
         });
     }
 
-    public void setupCards(List<Companies> companiesList) {
-        MainFragmentCompaniesRecyclerView mainFragmentCompaniesRecyclerView = new MainFragmentCompaniesRecyclerView(mContext, companiesList);
-        mainRecyclerView.setLayoutManager(new GridLayoutManager(mContext, 2));
-        mainRecyclerView.setAdapter(mainFragmentCompaniesRecyclerView);
-        mainRecyclerView.setNestedScrollingEnabled(false);
+    @Override
+    public void onRefresh() {
+        loadCompanies();
     }
 
     public static String getIpAddress(Context context) {
@@ -210,6 +208,9 @@ public class MainFragment1 extends Fragment {
     }
 
     private void loadCompanies() {
+        // Showing refresh animation before making http call
+        mSwipeRefreshLayout.setRefreshing(true);
+
         customStringRequest companiesRequest = new customStringRequest("comp/getComp.php");
 
         HashMap<String, String> Params = new HashMap<>();
@@ -321,3 +322,30 @@ public class MainFragment1 extends Fragment {
         }
     }
 }
+
+//        if(!hashMapArrayList.isEmpty())
+//        {
+//            for(int i = 0; i < hashMapArrayList.size(); i++)
+//            {
+//                jsonObject = hashMapArrayList.get(i);
+//
+//                company = new Companies(jsonObject.optInt("comp_id"),
+//                        jsonObject.optString("comp_logo"),
+//                        jsonObject.optString("comp_id"),
+//                        jsonObject.optString("comp_name"),
+//                        jsonObject.optString("comp_type"),
+//                        jsonObject.optString("comp_subtype"),
+//                        jsonObject.optString("logo_val"));
+//                companiesArrayList.add(i, company);
+//            }
+//
+//            // REMOVE ANY DUPLICATE COMPANIES FROM LIST - 'LinkedHashSet' PRESERVES INSERTION ORDER AS WELL
+//            Set<Companies> nonDuplicatedCompanies = new LinkedHashSet<>(companiesArrayList);
+//            companiesArrayList.clear();
+//            companiesArrayList.addAll(nonDuplicatedCompanies);
+//            mCompaniesList.addAll(companiesArrayList);
+//
+//            setupCards(mCompaniesList);
+//        }
+//        else
+//        {}

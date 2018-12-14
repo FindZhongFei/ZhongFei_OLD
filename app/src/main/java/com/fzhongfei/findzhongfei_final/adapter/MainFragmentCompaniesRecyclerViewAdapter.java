@@ -20,14 +20,15 @@ import com.fzhongfei.findzhongfei_final.activity.ClickedCompany;
 import com.fzhongfei.findzhongfei_final.model.Companies;
 
 import java.io.ByteArrayOutputStream;
+import java.util.ArrayList;
 import java.util.List;
 
-public class MainFragmentCompaniesRecyclerView extends RecyclerView.Adapter<MainFragmentCompaniesRecyclerView.MyCompanyViewHolder> {
+public class MainFragmentCompaniesRecyclerViewAdapter extends RecyclerView.Adapter<MainFragmentCompaniesRecyclerViewAdapter.MyCompanyViewHolder> {
 
     private Context mContext;
-    public static List<Companies> mCompaniesList;
+    private List<Companies> mCompaniesList;
 
-    public MainFragmentCompaniesRecyclerView(Context context, List<Companies> companiesList) {
+    public MainFragmentCompaniesRecyclerViewAdapter(Context context, List<Companies> companiesList) {
         mContext = context;
         mCompaniesList = companiesList;
     }
@@ -35,7 +36,8 @@ public class MainFragmentCompaniesRecyclerView extends RecyclerView.Adapter<Main
     @NonNull
     @Override
     public MyCompanyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(mContext).inflate(R.layout.layout_main_fragment_cardview_companies, null);
+        final ViewGroup nullParent = null;
+        View view = LayoutInflater.from(mContext).inflate(R.layout.layout_main_fragment_cardview_companies, nullParent);
 
         return new MyCompanyViewHolder(view);
     }
@@ -43,6 +45,7 @@ public class MainFragmentCompaniesRecyclerView extends RecyclerView.Adapter<Main
     @Override
     public void onBindViewHolder(@NonNull final MyCompanyViewHolder holder, final int position) {
         Companies company = mCompaniesList.get(position);
+        String imageFile = company.getImageLogo();
 
         if(company.getImageLogo() == null)
         {
@@ -59,8 +62,30 @@ public class MainFragmentCompaniesRecyclerView extends RecyclerView.Adapter<Main
             holder.companyName.setText(company.getCompName());
             holder.companyType.setText(company.getCompType());
 
-            byte[] decodedLogo = Base64.decode(company.getImageLogo(), Base64.DEFAULT);
-            holder.companyThumbnail.setImageBitmap(BitmapFactory.decodeByteArray(decodedLogo, 0, decodedLogo.length));
+//            ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+            // Decode image (without loading it in memory) to get its size
+            // The size will be used to calculate a sample size used in decode the image
+            BitmapFactory.Options options = new BitmapFactory.Options();
+
+            options.inJustDecodeBounds = true;
+            int imageHeight = options.outHeight;
+            int imageWidth = options.outWidth;
+            String imageType = options.outMimeType;
+            options.inJustDecodeBounds = false;
+            options.inSampleSize = calculateInSampleSize(options, imageWidth, imageHeight);
+
+            byte[] decodedLogo = Base64.decode(imageFile, Base64.DEFAULT);
+            Bitmap bitmap = BitmapFactory.decodeByteArray(decodedLogo, 0, decodedLogo.length, options);
+
+            float aspectRatio = bitmap.getWidth() /
+                    (float) bitmap.getHeight();
+            int width = bitmap.getWidth();
+            int height = Math.round(width / aspectRatio);
+
+            Bitmap resizedBitmap = Bitmap.createScaledBitmap(bitmap, width, height, false);
+
+//            byte[] decodedLogo = Base64.decode(company.getImageLogo(), Base64.DEFAULT);
+            holder.companyThumbnail.setImageBitmap(resizedBitmap);
 
             holder.companyCard.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -89,13 +114,50 @@ public class MainFragmentCompaniesRecyclerView extends RecyclerView.Adapter<Main
         return mCompaniesList.size();
     }
 
-    public static class MyCompanyViewHolder extends RecyclerView.ViewHolder {
+    public void swap(List<Companies> company)
+    {
+        if(company == null || company.size() == 0)
+        {
+            return;
+        }
+        else if(mCompaniesList != null && mCompaniesList.size() > 0)
+        {
+            mCompaniesList.clear();
+        }
+        assert mCompaniesList != null;
+        mCompaniesList.addAll(company);
+        notifyDataSetChanged();
+    }
+
+    private static int calculateInSampleSize(BitmapFactory.Options options, int reqWidth, int reqHeight) {
+        // Raw height and width of image
+        final int height = options.outHeight;
+        final int width = options.outWidth;
+        int inSampleSize = 1;
+
+        if (height > reqHeight || width > reqWidth) {
+
+            final int halfHeight = height / 2;
+            final int halfWidth = width / 2;
+
+            // Calculate the largest inSampleSize value that is a power of 2 and keeps both
+            // height and width larger than the requested height and width.
+            while ((halfHeight / inSampleSize) >= reqHeight
+                    && (halfWidth / inSampleSize) >= reqWidth) {
+                inSampleSize *= 2;
+            }
+        }
+
+        return inSampleSize;
+    }
+
+    static class MyCompanyViewHolder extends RecyclerView.ViewHolder {
         TextView companyName, companyType;
         ImageView companyThumbnail;
         CardView companyCard;
         ProgressBar companyImageLoading;
 
-        public MyCompanyViewHolder(View itemView) {
+        MyCompanyViewHolder(View itemView) {
             super(itemView);
 
             companyName = itemView.findViewById(R.id.main_fragment_comp_name);
