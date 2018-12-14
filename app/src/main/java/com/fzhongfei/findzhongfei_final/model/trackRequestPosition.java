@@ -19,7 +19,7 @@ public class trackRequestPosition {
     private void setPosition(int pos)
     {
         SharedPreferences.Editor editor = sharedPreference.edit();
-        editor.putInt("requestPositon", pos);
+        editor.putInt("requestPosition", pos);
         editor.apply();
         editor.commit();
     }

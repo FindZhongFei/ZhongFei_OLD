@@ -26,6 +26,7 @@ import com.fzhongfei.findzhongfei_final.fragments.MainFragment1;
 import com.fzhongfei.findzhongfei_final.model.Companies;
 import com.fzhongfei.findzhongfei_final.model.CompanyProfile;
 import com.fzhongfei.findzhongfei_final.model.UserProfile;
+import com.fzhongfei.findzhongfei_final.model.trackRequestPosition;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -79,6 +80,8 @@ public class callBackImplement implements serverCallBack {
                     JSONObject jsonObject;
                     Companies company;
                     ArrayList<Companies> companiesArrayList = new ArrayList<>();
+                    trackRequestPosition requestPosition = new trackRequestPosition(this.context);
+                    requestPosition.IncrementPosition();
 
 //                    HashMap<String, String> hashCompData = new HashMap<>();
                     for(int i = 0; i < companyData.length(); i++)
