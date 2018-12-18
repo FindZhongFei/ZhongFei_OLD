@@ -2,14 +2,14 @@ package com.fzhongfei.findzhongfei_final.model;
 
 import java.io.Serializable;
 
-public class Message implements Serializable {
+public class ChatMessages implements Serializable {
     private String id, message, createdAt;
-    private UserChat mUserChat;
+    private ChatUserChat mUserChat;
 
-    public Message() {
+    public ChatMessages() {
     }
 
-    public Message(String id, String message, String createdAt, UserChat userChat) {
+    public ChatMessages(String id, String message, String createdAt, ChatUserChat userChat) {
         this.id = id;
         this.message = message;
         this.createdAt = createdAt;
@@ -37,10 +37,10 @@ public class Message implements Serializable {
         this.createdAt = createdAt;
     }
 
-    public UserChat getUserChat() {
+    public ChatUserChat getUserChat() {
         return mUserChat;
     }
-    public void setUserChat(UserChat userChat) {
+    public void setUserChat(ChatUserChat userChat) {
         this.mUserChat = userChat;
     }
 }

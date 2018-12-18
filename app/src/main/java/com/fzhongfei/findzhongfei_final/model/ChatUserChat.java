@@ -2,13 +2,13 @@ package com.fzhongfei.findzhongfei_final.model;
 
 import java.io.Serializable;
 
-public class UserChat implements Serializable {
+public class ChatUserChat implements Serializable {
     private String id, name, email;
 
-    public UserChat() {
+    public ChatUserChat() {
     }
 
-    public UserChat(String id, String name, String email) {
+    public ChatUserChat(String id, String name, String email) {
         this.id = id;
         this.name = name;
         this.email = email;

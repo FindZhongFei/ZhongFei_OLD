@@ -1,6 +1,7 @@
 package com.fzhongfei.findzhongfei_final.server;
 
 import android.content.Context;
+import android.support.v4.app.FragmentActivity;
 import android.util.Log;
 import android.widget.Toast;
 
@@ -8,10 +9,12 @@ import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.error.VolleyError;
 import com.android.volley.request.StringRequest;
+import com.fzhongfei.findzhongfei_final.R;
 import com.fzhongfei.findzhongfei_final.activity.CompanyRegistrationActivity1;
 import com.fzhongfei.findzhongfei_final.activity.CompanyRegistrationActivity2;
 import com.fzhongfei.findzhongfei_final.activity.CompanyRegistrationActivity3;
 import com.fzhongfei.findzhongfei_final.constants.Constants;
+import com.fzhongfei.findzhongfei_final.fragments.MainFragment1;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -67,16 +70,22 @@ public class customStringRequest {
                 public void onErrorResponse(VolleyError error) {
                     if(context != null)
                     {
-                        if(context.toString().contains("CompanyRegistrationActivity1")) {
+                        if(context.toString().contains("CompanyRegistrationActivity1"))
+                        {
                             ((CompanyRegistrationActivity1) context).stopCompanyRegistrationConnection1();
-                        } else if(context.toString().contains("CompanyRegistrationActivity2")) {
+                        }
+                        else if(context.toString().contains("CompanyRegistrationActivity2"))
+                        {
                             ((CompanyRegistrationActivity2) context).stopCompanyRegistrationConnection2();
-                        } else if(context.toString().contains("CompanyRegistrationActivity3")) {
+                        }
+                        else if(context.toString().contains("CompanyRegistrationActivity3"))
+                        {
                             ((CompanyRegistrationActivity3) context).stopCompanyRegistrationConnection3();
                         }
 
                         Toast.makeText(context,"Server error...contact support", Toast.LENGTH_LONG).show();
                     }
+
                     Log.d(TAG, "onErrorResponse: " + error.toString());
 
                     error.printStackTrace();

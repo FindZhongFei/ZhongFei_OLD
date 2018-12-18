@@ -59,7 +59,7 @@ public class MainActivity extends AppCompatActivity {
         if(savedInstanceState == null)
         {
             // LOAD MAIN FRAGMENTS INTO VIEW
-            loadFragment(mainFragment);
+            loadFragment(mainFragment, "MainFragment");
             currentFragment = mainFragment;
         }
     }
@@ -106,11 +106,11 @@ public class MainActivity extends AppCompatActivity {
             Fragment fragment;
             switch (item.getItemId()) {
                 case R.id.ic_home:
-                    mFragmentManager.beginTransaction().replace(R.id.fragment_container, mainFragment).commit();
+                    loadFragment(mainFragment, "MainFragment");
                     currentFragment = mainFragment;
                     return true;
                 case R.id.ic_fav:
-                    mFragmentManager.beginTransaction().replace(R.id.fragment_container, chatFragment).commit();
+                    loadFragment(chatFragment, "ChatFragment");
                     currentFragment = chatFragment;
                     return true;
                 case R.id.ic_profile:
@@ -122,10 +122,10 @@ public class MainActivity extends AppCompatActivity {
     };
 
     // UI - LOADING FRAGMENTS INSIDE VIEW
-    private void loadFragment(Fragment fragment) {
+    private void loadFragment(Fragment fragment, String tag) {
         // LOAD FRAGMENTS
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-        transaction.replace(R.id.fragment_container, fragment);
+        transaction.replace(R.id.fragment_container, fragment, tag);
         transaction.commit();
     }
 }

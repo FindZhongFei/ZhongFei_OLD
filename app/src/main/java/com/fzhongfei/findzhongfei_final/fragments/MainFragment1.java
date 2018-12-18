@@ -1,5 +1,6 @@
 package com.fzhongfei.findzhongfei_final.fragments;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.net.wifi.WifiManager;
@@ -26,6 +27,7 @@ import com.fzhongfei.findzhongfei_final.adapter.MainFragmentCompaniesRecyclerVie
 import com.fzhongfei.findzhongfei_final.adapter.SlideshowAdapter;
 import com.fzhongfei.findzhongfei_final.model.Companies;
 import com.fzhongfei.findzhongfei_final.model.CompanyProfile;
+import com.fzhongfei.findzhongfei_final.model.FetchedCompanies;
 import com.fzhongfei.findzhongfei_final.model.UserProfile;
 import com.fzhongfei.findzhongfei_final.model.trackRequestPosition;
 import com.fzhongfei.findzhongfei_final.server.callBackImplement;
@@ -118,14 +120,17 @@ public class MainFragment1 extends Fragment implements SwipeRefreshLayout.OnRefr
 
         setUpSlideshow();
 
-//        if(mSwipeRefreshLayout.isRefreshing())
-//        {
-//            loadCompanies();
-//        }
-
         Companies loadingCompany = new Companies();
+        ArrayList<Companies> fetchedCompanies = FetchedCompanies.getSavedCompanyData(mContext);
 
-        if(!companiesLoaded)
+        if(!fetchedCompanies.isEmpty() && mCompaniesList.isEmpty())
+        {
+            companiesLoaded = true;
+            mSwipeRefreshLayout.setRefreshing(false);
+
+            mCompaniesList.addAll(fetchedCompanies);
+        }
+        else if(!companiesLoaded && mCompaniesList.isEmpty())
         {
             for(int i = 0; i < 4; i++)
             {
@@ -134,7 +139,6 @@ public class MainFragment1 extends Fragment implements SwipeRefreshLayout.OnRefr
         }
 
         mainCompaniesAdapter = new MainFragmentCompaniesRecyclerViewAdapter(mContext, mCompaniesList);
-//        mainCompaniesAdapter.swap(mCompaniesList);
         mainRecyclerView.setAdapter(mainCompaniesAdapter);
 
         return view;
@@ -256,7 +260,7 @@ public class MainFragment1 extends Fragment implements SwipeRefreshLayout.OnRefr
 
         companiesRequest.setParams(Params);
 
-        callBackImplement callBack = new callBackImplement(mContext);
+        callBackImplement callBack = new callBackImplement((Activity) mContext);
         callBack.setParams(Params);
         callBack.SetRequestType("requestCompanies");
 
@@ -322,30 +326,3 @@ public class MainFragment1 extends Fragment implements SwipeRefreshLayout.OnRefr
         }
     }
 }
-
-//        if(!hashMapArrayList.isEmpty())
-//        {
-//            for(int i = 0; i < hashMapArrayList.size(); i++)
-//            {
-//                jsonObject = hashMapArrayList.get(i);
-//
-//                company = new Companies(jsonObject.optInt("comp_id"),
-//                        jsonObject.optString("comp_logo"),
-//                        jsonObject.optString("comp_id"),
-//                        jsonObject.optString("comp_name"),
-//                        jsonObject.optString("comp_type"),
-//                        jsonObject.optString("comp_subtype"),
-//                        jsonObject.optString("logo_val"));
-//                companiesArrayList.add(i, company);
-//            }
-//
-//            // REMOVE ANY DUPLICATE COMPANIES FROM LIST - 'LinkedHashSet' PRESERVES INSERTION ORDER AS WELL
-//            Set<Companies> nonDuplicatedCompanies = new LinkedHashSet<>(companiesArrayList);
-//            companiesArrayList.clear();
-//            companiesArrayList.addAll(nonDuplicatedCompanies);
-//            mCompaniesList.addAll(companiesArrayList);
-//
-//            setupCards(mCompaniesList);
-//        }
-//        else
-//        {}

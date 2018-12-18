@@ -21,10 +21,10 @@ import com.fzhongfei.findzhongfei_final.activity.UserProfileEditActivity;
 import com.fzhongfei.findzhongfei_final.activity.UserRegistrationActivity;
 import com.fzhongfei.findzhongfei_final.activity.UserSignedInActivity;
 import com.fzhongfei.findzhongfei_final.adapter.MainFragmentCompaniesRecyclerViewAdapter;
-import com.fzhongfei.findzhongfei_final.fragments.MainFragment;
 import com.fzhongfei.findzhongfei_final.fragments.MainFragment1;
 import com.fzhongfei.findzhongfei_final.model.Companies;
 import com.fzhongfei.findzhongfei_final.model.CompanyProfile;
+import com.fzhongfei.findzhongfei_final.model.FetchedCompanies;
 import com.fzhongfei.findzhongfei_final.model.UserProfile;
 import com.fzhongfei.findzhongfei_final.model.trackRequestPosition;
 
@@ -34,7 +34,6 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 
 public class callBackImplement implements serverCallBack {
 
@@ -76,54 +75,63 @@ public class callBackImplement implements serverCallBack {
                 {
                     JSONArray companyData = new JSONArray(String.valueOf(result.get("compData")));
 
-                    ArrayList<JSONObject> hashMapArrayList = new ArrayList<>();
-                    JSONObject jsonObject;
                     Companies company;
                     ArrayList<Companies> companiesArrayList = new ArrayList<>();
                     trackRequestPosition requestPosition = new trackRequestPosition(this.context);
                     requestPosition.IncrementPosition();
 
-//                    HashMap<String, String> hashCompData = new HashMap<>();
-                    for(int i = 0; i < companyData.length(); i++)
+                    if(companyData.length() == 5)
                     {
-                        JSONObject retrievedData = companyData.getJSONObject(i);
-//                        MainFragment1.hashMapArrayList.add(retrievedData);
-                        hashMapArrayList.add(retrievedData);
+                        FetchedCompanies.saveCompanyData(context, companyData);
+                    }
 
-                        for(int j = 0; j < hashMapArrayList.size(); j++)
+                    if(companyData.length() != 0)
+                    {
+                        for(int i = 0; i < companyData.length(); i++)
                         {
-                            jsonObject = hashMapArrayList.get(i);
+                            JSONObject retrievedData = companyData.getJSONObject(i);
 
-                            company = new Companies(jsonObject.optInt("comp_id"),
-                                    jsonObject.optString("comp_logo"),
-                                    jsonObject.optString("comp_id"),
-                                    jsonObject.optString("comp_name"),
-                                    jsonObject.optString("comp_type"),
-                                    jsonObject.optString("comp_subtype"),
-                                    jsonObject.optString("logo_val"));
+                            company = new Companies(
+                                    retrievedData.getInt("comp_id"),
+                                    retrievedData.getString("comp_logo"),
+                                    retrievedData.getString("comp_id"),
+                                    retrievedData.getString("comp_name"),
+                                    retrievedData.getString("comp_type"),
+                                    retrievedData.getString("comp_subtype"),
+                                    retrievedData.getString("logo_val")
+                            );
                             companiesArrayList.add(i, company);
                         }
 
-                        // REMOVE ANY DUPLICATE COMPANIES FROM LIST - 'LinkedHashSet' PRESERVES INSERTION ORDER AS WELL
-//                        Set<Companies> nonDuplicatedCompanies = new LinkedHashSet<>(companiesArrayList);
-//                        companiesArrayList.addAll(nonDuplicatedCompanies);
-                        MainFragment1.mCompaniesList.clear();
+                        if(MainFragment1.mCompaniesList.get(0).getCompName() == null)
+                        {
+                            MainFragment1.mCompaniesList.clear();
+                        }
                         MainFragment1.mCompaniesList.addAll(companiesArrayList);
 
                         MainFragment1.mainCompaniesAdapter = new MainFragmentCompaniesRecyclerViewAdapter(context, MainFragment1.mCompaniesList);
                         MainFragment1.mainRecyclerView.setAdapter(MainFragment1.mainCompaniesAdapter);
 
-
                         // Stopping swipe refresh
                         MainFragment1.mSwipeRefreshLayout.setRefreshing(false);
                         MainFragment1.companiesLoaded = true;
-//                        hashCompData.put("comp_id", retrievedData.optString("comp_id"));
-//                        hashCompData.put("comp_name", retrievedData.getString("comp_name"));
-//                        hashCompData.put("comp_logo", retrievedData.getString("comp_logo"));
-//                        hashCompData.put("comp_type", retrievedData.getString("comp_type"));
-//                        hashCompData.put("comp_subtype", retrievedData.getString("comp_subtype"));
+                    }
+                    else if(companyData.length() == 0)
+                    {
+                        Toast.makeText(context, "All companies synced", Toast.LENGTH_SHORT).show();
+                        // Stopping swipe refresh
+                        MainFragment1.mSwipeRefreshLayout.setRefreshing(false);
+                        MainFragment1.companiesLoaded = true;
 
-//                        CompanyAdapter.favoriteCompanyItem.setCompData(this.context, hashCompData);
+                        if(MainFragment1.mCompaniesList.get(0).getCompName() == null)
+                        {
+                            MainFragment1.mCompaniesList.clear();
+                            MainFragment1.mCompaniesList.addAll(FetchedCompanies.getSavedCompanyData(context));
+
+                            MainFragment1.mainCompaniesAdapter = new MainFragmentCompaniesRecyclerViewAdapter(context, MainFragment1.mCompaniesList);
+                            MainFragment1.mainRecyclerView.setAdapter(MainFragment1.mainCompaniesAdapter);
+                        }
+
                     }
                 }
                 else if(requestType.equals("comp_registration"))
@@ -276,7 +284,7 @@ public class callBackImplement implements serverCallBack {
                 {
                     UserProfile userProfile = new UserProfile(this.context);
                     userProfile.setUserProfilePicture(this.context, result.get("imageFile").toString());
-                    Log.d(TAG, "onSuccess: UserChat Logo from result " + userProfile.getUserProfilePicture());
+                    Log.d(TAG, "onSuccess: ChatUserChat Logo from result " + userProfile.getUserProfilePicture());
                     byte[] decodedLogo = Base64.decode(result.get("imageFile").toString(), Base64.DEFAULT);
 
 //                    UserProfileEditActivity.editProfilePicture.setImageBitmap(BitmapFactory.decodeByteArray(decodedLogo, 0, decodedLogo.length));
@@ -314,7 +322,12 @@ public class callBackImplement implements serverCallBack {
             {
                 if(context != null)
                 {
-                    if(context.toString().contains("CompanyRegistrationActivity1"))
+                    if(context.toString().contains("MainFragment1"))
+                    {
+                        MainFragment1.companiesLoaded = false;
+                        MainFragment1.mSwipeRefreshLayout.setRefreshing(false);
+                    }
+                    else if(context.toString().contains("CompanyRegistrationActivity1"))
                     {
                         ((CompanyRegistrationActivity1) context).stopCompanyRegistrationConnection1();
                     }
@@ -337,6 +350,10 @@ public class callBackImplement implements serverCallBack {
                     else if(context.toString().contains("UserRegistrationActivity"))
                     {
                         ((UserRegistrationActivity) context).stopUserRegisterConnection();
+                    }
+                    else if(context.toString().contains("UserProfileEditActivity"))
+                    {
+                        ((UserProfileEditActivity) context).stopConnection();
                     }
 
                     Toast.makeText(this.context, this.errorMessage, Toast.LENGTH_LONG).show();
@@ -361,14 +378,14 @@ public class callBackImplement implements serverCallBack {
     @Override
     public String getErrorMessage()
     {
-        Log.d(TAG, "getErrorMessage: Error Message: " + this.errorMessage);
+        Log.d(TAG, "getErrorMessage: Error ChatMessages: " + this.errorMessage);
         return this.errorMessage;
     }
 
     @Override
     public String getSuccessMessage()
     {
-        Log.d(TAG, "getSuccessMessage: success Message: " + this.successMessage);
+        Log.d(TAG, "getSuccessMessage: success ChatMessages: " + this.successMessage);
         return this.successMessage;
     }
 

@@ -27,7 +27,7 @@ public class trackRequestPosition {
     public void IncrementPosition()
     {
         int currentPosition = this.getCurrentPosition();
-        setPosition(currentPosition+5);
+        setPosition(currentPosition + 5);
     }
     public int getCurrentPosition()
     {

@@ -208,7 +208,8 @@ public class UserProfileEditActivity extends AppCompatActivity {
         String userPhoneNumberValue = "+" + userProfile.getUserPhone();
         String userEmailValue = userProfile.getUserEmail();
 
-        if(userProfilePicValue != null) {
+        if(userProfilePicValue != null)
+        {
             byte[] decodedLogo = Base64.decode(userProfilePicValue, Base64.DEFAULT);
             editProfilePicture.setImageBitmap(BitmapFactory.decodeByteArray(decodedLogo, 0, decodedLogo.length));
         }
@@ -228,6 +229,12 @@ public class UserProfileEditActivity extends AppCompatActivity {
         finishAffinity();
         startActivity(i);
         finish();
+    }
+
+    public void stopConnection() {
+        if(mProgressDialog.isShowing()) {
+            mProgressDialog.dismiss();
+        }
     }
 
     // UPDATE PROFILE FIELDS

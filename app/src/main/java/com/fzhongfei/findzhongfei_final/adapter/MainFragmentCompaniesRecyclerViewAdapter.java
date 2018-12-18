@@ -57,8 +57,6 @@ public class MainFragmentCompaniesRecyclerViewAdapter extends RecyclerView.Adapt
         }
         else
         {
-            holder.companyImageLoading.setVisibility(View.GONE);
-
             holder.companyName.setText(company.getCompName());
             holder.companyType.setText(company.getCompType());
 
@@ -77,15 +75,17 @@ public class MainFragmentCompaniesRecyclerViewAdapter extends RecyclerView.Adapt
             byte[] decodedLogo = Base64.decode(imageFile, Base64.DEFAULT);
             Bitmap bitmap = BitmapFactory.decodeByteArray(decodedLogo, 0, decodedLogo.length, options);
 
-            float aspectRatio = bitmap.getWidth() /
-                    (float) bitmap.getHeight();
-            int width = bitmap.getWidth();
-            int height = Math.round(width / aspectRatio);
+            if(bitmap != null) {
+                float aspectRatio = bitmap.getWidth() /
+                        (float) bitmap.getHeight();
+                int width = bitmap.getWidth();
+                int height = Math.round(width / aspectRatio);
 
-            Bitmap resizedBitmap = Bitmap.createScaledBitmap(bitmap, width, height, false);
+                Bitmap resizedBitmap = Bitmap.createScaledBitmap(bitmap, width, height, false);
 
 //            byte[] decodedLogo = Base64.decode(company.getImageLogo(), Base64.DEFAULT);
-            holder.companyThumbnail.setImageBitmap(resizedBitmap);
+                holder.companyThumbnail.setImageBitmap(resizedBitmap);
+            }
 
             holder.companyCard.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -155,7 +155,6 @@ public class MainFragmentCompaniesRecyclerViewAdapter extends RecyclerView.Adapt
         TextView companyName, companyType;
         ImageView companyThumbnail;
         CardView companyCard;
-        ProgressBar companyImageLoading;
 
         MyCompanyViewHolder(View itemView) {
             super(itemView);
@@ -164,7 +163,8 @@ public class MainFragmentCompaniesRecyclerViewAdapter extends RecyclerView.Adapt
             companyType = itemView.findViewById(R.id.main_fragment_comp_type);
             companyThumbnail = itemView.findViewById(R.id.main_fragment_comp_image);
             companyCard = itemView.findViewById(R.id.main_fragment_comp_card);
-            companyImageLoading = itemView.findViewById(R.id.main_fragment_loading_image);
         }
     }
+
+
 }

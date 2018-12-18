@@ -1,15 +1,18 @@
 package com.fzhongfei.findzhongfei_final.adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.view.GestureDetector;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.fzhongfei.findzhongfei_final.R;
+import com.fzhongfei.findzhongfei_final.activity.ChatComposeActivity;
 import com.fzhongfei.findzhongfei_final.model.ChatRoom;
 
 import java.text.ParseException;
@@ -25,7 +28,8 @@ public class ChatRoomsAdapter extends RecyclerView.Adapter<ChatRoomsAdapter.View
     private static String today;
 
     public class ViewHolder extends RecyclerView.ViewHolder {
-        public TextView name, message, timestamp, count;
+        private TextView name, message, timestamp, count;
+        private RelativeLayout chatRelativeLayout;
 
         public ViewHolder(View view) {
             super(view);
@@ -34,6 +38,7 @@ public class ChatRoomsAdapter extends RecyclerView.Adapter<ChatRoomsAdapter.View
             message = view.findViewById(R.id.message);
             timestamp = view.findViewById(R.id.timestamp);
             count = view.findViewById(R.id.count);
+            chatRelativeLayout = view.findViewById(R.id.chat_relative_layout);
         }
     }
 
@@ -67,6 +72,13 @@ public class ChatRoomsAdapter extends RecyclerView.Adapter<ChatRoomsAdapter.View
         }
 
         holder.timestamp.setText(getTimeStamp(chatRoom.getTimestamp()));
+
+        holder.chatRelativeLayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mContext.startActivity(new Intent(mContext.getApplicationContext(), ChatComposeActivity.class));
+            }
+        });
     }
 
     @Override

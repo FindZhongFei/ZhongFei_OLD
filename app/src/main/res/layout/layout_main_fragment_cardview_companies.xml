@@ -32,11 +32,12 @@
                     android:scaleType="centerCrop"
                     android:src="@drawable/loading_background"/>
 
-                <ProgressBar
-                    android:id="@+id/main_fragment_loading_image"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerInParent="true"/>
+                <!--<ProgressBar-->
+                    <!--android:id="@+id/main_fragment_loading_image"-->
+                    <!--style="?android:attr/progressBarStyleSmall"-->
+                    <!--android:layout_width="wrap_content"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--android:layout_centerInParent="true"/>-->
 
             </RelativeLayout>
 
