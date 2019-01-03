@@ -2,23 +2,24 @@ package com.fzhongfei.findzhongfei_final.model;
 
 import java.io.Serializable;
 
-public class ChatUserChat implements Serializable {
-    private String id, name, email;
+public class ChatUser implements Serializable {
 
-    public ChatUserChat() {
+    private String token, name, email, profileUrl;
+
+    public ChatUser() {
     }
 
-    public ChatUserChat(String id, String name, String email) {
-        this.id = id;
+    public ChatUser(String token, String name, String email) {
+        this.token = token;
         this.name = name;
         this.email = email;
     }
 
-    public String getId() {
-        return id;
+    public String getToken() {
+        return token;
     }
-    public void setId(String id) {
-        this.id = id;
+    public void setToken(String token) {
+        this.token = token;
     }
 
     public String getName() {

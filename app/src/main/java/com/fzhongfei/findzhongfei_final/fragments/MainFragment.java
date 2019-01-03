@@ -92,6 +92,7 @@ public class MainFragment extends Fragment {
             company = new Companies(jsonObject.optInt("comp_id"),
                     jsonObject.optString("comp_logo"),
                     jsonObject.optString("comp_id"),
+                    jsonObject.optString("comp_token"),
                     jsonObject.optString("comp_name"),
                     jsonObject.optString("comp_type"),
                     jsonObject.optString("comp_subtype"),

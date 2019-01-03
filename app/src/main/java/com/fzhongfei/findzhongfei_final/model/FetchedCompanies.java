@@ -19,7 +19,8 @@ public class FetchedCompanies {
     private static final String NUM_COMPANIES = "num_companies";
     private static final String SHARED_PREFERENCE = "savedCompanies";
     private static final String COMP_ID_INTEGER = "comp_id_int";
-    private static final String COMP_ID_String = "comp_id";
+    private static final String COMP_ID_STRING = "comp_id";
+    private static final String COMP_TOKEN = "comp_token";
     private static final String COMP_LOGO_URL = "comp_logo";
     private static final String COMP_NAME = "comp_name";
     private static final String COMP_TYPE = "comp_type";
@@ -31,17 +32,19 @@ public class FetchedCompanies {
         SharedPreferences.Editor editor = sharedPreference.edit();
 
         Companies company;
+        JSONObject retrievedData;
         // TO KNOW HOW MANY COMPANIES ARE SAVED AND ITERATE
         editor.putInt(NUM_COMPANIES, companyData.length());
 
         for(int i = 0; i < companyData.length(); i++)
         {
-            JSONObject retrievedData = companyData.getJSONObject(i);
+            retrievedData = companyData.getJSONObject(i);
 
             company = new Companies(
                     retrievedData.getInt("comp_id"),
                     retrievedData.getString("comp_logo"),
                     retrievedData.getString("comp_id"),
+                    retrievedData.getString("comp_token"),
                     retrievedData.getString("comp_name"),
                     retrievedData.getString("comp_type"),
                     retrievedData.getString("comp_subtype"),
@@ -49,7 +52,8 @@ public class FetchedCompanies {
             );
 
             editor.putInt(COMP_ID_INTEGER + "_" + i, company.getId());
-            editor.putString(COMP_ID_String + "_" + i, company.getCompId());
+            editor.putString(COMP_ID_STRING + "_" + i, company.getCompId());
+            editor.putString(COMP_TOKEN + "_" + i, company.getCompToken());
             editor.putString(COMP_LOGO_URL + "_" + i, company.getImageUrl());
             editor.putString(COMP_NAME + "_" + i, company.getCompName());
             editor.putString(COMP_TYPE + "_" + i, company.getCompType());
@@ -59,21 +63,19 @@ public class FetchedCompanies {
             editor.apply();
             editor.commit();
         }
-
-        Log.d(TAG, "getSavedCompanyData: dkfjdkfjkdjfkj" + sharedPreference.getInt(NUM_COMPANIES, 0));
     }
 
     public static ArrayList<Companies> getSavedCompanyData(Context context) {
         sharedPreference = context.getSharedPreferences(SHARED_PREFERENCE, 0);
-
-        Log.d(TAG, "getSavedCompanyData: dkfjdkfjkdjfkj" + sharedPreference.getInt(NUM_COMPANIES, 0));
+        Companies company;
 
         for(int i = 0; i < sharedPreference.getInt(NUM_COMPANIES, 0); i++)
         {
-            Companies company = new Companies(
+            company = new Companies(
                     sharedPreference.getInt(COMP_ID_INTEGER + "_" + i, 0),
                     sharedPreference.getString(COMP_LOGO_URL + "_" + i, ""),
-                    sharedPreference.getString(COMP_ID_String + "_" + i, ""),
+                    sharedPreference.getString(COMP_ID_STRING + "_" + i, ""),
+                    sharedPreference.getString(COMP_TOKEN + "_" + i, ""),
                     sharedPreference.getString(COMP_NAME + "_" + i, ""),
                     sharedPreference.getString(COMP_TYPE + "_" + i, ""),
                     sharedPreference.getString(COMP_SUB_TYPE + "_" + i, ""),

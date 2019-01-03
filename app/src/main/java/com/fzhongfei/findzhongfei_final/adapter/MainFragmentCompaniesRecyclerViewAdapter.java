@@ -4,15 +4,18 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.drawable.Drawable;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.CardView;
+import android.support.v7.widget.LinearLayoutCompat;
 import android.support.v7.widget.RecyclerView;
 import android.util.Base64;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.ProgressBar;
+import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.fzhongfei.findzhongfei_final.R;
@@ -20,7 +23,6 @@ import com.fzhongfei.findzhongfei_final.activity.ClickedCompany;
 import com.fzhongfei.findzhongfei_final.model.Companies;
 
 import java.io.ByteArrayOutputStream;
-import java.util.ArrayList;
 import java.util.List;
 
 public class MainFragmentCompaniesRecyclerViewAdapter extends RecyclerView.Adapter<MainFragmentCompaniesRecyclerViewAdapter.MyCompanyViewHolder> {
@@ -46,14 +48,38 @@ public class MainFragmentCompaniesRecyclerViewAdapter extends RecyclerView.Adapt
     public void onBindViewHolder(@NonNull final MyCompanyViewHolder holder, final int position) {
         Companies company = mCompaniesList.get(position);
         String imageFile = company.getImageLogo();
+        Drawable imageDrawable = mContext.getResources().getDrawable(R.drawable.loading_image_background);
+        Drawable textDrawable = mContext.getResources().getDrawable(R.drawable.loading_text_background);
+        LinearLayout.LayoutParams companyTextParams;
+        RelativeLayout.LayoutParams imageParams;
 
         if(company.getImageLogo() == null)
         {
-            holder.companyName.setText("Loading");
-            holder.companyType.setText("Loading");
+            companyTextParams = new LinearLayout.LayoutParams(
+                LinearLayoutCompat.LayoutParams.WRAP_CONTENT,
+                LinearLayoutCompat.LayoutParams.WRAP_CONTENT
+            );
 
-            Bitmap bitmap = BitmapFactory.decodeResource(mContext.getResources(), R.drawable.loading_background);
-            holder.companyThumbnail.setImageBitmap(bitmap);
+            imageParams = new RelativeLayout.LayoutParams(
+                LinearLayoutCompat.LayoutParams.MATCH_PARENT,
+                LinearLayoutCompat.LayoutParams.MATCH_PARENT
+            );
+
+            companyTextParams.setMargins(0, 0, 0, 15);
+            imageParams.setMargins(0, 0, 0, 15);
+
+            holder.companyThumbnail.setImageDrawable(imageDrawable);
+            holder.companyThumbnail.setLayoutParams(imageParams);
+
+            holder.companyName.setText("");
+            holder.companyName.setBackground(textDrawable);
+            holder.companyName.setLayoutParams(companyTextParams);
+            holder.companyName.setWidth(570);
+
+            holder.companyType.setText("");
+            holder.companyType.setBackground(textDrawable);
+            holder.companyType.setLayoutParams(companyTextParams);
+            holder.companyType.setWidth(400);
         }
         else
         {
@@ -93,7 +119,7 @@ public class MainFragmentCompaniesRecyclerViewAdapter extends RecyclerView.Adapt
                     Intent intent = new Intent(mContext, ClickedCompany.class);
                     intent.putExtra("CompanyName", mCompaniesList.get(position).getCompName());
                     intent.putExtra("CompanyType", mCompaniesList.get(position).getCompType());
-
+                    intent.putExtra("CompanyToken", mCompaniesList.get(position).getCompToken());
 //                Bitmap bitmap = BitmapFactory.decodeFile(mCompaniesList.get(position).getImageLogo());
                     Bitmap bitmap = BitmapFactory.decodeResource(mContext.getResources(), R.drawable.image_placeholder);
                     ByteArrayOutputStream _bs = new ByteArrayOutputStream();

@@ -188,7 +188,6 @@ public class UserProfileActivity extends AppCompatActivity {
             public void onSwipeBottom() {
                 imageDialog.dismiss();
             }
-
         });
 
         imageDialog.show();

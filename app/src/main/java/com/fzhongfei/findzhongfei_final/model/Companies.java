@@ -9,16 +9,17 @@ public class Companies {
 
     private int id;
     private Bitmap imageBitmap;
-    private String compId, compLogoUrl, compName, compType, compSubType, compLogo;
+    private String compId, compToken, compLogoUrl, compName, compType, compSubType, compLogo;
 
     public Companies() {
 
     }
 
-    public Companies(int id, String compLogoUrl, String compId, String compName, String compType, String compSubType, String compLogo) {
+    public Companies(int id, String compLogoUrl, String compId, String compToken, String compName, String compType, String compSubType, String compLogo) {
         this.id = id;
         this.compLogoUrl = compLogoUrl;
         this.compId = compId;
+        this.compToken = compToken;
         this.compName = compName;
         this.compType = compType;
         this.compSubType = compSubType;
@@ -28,6 +29,7 @@ public class Companies {
     public void setCompData(Context context, HashMap<String, String> compData)
     {
         setCompId(context, compData.get("comp_id"));
+        setCompToken(context, compData.get("comp_token"));
         setCompName(context, compData.get("comp_name"));
         setImageUrl(context, compData.get("comp_logo"));
         setCompType(context, compData.get("comp_type"));
@@ -68,6 +70,13 @@ public class Companies {
     }
     public String getCompId() {
         return compId;
+    }
+
+    public void setCompToken(Context context, String compToken) {
+        this.compToken = compToken;
+    }
+    public String getCompToken() {
+        return compToken;
     }
 
     public void setCompName(Context context, String compName) {

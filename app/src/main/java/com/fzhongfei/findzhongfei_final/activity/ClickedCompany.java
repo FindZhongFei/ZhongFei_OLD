@@ -2,16 +2,20 @@ package com.fzhongfei.findzhongfei_final.activity;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Base64;
 import android.util.Log;
+import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.fzhongfei.findzhongfei_final.R;
 import com.fzhongfei.findzhongfei_final.utils.BounceTouchListener;
@@ -27,6 +31,7 @@ public class ClickedCompany extends AppCompatActivity {
                         companyCeo, companyRepresentative, companyRepresentativeEmail, companyAddress1, companyAddress2,
                         companyWechatId, companyDescription;
     public ImageView companyLogo;
+    public Button sendCompanyMessage;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,12 +39,16 @@ public class ClickedCompany extends AppCompatActivity {
         setContentView(R.layout.activity_clicked_company);
         Log.d(TAG, "onCreate: Running...");
 
+        final SharedPreferences companySharedPreferences = getSharedPreferences("companyPreference", 0);
+        final SharedPreferences userSharedPreferences = getSharedPreferences("userPreference", 0);
+
         Intent intent = getIntent();
-        String compNameIntent = intent.getStringExtra("CompanyName");
-        String companyTypeIntent = intent.getStringExtra("CompanyType");
+        final String compNameIntent = intent.getStringExtra("CompanyName");
+        final String companyTypeIntent = intent.getStringExtra("CompanyType");
 //        String compImageIntent = intent.getStringExtra("CompanyImage");
-        String compSubtypeIntent = intent.getStringExtra("CompanySubtype");
-        String compIdIntent = intent.getStringExtra("CompanyId");
+        final String compSubtypeIntent = intent.getStringExtra("CompanySubtype");
+        final String compIdIntent = intent.getStringExtra("CompanyId");
+        final String compToken = intent.getStringExtra("CompanyToken");
 
         companyLogo = findViewById(R.id.clicked_company_image_view);
         companyName = findViewById(R.id.clicked_company_name);
@@ -56,12 +65,31 @@ public class ClickedCompany extends AppCompatActivity {
         companyAddress2 = findViewById(R.id.clicked_company_address2);
         companyWechatId = findViewById(R.id.clicked_company_wechat_id);
         companyDescription = findViewById(R.id.clicked_company_description);
+        sendCompanyMessage = findViewById(R.id.send_company_message);
+
+        sendCompanyMessage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(userSharedPreferences.contains("userIsLoggedIn") || companySharedPreferences.contains("companyIsLoggedIn"))
+                {
+                    Intent intent = new Intent(mContext, ChatComposeActivity.class);
+                    intent.putExtra("receiverName", compNameIntent);
+                    intent.putExtra("CompanyToken", compToken);
+                    startActivity(intent);
+                }
+                else
+                {
+                    Toast.makeText(mContext, "Please login first", Toast.LENGTH_SHORT).show();
+                    startActivity(new Intent(mContext, UserSignedInActivity.class));
+                }
+            }
+        });
 
 //        byte[] decodedLogo = Base64.decode(compImageIntent, Base64.DEFAULT);
 //        companyLogo.setImageBitmap(BitmapFactory.decodeByteArray(decodedLogo, 0, decodedLogo.length));
 
         Bitmap bitmap = BitmapFactory.decodeByteArray(
-                getIntent().getByteArrayExtra("CompanyImage"),0,getIntent().getByteArrayExtra("CompanyImage").length);
+                getIntent().getByteArrayExtra("CompanyImage"),0, getIntent().getByteArrayExtra("CompanyImage").length);
         companyLogo.setImageBitmap(bitmap);
 
         companyName.setText(compNameIntent);

@@ -1,46 +1,51 @@
 package com.fzhongfei.findzhongfei_final.model;
 
+import android.text.format.DateUtils;
+
 import java.io.Serializable;
+import java.util.Date;
 
 public class ChatMessages implements Serializable {
-    private String id, message, createdAt;
-    private ChatUserChat mUserChat;
+
+    private String eachMessageId, eachMessageContent, eachMessageCreatedAt;
+    private ChatUser mUserChat;
 
     public ChatMessages() {
     }
 
-    public ChatMessages(String id, String message, String createdAt, ChatUserChat userChat) {
-        this.id = id;
-        this.message = message;
-        this.createdAt = createdAt;
+    public ChatMessages(String eachMessageId, String eachMessageContent, String eachMessageCreatedAt, ChatUser userChat) {
+        this.eachMessageId = eachMessageId;
+        this.eachMessageContent = eachMessageContent;
+        this.eachMessageCreatedAt = eachMessageCreatedAt;
+//        this.eachMessageCreatedAt = String.valueOf(new Date().getTime());
         this.mUserChat = userChat;
     }
 
-    public String getId() {
-        return id;
+    public String getEachMessageId() {
+        return eachMessageId;
     }
-    public void setId(String id) {
-        this.id = id;
-    }
-
-    public String getMessage() {
-        return message;
-    }
-    public void setMessage(String message) {
-        this.message = message;
+    public void setEachMessageId(String eachMessageId) {
+        this.eachMessageId = eachMessageId;
     }
 
-    public String getCreatedAt() {
-        return createdAt;
+    public String getEachMessageContent() {
+        return eachMessageContent;
     }
-    public void setCreatedAt(String createdAt) {
-        this.createdAt = createdAt;
+    public void setEachMessageContent(String eachMessageContent) {
+        this.eachMessageContent = eachMessageContent;
     }
 
-    public ChatUserChat getUserChat() {
+    public String getEachMessageCreatedAt() {
+        return eachMessageCreatedAt;
+    }
+    public void setEachMessageCreatedAt(String eachMessageCreatedAt) {
+        this.eachMessageCreatedAt = eachMessageCreatedAt;
+    }
+
+    public ChatUser getUserChat() {
         return mUserChat;
     }
-    public void setUserChat(ChatUserChat userChat) {
+    public void setUserChat(ChatUser userChat) {
         this.mUserChat = userChat;
     }
 }

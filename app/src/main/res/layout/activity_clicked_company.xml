@@ -39,6 +39,14 @@
             android:paddingLeft="15sp"
             android:paddingRight="15sp">
 
+            <Button
+                android:id="@+id/send_company_message"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/BlueTrans"
+                android:textColor="@color/colorWhite"
+                android:text="send company a message"/>
+
             <TextView
                 android:id="@+id/clicked_company_name"
                 android:layout_width="match_parent"

@@ -5,6 +5,7 @@ import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
 
 public class SaveSharedPreferences {
+
     // USER DETAILS
     public static final String PREF_USER_FIRST_NAME = "user_firstName";
     public static final String PREF_USER_LAST_NAME = "user_lastName";
