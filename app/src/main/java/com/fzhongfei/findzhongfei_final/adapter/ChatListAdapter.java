@@ -54,7 +54,7 @@ public class ChatListAdapter extends RecyclerView.Adapter<ChatListAdapter.ViewHo
 
     @Override
     public void onBindViewHolder(final ViewHolder holder, int position) {
-        ChatList chatRoom = chatRoomArrayList.get(position);
+        final ChatList chatRoom = chatRoomArrayList.get(position);
         holder.name.setText(chatRoom.getSenderName());
         holder.message.setText(chatRoom.getLastMessage());
 
@@ -74,7 +74,8 @@ public class ChatListAdapter extends RecyclerView.Adapter<ChatListAdapter.ViewHo
             @Override
             public void onClick(View v) {
                 mContext.startActivity(new Intent(mContext.getApplicationContext(),
-                        ChatComposeActivity.class).putExtra("receiverName", holder.name.getText().toString()));
+                        ChatComposeActivity.class).putExtra("receiverName", holder.name.getText().toString()).
+                        putExtra("partnerToken", chatRoom.getPartnerToken()));
             }
         });
     }

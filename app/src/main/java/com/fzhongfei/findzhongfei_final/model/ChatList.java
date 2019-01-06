@@ -3,13 +3,13 @@ package com.fzhongfei.findzhongfei_final.model;
 import java.io.Serializable;
 
 public class ChatList implements Serializable {
-    private String messageId, senderName, lastMessage, messageTime, messageToken, messageStatus;
+    private String messageId, senderName, lastMessage, messageTime, messageToken, messageStatus, partnerToken;
     private int unreadCount;
 
     public ChatList() {
     }
 
-    public ChatList(String senderName, String messageId, String lastMessage, String messageTime,
+    public ChatList(String senderName, String partnerToken, String messageId, String lastMessage, String messageTime,
                     String messageToken, String messageStatus, int unreadCount) {
         this.senderName = senderName;
         this.messageId = messageId;
@@ -18,6 +18,7 @@ public class ChatList implements Serializable {
         this.messageToken = messageToken;
         this.messageStatus = messageStatus;
         this.unreadCount = unreadCount;
+        this.setPartnerToken(partnerToken);
     }
 
     public String getSenderName() {
@@ -67,5 +68,12 @@ public class ChatList implements Serializable {
     }
     public void setUnreadCount(int unreadCount) {
         this.unreadCount = unreadCount;
+    }
+
+    public String getPartnerToken() {
+        return this.partnerToken;
+    }
+    public void setPartnerToken(String partnerToken){
+        this.partnerToken = partnerToken;
     }
 }

@@ -60,7 +60,7 @@ public class ChatFragment extends Fragment implements SwipeRefreshLayout.OnRefre
         view = inflater.inflate(R.layout.fragment_chat, null);
 
         mContext = getActivity();
-
+        mUserProfile = new UserProfile(mContext);
         assert mContext != null;
         companySharedPreferences = mContext.getSharedPreferences("companyPreference", 0);
         userSharedPreferences = mContext.getSharedPreferences("userPreference", 0);
@@ -107,7 +107,7 @@ public class ChatFragment extends Fragment implements SwipeRefreshLayout.OnRefre
         }
         else if(userSharedPreferences.contains("userIsLoggedIn"))
         {
-            mUserProfile = new UserProfile(mContext);
+
             mUserProfile.setPropertiesFromSharePreference(mContext);
 
             fetchMessages();

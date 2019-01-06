@@ -152,6 +152,8 @@ public class callBackImplement implements serverCallBack {
                     JSONArray everyMessageArray;
                     ArrayList<ChatList> chatsArrayList = new ArrayList<>();
 
+                    ChatComposeActivity.mMessagesListTemp.clear();
+
                     for(int indexPartners = 0; indexPartners < chatsWith.length(); indexPartners++) {
                         retrievedData = chatsWith.getJSONObject(indexPartners);
                         everyMessageArray = retrievedData.getJSONArray("messages");
@@ -174,6 +176,7 @@ public class callBackImplement implements serverCallBack {
                             // LIST OF PARTNERS
                             chatList = new ChatList(
                                     retrievedData.getString("partnerName"),
+                                    retrievedData.getString("partnerToken"),
                                     everyMessageArray.getJSONObject(indexEveryMessage).getString("messageId"),
                                     everyMessageArray.getJSONObject(indexEveryMessage).getString("messageContent"),
                                     everyMessageArray.getJSONObject(indexEveryMessage).getString("messageTime"),
@@ -190,13 +193,16 @@ public class callBackImplement implements serverCallBack {
                                     new ChatUser(
                                             retrievedData.getString("partnerToken"),
                                             retrievedData.getString("partnerName"),
-                                            "EMAIL"));
+                                            retrievedData.getString("partnerEmail")));
+
+                            ChatComposeActivity.mMessagesListTemp.add(indexEveryMessage, eachChatMessages);
                         }
 
                         // ADDING EACH PARTNER
                         chatsArrayList.add(indexPartners, chatList);
                         // ADDING NEW CONVERSATIONS
-                        ChatComposeActivity.mMessagesList.add(indexPartners, eachChatMessages);
+
+//                        ChatComposeActivity.mMessagesList.add(indexPartners, eachChatMessages);
 
                         FetchedMessages.saveNewMessages(context, chatsWith);
                     }
@@ -205,6 +211,7 @@ public class callBackImplement implements serverCallBack {
                     ChatFragment.mAdapter = new ChatListAdapter(context, chatsArrayList);
                     ChatFragment.recyclerView.setAdapter(ChatFragment.mAdapter);
                     ChatFragment.mSwipeRefreshLayout.setRefreshing(false);
+                    Log.d(TAG, "onSuccess: SIZEOFTEMP "+ChatComposeActivity.mMessagesListTemp.size());
                 }
                 else if(requestType.equals("comp_registration"))
                 {

@@ -54,6 +54,7 @@ public class FetchedMessages {
                 // LIST OF PARTNERS
                 chatList = new ChatList(
                         retrievedData.getString("partnerName"),
+                        retrievedData.getString("partnerToken"),
                         everyMessageArray.getJSONObject(indexEveryMessage).getString("messageId"),
                         everyMessageArray.getJSONObject(indexEveryMessage).getString("messageContent"),
                         everyMessageArray.getJSONObject(indexEveryMessage).getString("messageTime"),
@@ -96,6 +97,7 @@ public class FetchedMessages {
         {
             chatList = new ChatList(
                     sharedPreference.getString(PARTNER_NAME + "_" + i, ""),
+                    sharedPreference.getString(PARTNER_TOKEN + "_" + i, ""),
                     sharedPreference.getString(MESSAGE_ID + "_" + i, ""),
                     sharedPreference.getString(MESSAGE_CONTENT + "_" + i, ""),
                     sharedPreference.getString(MESSAGE_TIME + "_" + i, ""),
