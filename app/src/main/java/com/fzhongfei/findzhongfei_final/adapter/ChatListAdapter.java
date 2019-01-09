@@ -54,13 +54,13 @@ public class ChatListAdapter extends RecyclerView.Adapter<ChatListAdapter.ViewHo
 
     @Override
     public void onBindViewHolder(final ViewHolder holder, int position) {
-        final ChatList chatRoom = chatRoomArrayList.get(position);
-        holder.name.setText(chatRoom.getSenderName());
-        holder.message.setText(chatRoom.getLastMessage());
+        final ChatList chatList = chatRoomArrayList.get(position);
+        holder.name.setText(chatList.getPartnerName());
+        holder.message.setText(chatList.getLastMessage());
 
-        if(chatRoom.getUnreadCount() > 0)
+        if(chatList.getUnreadCount() > 0)
         {
-            holder.count.setText(String.valueOf(chatRoom.getUnreadCount()));
+            holder.count.setText(String.valueOf(chatList.getUnreadCount()));
             holder.count.setVisibility(View.VISIBLE);
         }
         else
@@ -68,14 +68,15 @@ public class ChatListAdapter extends RecyclerView.Adapter<ChatListAdapter.ViewHo
             holder.count.setVisibility(View.GONE);
         }
 
-        holder.timestamp.setText(getTimeStamp(chatRoom.getMessageTime()));
+        holder.timestamp.setText(getTimeStamp(chatList.getMessageTime()));
 
         holder.chatRelativeLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 mContext.startActivity(new Intent(mContext.getApplicationContext(),
-                        ChatComposeActivity.class).putExtra("receiverName", holder.name.getText().toString()).
-                        putExtra("partnerToken", chatRoom.getPartnerToken()));
+                        ChatComposeActivity.class).
+                        putExtra("partnerName", holder.name.getText().toString()).
+                        putExtra("partnerToken", chatList.getPartnerToken()));
             }
         });
     }
@@ -87,7 +88,8 @@ public class ChatListAdapter extends RecyclerView.Adapter<ChatListAdapter.ViewHo
 
     private static String getTimeStamp(String dateStr) {
 //        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+//        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+        SimpleDateFormat format = new SimpleDateFormat("dd-MM-yyyy");
         String timestamp = "";
         Calendar calendar = Calendar.getInstance();
         today = String.valueOf(calendar.get(Calendar.DAY_OF_MONTH));

@@ -21,16 +21,13 @@ import android.widget.Toast;
 
 import com.fzhongfei.findzhongfei_final.R;
 import com.fzhongfei.findzhongfei_final.adapter.EveryMessageAdapter;
-import com.fzhongfei.findzhongfei_final.model.ChatList;
 import com.fzhongfei.findzhongfei_final.model.ChatMessages;
 import com.fzhongfei.findzhongfei_final.model.ChatUser;
 import com.fzhongfei.findzhongfei_final.model.CompanyProfile;
-import com.fzhongfei.findzhongfei_final.model.FetchedMessages;
 import com.fzhongfei.findzhongfei_final.model.UserProfile;
 import com.fzhongfei.findzhongfei_final.server.callBackImplement;
 import com.fzhongfei.findzhongfei_final.server.customStringRequest;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
@@ -45,11 +42,10 @@ public class ChatComposeActivity extends AppCompatActivity {
     // VIEWS
     private RecyclerView messagesRecyclerView;
     private EveryMessageAdapter mMessageAdapter;
-    public static List<ChatMessages> mMessagesList = new ArrayList<>();
-    public static List<ChatMessages> mMessagesListTemp = new ArrayList<>();
+    public static List<ChatMessages> everyMessageList = new ArrayList<>();
+    private List<ChatMessages> specificMessagesList = new ArrayList<>();
     private EditText messageInput;
-    private Button sendMessageBtn;
-    private String receiverName, companyToken;
+    private String partnerName, partnerToken;
 
     // VARIABLES
     private UserProfile mUserProfile;
@@ -62,29 +58,10 @@ public class ChatComposeActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_chat_compose);
-        String targetPartnerToken = getIntent().getStringExtra("partnerToken");
-//        ArrayList mCounters = new ArrayList();
-        int mCounter  =0 ;
-        mMessagesList.clear();
-        Log.d(TAG, "onCreate: the size of temp is "+mMessagesListTemp.size());
-        for(int i=0; i<mMessagesListTemp.size(); i++)
-        {
-            String partnerToken = mMessagesListTemp.get(i).getUserChat().getToken();
-            if(partnerToken.equals(targetPartnerToken))
-            {
-                ChatUser partnerInfo = mMessagesListTemp.get(i).getUserChat();
-                String messageContent = mMessagesListTemp.get(i).getEachMessageContent();
-                Log.d(TAG, "onCreate: CHAT"+i+": "+partnerInfo.getName()+" --> "+messageContent);
-                mMessagesList.add(mCounter, mMessagesListTemp.get(i));
-                mCounter++;
-            }
-//            ChatUser partnerInfo = mMessagesListTemp.get(i).getUserChat();
-//            String messageContent = mMessagesListTemp.get(i).getEachMessageContent();
-//            Log.d(TAG, "onCreate: CHAT"+i+": "+partnerInfo.getName()+" --> "+messageContent);
-        }
+
         Log.d(TAG, "onCreate: Running...");
-        receiverName = getIntent().getStringExtra("receiverName");
-        companyToken = getIntent().getStringExtra("CompanyToken");
+        partnerName = getIntent().getStringExtra("partnerName");
+        partnerToken = getIntent().getStringExtra("partnerToken");
 
         setUpActivityToolbar();
 
@@ -99,8 +76,33 @@ public class ChatComposeActivity extends AppCompatActivity {
         // INITIALIZING VIEWS
         messageInput = findViewById(R.id.activity_chat_message_input);
         messagesRecyclerView = findViewById(R.id.activity_chat_messages);
-        mMessageAdapter = new EveryMessageAdapter(mContext, mMessagesList);
-        sendMessageBtn = findViewById(R.id.activity_chat_send_button);
+        mMessageAdapter = new EveryMessageAdapter(mContext, specificMessagesList);
+        Button sendMessageBtn = findViewById(R.id.activity_chat_send_button);
+
+
+
+//        ArrayList mCounters = new ArrayList();
+        int mCounter  =0 ;
+        specificMessagesList.clear();
+        Log.d(TAG, "onCreate: the size of temp is " + everyMessageList.size());
+        for(int i = 0; i < everyMessageList.size(); i++)
+        {
+            String targetPartnerToken = everyMessageList.get(i).getUserChat().getToken();
+            if(targetPartnerToken.equals(partnerToken))
+            {
+                ChatUser partnerInfo = everyMessageList.get(i).getUserChat();
+                String messageContent = everyMessageList.get(i).getEveryMessageContent();
+                String messageTarget = everyMessageList.get(i).getEveryMessageTarget();
+                Log.d(TAG, "onCreate: CHAT" + i + ": " + mUserProfile.getUserToken() + " --> " + messageContent + " SENT TO " + messageTarget);
+                specificMessagesList.add(mCounter, everyMessageList.get(i));
+                mCounter++;
+            }
+//            ChatUser partnerInfo = mMessagesListTemp.get(i).getUserChat();
+//            String messageContent = mMessagesListTemp.get(i).getEachMessageContent();
+//            Log.d(TAG, "onCreate: CHAT"+i+": "+partnerInfo.getName()+" --> "+messageContent);
+        }
+
+
 
         messagesRecyclerView.setHasFixedSize(true);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(mContext);
@@ -147,7 +149,7 @@ public class ChatComposeActivity extends AppCompatActivity {
 
         mToolbar.setTitleMarginStart(-70);
         mToolbar.setBackground(mGradientDrawable);
-        mToolbar.setTitle(receiverName);
+        mToolbar.setTitle(partnerName);
     }
 
     // UI - TOOLBAR BACK BUTTON
@@ -161,7 +163,7 @@ public class ChatComposeActivity extends AppCompatActivity {
         final String MESSAGE_VALUE = messageInput.getText().toString().trim();
         final long CURRENT_TIME_IN_MILLISECONDS = System.currentTimeMillis() / 1000;
         final String CURRENT_TIME_IN_SECONDS = String.valueOf(CURRENT_TIME_IN_MILLISECONDS);
-        final String targetToken = companyToken;;
+        final String TARGET_TOKEN = partnerToken;
 
         customStringRequest registerRequest = new customStringRequest("message/communicate.php");
         callBackImplement callBack = new callBackImplement(mContext);
@@ -170,12 +172,9 @@ public class ChatComposeActivity extends AppCompatActivity {
 
         if(!MESSAGE_VALUE.isEmpty())
         {
-            ChatMessages chatMessages = new ChatMessages("ID",
-                    MESSAGE_VALUE, String.valueOf(new Date().getTime()),
-                    new ChatUser(mUserProfile.getUserToken(), mUserProfile.getUserFirstName(),
-                            mUserProfile.getUserEmail()));
-            mMessagesList.add(0, chatMessages);
-            mMessageAdapter = new EveryMessageAdapter(mContext, mMessagesList);
+            ChatMessages chatMessages = new ChatMessages("ID", TARGET_TOKEN, MESSAGE_VALUE, String.valueOf(new Date().getTime()), new ChatUser(mUserProfile.getUserToken(), mUserProfile.getUserFirstName(), mUserProfile.getUserEmail()));
+            specificMessagesList.add(0, chatMessages);
+            mMessageAdapter = new EveryMessageAdapter(mContext, specificMessagesList);
             messagesRecyclerView.setAdapter(mMessageAdapter);
 
             if(userSharedPreferences.contains("userIsLoggedIn"))
@@ -202,7 +201,7 @@ public class ChatComposeActivity extends AppCompatActivity {
                 startActivity(new Intent(mContext, UserSignedInActivity.class));
             }
 
-            Params.put("targetToken", targetToken);
+            Params.put("targetToken", TARGET_TOKEN);
             Params.put("plainText", MESSAGE_VALUE);
             Params.put("timeInSec", CURRENT_TIME_IN_SECONDS);
 

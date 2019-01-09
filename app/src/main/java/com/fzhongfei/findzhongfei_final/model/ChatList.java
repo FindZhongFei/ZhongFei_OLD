@@ -3,36 +3,59 @@ package com.fzhongfei.findzhongfei_final.model;
 import java.io.Serializable;
 
 public class ChatList implements Serializable {
-    private String messageId, senderName, lastMessage, messageTime, messageToken, messageStatus, partnerToken;
+    private String partnerToken, partnerName, partnerEmail, partnerProfile, chatId, messageToken, lastMessage, messageTime, messageStatus;
     private int unreadCount;
 
     public ChatList() {
     }
 
-    public ChatList(String senderName, String partnerToken, String messageId, String lastMessage, String messageTime,
-                    String messageToken, String messageStatus, int unreadCount) {
-        this.senderName = senderName;
-        this.messageId = messageId;
+    public ChatList(String partnerToken, String partnerName, String partnerEmail, String chatId, String messageToken, String lastMessage, String messageTime,
+                    String messageStatus, int unreadCount) {
+        this.partnerToken = partnerToken;
+        this.partnerName = partnerName;
+        this.partnerEmail = partnerEmail;
+        this.chatId = chatId;
+        this.messageToken = messageToken;
         this.lastMessage = lastMessage;
         this.messageTime = messageTime;
-        this.messageToken = messageToken;
         this.messageStatus = messageStatus;
         this.unreadCount = unreadCount;
-        this.setPartnerToken(partnerToken);
     }
 
-    public String getSenderName() {
-        return senderName;
+
+    public String getPartnerToken() {
+        return partnerToken;
     }
-    public void setSenderName(String senderName) {
-        this.senderName = senderName;
+    public void setPartnerToken(String partnerToken) {
+        this.partnerToken = partnerToken;
     }
 
-    public String getMessageId() {
-        return messageId;
+    public String getPartnerName() {
+        return partnerName;
     }
-    public void setMessageId(String messageId) {
-        this.messageId = messageId;
+    public void setPartnerName(String partnerName) {
+        this.partnerName = partnerName;
+    }
+
+    public String getPartnerEmail() {
+        return partnerEmail;
+    }
+    public void setPartnerEmail(String partnerEmail) {
+        this.partnerEmail = partnerEmail;
+    }
+
+    public String getChatId() {
+        return chatId;
+    }
+    public void setChatId(String chatId) {
+        this.chatId = chatId;
+    }
+
+    public String getMessageToken() {
+        return messageToken;
+    }
+    public void setMessageToken(String messageToken) {
+        this.messageToken = messageToken;
     }
 
     public String getLastMessage() {
@@ -49,13 +72,6 @@ public class ChatList implements Serializable {
         this.messageTime = messageTime;
     }
 
-    public String getMessageToken() {
-        return messageToken;
-    }
-    public void setMessageToken(String messageToken) {
-        this.messageToken = messageToken;
-    }
-
     public String getMessageStatus() {
         return messageStatus;
     }
@@ -68,12 +84,5 @@ public class ChatList implements Serializable {
     }
     public void setUnreadCount(int unreadCount) {
         this.unreadCount = unreadCount;
-    }
-
-    public String getPartnerToken() {
-        return this.partnerToken;
-    }
-    public void setPartnerToken(String partnerToken){
-        this.partnerToken = partnerToken;
     }
 }

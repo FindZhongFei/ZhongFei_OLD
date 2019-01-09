@@ -21,14 +21,15 @@ public class FetchedMessages {
     private static final String NUM_MESSAGES = "num_companies";
     private static final String SHARED_PREFERENCE = "savedMessages";
     private static final String PARTNER_TOKEN = "partnerToken";
-    private static final String PARTNER_LOGO_URL = "";
+    private static final String PARTNER_LOGO_URL = "partnerProfile";
     private static final String PARTNER_NAME = "partnerName";
-    private static int UNREAD_COUNT = 0;
-    private static final String MESSAGE_ID = "messageId";
+    private static final String PARTNER_EMAIL = "partnerEmail";
+    private static final String CHAT_ID = "id";
     private static final String MESSAGE_STATUS = "messageStatus";
     private static final String MESSAGE_TOKEN = "messageToken";
     private static final String MESSAGE_CONTENT = "messageContent";
     private static final String MESSAGE_TIME = "messageTime";
+    private static int UNREAD_COUNT = 0;
 
     public static void saveNewMessages(Context context, JSONArray chatsWith) throws JSONException {
         sharedPreference = context.getSharedPreferences(SHARED_PREFERENCE, 0);
@@ -53,28 +54,29 @@ public class FetchedMessages {
 
                 // LIST OF PARTNERS
                 chatList = new ChatList(
-                        retrievedData.getString("partnerName"),
                         retrievedData.getString("partnerToken"),
-                        everyMessageArray.getJSONObject(indexEveryMessage).getString("messageId"),
+                        retrievedData.getString("partnerName"),
+                        retrievedData.getString("partnerEmail"),
+                        retrievedData.getString("id"),
+                        everyMessageArray.getJSONObject(indexEveryMessage).getString("messageToken"),
                         everyMessageArray.getJSONObject(indexEveryMessage).getString("messageContent"),
                         everyMessageArray.getJSONObject(indexEveryMessage).getString("messageTime"),
-                        everyMessageArray.getJSONObject(indexEveryMessage).getString("messageToken"),
                         everyMessageArray.getJSONObject(indexEveryMessage).getString("messageStatus"),
                         UNREAD_COUNT
                 );
 
-                editor.putString(PARTNER_NAME + "_" + indexEveryMessage, chatList.getSenderName());
-                editor.putString(MESSAGE_ID + "_" + indexEveryMessage, chatList.getMessageId());
-                editor.putString(MESSAGE_STATUS + "_" + indexEveryMessage, chatList.getMessageStatus());
+                editor.putString(PARTNER_TOKEN + "_" + indexEveryMessage, chatList.getPartnerToken());
+                editor.putString(PARTNER_NAME + "_" + indexEveryMessage, chatList.getPartnerName());
+                editor.putString(PARTNER_EMAIL + "_" + indexEveryMessage, chatList.getPartnerEmail());
+                editor.putString(CHAT_ID + "_" + indexEveryMessage, chatList.getChatId());
                 editor.putString(MESSAGE_TOKEN + "_" + indexEveryMessage, chatList.getMessageToken());
+                editor.putString(MESSAGE_STATUS + "_" + indexEveryMessage, chatList.getMessageStatus());
                 editor.putString(MESSAGE_CONTENT + "_" + indexEveryMessage, chatList.getLastMessage());
                 editor.putString(MESSAGE_TIME + "_" + indexEveryMessage, chatList.getMessageTime());
                 editor.putInt(UNREAD_COUNT + "_" + indexEveryMessage, UNREAD_COUNT);
 
                 editor.apply();
                 editor.commit();
-
-                Log.d(TAG, "saveNewMessages: indexEveryMessage: " + PARTNER_NAME + indexEveryMessage + "-" + chatList.getLastMessage());
 //
 //                // LIST OF EVERY MESSAGE
 //                eachChatMessages = new ChatMessages(
@@ -96,12 +98,13 @@ public class FetchedMessages {
         for(int i = 0; i < sharedPreference.getInt(NUM_MESSAGES, 0); i++)
         {
             chatList = new ChatList(
-                    sharedPreference.getString(PARTNER_NAME + "_" + i, ""),
                     sharedPreference.getString(PARTNER_TOKEN + "_" + i, ""),
-                    sharedPreference.getString(MESSAGE_ID + "_" + i, ""),
+                    sharedPreference.getString(PARTNER_NAME + "_" + i, ""),
+                    sharedPreference.getString(PARTNER_EMAIL + "_" + i, ""),
+                    sharedPreference.getString(CHAT_ID + "_" + i, ""),
+                    sharedPreference.getString(MESSAGE_TOKEN + "_" + i, ""),
                     sharedPreference.getString(MESSAGE_CONTENT + "_" + i, ""),
                     sharedPreference.getString(MESSAGE_TIME + "_" + i, ""),
-                    sharedPreference.getString(MESSAGE_TOKEN + "_" + i, ""),
                     sharedPreference.getString(MESSAGE_STATUS + "_" + i, ""),
                     sharedPreference.getInt(UNREAD_COUNT + "_" + i, 0)
             );

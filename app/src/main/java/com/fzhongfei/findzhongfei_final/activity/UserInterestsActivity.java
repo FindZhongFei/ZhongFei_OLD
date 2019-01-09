@@ -4,6 +4,8 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -13,6 +15,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.fzhongfei.findzhongfei_final.R;
+import com.fzhongfei.findzhongfei_final.fragments.FragmentUserInterestsSubType;
 import com.fzhongfei.findzhongfei_final.model.UserProfile;
 
 import java.util.ArrayList;
@@ -122,6 +125,9 @@ public class UserInterestsActivity extends AppCompatActivity implements View.OnC
         mImage7_2.setCompoundDrawablesWithIntrinsicBounds(getResources().getDrawable(R.drawable.img_wall_12), null, null, null);
         mImage7_3.setCompoundDrawablesWithIntrinsicBounds(getResources().getDrawable(R.drawable.img_wall_12), null, null, null);
 
+        // EMPTY ARRAY LIST WHEN ACTIVITY RESTARTS
+        interests.clear();
+
         submitButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -185,6 +191,16 @@ public class UserInterestsActivity extends AppCompatActivity implements View.OnC
 
     // SUBMIT INTERESTS
     private void submitUserInterests(ArrayList<String> interests) {
-        startActivity(new Intent(mContext, UserInterestsSubTypeActivity.class).putStringArrayListExtra("user_interests", interests));
+        Bundle args = new Bundle();
+        args.putStringArrayList("user_interests", interests);
+
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        FragmentUserInterestsSubType subInterestFragment = new FragmentUserInterestsSubType();
+        FragmentTransaction transaction = fragmentManager.beginTransaction();
+        transaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
+        subInterestFragment.setArguments(args);
+        transaction.add(android.R.id.content, subInterestFragment, "SubInterestFragment").addToBackStack(null).commit();
+
+//        startActivity(new Intent(mContext, UserInterestsSubTypeActivity.class).putStringArrayListExtra("user_interests", interests));
     }
 }

@@ -73,8 +73,8 @@ public class ClickedCompany extends AppCompatActivity {
                 if(userSharedPreferences.contains("userIsLoggedIn") || companySharedPreferences.contains("companyIsLoggedIn"))
                 {
                     Intent intent = new Intent(mContext, ChatComposeActivity.class);
-                    intent.putExtra("receiverName", compNameIntent);
-                    intent.putExtra("CompanyToken", compToken);
+                    intent.putExtra("partnerName", compNameIntent);
+                    intent.putExtra("partnerToken", compToken);
                     startActivity(intent);
                 }
                 else

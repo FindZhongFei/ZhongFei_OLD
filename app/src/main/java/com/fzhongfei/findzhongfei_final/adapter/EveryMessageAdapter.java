@@ -43,7 +43,7 @@ public class EveryMessageAdapter extends RecyclerView.Adapter {
         UserProfile mUserProfile = new UserProfile(mContext);
         mUserProfile.setPropertiesFromSharePreference(mContext);
 
-        if(message.getUserChat().getToken().equals(mUserProfile.getUserToken()))
+        if(message.getUserChat().getToken().equals(mUserProfile.getUserToken()) || !message.getEveryMessageTarget().equals(mUserProfile.getUserToken()))
         {
             // If the current user is the sender of the message
              return VIEW_TYPE_MESSAGE_SENT;
@@ -98,12 +98,13 @@ public class EveryMessageAdapter extends RecyclerView.Adapter {
         }
 
         void bind(ChatMessages message) {
-            messageText.setText(message.getEachMessageContent());
+            messageText.setText(message.getEveryMessageContent());
 
             // Format the stored timestamp into a readable String using method.
 //            timeText.setText(DateUtils.formatDateTime(mContext, Long.valueOf(message.getEachMessageCreatedAt()), 0));
-//            timeText.setText(message.getEachMessageCreatedAt());
-            timeText.setText(DateFormat.format("HH:mm", Long.valueOf(message.getEachMessageCreatedAt())));
+            timeText.setText(message.getEveryMessageCreatedAt());
+//            timeText.setText(DateFormat.format("dd-MM-yyyy (HH:mm:ss)", Long.valueOf(message.getEachMessageCreatedAt())));
+//            timeText.setText(DateFormat.format("HH:mm", Long.valueOf(message.getEveryMessageCreatedAt())));
         }
     }
 
@@ -121,11 +122,11 @@ public class EveryMessageAdapter extends RecyclerView.Adapter {
         }
 
         void bind(ChatMessages message) {
-            messageText.setText(message.getEachMessageContent());
+            messageText.setText(message.getEveryMessageContent());
 
             // Format the stored timestamp into a readable String using method.
 //            timeText.setText(DateUtils.formatDateTime(mContext, Long.valueOf(message.getEachMessageCreatedAt()), 0));
-            timeText.setText(message.getEachMessageCreatedAt());
+            timeText.setText(message.getEveryMessageCreatedAt());
 //            timeText.setText(DateFormat.format("dd-MM-yyyy (HH:mm:ss)", Long.valueOf(message.getEachMessageCreatedAt())));
 //            timeText.setText(DateFormat.format("HH:mm", Long.valueOf(message.getEachMessageCreatedAt())));
 

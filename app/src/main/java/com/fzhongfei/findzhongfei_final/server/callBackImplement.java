@@ -152,7 +152,7 @@ public class callBackImplement implements serverCallBack {
                     JSONArray everyMessageArray;
                     ArrayList<ChatList> chatsArrayList = new ArrayList<>();
 
-                    ChatComposeActivity.mMessagesListTemp.clear();
+                    ChatComposeActivity.everyMessageList.clear();
 
                     for(int indexPartners = 0; indexPartners < chatsWith.length(); indexPartners++) {
                         retrievedData = chatsWith.getJSONObject(indexPartners);
@@ -175,12 +175,13 @@ public class callBackImplement implements serverCallBack {
 
                             // LIST OF PARTNERS
                             chatList = new ChatList(
-                                    retrievedData.getString("partnerName"),
                                     retrievedData.getString("partnerToken"),
-                                    everyMessageArray.getJSONObject(indexEveryMessage).getString("messageId"),
+                                    retrievedData.getString("partnerName"),
+                                    retrievedData.getString("partnerEmail"),
+                                    retrievedData.getString("id"),
+                                    everyMessageArray.getJSONObject(indexEveryMessage).getString("messageToken"),
                                     everyMessageArray.getJSONObject(indexEveryMessage).getString("messageContent"),
                                     everyMessageArray.getJSONObject(indexEveryMessage).getString("messageTime"),
-                                    everyMessageArray.getJSONObject(indexEveryMessage).getString("messageToken"),
                                     everyMessageArray.getJSONObject(indexEveryMessage).getString("messageStatus"),
                                     unreadCount
                             );
@@ -188,21 +189,20 @@ public class callBackImplement implements serverCallBack {
                             // LIST OF EVERY MESSAGE
                             eachChatMessages = new ChatMessages(
                                     everyMessageArray.getJSONObject(indexEveryMessage).getString("messageId"),
+                                    everyMessageArray.getJSONObject(indexEveryMessage).getString("message_target"),
                                     everyMessageArray.getJSONObject(indexEveryMessage).getString("messageContent"),
                                     everyMessageArray.getJSONObject(indexEveryMessage).getString("messageTime"),
                                     new ChatUser(
                                             retrievedData.getString("partnerToken"),
                                             retrievedData.getString("partnerName"),
-                                            retrievedData.getString("partnerEmail")));
+                                            "EMAIL"));
 
-                            ChatComposeActivity.mMessagesListTemp.add(indexEveryMessage, eachChatMessages);
+                            // ADDING NEW CONVERSATIONS
+                            ChatComposeActivity.everyMessageList.add(indexPartners, eachChatMessages);
                         }
 
                         // ADDING EACH PARTNER
                         chatsArrayList.add(indexPartners, chatList);
-                        // ADDING NEW CONVERSATIONS
-
-//                        ChatComposeActivity.mMessagesList.add(indexPartners, eachChatMessages);
 
                         FetchedMessages.saveNewMessages(context, chatsWith);
                     }
@@ -211,7 +211,6 @@ public class callBackImplement implements serverCallBack {
                     ChatFragment.mAdapter = new ChatListAdapter(context, chatsArrayList);
                     ChatFragment.recyclerView.setAdapter(ChatFragment.mAdapter);
                     ChatFragment.mSwipeRefreshLayout.setRefreshing(false);
-                    Log.d(TAG, "onSuccess: SIZEOFTEMP "+ChatComposeActivity.mMessagesListTemp.size());
                 }
                 else if(requestType.equals("comp_registration"))
                 {

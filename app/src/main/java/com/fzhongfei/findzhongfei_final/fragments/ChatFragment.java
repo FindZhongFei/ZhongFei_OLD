@@ -60,10 +60,15 @@ public class ChatFragment extends Fragment implements SwipeRefreshLayout.OnRefre
         view = inflater.inflate(R.layout.fragment_chat, null);
 
         mContext = getActivity();
-        mUserProfile = new UserProfile(mContext);
-        assert mContext != null;
-        companySharedPreferences = mContext.getSharedPreferences("companyPreference", 0);
-        userSharedPreferences = mContext.getSharedPreferences("userPreference", 0);
+
+        if(mContext != null)
+        {
+            mUserProfile = new UserProfile(mContext);
+            mCompanyProfile = new CompanyProfile(mContext);
+
+            companySharedPreferences = mContext.getSharedPreferences("companyPreference", 0);
+            userSharedPreferences = mContext.getSharedPreferences("userPreference", 0);
+        }
 
         // INITIALIZING VIEWS
         recyclerView = view.findViewById(R.id.chat_recycler_view);
@@ -102,12 +107,10 @@ public class ChatFragment extends Fragment implements SwipeRefreshLayout.OnRefre
         }
         else if(companySharedPreferences.contains("companyIsLoggedIn"))
         {
-            mCompanyProfile = new CompanyProfile(mContext);
             mCompanyProfile.setPropertiesFromSharePreference(mContext);
         }
         else if(userSharedPreferences.contains("userIsLoggedIn"))
         {
-
             mUserProfile.setPropertiesFromSharePreference(mContext);
 
             fetchMessages();
