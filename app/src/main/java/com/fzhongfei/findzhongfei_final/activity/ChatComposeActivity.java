@@ -93,7 +93,7 @@ public class ChatComposeActivity extends AppCompatActivity {
                 ChatUser partnerInfo = everyMessageList.get(i).getUserChat();
                 String messageContent = everyMessageList.get(i).getEveryMessageContent();
                 String messageTarget = everyMessageList.get(i).getEveryMessageTarget();
-                Log.d(TAG, "onCreate: CHAT" + i + ": " + mUserProfile.getUserToken() + " --> " + messageContent + " SENT TO " + messageTarget);
+                Log.d(TAG, "onCreate: CHAT" + i + ": " + partnerInfo.getName() + " --> " + messageContent + " SENT TO " + messageTarget);
                 specificMessagesList.add(mCounter, everyMessageList.get(i));
                 mCounter++;
             }

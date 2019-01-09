@@ -324,7 +324,7 @@ public class UserSignedInActivity extends AppCompatActivity {
         registerButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(mContext, CompanyRegistrationActivity1.class));
+                startActivity(new Intent(mContext, CompanyLoginActivity.class));
                 mDialog.dismiss();
             }
         });
