@@ -18,6 +18,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.fzhongfei.findzhongfei_final.R;
+import com.fzhongfei.findzhongfei_final.utils.BitmapHelper;
 import com.fzhongfei.findzhongfei_final.utils.BounceTouchListener;
 
 public class ClickedCompany extends AppCompatActivity {
@@ -45,7 +46,6 @@ public class ClickedCompany extends AppCompatActivity {
         Intent intent = getIntent();
         final String compNameIntent = intent.getStringExtra("CompanyName");
         final String companyTypeIntent = intent.getStringExtra("CompanyType");
-//        String compImageIntent = intent.getStringExtra("CompanyImage");
         final String compSubtypeIntent = intent.getStringExtra("CompanySubtype");
         final String compIdIntent = intent.getStringExtra("CompanyId");
         final String compToken = intent.getStringExtra("CompanyToken");
@@ -85,12 +85,7 @@ public class ClickedCompany extends AppCompatActivity {
             }
         });
 
-//        byte[] decodedLogo = Base64.decode(compImageIntent, Base64.DEFAULT);
-//        companyLogo.setImageBitmap(BitmapFactory.decodeByteArray(decodedLogo, 0, decodedLogo.length));
-
-        Bitmap bitmap = BitmapFactory.decodeByteArray(
-                getIntent().getByteArrayExtra("CompanyImage"),0, getIntent().getByteArrayExtra("CompanyImage").length);
-        companyLogo.setImageBitmap(bitmap);
+        companyLogo.setImageBitmap(BitmapHelper.getInstance().getBitmap());
 
         companyName.setText(compNameIntent);
         companyType.setText(companyTypeIntent);

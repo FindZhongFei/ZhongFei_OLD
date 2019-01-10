@@ -2,12 +2,14 @@ package com.fzhongfei.findzhongfei_final.adapter;
 
 import android.content.Context;
 import android.content.Intent;
+import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.fzhongfei.findzhongfei_final.R;
 import com.fzhongfei.findzhongfei_final.activity.ChatComposeActivity;
@@ -53,32 +55,41 @@ public class ChatListAdapter extends RecyclerView.Adapter<ChatListAdapter.ViewHo
     }
 
     @Override
-    public void onBindViewHolder(final ViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull final ViewHolder holder, int position) {
         final ChatList chatList = chatRoomArrayList.get(position);
-        holder.name.setText(chatList.getPartnerName());
-        holder.message.setText(chatList.getLastMessage());
 
-        if(chatList.getUnreadCount() > 0)
+        if(chatList.getPartnerName() == null)
         {
-            holder.count.setText(String.valueOf(chatList.getUnreadCount()));
-            holder.count.setVisibility(View.VISIBLE);
+            Toast.makeText(mContext, "HERE", Toast.LENGTH_SHORT).show();
+            holder.name.setText("LOADING");
+            holder.message.setText("LOADING");
+            holder.timestamp.setText("LOADING");
+            holder.count.setVisibility(View.GONE);
         }
         else
         {
-            holder.count.setVisibility(View.GONE);
-        }
+            holder.name.setText(chatList.getPartnerName());
+            holder.message.setText(chatList.getLastMessage());
 
-        holder.timestamp.setText(getTimeStamp(chatList.getMessageTime()));
-
-        holder.chatRelativeLayout.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                mContext.startActivity(new Intent(mContext.getApplicationContext(),
-                        ChatComposeActivity.class).
-                        putExtra("partnerName", holder.name.getText().toString()).
-                        putExtra("partnerToken", chatList.getPartnerToken()));
+            if (chatList.getUnreadCount() > 0) {
+                holder.count.setText(String.valueOf(chatList.getUnreadCount()));
+                holder.count.setVisibility(View.VISIBLE);
+            } else {
+                holder.count.setVisibility(View.GONE);
             }
-        });
+
+            holder.timestamp.setText(getTimeStamp(chatList.getMessageTime()));
+
+            holder.chatRelativeLayout.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    mContext.startActivity(new Intent(mContext.getApplicationContext(),
+                            ChatComposeActivity.class).
+                            putExtra("partnerName", holder.name.getText().toString()).
+                            putExtra("partnerToken", chatList.getPartnerToken()));
+                }
+            });
+        }
     }
 
     @Override
