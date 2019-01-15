@@ -79,8 +79,7 @@ public class UserProfileActivity extends AppCompatActivity {
         mHistoryItemList = new ArrayList<>();
         mRecyclerView = findViewById(R.id.recycler_view_history);
         mRecyclerView.setHasFixedSize(true);
-        final LinearLayoutManager mLayoutManager = new LinearLayoutManager(this);
-        mLayoutManager.setOrientation(LinearLayoutManager.HORIZONTAL);
+        final LinearLayoutManager mLayoutManager = new LinearLayoutManager(mContext, LinearLayoutManager.HORIZONTAL, false);
         mRecyclerView.setLayoutManager(mLayoutManager);
         mHistoryRVAdapter = new HistoryRVAdapter(mContext, mHistoryItemList);
         mRecyclerView.setAdapter(mHistoryRVAdapter);

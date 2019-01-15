@@ -74,7 +74,8 @@ public class ChatFragment extends Fragment implements SwipeRefreshLayout.OnRefre
         recyclerView = view.findViewById(R.id.chat_recycler_view);
         chatRoomArrayList = new ArrayList<>();
         mAdapter = new ChatListAdapter(mContext, chatRoomArrayList);
-        LinearLayoutManager layoutManager = new LinearLayoutManager(mContext);
+        LinearLayoutManager layoutManager = new LinearLayoutManager(mContext, LinearLayoutManager.VERTICAL, true);
+        layoutManager.setStackFromEnd(true);
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.addItemDecoration(new SimpleDividerItemDecoration(getActivity().getApplicationContext()));
         recyclerView.setItemAnimator(new DefaultItemAnimator());

@@ -83,7 +83,15 @@ public class customStringRequest {
                             ((CompanyRegistrationActivity3) context).stopCompanyRegistrationConnection3();
                         }
 
-                        Toast.makeText(context,"Server error...contact support", Toast.LENGTH_LONG).show();
+                        if(error.toString().equals("com.android.volley.error.TimeoutError"))
+                        {
+                            Toast.makeText(context,"Server timed out", Toast.LENGTH_LONG).show();
+                        }
+                        else
+                        {
+                            Toast.makeText(context,"Server error...contact support", Toast.LENGTH_LONG).show();
+                        }
+
                     }
 
                     Log.d(TAG, "onErrorResponse: " + error.toString());

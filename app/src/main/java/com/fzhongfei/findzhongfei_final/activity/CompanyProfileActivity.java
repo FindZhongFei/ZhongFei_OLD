@@ -6,9 +6,11 @@ import android.content.Intent;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.support.design.widget.AppBarLayout;
+import android.support.design.widget.BottomSheetDialog;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -19,6 +21,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -26,6 +29,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.fzhongfei.findzhongfei_final.R;
+import com.fzhongfei.findzhongfei_final.fragments.FragmentBottomSheetPostStatus;
 import com.fzhongfei.findzhongfei_final.model.CompanyProfile;
 import com.fzhongfei.findzhongfei_final.server.callBackImplement;
 import com.fzhongfei.findzhongfei_final.server.customStringRequest;
@@ -221,10 +225,10 @@ public class CompanyProfileActivity extends AppCompatActivity {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-
-                updateProfile(companyName, companyName, "companyName");
+//                Snackbar.make(view, "Post ", Snackbar.LENGTH_LONG)
+//                        .setAction("Action", null).show();
+                showBottomSheetDialogFragment();
+//                updateProfile(companyName, companyName, "companyName");
             }
         });
 
@@ -263,6 +267,42 @@ public class CompanyProfileActivity extends AppCompatActivity {
                     isShow = false;
                     toggleEditIcon(false);
                 }
+            }
+        });
+    }
+
+    public void showBottomSheetDialogFragment() {
+//        FragmentBottomSheetPostStatus bottomSheetFragment = new FragmentBottomSheetPostStatus();
+//        bottomSheetFragment.show(getSupportFragmentManager(), bottomSheetFragment.getTag());
+
+        final View view = getLayoutInflater().inflate(R.layout.layout_bottom_sheet_post_status, null);
+
+        final BottomSheetDialog dialog = new BottomSheetDialog(this);
+        dialog.setContentView(view);
+        dialog.show();
+
+        Button postStatus = view.findViewById(R.id.bottom_sheet_post_status_button);
+        Button postVideo = view.findViewById(R.id.bottom_sheet_post_video_button);
+
+        postStatus.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.dismiss();
+
+                FragmentManager fragmentManager = getSupportFragmentManager();
+                FragmentBottomSheetPostStatus postStatusFragment = new FragmentBottomSheetPostStatus();
+                FragmentTransaction transaction = fragmentManager.beginTransaction();
+                transaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE);
+                transaction.add(android.R.id.content, postStatusFragment, postStatusFragment.getTag()).addToBackStack(null).commit();
+            }
+        });
+
+        postVideo.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.dismiss();
+
+                Toast.makeText(mContext, "VID CLICKED", Toast.LENGTH_SHORT).show();
             }
         });
     }

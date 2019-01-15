@@ -102,12 +102,8 @@ public class ChatComposeActivity extends AppCompatActivity {
 //            Log.d(TAG, "onCreate: CHAT"+i+": "+partnerInfo.getName()+" --> "+messageContent);
         }
 
-
-
         messagesRecyclerView.setHasFixedSize(true);
-        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(mContext);
-//        linearLayoutManager.setStackFromEnd(true);
-        linearLayoutManager.setReverseLayout(true);
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(mContext, LinearLayoutManager.VERTICAL, true);
         messagesRecyclerView.setAdapter(mMessageAdapter);
         messagesRecyclerView.setLayoutManager(linearLayoutManager);
 
