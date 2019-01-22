@@ -31,9 +31,7 @@
         <activity android:name=".activity.UserProfileEditActivity">
         </activity>
         <activity android:name=".activity.UserSettingsActivity">
-        </activity>
-
-        <!-- AD ACTIVITY -->
+        </activity> <!-- AD ACTIVITY -->
         <activity
             android:name="com.google.android.gms.ads.AdActivity"
             android:configChanges="keyboard|keyboardHidden|orientation|screenLayout|uiMode|screenSize|smallestScreenSize"/>

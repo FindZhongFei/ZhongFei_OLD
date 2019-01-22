@@ -19,8 +19,8 @@ import android.widget.Toast;
 
 import com.fzhongfei.findzhongfei_final.R;
 import com.fzhongfei.findzhongfei_final.fragments.ChatFragment;
+import com.fzhongfei.findzhongfei_final.fragments.DiscoverFragment;
 import com.fzhongfei.findzhongfei_final.fragments.FavoritesFragment;
-import com.fzhongfei.findzhongfei_final.fragments.MainFragment;
 import com.fzhongfei.findzhongfei_final.fragments.MainFragment1;
 import com.fzhongfei.findzhongfei_final.utils.BottomNavigationViewHelper;
 
@@ -35,6 +35,7 @@ public class MainActivity extends AppCompatActivity {
     final Fragment mainFragment = new MainFragment1();
     final Fragment favoriteFragment = new FavoritesFragment();
     final Fragment chatFragment = new ChatFragment();
+    final Fragment discoverFragment = new DiscoverFragment();
     Fragment currentFragment;
     private boolean backButtonPressedOnce = false;
 
@@ -112,6 +113,10 @@ public class MainActivity extends AppCompatActivity {
                 case R.id.ic_fav:
                     loadFragment(chatFragment, "ChatFragment");
                     currentFragment = chatFragment;
+                    return true;
+                case R.id.ic_dis:
+                    loadFragment(discoverFragment, "DiscoverFragment");
+                    currentFragment = discoverFragment;
                     return true;
                 case R.id.ic_profile:
                     mContext.startActivity(new Intent(mContext, UserSignedInActivity.class));   // ACTIVITY_NUMBER = 2

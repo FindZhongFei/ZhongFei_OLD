@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/almostWhite"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".fragments.DiscoverFragment">
+
+    <include
+        android:id="@+id/fragment_chat_toolbar"
+        layout="@layout/layout_toolbar_custom"
+        android:layout_width="match_parent"
+        android:layout_height="80sp"
+        app:layout_constraintBottom_toTopOf="@id/fragment_chat_swipe_refresh_layout"
+        app:layout_constraintTop_toTopOf="parent"/>
+
+    <android.support.v4.widget.SwipeRefreshLayout
+        android:id="@+id/fragment_discover_swipe_refresh_layout"
+        android:layout_width="match_parent"
+        android:layout_height="0sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/fragment_chat_toolbar">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <include
+                layout="@layout/layout_status_row"/>
+
+            <include
+                layout="@layout/layout_status_row"/>
+
+            <include
+                layout="@layout/layout_status_row"/>
+
+        </LinearLayout>
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/discover_recycler_view"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scrollbars="vertical"/>
+
+    </android.support.v4.widget.SwipeRefreshLayout>
+</android.support.constraint.ConstraintLayout>

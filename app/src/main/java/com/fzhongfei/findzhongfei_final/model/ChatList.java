@@ -3,6 +3,7 @@ package com.fzhongfei.findzhongfei_final.model;
 import java.io.Serializable;
 
 public class ChatList implements Serializable {
+
     private String partnerToken, partnerName, partnerEmail, partnerProfile, chatId, messageToken, lastMessage, messageTime, messageStatus;
     private int unreadCount;
 

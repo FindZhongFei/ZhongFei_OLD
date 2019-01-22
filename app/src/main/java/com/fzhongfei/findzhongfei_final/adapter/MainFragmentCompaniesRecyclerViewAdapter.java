@@ -23,7 +23,6 @@ import com.fzhongfei.findzhongfei_final.activity.ClickedCompany;
 import com.fzhongfei.findzhongfei_final.model.Companies;
 import com.fzhongfei.findzhongfei_final.utils.BitmapHelper;
 
-import java.io.ByteArrayOutputStream;
 import java.util.List;
 
 public class MainFragmentCompaniesRecyclerViewAdapter extends RecyclerView.Adapter<MainFragmentCompaniesRecyclerViewAdapter.MyCompanyViewHolder> {
@@ -87,24 +86,21 @@ public class MainFragmentCompaniesRecyclerViewAdapter extends RecyclerView.Adapt
             holder.companyName.setText(company.getCompName());
             holder.companyType.setText(company.getCompType());
 
-//            ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
             // Decode image (without loading it in memory) to get its size
             // The size will be used to calculate a sample size used in decode the image
             BitmapFactory.Options options = new BitmapFactory.Options();
 
-            options.inJustDecodeBounds = true;
+            options.inJustDecodeBounds = false;
             int imageHeight = options.outHeight;
             int imageWidth = options.outWidth;
             String imageType = options.outMimeType;
-            options.inJustDecodeBounds = false;
             options.inSampleSize = calculateInSampleSize(options, imageWidth, imageHeight);
 
             byte[] decodedLogo = Base64.decode(imageFile, Base64.DEFAULT);
             final Bitmap bitmap = BitmapFactory.decodeByteArray(decodedLogo, 0, decodedLogo.length, options);
 
             if(bitmap != null) {
-                float aspectRatio = bitmap.getWidth() /
-                        (float) bitmap.getHeight();
+                float aspectRatio = bitmap.getWidth() / (float) bitmap.getHeight();
                 int width = bitmap.getWidth();
                 int height = Math.round(width / aspectRatio);
 
@@ -121,15 +117,10 @@ public class MainFragmentCompaniesRecyclerViewAdapter extends RecyclerView.Adapt
                     intent.putExtra("CompanyName", mCompaniesList.get(position).getCompName());
                     intent.putExtra("CompanyType", mCompaniesList.get(position).getCompType());
                     intent.putExtra("CompanyToken", mCompaniesList.get(position).getCompToken());
-//                Bitmap bitmap = BitmapFactory.decodeFile(mCompaniesList.get(position).getImageLogo());
-//                    ByteArrayOutputStream _bs = new ByteArrayOutputStream();
-//                    bitmap.compress(Bitmap.CompressFormat.PNG, 50, _bs);
-//                    intent.putExtra("CompanyImage", _bs.toByteArray());
-                    BitmapHelper.getInstance().setBitmap(bitmap);
-
-//                intent.putExtra("CompanyImage", mCompaniesList.get(position).getImageUrl());
                     intent.putExtra("CompanySubtype", mCompaniesList.get(position).getCompSubType());
                     intent.putExtra("CompanyId", mCompaniesList.get(position).getCompId());
+
+                    BitmapHelper.getInstance().setBitmap(bitmap);
                     mContext.startActivity(intent);
                 }
             });
@@ -193,5 +184,26 @@ public class MainFragmentCompaniesRecyclerViewAdapter extends RecyclerView.Adapt
         }
     }
 
-
+    /*
+     * returns the thumbnail image bitmap from the given url
+     *
+     * @param path
+     * @param thumbnailSize
+     *
+     */
+    private Bitmap getThumbnailBitmap(final String path, final int thumbnailSize) {
+        Bitmap bitmap;
+        BitmapFactory.Options bounds = new BitmapFactory.Options();
+        bounds.inJustDecodeBounds = true;
+        BitmapFactory.decodeFile(path, bounds);
+        if ((bounds.outWidth == -1) || (bounds.outHeight == -1)) {
+            bitmap = null;
+        }
+        int originalSize = (bounds.outHeight > bounds.outWidth) ? bounds.outHeight
+                : bounds.outWidth;
+        BitmapFactory.Options opts = new BitmapFactory.Options();
+        opts.inSampleSize = originalSize / thumbnailSize;
+        bitmap = BitmapFactory.decodeFile(path, opts);
+        return bitmap;
+    }
 }
