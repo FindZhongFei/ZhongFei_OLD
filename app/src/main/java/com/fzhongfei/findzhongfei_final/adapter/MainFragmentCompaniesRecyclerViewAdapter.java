@@ -2,14 +2,17 @@ package com.fzhongfei.findzhongfei_final.adapter;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.LinearLayoutCompat;
 import android.support.v7.widget.RecyclerView;
 import android.util.Base64;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,17 +21,58 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.error.VolleyError;
+import com.android.volley.request.StringRequest;
+import com.android.volley.toolbox.Volley;
 import com.fzhongfei.findzhongfei_final.R;
 import com.fzhongfei.findzhongfei_final.activity.ClickedCompany;
+import com.fzhongfei.findzhongfei_final.constants.Constants;
+import com.fzhongfei.findzhongfei_final.fragments.MainFragment1;
+import com.fzhongfei.findzhongfei_final.helper.TaskBitmapFromURL;
 import com.fzhongfei.findzhongfei_final.model.Companies;
+import com.fzhongfei.findzhongfei_final.server.Mysingleton;
+import com.fzhongfei.findzhongfei_final.server.callBackImplement;
+import com.fzhongfei.findzhongfei_final.server.customStringRequest;
 import com.fzhongfei.findzhongfei_final.utils.BitmapHelper;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.lang.ref.WeakReference;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.concurrent.ExecutionException;
+
+import static com.fzhongfei.findzhongfei_final.server.callBackImplement.TAG;
 
 public class MainFragmentCompaniesRecyclerViewAdapter extends RecyclerView.Adapter<MainFragmentCompaniesRecyclerViewAdapter.MyCompanyViewHolder> {
 
     private Context mContext;
     private List<Companies> mCompaniesList;
+    private Bitmap placeHolderBitmap;
+    private String companyImageFile;
+
+    private class AsyncDrawable extends BitmapDrawable {
+        // REFERENCE TO 'TaskBitmapFromURL' CLASS
+        final private WeakReference<TaskBitmapFromURL> taskReference;
+
+        private AsyncDrawable(Resources resources,
+                             Bitmap bitmap,
+                             TaskBitmapFromURL taskBitmapFromURL)
+        {
+            super(resources, bitmap);
+            taskReference = new WeakReference<>(taskBitmapFromURL);
+        }
+
+        private TaskBitmapFromURL getTask()
+        {
+            return taskReference.get();
+        }
+    }
 
     public MainFragmentCompaniesRecyclerViewAdapter(Context context, List<Companies> companiesList) {
         mContext = context;
@@ -47,13 +91,17 @@ public class MainFragmentCompaniesRecyclerViewAdapter extends RecyclerView.Adapt
     @Override
     public void onBindViewHolder(@NonNull final MyCompanyViewHolder holder, final int position) {
         Companies company = mCompaniesList.get(position);
-        String imageFile = company.getImageLogo();
+        final TaskBitmapFromURL bitmapWorker;
+        final String companyName = company.getCompName();
+        final String companyToken = company.getCompToken();
+        final String companyType = company.getCompType();
+        final String companyImageUrl = company.getImageUrl();
         Drawable imageDrawable = mContext.getResources().getDrawable(R.drawable.loading_image_background);
         Drawable textDrawable = mContext.getResources().getDrawable(R.drawable.loading_text_background);
         LinearLayout.LayoutParams companyTextParams;
         RelativeLayout.LayoutParams imageParams;
 
-        if(company.getImageLogo() == null)
+        if(companyName == null && companyType == null && companyImageUrl == null)
         {
             companyTextParams = new LinearLayout.LayoutParams(
                 LinearLayoutCompat.LayoutParams.WRAP_CONTENT,
@@ -83,32 +131,83 @@ public class MainFragmentCompaniesRecyclerViewAdapter extends RecyclerView.Adapt
         }
         else
         {
-            holder.companyName.setText(company.getCompName());
-            holder.companyType.setText(company.getCompType());
+            holder.companyName.setText(companyName);
+            holder.companyType.setText(companyType);
 
-            // Decode image (without loading it in memory) to get its size
-            // The size will be used to calculate a sample size used in decode the image
-            BitmapFactory.Options options = new BitmapFactory.Options();
+//            customStringRequest imageRequest = new customStringRequest();
+//            HashMap<String, String> params = new HashMap<>();
+//
+//            params.put("requestType", "requestCompLogo");
+//            params.put("logoUrl", companyImageUrl);
+//            params.put("compToken", company.getCompToken());
+//
+//            imageRequest.setUrlPath("comp/fetchImage.php");
+//            imageRequest.setParams(params);
+//
+//            callBackImplement callBack = new callBackImplement(mContext);
+//            callBack.setParams(params);
+//            callBack.SetRequestType("requestLoadedCompaniesImages");
+//
+//            imageRequest.startConnection(mContext, callBack, params);
 
-            options.inJustDecodeBounds = false;
-            int imageHeight = options.outHeight;
-            int imageWidth = options.outWidth;
-            String imageType = options.outMimeType;
-            options.inSampleSize = calculateInSampleSize(options, imageWidth, imageHeight);
+            bitmapWorker = new TaskBitmapFromURL(mContext, holder.companyThumbnail, companyToken, 200, 500);
+            final Bitmap bitmap = MainFragment1.getBitmapFormMemoryCache(companyImageUrl);
 
-            byte[] decodedLogo = Base64.decode(imageFile, Base64.DEFAULT);
-            final Bitmap bitmap = BitmapFactory.decodeByteArray(decodedLogo, 0, decodedLogo.length, options);
+            RequestQueue queue = Volley.newRequestQueue(mContext);
+            final String requestUrl = Constants.SERVER_URL + "comp/fetchImage.php";
+            final HashMap<String, String> params = new HashMap<>();
 
-            if(bitmap != null) {
-                float aspectRatio = bitmap.getWidth() / (float) bitmap.getHeight();
-                int width = bitmap.getWidth();
-                int height = Math.round(width / aspectRatio);
+            params.put("requestType", "requestCompLogo");
+            params.put("logoUrl", companyImageUrl);
+            params.put("compToken", companyToken);
 
-                Bitmap resizedBitmap = Bitmap.createScaledBitmap(bitmap, width, height, false);
+            // Request a string response from the provided URL.
+            StringRequest stringRequest = new StringRequest(Request.Method.POST, requestUrl,
+                    new Response.Listener<String>() {
+                        @Override
+                        public void onResponse(String response) {
+                            try {
+                                JSONObject responseArray = new JSONObject(response);
 
-//            byte[] decodedLogo = Base64.decode(company.getImageLogo(), Base64.DEFAULT);
-                holder.companyThumbnail.setImageBitmap(resizedBitmap);
-            }
+                                companyImageFile = responseArray.get("imageFile").toString();
+
+                                if(bitmap != null)
+                                {
+                                    // THE IMAGE IS IN CACHE LET'S ASSIGN IT STRAIGHT TO THE IMAGE VIEW
+                                    holder.companyThumbnail.setImageBitmap(bitmap);
+                                }
+                                else
+                                {
+                                    if(checkTask(companyImageUrl, holder.companyThumbnail))
+                                    {
+                                        AsyncDrawable asyncDrawable = new AsyncDrawable(holder.companyThumbnail.getResources(),
+                                                placeHolderBitmap,
+                                                bitmapWorker);
+
+                                        holder.companyThumbnail.setImageDrawable(asyncDrawable);
+                                        bitmapWorker.execute(companyImageFile);
+                                    }
+                                }
+
+                            } catch (JSONException e) {
+                                String errorMessage = e.getMessage();
+                            }
+                        }
+                    }, new Response.ErrorListener() {
+                @Override
+                public void onErrorResponse(VolleyError error) {
+                    String errorMessage = error.getMessage();
+                }
+            }) {
+                @Override
+                protected Map<String, String> getParams() {
+                    return params;
+                }};
+
+            Mysingleton.getInstance(mContext).addTorequestque(stringRequest);
+
+
+
 
             holder.companyCard.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -120,7 +219,18 @@ public class MainFragmentCompaniesRecyclerViewAdapter extends RecyclerView.Adapt
                     intent.putExtra("CompanySubtype", mCompaniesList.get(position).getCompSubType());
                     intent.putExtra("CompanyId", mCompaniesList.get(position).getCompId());
 
-                    BitmapHelper.getInstance().setBitmap(bitmap);
+//                    byte[] decodedLogo = Base64.decode(imageFile, Base64.DEFAULT);
+//                    final Bitmap bitmap = BitmapFactory.decodeByteArray(decodedLogo, 0, decodedLogo.length, new BitmapFactory.Options());
+
+//                    try {
+//                        if(bitmapWorker.get() != null)
+//                        BitmapHelper.getInstance().setBitmap(bitmapWorker.get());
+//                    } catch (InterruptedException e) {
+//                        e.printStackTrace();
+//                    } catch (ExecutionException e) {
+//                        e.printStackTrace();
+//                    }
+
                     mContext.startActivity(intent);
                 }
             });
@@ -132,41 +242,45 @@ public class MainFragmentCompaniesRecyclerViewAdapter extends RecyclerView.Adapt
         return mCompaniesList.size();
     }
 
-    public void swap(List<Companies> company)
-    {
-        if(company == null || company.size() == 0)
+    // CHECK THE CURRENTLY RUNNING TASK FOR THE FILE OUR IMAGE VIEW IS EXPECTING
+    private boolean checkTask(String imageFile, ImageView imageView) {
+        TaskBitmapFromURL taskBitmapFromURL = getTask(imageView);
+
+        if(taskBitmapFromURL != null)
         {
-            return;
-        }
-        else if(mCompaniesList != null && mCompaniesList.size() > 0)
-        {
-            mCompaniesList.clear();
-        }
-        assert mCompaniesList != null;
-        mCompaniesList.addAll(company);
-        notifyDataSetChanged();
-    }
-
-    private static int calculateInSampleSize(BitmapFactory.Options options, int reqWidth, int reqHeight) {
-        // Raw height and width of image
-        final int height = options.outHeight;
-        final int width = options.outWidth;
-        int inSampleSize = 1;
-
-        if (height > reqHeight || width > reqWidth) {
-
-            final int halfHeight = height / 2;
-            final int halfWidth = width / 2;
-
-            // Calculate the largest inSampleSize value that is a power of 2 and keeps both
-            // height and width larger than the requested height and width.
-            while ((halfHeight / inSampleSize) >= reqHeight
-                    && (halfWidth / inSampleSize) >= reqWidth) {
-                inSampleSize *= 2;
+            final String workerFile = taskBitmapFromURL.getMemberImageFile();
+            if(workerFile != null)
+            {
+                if(!workerFile.equals(imageFile))
+                {
+                    // 'TaskBitmapFromURL' RETURNED FILE IS NOT THE SAME AS OUR IMAGE VIEW IS EXPECTING
+                    // SO CANCEL 'AsyncTask'
+                    taskBitmapFromURL.cancel(true);
+                }
+                else
+                {
+                    // 'TaskBitmapFromURL' RETURNED FILE IS THE SAME AS OUR IMAGE VIEW IS EXPECTING
+                    // SO DO NOTHING
+                    return false;
+                }
             }
         }
 
-        return inSampleSize;
+        return true;
+    }
+
+    public static TaskBitmapFromURL getTask(ImageView imageView)
+    {
+        Drawable imageDrawable = imageView.getDrawable();
+
+        if(imageDrawable instanceof AsyncDrawable)
+        {
+            AsyncDrawable asyncDrawable = (AsyncDrawable) imageDrawable;
+
+            return asyncDrawable.getTask();
+        }
+
+        return null;
     }
 
     static class MyCompanyViewHolder extends RecyclerView.ViewHolder {
@@ -182,28 +296,5 @@ public class MainFragmentCompaniesRecyclerViewAdapter extends RecyclerView.Adapt
             companyThumbnail = itemView.findViewById(R.id.main_fragment_comp_image);
             companyCard = itemView.findViewById(R.id.main_fragment_comp_card);
         }
-    }
-
-    /*
-     * returns the thumbnail image bitmap from the given url
-     *
-     * @param path
-     * @param thumbnailSize
-     *
-     */
-    private Bitmap getThumbnailBitmap(final String path, final int thumbnailSize) {
-        Bitmap bitmap;
-        BitmapFactory.Options bounds = new BitmapFactory.Options();
-        bounds.inJustDecodeBounds = true;
-        BitmapFactory.decodeFile(path, bounds);
-        if ((bounds.outWidth == -1) || (bounds.outHeight == -1)) {
-            bitmap = null;
-        }
-        int originalSize = (bounds.outHeight > bounds.outWidth) ? bounds.outHeight
-                : bounds.outWidth;
-        BitmapFactory.Options opts = new BitmapFactory.Options();
-        opts.inSampleSize = originalSize / thumbnailSize;
-        bitmap = BitmapFactory.decodeFile(path, opts);
-        return bitmap;
     }
 }

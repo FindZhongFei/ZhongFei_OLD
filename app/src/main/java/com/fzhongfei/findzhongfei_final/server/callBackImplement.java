@@ -3,6 +3,7 @@ package com.fzhongfei.findzhongfei_final.server;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.util.Base64;
 import android.util.Log;
@@ -25,6 +26,7 @@ import com.fzhongfei.findzhongfei_final.adapter.ChatListAdapter;
 import com.fzhongfei.findzhongfei_final.adapter.MainFragmentCompaniesRecyclerViewAdapter;
 import com.fzhongfei.findzhongfei_final.fragments.ChatFragment;
 import com.fzhongfei.findzhongfei_final.fragments.MainFragment1;
+import com.fzhongfei.findzhongfei_final.helper.TaskBitmapFromURL;
 import com.fzhongfei.findzhongfei_final.model.ChatList;
 import com.fzhongfei.findzhongfei_final.model.ChatMessages;
 import com.fzhongfei.findzhongfei_final.model.ChatUser;
@@ -147,7 +149,7 @@ public class callBackImplement implements serverCallBack {
                     JSONArray chatsWith = new JSONArray(String.valueOf(result.get("messages")));
 
                     ChatList chatList = new ChatList();
-                    ChatMessages eachChatMessages = new ChatMessages();
+                    ChatMessages eachChatMessages;
                     JSONObject retrievedData;
                     JSONArray everyMessageArray;
                     ArrayList<ChatList> chatsArrayList = new ArrayList<>();
@@ -297,8 +299,13 @@ public class callBackImplement implements serverCallBack {
                     Log.d(TAG, "onSuccess: FavoriteCompany Logo from result " + companyProfile.getCompanyLogo());
                     byte[] decodedLogo = Base64.decode(result.get("imageFile").toString(), Base64.DEFAULT);
 
+                    Bitmap bitmap = BitmapFactory.decodeByteArray(decodedLogo, 0, decodedLogo.length);
+
 //                    CompanyProfileActivity.setCompanyLogo(BitmapFactory.decodeByteArray(decodedLogo, 0, decodedLogo.length));
-                    CompanyProfileActivity.companyLogo.setImageBitmap(BitmapFactory.decodeByteArray(decodedLogo, 0, decodedLogo.length));
+                    if(context.toString().contains("CompanyProfileActivity"))
+                    {
+                        CompanyProfileActivity.companyLogo.setImageBitmap(bitmap);
+                    }
                     // TO DO: LOGO HASH AND VERIFYING LOGO
                 }
 

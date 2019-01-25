@@ -91,7 +91,6 @@ public class customStringRequest {
                         {
                             Toast.makeText(context,"Server error...contact support", Toast.LENGTH_LONG).show();
                         }
-
                     }
 
                     Log.d(TAG, "onErrorResponse: " + error.toString());

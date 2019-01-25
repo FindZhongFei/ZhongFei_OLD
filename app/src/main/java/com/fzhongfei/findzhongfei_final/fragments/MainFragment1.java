@@ -3,6 +3,7 @@ package com.fzhongfei.findzhongfei_final.fragments;
 import android.app.Activity;
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.graphics.Bitmap;
 import android.net.wifi.WifiManager;
 import android.os.Build;
 import android.os.Bundle;
@@ -16,6 +17,7 @@ import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.format.Formatter;
 import android.util.Log;
+import android.util.LruCache;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -55,6 +57,8 @@ public class MainFragment1 extends Fragment implements SwipeRefreshLayout.OnRefr
     public static MainFragmentCompaniesRecyclerViewAdapter mainCompaniesAdapter;
     public static List<Companies> mCompaniesList = new ArrayList<>();
 
+    public static LruCache<String, Bitmap> memoryCache;
+
     // VARIABLES
     public Companies company;
     public static boolean companiesLoaded;
@@ -69,6 +73,25 @@ public class MainFragment1 extends Fragment implements SwipeRefreshLayout.OnRefr
     trackRequestPosition requestPosition ;
     public MainFragment1() {}
 
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+
+        final int MAX_MEMORY_SIZE = (int) Runtime.getRuntime().maxMemory() / 1024;
+        final int CACHE_SIZE = MAX_MEMORY_SIZE / 10;
+
+        // 'CACHE_SIZE' REPRESENTS TOTAL NUMBER OF BITMAPS WE CAN STORE IN CACHE
+        memoryCache = new LruCache<String, Bitmap>(CACHE_SIZE)
+        {
+            @Override
+            protected int sizeOf(String key, Bitmap bitmap) {
+                // RETURNS SIZE OF BITMAPS
+                // WE DIVIDE IT BY 1024 (KILOBYTE) TO KEEP IT SYNCHRONIZED WITH THE MEMORY SIZE
+                return bitmap.getByteCount() / 1024;
+            }
+        };
+    }
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -79,6 +102,8 @@ public class MainFragment1 extends Fragment implements SwipeRefreshLayout.OnRefr
         // Inflate the layout for this fragment
         final ViewGroup nullParent = null;
         view = inflater.inflate(R.layout.fragment_main1, nullParent);
+
+
 
         slideshowDotsLayout = view.findViewById(R.id.slide_show_dots);
         mViewPager = view.findViewById(R.id.main_fragment_view_pager);
@@ -136,12 +161,26 @@ public class MainFragment1 extends Fragment implements SwipeRefreshLayout.OnRefr
             {
                 mCompaniesList.add(i, loadingCompany);
             }
+            mainCompaniesAdapter = new MainFragmentCompaniesRecyclerViewAdapter(mContext, mCompaniesList);
+
         }
 
-        mainCompaniesAdapter = new MainFragmentCompaniesRecyclerViewAdapter(mContext, mCompaniesList);
         mainRecyclerView.setAdapter(mainCompaniesAdapter);
 
         return view;
+    }
+
+    // ACCESS TO MEMORY
+    public static void setBitmapInMemoryCache(String key, Bitmap bitmap)
+    {
+        if(getBitmapFormMemoryCache(key) == null)
+        {
+            memoryCache.put(key, bitmap);
+        }
+    }
+    public static Bitmap getBitmapFormMemoryCache(String key)
+    {
+        return memoryCache.get(key);
     }
 
     private void setUpSlideshow() {
